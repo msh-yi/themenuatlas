@@ -28,6 +28,8 @@ def seed(
     csv_path: Path = typer.Argument(Path("data/seed/restaurants.csv")),
     recipes_dir: Path = typer.Option(Path("data/recipes"), help="one <slug>.yaml recipe per restaurant"),
     auto_dir: Path = typer.Option(Path("data/recipes_auto"), help="generated recipes, used where no hand recipe exists"),
+    full_csv: Path = typer.Option(Path("data/seed/restaurants_full.csv"),
+                                  help="full list: restaurants only, seeded first so the curated CSV wins"),
 ):
     """Upsert restaurants, list memberships and recipes.
 
@@ -38,9 +40,11 @@ def seed(
     from menudb.seed import seed as seed_db
 
     with get_session() as session:
+        full = seed_db(session, full_csv, None) if full_csv.exists() else {"restaurants": 0}
         counts = seed_db(session, csv_path, recipes_dir, auto_dir)
         session.commit()
-    typer.echo(f"seeded {counts['restaurants']} restaurants, {counts['sources']} sources")
+    typer.echo(f"seeded {full['restaurants']} full-list and {counts['restaurants']} curated "
+               f"restaurants, {counts['sources']} sources")
 
 
 @app.command()
@@ -521,9 +525,11 @@ def extract_io_get(
 @extract_io.command("put")
 def extract_io_put(
     files: list[Path],
-    keep_pending: bool = typer.Option(False, help="don't delete the pending/ item"),
+    keep_pending: bool = typer.Option(False, help="leave the pending/ item where it is"),
 ):
-    """Validate extraction JSON, upload to extracted/, and delete the pending/ item."""
+    """Validate extraction JSON, upload to extracted/, and move the pending/ item to processed/.
+
+    import needs the processed/ item to record menus that no `check` run has seen."""
     from menudb import handoff
     from menudb.extract.schema import ExtractedMenu
 
@@ -532,7 +538,7 @@ def extract_io_put(
         handoff.put_json(handoff.key(handoff.EXTRACTED, ex.slug, ex.normalized_hash), ex)
         pk = handoff.key(handoff.PENDING, ex.slug, ex.normalized_hash)
         if not keep_pending and handoff.storage.exists(pk):
-            handoff.storage.delete(pk)
+            handoff.storage.move(pk, handoff.PROCESSED + pk.removeprefix(handoff.PENDING))
         n = sum(len(c.components) for c in ex.courses)
         typer.echo(f"{ex.slug}/{ex.normalized_hash[:12]}: {len(ex.courses)} courses, {n} components")
 

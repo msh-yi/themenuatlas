@@ -25,6 +25,7 @@ def bucket(monkeypatch):
     monkeypatch.setattr(s, "delete", lambda k: blobs.pop(k, None))
     monkeypatch.setattr(s, "list_keys", lambda p: sorted(k for k in blobs if k.startswith(p)))
     monkeypatch.setattr(s, "move", lambda a, b: blobs.__setitem__(b, blobs.pop(a)))
+    monkeypatch.setattr(s, "last_modified", lambda k: datetime(2026, 9, 1, tzinfo=timezone.utc))
 
     def put_raw(h, data, ct):
         blobs.setdefault(s.key_for(h), data)
@@ -195,3 +196,26 @@ def test_unmatched_term_without_suggestion_goes_to_review(session, bucket):
     assert review.status == "open"
     comp = session.scalar(select(Component).where(Component.raw_term == "Langoustine"))
     assert comp.ingredient_id is None
+
+
+@pytest.mark.db
+def test_import_records_bucket_only_menu(session, bucket):
+    """recheck.yml/discover documents have no menu row: import creates one from processed/."""
+    item = handoff.item_from_bytes("r", "main", "https://r.example/menu", MENU_HTML, "text/html")
+    handoff.put_json(handoff.key(handoff.PROCESSED, "r", item.normalized_hash), item)
+    session.add(Restaurant(slug="r", name="R"))
+    session.commit()
+    handoff.put_json(handoff.key(handoff.EXTRACTED, "r", item.normalized_hash), extraction(item))
+    assert handoff.import_from_bucket(session) == {"imported": 1}
+    src = session.scalar(select(Source))
+    assert src.mode == "bucket" and src.label == "main"
+    menu = session.scalar(select(Menu))
+    assert menu.normalized_hash == item.normalized_hash and menu.menu_type == "tasting"
+    snap = session.get(Snapshot, menu.first_snapshot_id)
+    assert snap.storage_key == item.storage_key and snap.content_hash == content_hash(MENU_HTML)
+    assert menu.first_seen == datetime(2026, 9, 1, tzinfo=timezone.utc)
+    assert count(session, Component) == 2
+
+    # `check` leaves bucket sources to recheck.yml
+    from menudb.pipeline import due_sources
+    assert list(due_sources(session, datetime.now(timezone.utc))) == []

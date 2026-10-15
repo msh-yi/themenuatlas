@@ -31,8 +31,13 @@ def country_code(value: str) -> str | None:
         raise ValueError(f"unknown country {value!r}: add it to COUNTRY_CODES") from None
 
 
-def seed(session: Session, csv_path: Path, recipes_dir: Path, auto_dir: Path | None = None) -> dict[str, int]:
-    """Hand recipes in `recipes_dir` win over generated ones in `auto_dir` (`menudb discover`)."""
+def seed(session: Session, csv_path: Path, recipes_dir: Path | None,
+         auto_dir: Path | None = None) -> dict[str, int]:
+    """Hand recipes in `recipes_dir` win over generated ones in `auto_dir` (`menudb discover`).
+
+    With recipes_dir=None only restaurants and list memberships are loaded: that is how
+    the full list is seeded, whose menus come through the bucket (recheck.yml + import)
+    rather than as `check` sources."""
     counts = {"restaurants": 0, "sources": 0}
     with csv_path.open() as f:
         for row in csv.DictReader(f):
@@ -49,8 +54,12 @@ def seed(session: Session, csv_path: Path, recipes_dir: Path, auto_dir: Path | N
             session.flush()
             counts["restaurants"] += 1
 
+            seen = set()
             for entry in filter(None, (row.get("lists") or "").split(";")):
                 list_name, year, value = entry.split(":")
+                if (list_name, year) in seen:  # e.g. Hong Kong 3 stars and Macau 1: keep the first
+                    continue
+                seen.add((list_name, year))
                 m = session.scalar(select(ListMembership).where(
                     ListMembership.restaurant_id == r.id,
                     ListMembership.list_name == list_name, ListMembership.year == int(year)))
@@ -60,6 +69,8 @@ def seed(session: Session, csv_path: Path, recipes_dir: Path, auto_dir: Path | N
                 else:
                     m.value = value
 
+            if recipes_dir is None:
+                continue
             recipe_file = recipes_dir / f"{r.slug}.yaml"
             if not recipe_file.exists() and auto_dir is not None:
                 recipe_file = auto_dir / f"{r.slug}.yaml"

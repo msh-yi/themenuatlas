@@ -30,6 +30,7 @@ def due_sources(session: Session, now: datetime, limit: int | None = None) -> li
     q = (
         select(Source)
         .where(
+            Source.mode == "check",
             or_(
                 Source.last_checked.is_(None),
                 Source.last_checked + Source.check_interval <= now,

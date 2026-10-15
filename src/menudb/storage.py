@@ -81,3 +81,8 @@ def move(src: str, dst: str) -> None:
     bucket = get_settings().snapshots_bucket
     _client().copy_object(Bucket=bucket, Key=dst, CopySource={"Bucket": bucket, "Key": src})
     delete(src)
+
+
+def last_modified(key: str):
+    """When the object was stored (timezone-aware datetime)."""
+    return _client().head_object(Bucket=get_settings().snapshots_bucket, Key=key)["LastModified"]

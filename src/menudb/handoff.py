@@ -18,6 +18,7 @@ import logging
 from collections import Counter
 from collections.abc import Iterable
 from datetime import datetime, timezone
+from pathlib import Path
 
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
@@ -27,6 +28,7 @@ from menudb.db.models import Component, Course, Menu, Restaurant, Snapshot, Sour
 from menudb.extract.schema import ExtractedMenu, PendingItem
 from menudb.extract.text import document_kind, document_text
 from menudb.normalize import content_hash, normalized_hash
+from menudb.recipes import load_recipes
 
 log = logging.getLogger(__name__)
 
@@ -192,6 +194,59 @@ def summarize_candidates() -> int:
 
 # --- import -------------------------------------------------------------------
 
+AUTO_RECIPES = Path("data/recipes_auto")
+
+
+def find_item(slug: str, nhash: str) -> PendingItem | None:
+    """The queue item an extraction came from: processed/ (already extracted) or pending/."""
+    for prefix in (PROCESSED, PENDING):
+        k = key(prefix, slug, nhash)
+        if storage.exists(k):
+            return PendingItem.model_validate(get_json(k))
+    return None
+
+
+def _source_for(session: Session, restaurant_id: int, slug: str, label: str, url: str) -> Source:
+    src = session.scalar(select(Source).where(Source.restaurant_id == restaurant_id,
+                                              Source.label == label))
+    if src is not None:
+        return src
+    recipe = {"start": url}
+    recipe_file = AUTO_RECIPES / f"{slug}.yaml"
+    if recipe_file.exists():
+        recipes = load_recipes(recipe_file)
+        if label in recipes:
+            recipe = recipes[label].model_dump(mode="json")
+    src = Source(restaurant_id=restaurant_id, label=label, recipe=recipe, validators={},
+                 mode="bucket")
+    session.add(src)
+    session.flush()
+    return src
+
+
+def record_from_item(session: Session, restaurant_id: int, item: PendingItem,
+                     now: datetime) -> Menu:
+    """Create the snapshot and menu rows for a document fetched without a database
+    (recheck.yml, discover, pending --from-recipes). Its source gets mode "bucket", so
+    `check` leaves it to recheck.yml."""
+    src = _source_for(session, restaurant_id, item.slug, item.source_label, item.url)
+    try:
+        fetched = storage.last_modified(item.storage_key)
+    except Exception:
+        fetched = now
+    snap = Snapshot(source_id=src.id, fetched_at=fetched, origin="live", url=item.url,
+                    content_type=item.kind, content_hash=item.storage_key.rsplit("/", 1)[-1],
+                    normalized_hash=item.normalized_hash, storage_key=item.storage_key)
+    session.add(snap)
+    session.flush()
+    menu = Menu(restaurant_id=restaurant_id, normalized_hash=item.normalized_hash,
+                first_snapshot_id=snap.id, first_seen=fetched, last_seen=fetched)
+    session.add(menu)
+    session.flush()
+    log.info("recorded menu=%s slug=%s from bucket item", menu.id, item.slug)
+    return menu
+
+
 def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None) -> str:
     """Write one extraction into Postgres. Returns imported | waiting | unknown_restaurant.
 
@@ -206,7 +261,10 @@ def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None
         menu = session.scalar(select(Menu).where(
             Menu.restaurant_id == restaurant_id, Menu.normalized_hash == ex.normalized_hash))
     if menu is None:
-        return "waiting"  # `check` hasn't recorded this document yet
+        item = find_item(ex.slug, ex.normalized_hash)
+        if item is None:
+            return "waiting"  # `check` hasn't recorded this document yet
+        menu = record_from_item(session, restaurant_id, item, now)
 
     session.execute(delete(Course).where(Course.menu_id == menu.id))
     menu.menu_type = ex.menu_type if ex.is_menu else "not_a_menu"

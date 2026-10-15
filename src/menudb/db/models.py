@@ -71,6 +71,10 @@ class Source(Base):
     validators: Mapped[dict] = mapped_column(JSONB, default=dict)
     robots_ok: Mapped[bool | None]
     tdm_reserved: Mapped[bool | None]
+    # "check": `menudb check` fetches it on its cadence (curated recipes in data/recipes/).
+    # "bucket": recheck.yml fetches it with no database and import records what it found
+    # (auto-discovered recipes in data/recipes_auto/); `check` skips these.
+    mode: Mapped[str] = mapped_column(String(10), default="check", server_default="check")
 
     restaurant: Mapped[Restaurant] = relationship(back_populates="sources")
     snapshots: Mapped[list["Snapshot"]] = relationship(back_populates="source")

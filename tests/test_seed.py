@@ -1,5 +1,6 @@
 """Seed the real CSV and recipes into a local Postgres."""
 
+import csv
 from pathlib import Path
 
 import pytest
@@ -35,6 +36,27 @@ def test_seed_repo_data_twice(pg_url):
             r = s.scalar(select(Restaurant).where(Restaurant.slug == "geranium"))
             assert r.country == "DK" and r.publishes_menu == "yes"
             assert s.scalar(select(func.count()).select_from(ListMembership)) > 0
+        finally:
+            s.rollback()
+            for m in (Source, ListMembership, Restaurant):
+                s.query(m).delete()
+            s.commit()
+    engine.dispose()
+
+
+@pytest.mark.db
+def test_seed_full_list_then_curated(pg_url):
+    """`menudb seed` loads the full list (restaurants only), then the curated list with recipes."""
+    engine = make_engine(pg_url)
+    with sessionmaker(engine)() as s:
+        try:
+            full = seed(s, ROOT / "data/seed/restaurants_full.csv", None)
+            curated = seed(s, ROOT / "data/seed/restaurants.csv", ROOT / "data/recipes")
+            s.commit()
+            assert full.get("sources", 0) == 0 and curated["sources"] > 0
+            slugs = {r["slug"] for r in csv.DictReader((ROOT / "data/seed/restaurants_full.csv").open())}
+            slugs |= {r["slug"] for r in csv.DictReader((ROOT / "data/seed/restaurants.csv").open())}
+            assert s.scalar(select(func.count()).select_from(Restaurant)) == len(slugs)
         finally:
             s.rollback()
             for m in (Source, ListMembership, Restaurant):
