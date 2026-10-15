@@ -1,0 +1,40 @@
+[project]
+name = "menudb"
+version = "0.1.0"
+description = "Collects published fine-dining menus and extracts ingredient-level data"
+authors = [
+    { name = "msh-yi", email = "marcus.sak@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.20.0",
+    "anthropic>=1.14.0",
+    "boto3>=1.43.114",
+    "httpx>=0.28.1",
+    "playwright>=1.64.0",
+    "psycopg[binary]>=3.3.6",
+    "pydantic>=2.14.1",
+    "pydantic-settings>=2.16.0",
+    "pymupdf>=1.28.2",
+    "pyyaml>=6.0.3",
+    "selectolax>=1.0.0",
+    "sqlalchemy>=2",
+    "typer>=0.27.3",
+]
+
+[project.scripts]
+menudb = "menudb.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.23,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pgserver>=0.1.4",
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["db: needs an embedded Postgres (pgserver)"]

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+# raw menu content never goes in the repo
+data/raw/
+*.pdf
+.neon
+.env.local
+node_modules/
