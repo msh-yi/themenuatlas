@@ -65,5 +65,11 @@ jobs:
       # Queues menus that still need extraction in pending/ for the next session.
       - run: uv run menudb pending --to-bucket
 
+      # Extracts the newly queued menus with the rule-based lexicon (no LLM), then
+      # imports them, so new menus reach Postgres in the same run. Scans with no
+      # text layer stay in pending/ for a session.
+      - run: uv run menudb extract-auto
+      - run: uv run menudb import --from-bucket
+
       # Refreshes review/queue.json for the next review in a session.
       - run: uv run menudb review export --to-bucket

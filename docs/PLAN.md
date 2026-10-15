@@ -51,7 +51,7 @@ Cloud Claude Code sessions only allow HTTPS out, through a proxy. Object storage
 
 | Who | Does what | Postgres? |
 |---|---|---|
-| **GitHub Actions** (scheduled) | `check`, then `pending --to-bucket` writes unextracted menus to `pending/`. `import --from-bucket` loads `extracted/` into Postgres. | Yes, direct |
+| **GitHub Actions** (scheduled) | `check`, then `pending --to-bucket` writes unextracted menus to `pending/`, `extract-auto` extracts them with the lexicon, and `import --from-bucket` loads `extracted/` into Postgres. | Yes, direct |
 | **Cloud session** | Reads `pending/`, extracts, writes JSON to `extracted/`. Also writes recipes and code, and runs the offline tests. | No |
 | **Local machine** | Occasional manual work: migrations, ad-hoc queries, `smoke`. | Yes |
 
@@ -123,7 +123,7 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 **GitHub Actions**: `.github/workflows/check.yml`
 
 - Triggers: daily cron plus `workflow_dispatch`.
-- Steps: uv, Playwright Chromium (cached), `menudb seed`, `menudb check`, `menudb review apply --from-bucket`, `menudb import --from-bucket`, `menudb pending --to-bucket`, `menudb review export --to-bucket`. Import runs after check so extractions made before their menu row existed can match.
+- Steps: uv, Playwright Chromium (cached), `menudb seed`, `menudb check`, `menudb review apply --from-bucket`, `menudb import --from-bucket`, `menudb pending --to-bucket`, `menudb extract-auto`, `menudb import --from-bucket` again, `menudb review export --to-bucket`. Import runs after check so extractions made before their menu row existed can match.
 - Secrets: `DATABASE_URL`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ENDPOINT_URL_S3`, `AWS_REGION`. Bulk-set them with `gh secret set -f <file>`.
 - Scheduled workflows on public repos are disabled after 60 days without repo activity.
 
