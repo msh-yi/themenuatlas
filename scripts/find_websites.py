@@ -71,7 +71,7 @@ def main():
             else:
                 resp = client.get(BRAVE, params={"q": q, "count": 10},
                                   headers={"X-Subscription-Token": brave_key, "Accept": "application/json"})
-            if resp.status_code == 429:
+            if resp.status_code == 429 or resp.status_code >= 500:
                 time.sleep(5 * (attempt + 1))
                 continue
             resp.raise_for_status()
@@ -80,13 +80,13 @@ def main():
                 return [{"url": p.get("url", ""), "title": p.get("name", "")} for p in pages]
             return [{"url": r.get("url", ""), "title": r.get("title", "")}
                     for r in resp.json().get("web", {}).get("results", [])]
-        raise RuntimeError("search provider still rate-limiting")
+        raise RuntimeError(f"search provider: HTTP {resp.status_code}")
 
     rows = list(csv.DictReader(args.csv.open()))
     fields = list(rows[0].keys())
     client = httpx.Client(timeout=30)
     (args.cache / "search").mkdir(parents=True, exist_ok=True)
-    queried = found = 0
+    queried = found = errors = 0
     for r in rows:
         if r["website"]:
             continue
@@ -97,9 +97,17 @@ def main():
             if args.limit is not None and queried >= args.limit:
                 continue
             q = " ".join(x for x in (r["name"], r["city"], "restaurant") if x)
-            results = search(q)
-            path.write_text(json.dumps(results))
             queried += 1
+            try:
+                results = search(q)
+            except (RuntimeError, httpx.HTTPError) as e:
+                errors += 1
+                print(f"{r['slug']}: {e}", file=sys.stderr)
+                if errors >= 10:
+                    print("10 search errors, stopping early", file=sys.stderr)
+                    break
+                continue
+            path.write_text(json.dumps(results))
             time.sleep(1.1)  # both free plans allow 1 query per second
         if site := pick(r["name"], results):
             r["website"], r["website_source"] = site, "search"
@@ -108,7 +116,9 @@ def main():
         w = csv.DictWriter(f, fields)
         w.writeheader()
         w.writerows(rows)
-    print(f"{queried} new queries, {found} websites found", file=sys.stderr)
+    print(f"{queried} new queries ({errors} errors), {found} websites found", file=sys.stderr)
+    if queried and errors == queried:
+        sys.exit("every search failed")
 
 
 if __name__ == "__main__":
