@@ -1,0 +1,5 @@
+start: https://www.robuchon.jp/shop-list/latelier
+steps:
+- follow:
+    href_matches: Degustation\-japanese\-3\.pdf
+content: pdf

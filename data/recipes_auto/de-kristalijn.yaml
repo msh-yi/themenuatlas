@@ -1,0 +1,5 @@
+start: https://www.dekristalijn.be/menu
+steps:
+- follow:
+    href_matches: a\-la\-carte\-2026\-09\-10\-b3d6f8fb\-c130\-4819\-a061\-c1066ecbc0e8\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.wynnlasvegas.com/dining/fine-dining/wing-lei
+steps:
+- follow:
+    href_matches: wing\-lei\-main\-menu\-new\.pdf
+content: pdf

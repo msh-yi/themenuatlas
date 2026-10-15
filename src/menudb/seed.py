@@ -31,7 +31,8 @@ def country_code(value: str) -> str | None:
         raise ValueError(f"unknown country {value!r}: add it to COUNTRY_CODES") from None
 
 
-def seed(session: Session, csv_path: Path, recipes_dir: Path) -> dict[str, int]:
+def seed(session: Session, csv_path: Path, recipes_dir: Path, auto_dir: Path | None = None) -> dict[str, int]:
+    """Hand recipes in `recipes_dir` win over generated ones in `auto_dir` (`menudb discover`)."""
     counts = {"restaurants": 0, "sources": 0}
     with csv_path.open() as f:
         for row in csv.DictReader(f):
@@ -60,6 +61,8 @@ def seed(session: Session, csv_path: Path, recipes_dir: Path) -> dict[str, int]:
                     m.value = value
 
             recipe_file = recipes_dir / f"{r.slug}.yaml"
+            if not recipe_file.exists() and auto_dir is not None:
+                recipe_file = auto_dir / f"{r.slug}.yaml"
             if recipe_file.exists():
                 for label, parsed in load_recipes(recipe_file).items():
                     recipe = parsed.model_dump(mode="json")

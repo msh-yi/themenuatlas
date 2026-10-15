@@ -1,0 +1,5 @@
+start: https://marguerite.com.sg/menu/
+steps:
+- follow:
+    href_matches: Marguerite\-Signature\-Menu\.pdf
+content: pdf

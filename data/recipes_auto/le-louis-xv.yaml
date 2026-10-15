@@ -1,0 +1,5 @@
+start: https://www.montecarlosbm.com/en/restaurant-monaco/le-louis-xv-alain-ducasse-hotel-de-paris
+steps:
+- follow:
+    href_matches: 13%2010%2026%20\-%20UK\-carte\-des\-mets\-louis\-xv\-alain\-ducasse\.pdf
+content: pdf

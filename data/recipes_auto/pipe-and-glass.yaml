@@ -1,0 +1,5 @@
+start: https://www.pipeandglass.co.uk/menus
+steps:
+- follow:
+    href_matches: Lunch\-Menu\-jfe7\.pdf
+content: pdf

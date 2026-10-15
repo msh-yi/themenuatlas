@@ -1,0 +1,5 @@
+start: https://www.fiftysecondsexperience.com/en/menu/
+steps:
+- follow:
+    href_matches: MENU\-VERT\-DERIVA\-EN\-16\.9\.26\.pdf
+content: pdf

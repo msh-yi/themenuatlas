@@ -1,0 +1,5 @@
+start: https://www.restaurantcallas.nl/lunch-1
+steps:
+- follow:
+    href_matches: MENU\-AllurePrestige26online\-versie\.pdf
+content: pdf

@@ -1,0 +1,54 @@
+# The New York Times, "The 50 Best Restaurants in America" 2026, from NYT's own shared
+# Google Maps list (https://maps.app.goo.gl/kSTvhyepTe5u8uCQ6), read once from the
+# list page in headless Chromium (one page load). Names only, in the list's order (not a ranking). nytimes.com itself is not scraped:
+# its robots.txt prohibits automated extraction.
+Mesa Agricola
+La Sirena
+Hama Hama Oyster Saloon
+Passage
+Junah
+ELEMI Restaurant
+Paprika ATX
+Cauponor
+Junior
+Merci
+Bomb Bomb Bar
+Titusz
+OK Chicken and Khao Soi
+Hayward
+ROSY
+Zoli
+Yamada
+Meju
+Bistrot Ha
+Leo's
+Korai Kitchen
+BIG CAT
+Anjin
+Khue's Kitchen
+Rose's
+Tacos Wuey Detroit
+Dalia
+Burnt Hill Farm
+Douro
+Dolfy's
+Dakar NOLA
+Kouklas Greek Eatery
+Creepies
+Māze
+So. Fox
+The Tides Market
+Tin Tin
+Albi
+KOMAL
+Rye Bunny
+Milpero
+Heretík
+Bar Panisse
+Restaurant Naides
+Jacaranda
+Yerord Mas Bakery and Deli
+Lasang Pinoy NWA
+Durant's
+Perennial Restaurant
+Little Bird

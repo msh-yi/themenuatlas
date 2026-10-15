@@ -1,0 +1,6 @@
+start: https://www.northcote.com/dining-at-northcote/the-restaurant/
+steps:
+- follow:
+    href_matches: AUTUMN\-GMT\-MENU\.pdf
+content: pdf
+render: js

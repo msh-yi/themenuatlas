@@ -1,0 +1,5 @@
+start: https://cliffhousehotel.ie/food-drink/menus
+steps:
+- follow:
+    href_matches: sample\-dinner\-menu\.pdf
+content: pdf

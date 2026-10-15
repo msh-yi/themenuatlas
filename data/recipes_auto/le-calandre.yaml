@@ -1,0 +1,5 @@
+start: https://alajmo.it/en/pages/homepage-le-calandre
+steps:
+- follow:
+    href_matches: Calandre_46X25_AUTUNNO26\-ENG\.pdf
+content: pdf

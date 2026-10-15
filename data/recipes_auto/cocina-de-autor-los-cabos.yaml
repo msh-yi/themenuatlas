@@ -1,0 +1,5 @@
+start: https://loscabos.grandvelas.com/dining/cocina-de-autor
+steps:
+- follow:
+    href_matches: gvlc\-de\-gv\-bebidas\-todo\-incluido\-2\.pdf
+content: pdf

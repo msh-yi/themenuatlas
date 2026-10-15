@@ -1,0 +1,5 @@
+start: https://www.commechezsoi.be/copie-de-a-la-carte-menus
+steps:
+- follow:
+    href_matches: dd8c4c_001196ca42f449a19c1d48e0e781499e\.pdf
+content: pdf

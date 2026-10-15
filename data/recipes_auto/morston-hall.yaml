@@ -1,0 +1,5 @@
+start: https://morstonhall.com/dining/
+steps:
+- follow:
+    href_matches: Journey\.pdf
+content: pdf

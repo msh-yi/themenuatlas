@@ -1,0 +1,5 @@
+start: https://www.maximobistrot.com.mx/en/menu/
+steps:
+- follow:
+    href_matches: Menu\-Web\-14\-de\-Octubre\.pdf
+content: pdf

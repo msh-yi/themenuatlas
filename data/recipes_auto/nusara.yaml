@@ -1,0 +1,5 @@
+start: https://www.nusarabkk.com/tasting-menu
+steps:
+- follow:
+    href_matches: Nusara\-Menu\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.kaimayfair.co.uk/
+steps:
+- follow:
+    href_matches: Kai\-Lunch\-a\-la\-carte\-menu\.pdf
+content: pdf

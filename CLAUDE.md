@@ -28,6 +28,8 @@ uv run menudb check --limit 5
 uv run menudb backfill [slug...]     # Wayback history; needs Postgres and web.archive.org (Actions/local)
 uv run menudb probe [slug...]        # walk recipes with no database; --to-bucket stores raw files
 uv run menudb export-site               # site/data/data.json for the static site in site/ (synthetic by default; never commit real data)
+uv run menudb discover --js --to-bucket   # find menus for data/seed/restaurants_full.csv; no database
+uv run python scripts/build_full_list.py --cache <dir> --fetch --geocode   # rebuild the full list
 uv run menudb extract-io list          # extraction in a session: list/get/put via the bucket (docs/EXTRACTION.md)
 uv run menudb review pull --out <dir>  # ingredient review in a session: pull queue, push decisions
 uv sync --group analysis && MENUDB_ANALYSIS_SOURCE=synthetic uv run jupyter nbconvert --to notebook --execute notebooks/01_pairings.ipynb --output /tmp/out.ipynb   # db | bucket | synthetic

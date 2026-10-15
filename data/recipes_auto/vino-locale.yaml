@@ -1,0 +1,5 @@
+start: https://www.urlavinolocale.com
+steps:
+- follow:
+    href_matches: vino\-locale\-food\.pdf
+content: pdf

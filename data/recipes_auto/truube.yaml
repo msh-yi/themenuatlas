@@ -1,0 +1,5 @@
+start: https://www.truube.ch/
+steps:
+- follow:
+    href_matches: truube_menukarte\.pdf
+content: pdf

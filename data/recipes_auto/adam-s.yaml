@@ -1,0 +1,5 @@
+start: https://www.adamsrestaurant.co.uk/food-menu-british-contemporary-fine-dining-adams/
+steps:
+- follow:
+    href_matches: Chefs\-Table\-Tasting\-Menu\.pdf
+content: pdf

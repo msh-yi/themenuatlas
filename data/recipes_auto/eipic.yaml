@@ -1,0 +1,5 @@
+start: https://www.michaeldeane.co.uk/mrdeanes/
+steps:
+- follow:
+    href_matches: MrDeanes_evening_menu\.pdf
+content: pdf

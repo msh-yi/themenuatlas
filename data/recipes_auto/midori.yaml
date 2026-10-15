@@ -1,0 +1,5 @@
+start: https://www.midoripenhalonga.com/pt/index.php
+steps:
+- follow:
+    href_matches: Menu\-MIDORI\-2026\-PT\.pdf
+content: pdf

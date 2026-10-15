@@ -1,0 +1,5 @@
+start: https://www.adegarest.com/pages/menus/
+steps:
+- follow:
+    href_matches: SUMMER26\-3\-1\.pdf
+content: pdf

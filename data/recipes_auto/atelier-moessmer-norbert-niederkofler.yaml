@@ -1,0 +1,5 @@
+start: https://ateliernorbertniederkofler.com/en/
+steps:
+- follow:
+    href_matches: AMNNK_menu_EN\.pdf
+content: pdf

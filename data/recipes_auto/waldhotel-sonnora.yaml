@@ -1,0 +1,5 @@
+start: https://hotel-sonnora.de/restaurant/
+steps:
+- follow:
+    href_matches: Sonnora_speisekarte_Okt_002_WEB\.pdf
+content: pdf

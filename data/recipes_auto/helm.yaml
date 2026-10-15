@@ -1,0 +1,5 @@
+start: https://joshboutwood.com/restaurants/helm
+steps:
+- follow:
+    href_matches: WedsiteSingleIngredient\.pdf
+content: pdf

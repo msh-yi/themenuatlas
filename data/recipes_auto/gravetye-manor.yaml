@@ -1,0 +1,5 @@
+start: https://www.gravetyemanor.co.uk/dine/the-dining-room/
+steps:
+- follow:
+    href_matches: gravetye\-dinner\-2026\.pdf
+content: pdf

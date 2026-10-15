@@ -1,0 +1,6 @@
+start: https://kolrestaurant.com/
+steps:
+- follow:
+    href_matches: Chefs\-Table\-Menus\.pdf
+content: pdf
+render: js

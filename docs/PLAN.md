@@ -141,6 +141,18 @@ The user reviews the list before recipes are written.
 
 CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lists` takes the form `michelin:2026:3;w50b:2026:12`.
 
+## Full list (built 2026-10-15)
+
+`data/seed/restaurants_full.csv` (the 34-row `restaurants.csv` stays the test set). Built by `scripts/build_full_list.py` from:
+
+- **Michelin:** Wikipedia's "List of Michelin-starred restaurants in ..." pages (80 pages; each row keeps the page revision and the guide year that page shows, since some pages lag the guide).
+- **World's 50 Best** 1-100 (2025), from theworlds50best.com list pages.
+- **NYT** "50 Best Restaurants in America" 2026: names from NYT's own shared Google Maps list (`data/seed/lists/nyt_america_2026.txt`). nytimes.com is not scraped (its robots.txt prohibits automated extraction). The NYC 100 is not included.
+
+Websites and coordinates come from the seed CSV, Wikidata (by article, then one query matching name and country), and OpenStreetMap Nominatim (1 request per second, per its usage policy). `coord_precision` is `exact`, `city` (city center, no exact match) or `country` (last resort). Extra columns `list_sources`, `website_source` and `coord_precision` are ignored by `seed`.
+
+**Menu discovery** (`menudb discover`, `src/menudb/discover.py`) finds menus without hand recipes: generic link scoring plus a food-word count, with a headless Chromium retry for sites that need JavaScript. It writes recipes to `data/recipes_auto/`, statuses to `data/seed/discovery.csv`, and with `--to-bucket` stores the documents and queues them in `pending/`. `seed --auto-dir` (default `data/recipes_auto`) uses a generated recipe where no hand recipe exists. `check.yml` still seeds only the 34-restaurant test set.
+
 ## Analysis notebook (`notebooks/01_pairings.ipynb`)
 
 - Ingredient frequency overall, by region, and by hemisphere-relative season (`seasons.py`).

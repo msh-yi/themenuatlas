@@ -1,0 +1,6 @@
+start: https://www.iggys.com.sg/
+steps:
+- follow:
+    href_matches: dinnervegeterian030926\.pdf
+content: pdf
+render: js

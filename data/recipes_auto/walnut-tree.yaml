@@ -1,0 +1,5 @@
+start: https://www.houseofcaradog.com/groups-at-the-walnut-tree/
+steps:
+- follow:
+    href_matches: The\-Walnut\-Spring\.pdf
+content: pdf

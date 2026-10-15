@@ -1,0 +1,5 @@
+start: https://www.gordonramsayrestaurants.com/petrus/menus/
+steps:
+- follow:
+    href_matches: Petrus\-NEW\-ALC\-MENU\-25\.09\.26\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.bulrushrestaurant.co.uk/
+steps:
+- follow:
+    href_matches: sample\+menu\+for\+website\-e9b2c062\.pdf
+content: pdf

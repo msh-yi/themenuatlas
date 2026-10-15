@@ -1,0 +1,5 @@
+start: https://www.albidc.com/menu
+steps:
+- follow:
+    href_matches: Albi_Menu_Dinner\.pdf
+content: pdf

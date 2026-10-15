@@ -1,0 +1,5 @@
+start: https://www.restaurantsatbains.com/
+steps:
+- follow:
+    href_matches: reg\-ovt\.pdf
+content: pdf

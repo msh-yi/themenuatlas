@@ -1,0 +1,5 @@
+start: https://www.latrompette.co.uk/menus/
+steps:
+- follow:
+    href_matches: Dinner\-Menu\-Web\-1\.pdf
+content: pdf

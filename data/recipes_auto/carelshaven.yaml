@@ -1,0 +1,5 @@
+start: https://carelshaven.nl/restaurant/lunch/
+steps:
+- follow:
+    href_matches: Menukaart\-Carelshaven\-oktober\-2026\-website\.pdf
+content: pdf

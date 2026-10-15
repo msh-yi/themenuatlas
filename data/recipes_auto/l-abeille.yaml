@@ -1,0 +1,5 @@
+start: https://www.labeille.nyc/menus
+steps:
+- follow:
+    href_matches: Menu\-Signature\-as\-of\-100926\.pdf
+content: pdf

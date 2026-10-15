@@ -1,0 +1,5 @@
+start: https://www.villa-beukenhof.nl/
+steps:
+- follow:
+    href_matches: A\+la\+Carte\+NL\+Nieuw\+2026\-79333814\.pdf
+content: pdf

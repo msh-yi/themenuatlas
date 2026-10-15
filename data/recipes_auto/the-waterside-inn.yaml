@@ -1,0 +1,5 @@
+start: https://www.waterside-inn.co.uk/menus/
+steps:
+- follow:
+    href_matches: 9\.\-M\.E\.\-M\.E\.V\-Autumn\-2026\-Website\.pdf
+content: pdf

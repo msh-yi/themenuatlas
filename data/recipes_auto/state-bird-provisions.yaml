@@ -1,0 +1,5 @@
+start: https://www.statebirdsf.com/
+steps:
+- follow:
+    href_matches: 10426\-SBP\-Kitchen\-Menu\.pdf
+content: pdf

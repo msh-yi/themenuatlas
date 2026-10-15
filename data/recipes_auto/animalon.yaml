@@ -1,0 +1,5 @@
+start: https://www.animalonbaja.com/menu
+steps:
+- follow:
+    href_matches: Menu\-Animalon\-25jul\.pdf
+content: pdf

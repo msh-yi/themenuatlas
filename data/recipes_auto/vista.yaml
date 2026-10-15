@@ -1,0 +1,5 @@
+start: https://www.hotelbelavista.net/dine/vista-restaurante
+steps:
+- follow:
+    href_matches: 6a9151f84300d3aef47f97a4_MENU_VISTA_2026\.pdf
+content: pdf

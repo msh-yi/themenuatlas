@@ -42,7 +42,7 @@ def html_to_text(html: str) -> str:
     tree.strip_tags(_DROP_TAGS)
     for node in tree.css("[class], [id]"):
         attrs = f"{node.attributes.get('class') or ''} {node.attributes.get('id') or ''}"
-        if _NOISE_ATTR.search(attrs):
+        if _NOISE_ATTR.search(attrs) and node.tag not in ("html", "body"):
             node.decompose()
     root = tree.body or tree.root
     if root is None:

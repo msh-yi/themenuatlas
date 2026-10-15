@@ -1,0 +1,5 @@
+start: https://www.alainducasse-dorchester.com/menus/
+steps:
+- follow:
+    href_matches: Alain\-Ducasse\-at\-The\-Dorchester\-Harmonie\-Menu\-2\.pdf
+content: pdf

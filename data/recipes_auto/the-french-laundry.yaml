@@ -1,0 +1,5 @@
+start: https://thomaskeller.com/tfl/menu/
+steps:
+- follow:
+    href_matches: 10\.14\-dinner\-\.pdf
+content: pdf

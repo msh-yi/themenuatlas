@@ -1,0 +1,5 @@
+start: https://pedrolemos.pt/
+steps:
+- follow:
+    href_matches: Menu\-PT\.pdf
+content: pdf

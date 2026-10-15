@@ -1,0 +1,5 @@
+start: https://brouwerskolkje.nl/lunch/
+steps:
+- follow:
+    href_matches: Menukaart_2026_V2\.pdf
+content: pdf

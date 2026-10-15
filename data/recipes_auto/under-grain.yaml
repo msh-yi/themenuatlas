@@ -1,0 +1,5 @@
+start: https://grain.mt/menus/
+steps:
+- follow:
+    href_matches: UG_tasting\-menu\.pdf
+content: pdf

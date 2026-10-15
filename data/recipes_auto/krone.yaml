@@ -1,0 +1,5 @@
+start: https://krone-sihlbrugg.ch/
+steps:
+- follow:
+    href_matches: september_2026\.pdf
+content: pdf

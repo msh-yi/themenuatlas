@@ -1,0 +1,5 @@
+start: https://www.belcanto.pt/
+steps:
+- follow:
+    href_matches: Belcanto_Menu_QRCode\.pdf
+content: pdf

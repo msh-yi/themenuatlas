@@ -1,0 +1,5 @@
+start: https://oudtleyden.nl/
+steps:
+- follow:
+    href_matches: OUD_menukaart\-2026\-A3\.pdf
+content: pdf

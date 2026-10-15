@@ -1,0 +1,5 @@
+start: https://www.alchemillarestaurant.uk/menu/
+steps:
+- follow:
+    href_matches: 7\-regular\-PDF\.pdf
+content: pdf

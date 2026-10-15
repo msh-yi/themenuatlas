@@ -27,6 +27,7 @@ def main(verbose: bool = typer.Option(False, "--verbose", "-v")):
 def seed(
     csv_path: Path = typer.Argument(Path("data/seed/restaurants.csv")),
     recipes_dir: Path = typer.Option(Path("data/recipes"), help="one <slug>.yaml recipe per restaurant"),
+    auto_dir: Path = typer.Option(Path("data/recipes_auto"), help="generated recipes, used where no hand recipe exists"),
 ):
     """Upsert restaurants, list memberships and recipes.
 
@@ -37,7 +38,7 @@ def seed(
     from menudb.seed import seed as seed_db
 
     with get_session() as session:
-        counts = seed_db(session, csv_path, recipes_dir)
+        counts = seed_db(session, csv_path, recipes_dir, auto_dir)
         session.commit()
     typer.echo(f"seeded {counts['restaurants']} restaurants, {counts['sources']} sources")
 
@@ -136,6 +137,152 @@ def probe(
                 chars = f"{len(text)} text chars" if text else "no text layer"
                 typer.echo(f"  {kind} {len(d.data)} bytes, {chars}, sha256 {h[:12]}{stored}")
     typer.echo(" ".join(f"{k}: {v}" for k, v in counts.items()))
+
+
+@app.command()
+def discover(
+    csv_path: Path = typer.Argument(Path("data/seed/restaurants_full.csv")),
+    slugs: list[str] = typer.Option(None, "--slug", help="only these restaurants"),
+    out_dir: Path = typer.Option(Path("data/recipes_auto"), help="where generated recipes go"),
+    hand_dir: Path = typer.Option(Path("data/recipes"), help="restaurants with a hand recipe are skipped"),
+    status_path: Path = typer.Option(Path("data/seed/discovery.csv")),
+    workers: int = typer.Option(8, help="sites checked in parallel (one host per worker)"),
+    js: bool = typer.Option(False, help="retry sites that need JavaScript in headless Chromium"),
+    redo: bool = typer.Option(False, help="re-check restaurants that already have a status"),
+    limit: int = typer.Option(None, help="max restaurants this run"),
+    to_bucket: bool = typer.Option(False, help="store found menus in the bucket and queue them in pending/"),
+):
+    """Find menus on restaurant websites with generic heuristics and write recipes for them.
+
+    No database. Prints and records slug, status, food-word score and URL, never menu text.
+    Results are merged into the status CSV, so an interrupted run resumes where it stopped.
+    """
+    import csv
+    import datetime as dt
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    from urllib.parse import urlsplit
+
+    import yaml
+
+    from menudb import handoff, storage
+    from menudb.discover import Discovery, discover as find_menu
+    from menudb.fetch.http import Fetcher
+    from menudb.normalize import content_hash
+    from menudb.extract.text import document_kind
+    from menudb.pipeline import _MIME, fetch_documents, html_getter
+    from menudb.recipes import Recipe
+
+    s = get_settings()
+    rows = [r for r in csv.DictReader(csv_path.open()) if r.get("website")]
+    if slugs:
+        rows = [r for r in rows if r["slug"] in slugs]
+    fields = ["slug", "status", "score", "kind", "menu_url", "stored", "note", "checked"]
+    done: dict[str, dict] = {}
+    if status_path.exists():
+        done = {r["slug"]: r for r in csv.DictReader(status_path.open())}
+    todo = []
+    for r in rows:
+        if (hand_dir / f"{r['slug']}.yaml").exists():
+            done[r["slug"]] = {"slug": r["slug"], "status": "hand_recipe"}
+        elif redo or r["slug"] not in done or (js and done[r["slug"]].get("status") == "needs_js"):
+            todo.append(r)
+    todo = todo[:limit] if limit else todo
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    def save_status():
+        with status_path.open("w", newline="") as f:
+            w = csv.DictWriter(f, fields, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(sorted(done.values(), key=lambda r: r["slug"]))
+
+    def store(slug: str, recipe: Recipe, fetcher: Fetcher, renderer=None) -> int:
+        docs = list(fetch_documents(recipe, fetcher, html_getter(recipe, fetcher, renderer), {}))
+        if any(d.tdm_reserved for d in docs):
+            return -1
+        items = []
+        for d in docs:
+            kind = document_kind(d.content_type, d.url, d.data)
+            storage.put_raw(content_hash(d.data), d.data, _MIME[kind])
+            items.append(handoff.item_from_bytes(slug, "main", d.url, d.data, d.content_type))
+        handoff.queue_items(items)
+        return len(docs)
+
+    def record(slug: str, d: Discovery, stored: int | str = ""):
+        if d.recipe:
+            (out_dir / f"{slug}.yaml").write_text(yaml.safe_dump(d.recipe, sort_keys=False, allow_unicode=True))
+        else:
+            (out_dir / f"{slug}.yaml").unlink(missing_ok=True)
+        if stored == -1:
+            d.status, d.note, stored = "opted_out", "tdm-reservation", ""
+        done[slug] = {"slug": slug, "status": d.status, "score": d.score, "kind": d.kind,
+                      "menu_url": d.menu_url, "stored": stored, "note": " ".join(d.note.split())[:200],
+                      "checked": dt.date.today().isoformat()}
+        typer.echo(f"{slug}: {d.status} score={d.score} {d.kind} stored={stored}")
+
+    def run_host(group: list[dict]) -> list[tuple[str, Discovery, int | str]]:
+        out = []
+        with Fetcher(s.user_agent) as fetcher:
+            for r in group:
+                try:
+                    d = find_menu(r["website"], fetcher)
+                except Exception as e:  # one odd site must not stop the batch
+                    d = Discovery("failed", note=f"{type(e).__name__}: {e}"[:200])
+                stored: int | str = ""
+                if to_bucket and d.recipe and d.status.startswith("menu_"):
+                    try:
+                        stored = store(r["slug"], Recipe.model_validate(d.recipe), fetcher)
+                    except Exception as e:
+                        d.note = f"store failed: {type(e).__name__}"
+                out.append((r["slug"], d, stored))
+        return out
+
+    static = [r for r in todo if not (js and done.get(r["slug"], {}).get("status") == "needs_js")]
+    retry_js = [r for r in todo if r not in static]
+    by_host: dict[str, list[dict]] = {}
+    for r in static:
+        by_host.setdefault(urlsplit(r["website"]).netloc.lower().removeprefix("www."), []).append(r)
+    with ThreadPoolExecutor(workers) as ex:
+        futures = [ex.submit(run_host, g) for g in by_host.values()]
+        for n, fut in enumerate(as_completed(futures), 1):
+            for slug, d, stored in fut.result():
+                record(slug, d, stored)
+            if n % 20 == 0:
+                save_status()
+    save_status()
+
+    if js:
+        from menudb.fetch.browser import BrowserRenderer
+
+        retry_js += [r for r in static if done[r["slug"]]["status"] == "needs_js"]
+        with Fetcher(s.user_agent) as fetcher, BrowserRenderer(s.user_agent, s.chromium_path or None) as renderer:
+            def rendered(url: str) -> tuple[str, str]:
+                if not fetcher.allowed(url):
+                    from menudb.fetch.http import RobotsDisallowed
+                    raise RobotsDisallowed(url)
+                return renderer.render(url)
+
+            for r in retry_js:
+                try:
+                    d = find_menu(r["website"], fetcher, rendered)
+                except Exception as e:
+                    d = Discovery("failed", note=f"{type(e).__name__}: {e}"[:200])
+                if d.recipe:
+                    d.recipe["render"] = "js"
+                if d.status == "needs_js":
+                    d.status = "no_menu_found"
+                stored: int | str = ""
+                if to_bucket and d.recipe and d.status.startswith("menu_"):
+                    try:
+                        stored = store(r["slug"], Recipe.model_validate(d.recipe), fetcher, renderer)
+                    except Exception as e:
+                        d.note = f"store failed: {type(e).__name__}"
+                record(r["slug"], d, stored)
+        save_status()
+
+    from collections import Counter
+
+    counts = Counter(v["status"] for v in done.values())
+    typer.echo(" ".join(f"{k}: {v}" for k, v in sorted(counts.items())))
 
 
 @app.command()

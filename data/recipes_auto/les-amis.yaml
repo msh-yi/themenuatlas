@@ -1,0 +1,5 @@
+start: https://www.lesamis.com.sg/menu/
+steps:
+- follow:
+    href_matches: le\-menu\-degustation\.pdf
+content: pdf

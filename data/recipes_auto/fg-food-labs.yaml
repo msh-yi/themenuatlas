@@ -1,0 +1,5 @@
+start: https://www.fgfoodlabs.nl/nl/de-kaarten
+steps:
+- follow:
+    href_matches: Frankys\-Grill\-Food\.pdf
+content: pdf

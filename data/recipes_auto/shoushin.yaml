@@ -1,0 +1,5 @@
+start: https://www.shoushin.ca/
+steps:
+- follow:
+    href_matches: Shoushin\-Menu\.pdf
+content: pdf
