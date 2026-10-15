@@ -1,14 +1,13 @@
 """Find official websites for restaurants in data/seed/restaurants_full.csv that have none,
-with one web search per restaurant. Uses LangSearch when LANGSEARCH_API_KEY is set (free:
-1 query per second, 1,000 per day; LANGSEARCH_API_KEY_2, a key from a second account, adds
-another 1,000), otherwise the Brave Search API (BRAVE_SEARCH_API_KEY,
-about $5 per 1,000 queries).
+with one web search per restaurant. Uses the Brave Search API when BRAVE_SEARCH_API_KEY is set
+(about $5 per 1,000 queries), otherwise LangSearch (LANGSEARCH_API_KEY, free 1,000 a day;
+LANGSEARCH_API_KEY_2 from a second account adds another 1,000).
 
-    LANGSEARCH_API_KEY=... uv run python scripts/find_websites.py --cache <dir> [--limit N]
+    BRAVE_SEARCH_API_KEY=... uv run python scripts/find_websites.py --cache <dir> [--limit N]
 
-Picks the first result that isn't a directory, review, booking or social site and whose
-domain or title shares a word with the restaurant's name. Results are cached under --cache
-(outside the repo), so a rerun costs nothing for restaurants already searched.
+A result counts only if its domain itself carries the restaurant's name (see official()).
+Results are cached under --cache (outside the repo), so a rerun costs nothing for
+restaurants already searched.
 """
 
 import argparse
@@ -148,8 +147,10 @@ def main():
     if args.revalidate_only:
         write_rows()
         return
-    lang_keys = [k for k in (os.environ.get("LANGSEARCH_API_KEY"), os.environ.get("LANGSEARCH_API_KEY_2")) if k]
     brave_key = os.environ.get("BRAVE_SEARCH_API_KEY")
+    # Brave when its key is set: LangSearch rarely returns a restaurant's own site.
+    lang_keys = [] if brave_key else [
+        k for k in (os.environ.get("LANGSEARCH_API_KEY"), os.environ.get("LANGSEARCH_API_KEY_2")) if k]
     if not (lang_keys or brave_key):
         sys.exit("set LANGSEARCH_API_KEY or BRAVE_SEARCH_API_KEY")
     per_key = 950  # stay under LangSearch's free 1,000 queries a day per account
