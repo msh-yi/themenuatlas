@@ -393,6 +393,7 @@ def pending(
     slugs: list[str] = typer.Argument(None, help="with --from-recipes: restaurant slugs"),
     recipes_dir: Path = typer.Option(Path("data/recipes")),
     limit: int = typer.Option(None, help="max items to queue"),
+    shard: str = typer.Option(None, help="with --from-recipes: 'i/n' walks only shard i of n (stable by slug)"),
 ):
     """Queue unextracted menus in the bucket's pending/ for a session to extract.
 
@@ -421,6 +422,11 @@ def pending(
     files = sorted(recipes_dir.glob("*.yaml"))
     if slugs:
         files = [f for f in files if f.stem in slugs]
+    if shard:
+        import zlib
+
+        i, n = (int(x) for x in shard.split("/"))
+        files = [f for f in files if zlib.crc32(f.stem.encode()) % n == i]
     sources = [(f.stem, label, r) for f in files for label, r in load_recipes(f).items()]
     items, failed = [], 0
     with Fetcher(s.user_agent) as fetcher, contextlib.ExitStack() as stack:

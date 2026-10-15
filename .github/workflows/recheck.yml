@@ -1,0 +1,58 @@
+# Weekly re-check of the auto-discovered menus (data/recipes_auto/): one quarter of the
+# restaurants each week, so every site is visited about once a month. New or changed
+# documents are stored and queued in the bucket's pending/; unchanged ones are skipped.
+# Needs no database. Logs are public: menudb prints slugs, hashes and statuses only.
+# The 34-restaurant seed set keeps its daily check in check.yml.
+name: recheck
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      shard:
+        description: "shard to run, as i/4 (blank = this week's)"
+        required: false
+
+concurrency:
+  group: recheck
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --frozen --no-dev
+
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(uv run python -c 'import importlib.metadata as m; print(m.version("playwright"))')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - run: uv run playwright install --with-deps chromium
+
+      # ISO week number mod 4 picks the shard, so the four shards rotate through a month.
+      - name: menudb pending (this week's shard)
+        env:
+          SHARD: ${{ inputs.shard }}
+        run: |
+          SHARD="${SHARD:-$(( 10#$(date -u +%V) % 4 ))/4}"
+          echo "shard $SHARD"
+          uv run menudb pending --to-bucket --from-recipes --recipes-dir data/recipes_auto --shard "$SHARD"
