@@ -1,6 +1,7 @@
 """Find official websites for restaurants in data/seed/restaurants_full.csv that have none,
 with one web search per restaurant. Uses LangSearch when LANGSEARCH_API_KEY is set (free:
-1 query per second, 1,000 per day), otherwise the Brave Search API (BRAVE_SEARCH_API_KEY,
+1 query per second, 1,000 per day; LANGSEARCH_API_KEY_2, a key from a second account, adds
+another 1,000), otherwise the Brave Search API (BRAVE_SEARCH_API_KEY,
 about $5 per 1,000 queries).
 
     LANGSEARCH_API_KEY=... uv run python scripts/find_websites.py --cache <dir> [--limit N]
@@ -56,14 +57,21 @@ def main():
     ap.add_argument("--csv", type=Path, default=Path("data/seed/restaurants_full.csv"))
     ap.add_argument("--limit", type=int, default=None, help="max new queries this run (cost control)")
     args = ap.parse_args()
-    lang_key, brave_key = os.environ.get("LANGSEARCH_API_KEY"), os.environ.get("BRAVE_SEARCH_API_KEY")
-    if not (lang_key or brave_key):
+    lang_keys = [k for k in (os.environ.get("LANGSEARCH_API_KEY"), os.environ.get("LANGSEARCH_API_KEY_2")) if k]
+    brave_key = os.environ.get("BRAVE_SEARCH_API_KEY")
+    if not (lang_keys or brave_key):
         sys.exit("set LANGSEARCH_API_KEY or BRAVE_SEARCH_API_KEY")
-    if lang_key and args.limit is None:
-        args.limit = 950  # stay under LangSearch's free 1,000 queries a day
+    per_key = 950  # stay under LangSearch's free 1,000 queries a day per account
+    if lang_keys and args.limit is None:
+        args.limit = per_key * len(lang_keys)
+    lang_key = lang_keys[0] if lang_keys else None
 
     def search(q: str) -> list[dict]:
-        """Results as [{url, title}] from whichever provider is configured."""
+        """Results as [{url, title}] from whichever provider is configured. With two LangSearch
+        keys, the second takes over after per_key queries or when the first is out of quota."""
+        nonlocal lang_key
+        if lang_key and queried > per_key and lang_key == lang_keys[0] and len(lang_keys) > 1:
+            lang_key = lang_keys[1]
         for attempt in range(3):
             if lang_key:
                 resp = client.post(LANGSEARCH, json={"query": q, "count": 10},
@@ -72,6 +80,9 @@ def main():
                 resp = client.get(BRAVE, params={"q": q, "count": 10},
                                   headers={"X-Subscription-Token": brave_key, "Accept": "application/json"})
             if resp.status_code == 429 or resp.status_code >= 500:
+                if resp.status_code == 429 and attempt == 2 and lang_key and lang_key != lang_keys[-1]:
+                    lang_key = lang_keys[lang_keys.index(lang_key) + 1]
+                    return search(q)
                 time.sleep(5 * (attempt + 1))
                 continue
             resp.raise_for_status()
