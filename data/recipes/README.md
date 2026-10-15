@@ -10,6 +10,7 @@ for `render: js` recipes.
 | Status | Restaurants |
 |---|---|
 | Recipe (20 sources) | arpege (PDF), atomix (image), brae, central, core, disfrutar (PDF), geranium, kitcho-arashiyama (Japanese), le-bernardin (JS, 4 menus), lenclume (2 menus), mingles (PDFs listed in JSON), mirazur, osteria-francescana, quintonil, the-ledbury (JS) |
+| Recipe, but the page has no dishes (extraction marked it not-a-menu, 2026-10-15). Kept so `check` notices if dishes appear. | brae (harvest list), central, disfrutar, geranium, kitcho-arashiyama (one dish only), mirazur |
 | No dish-level menu on the site (rechecked rendered pages and their network requests) | alchemist, attica, diverxo, gaggan, maaemo, maido, odette, septime (carte blanche only), singlethread |
 | Bot challenge (reCAPTCHA) for headless browsers; not worked around | frantzen |
 | Not expected to publish (`publishes_menu=false`) | alinea, asador-etxebarri, den |
