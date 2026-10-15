@@ -331,7 +331,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         for d in a.ingredient_frequency(grows):
             by_accolade[d["ingredient"]][g] = round(d["share"], 4)
         gp = sorted(a.pair_stats(grows, min_restaurants=min_restaurants),
-                    key=lambda p: (-p["restaurants"], -p["lift"], p["a"], p["b"]))
+                    key=lambda p: (-p.get("score", p["lift"]), -p["restaurants"], p["a"], p["b"]))
         pairs_by_accolade[g] = [_pair(p) for p in gp[:PAIRS_PER_GROUP]]
 
     ingredients = [{
@@ -402,7 +402,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
 
 def _pair(p: dict) -> dict:
     return {"a": p["a"], "b": p["b"], "support": round(p["support"], 5),
-            "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3), "restaurants": p["restaurants"]}
+            "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3),
+            "score": round(p.get("score", p["lift"]), 3), "restaurants": p["restaurants"]}
 
 
 def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict, dict]:

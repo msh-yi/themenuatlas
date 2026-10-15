@@ -353,9 +353,10 @@ function ingredient(_params, [name]) {
         pairs.length
           ? table(pairs, [
             { key: "other", label: "Ingredient", render: (p) => ingLink(p.other) },
+            { key: "score", label: "Score", num: true, sort: (r) => r.score ?? r.lift, render: (p) => num(p.score ?? p.lift, 1) },
             { key: "lift", label: "Lift", num: true, render: (p) => num(p.lift, 1) + "×" },
             { key: "restaurants", label: "Restaurants", num: true },
-          ], { sort: "restaurants", dir: "desc", page: 15 }, () => {})
+          ], { sort: "score", dir: "desc", page: 15 }, () => {})
           : h("p", { class: "empty" }, `No pairing seen at ${D.min_restaurants}+ restaurants yet.`)),
       h("section", { class: "card stack" },
         h("div", {}, h("h2", {}, "Preparations"),
@@ -379,7 +380,7 @@ function pairings(params) {
   const maxR = D.pairs.reduce((m, p) => Math.max(m, p.restaurants), D.min_restaurants);
   // With lots of data, start from pairs seen at more restaurants so one-off dishes don't lead.
   const defaultMin = () => { const n = pool().length; return n > 2000 ? Math.min(5, maxR) : n > 500 ? Math.min(3, maxR) : D.min_restaurants; };
-  const state = { sort: params.get("sort") || "lift", dir: params.get("dir") || "desc" };
+  const state = { sort: params.get("sort") || "score", dir: params.get("dir") || "desc" };
   const search = h("input", { type: "search", placeholder: "filter by ingredient", value: params.get("q") || "", "aria-label": "Filter pairings by ingredient" });
   const steps = [...new Set([D.min_restaurants, 3, 5, 10, 20, 50, 100].filter((v) => v >= D.min_restaurants && v <= maxR))];
   const minSel = h("select", {}, steps.map((n, i) => {
@@ -393,7 +394,7 @@ function pairings(params) {
     const p = new URLSearchParams();
     const q = search.value.toLowerCase().trim(), min = Number(minSel.value);
     if (q) p.set("q", q); if (min !== defaultMin()) p.set("min", min); if (accSel.value) p.set("acc", accSel.value);
-    if (state.sort !== "lift") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
+    if (state.sort !== "score") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
     const all = pool();
     const rows = all.filter((x) => x.restaurants >= min && (!q || x.a.includes(q) || x.b.includes(q)));
@@ -405,6 +406,7 @@ function pairings(params) {
       (accSel.value && all.length >= 3000 ? " (the 3,000 seen at the most restaurants)" : "")),
       table(rows, [
         { key: "a", label: "Pair", sort: (r) => r.a + " " + r.b, render: (r) => h("span", {}, ingLink(r.a), " + ", ingLink(r.b)) },
+        { key: "score", label: "Score", num: true, sort: (r) => r.score ?? r.lift, render: (r) => num(r.score ?? r.lift, 1) },
         { key: "lift", label: "Lift", num: true, render: (r) => num(r.lift, 1) + "×" },
         { key: "pmi", label: "PMI (bits)", num: true, render: (r) => num(r.pmi, 2) },
         { key: "support", label: "Support", num: true, render: (r) => pct(r.support) },
@@ -416,7 +418,7 @@ function pairings(params) {
   accSel.addEventListener("change", () => { minSel.value = String(defaultMin()); live(); });
   out.append(h("h1", {}, "Pairings"),
     ...(D.pairsError ? [h("p", { class: "banner" }, `The pairings file didn't load (${D.pairsError}). Reload the page to try again.`)] : []),
-    h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent.`),
+    h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent. Score is lift with half a restaurant added to both sides, so a pairing seen at two restaurants can't outrank one seen at forty; the list sorts by it.`),
     h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel),
       accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null),
     chartHost, tableHost);
