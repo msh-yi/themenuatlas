@@ -679,6 +679,16 @@ def review_push(files: list[Path]):
 SITE_KEY = "site/data.json"  # private: real-data builds stay in the bucket until publishing is decided
 
 
+@app.command()
+def stats():
+    """Row counts per table (counts only), also written to the Actions step summary."""
+    from menudb.db import get_session
+    from menudb.stats import row_counts
+
+    with get_session() as session:
+        _summary("menudb stats", row_counts(session))
+
+
 @app.command("export-site")
 def export_site(
     source: str = typer.Option("synthetic", help="synthetic | bucket | db"),

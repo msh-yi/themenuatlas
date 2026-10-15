@@ -80,3 +80,6 @@ jobs:
 
       # Refreshes review/queue.json for the next review in a session.
       - run: uv run menudb review export --to-bucket
+
+      # Row counts (no menu text) in the run's summary page.
+      - run: uv run menudb stats

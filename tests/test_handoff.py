@@ -219,3 +219,17 @@ def test_import_records_bucket_only_menu(session, bucket):
     # `check` leaves bucket sources to recheck.yml
     from menudb.pipeline import due_sources
     assert list(due_sources(session, datetime.now(timezone.utc))) == []
+
+
+@pytest.mark.db
+def test_stats_counts(session, bucket):
+    from menudb.stats import row_counts
+
+    menu = make_menu(session, bucket)
+    item = PendingItem(slug="r", normalized_hash=menu.normalized_hash, kind="html", url="u",
+                       storage_key="k")
+    handoff.import_menu(session, extraction(item))
+    session.commit()
+    c = row_counts(session)
+    assert c["restaurants"] == c["menus"] == c["menus_extracted"] == c["sources_check"] == 1
+    assert c["courses"] == 1 and c["components"] == 2 and c["ingredients"] == 2
