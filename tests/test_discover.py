@@ -68,3 +68,17 @@ def test_empty_shell_needs_js():
 def test_no_menu():
     fetcher = site({"https://r.example/": ("text/html", b"<p>" + b"We are open Tuesday to Saturday. " * 20 + b"</p>")})
     assert discover("https://r.example/", fetcher).status == "no_menu_found"
+
+
+def test_cloudflare_refusal_is_bot_blocked():
+    from menudb.fetch.http import bot_wall
+
+    assert bot_wall(403, {"server": "cloudflare", "cf-ray": "x"}, "") == "cloudflare"
+    assert bot_wall(403, {}, "<title>Just a moment...</title>") == "cloudflare"
+    assert bot_wall(404, {"server": "cloudflare"}, "") is None
+    assert bot_wall(403, {"server": "nginx"}, "Forbidden") is None
+
+
+def test_challenge_page_with_200_is_bot_blocked():
+    fetcher = site({"https://r.example/": ("text/html", b"<title>Just a moment...</title><script src='/cdn-cgi/challenge-platform/x'></script>")})
+    assert discover("https://r.example/", fetcher).status == "bot_blocked"

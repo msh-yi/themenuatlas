@@ -16,7 +16,7 @@ from urllib.parse import urlsplit
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
 from menudb.extract.text import document_kind, document_text
-from menudb.fetch.http import Fetcher, RobotsDisallowed, absolute
+from menudb.fetch.http import _WALLS, FetchError, Fetcher, RobotsDisallowed, absolute
 from menudb.normalize import html_to_text
 
 # Link text or URL that points at a menu, in the languages of the seed lists.
@@ -116,7 +116,7 @@ class Link:
 
 @dataclass
 class Discovery:
-    status: str  # menu_found | menu_maybe | no_menu_found | needs_js | robots | failed | opted_out
+    status: str  # menu_found | menu_maybe | no_menu_found | needs_js | robots | bot_blocked | failed | opted_out
     recipe: dict | None = None
     menu_url: str = ""
     kind: str = ""
@@ -162,6 +162,15 @@ def menu_links(base: str, html: str) -> list[Link]:
     return sorted(found.values(), key=lambda link: -link.score)
 
 
+def challenge_page(html: str) -> str | None:
+    """Vendor name if the page is a bot-protection challenge rather than the site."""
+    head = html[:20000]
+    for name, rx in _WALLS:
+        if name != "captcha" and rx.search(head):
+            return name
+    return None
+
+
 def _visible_chars(html: str) -> int:
     return len(html_to_text(html))
 
@@ -178,8 +187,16 @@ def discover(
         home_url, home = get_html(website)
     except RobotsDisallowed:
         return Discovery("robots", note="robots.txt disallows the home page")
+    except FetchError as e:
+        if e.bot_wall:
+            return Discovery("bot_blocked", note=f"{e.bot_wall}: {e}"[:200])
+        return Discovery("failed", note=f"{type(e).__name__}: {e}"[:200])
     except Exception as e:
         return Discovery("failed", note=f"{type(e).__name__}: {e}"[:200])
+
+    # A challenge page served with 200 (or rendered by the browser) is still a bot wall.
+    if _visible_chars(home) < 2000 and (wall := challenge_page(home)):
+        return Discovery("bot_blocked", note=f"{wall} challenge page")
 
     links = menu_links(home_url, home)
     if not links and _visible_chars(home) < 300:

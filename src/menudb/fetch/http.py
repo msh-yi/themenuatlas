@@ -17,7 +17,9 @@ _TDM_META = re.compile(
 
 
 class FetchError(Exception):
-    pass
+    def __init__(self, message: str, bot_wall: str | None = None):
+        super().__init__(message)
+        self.bot_wall = bot_wall  # vendor name when the refusal looks like bot protection
 
 
 class RobotsDisallowed(FetchError):
@@ -171,7 +173,7 @@ class Fetcher:
             break
 
         if r.status_code >= 400:
-            raise FetchError(f"{url}: HTTP {r.status_code}")
+            raise FetchError(f"{url}: HTTP {r.status_code}", bot_wall(r.status_code, r.headers, r.text[:20000]))
 
         ctype = r.headers.get("content-type", "").split(";")[0].strip().lower()
         tdm = (
@@ -196,6 +198,38 @@ class Fetcher:
         """Fetch a navigation page; returns (final_url, html)."""
         res = self.get(url)
         return res.final_url, res.content.decode(errors="replace")
+
+
+_WALLS = [
+    ("cloudflare", re.compile(r"(?i)just a moment\.\.\.|cf-chl|challenge-platform|cf_chl_opt|attention required! \| cloudflare")),
+    ("datadome", re.compile(r"(?i)captcha-delivery\.com|datadome")),
+    ("perimeterx", re.compile(r"(?i)px-captcha|perimeterx|_pxhd")),
+    ("incapsula", re.compile(r"(?i)incapsula|_incapsula_resource|imperva")),
+    ("akamai", re.compile(r"(?i)akamai bot manager|_abck|ak_bmsc|access denied.{0,200}reference #")),
+    ("sucuri", re.compile(r"(?i)sucuri website firewall|sucuri cloudproxy")),
+    ("captcha", re.compile(r"(?i)g-recaptcha|hcaptcha\.com|cf-turnstile|captcha")),
+]
+
+
+def bot_wall(status: int, headers, body: str) -> str | None:
+    """Name the bot protection behind a refusal, from headers and the challenge page.
+
+    Only labels what happened; nothing here tries to get past it."""
+    if status not in (401, 403, 405, 429, 503):
+        return None
+    server = (headers.get("server") or "").lower()
+    if "cf-mitigated" in headers or ("cloudflare" in server and status in (403, 429, 503)):
+        return "cloudflare"
+    if "x-datadome" in headers or "x-dd-b" in headers:
+        return "datadome"
+    if "x-iinfo" in headers or "x-cdn" in headers and "incapsula" in headers.get("x-cdn", "").lower():
+        return "incapsula"
+    if "x-sucuri-id" in headers:
+        return "sucuri"
+    for name, rx in _WALLS:
+        if rx.search(body):
+            return name
+    return None
 
 
 def absolute(base: str, href: str) -> str:
