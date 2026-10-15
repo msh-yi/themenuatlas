@@ -685,18 +685,20 @@ def export_site(
     out: Path = typer.Option(Path("site/data"), help="directory for data.json (gitignored)"),
     min_restaurants: int = typer.Option(2, help="drop pairs seen at fewer restaurants"),
     to_bucket: bool = typer.Option(False, help=f"also store it privately in the bucket as {SITE_KEY}"),
+    menus: bool = typer.Option(False, help="include each restaurant's menus (courses -> ingredients); private builds only"),
 ):
     """Write aggregated JSON for the static site: no course text, derived data only."""
     from menudb import site
 
     root = Path(__file__).resolve().parents[2]
-    rows, restaurants, details, preps = site.load(source, root)
+    rows, restaurants, details, preps, manifests = site.load(source, root)
     from menudb import wiki
 
     data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
                       min_restaurants=min_restaurants, wikipedia=wiki.urls(),
                       min_group=2 if source == "synthetic" else site.MIN_GROUP,
-                      lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"))
+                      lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"),
+                      manifests=manifests if menus else None)
     path = site.write(data, out)
     if to_bucket:
         from menudb import storage

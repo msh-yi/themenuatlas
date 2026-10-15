@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --frozen --no-dev
-      - run: uv run menudb export-site --source synthetic --out site/data
+      - run: uv run menudb export-site --source synthetic --out site/data --menus
       - run: node --check site/app.js
       - uses: actions/upload-artifact@v4
         with:
@@ -55,4 +55,4 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --frozen --no-dev
       # Counts only in the log; the JSON goes to the private bucket, never to an artifact.
-      - run: uv run menudb export-site --source db --out "$RUNNER_TEMP/site" --to-bucket
+      - run: uv run menudb export-site --source db --out "$RUNNER_TEMP/site" --to-bucket --menus

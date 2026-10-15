@@ -3,8 +3,12 @@
 The site is a static page that loads one JSON file and does search, filtering and
 charts in the browser. Only derived data goes in: ingredient names, preparations,
 shares, pair scores, coverage, and restaurant names with a link to their website.
-Never course text, never which ingredients share a course at one restaurant (that
-reconstructs dishes), and pairs only when several restaurants use them.
+Never course text, and pairs only when several restaurants use them.
+
+Each restaurant's menus, as courses with their ingredients and preparations (a
+manifest, no menu wording), go in only with `export-site --menus`. That reconstructs
+the structure of a restaurant's dishes, so real builds with it stay private (the
+bucket and private previews) until Marcus decides about publishing.
 
 Real data is not published yet (see "Website" in docs/PLAN.md). The Actions workflow
 builds the site from the synthetic fixture only.
@@ -90,6 +94,73 @@ def preparations_from_extracted(menus: Iterable[dict]) -> dict[str, Counter]:
                     if name and p.strip():
                         seen[name][p.strip().lower()].add(m["slug"])
     return {i: Counter({p: len(s) for p, s in preps.items()}) for i, preps in seen.items()}
+
+
+def manifests_from_extracted(menus: Iterable[dict],
+                             seen: dict[str, tuple[str | None, str | None]] | None = None) -> dict[str, list[dict]]:
+    """slug -> that restaurant's menus as manifests: courses in order, each a list of
+    [ingredient, [preparations]]. Canonical names only, never the menu's wording.
+    `seen` maps normalized_hash to (first_seen, last_seen) ISO dates when known."""
+    out: dict[str, list[dict]] = defaultdict(list)
+    done = set()
+    for m in menus:
+        key = (m["slug"], m["normalized_hash"])
+        if not m.get("is_menu", True) or key in done:
+            continue
+        done.add(key)
+        courses = []
+        for c in sorted(m.get("courses", []), key=lambda c: c.get("position", 0)):
+            items, names = [], set()
+            for comp in c.get("components", []):
+                name = (comp.get("name") or comp["raw_term"]).strip().lower()
+                if not name or name in names:
+                    continue
+                names.add(name)
+                items.append([name, [p.strip().lower() for p in comp.get("preparations") or [] if p.strip()]])
+            if items:
+                courses.append({"k": c.get("kind") or "course", "i": items})
+        if not courses:
+            continue
+        first, last = (seen or {}).get(m["normalized_hash"], (None, None))
+        out[m["slug"]].append({k: v for k, v in {
+            "id": m["normalized_hash"][:12], "type": m.get("menu_type"), "lang": m.get("language"),
+            "price": m.get("price"), "currency": m.get("currency"), "period": m.get("stated_period"),
+            "first_seen": first, "last_seen": last, "courses": courses}.items() if v not in (None, "")})
+    for ms in out.values():  # most recent first, then the longest
+        ms.sort(key=lambda x: (x.get("last_seen") or "", sum(len(c["i"]) for c in x["courses"])), reverse=True)
+    return dict(out)
+
+
+def manifests_from_db(session) -> dict[str, list[dict]]:
+    from sqlalchemy import func, select
+
+    from menudb.db.models import Component, Course, Ingredient, Menu, Restaurant
+
+    q = (
+        select(Restaurant.slug, Menu.normalized_hash, Menu.menu_type, Menu.language, Menu.price,
+               Menu.currency, Menu.first_seen, Menu.last_seen, Course.position, Course.kind,
+               func.lower(func.coalesce(Ingredient.canonical_name, Component.suggested_name,
+                                        Component.raw_term)),
+               Component.preparations)
+        .join(Menu, Menu.restaurant_id == Restaurant.id)
+        .join(Course, Course.menu_id == Menu.id)
+        .join(Component, Component.course_id == Course.id)
+        .outerjoin(Ingredient, Ingredient.id == Component.ingredient_id)
+        .order_by(Restaurant.slug, Menu.id, Course.position, Component.id)
+    )
+    menus: dict[tuple[str, str], dict] = {}
+    seen: dict[str, tuple[str | None, str | None]] = {}
+    for slug, h, mtype, lang, price, cur, first, last, pos, kind, name, preps in session.execute(q):
+        m = menus.setdefault((slug, h), {"slug": slug, "normalized_hash": h, "is_menu": mtype != "not_a_menu",
+                                         "menu_type": mtype, "language": lang, "price": price,
+                                         "currency": cur, "courses": {}})
+        seen[h] = (first.date().isoformat() if first else None, last.date().isoformat() if last else None)
+        c = m["courses"].setdefault(pos, {"position": pos, "kind": kind, "components": []})
+        if name:
+            c["components"].append({"raw_term": name, "preparations": preps or []})
+    for m in menus.values():
+        m["courses"] = list(m["courses"].values())
+    return manifests_from_extracted(menus.values(), seen)
 
 
 def preparations_from_db(session) -> dict[str, Counter]:
@@ -226,9 +297,10 @@ def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
 def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: str,
           details: dict[str, dict] | None = None, preparations: dict[str, Counter] | None = None,
           min_restaurants: int = 2, min_group: int = MIN_GROUP, now: datetime | None = None,
-          wikipedia: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None) -> dict:
+          wikipedia: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None,
+          manifests: dict[str, list[dict]] | None = None) -> dict:
     """`wikipedia` maps ingredient name -> article URL (see wiki.py); `lexicon` comes
-    from lexicon_info()."""
+    from lexicon_info(); `manifests` (only with --menus) from manifests_from_extracted()."""
     details = details or {}
     wikipedia = wikipedia or {}
     lexicon = lexicon or {}
@@ -285,6 +357,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
             "menus": len(menus.get(slug, ())),
             "ingredients": sum(slug in u for u in users.values()),
         })
+        if manifests and manifests.get(slug):
+            restaurant_list[-1]["menu_list"] = manifests[slug]
 
     groups = {
         "region": sorted({r.region for r in restaurants.values()}),
@@ -300,6 +374,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "source": source,
         "generated_at": (now or datetime.now(timezone.utc)).isoformat(timespec="seconds"),
         "min_restaurants": min_restaurants,
+        "has_menus": bool(manifests),
         "totals": {
             "restaurants": len(restaurants),
             "restaurants_with_data": len(menus),
@@ -322,8 +397,8 @@ def _pair(p: dict) -> dict:
             "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3), "restaurants": p["restaurants"]}
 
 
-def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict]:
-    """rows, restaurants, restaurant details and preparations for one source."""
+def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict, dict]:
+    """rows, restaurants, restaurant details, preparations and menu manifests for one source."""
     csv_path = root / "data/seed/restaurants.csv"
     full_csv = root / "data/seed/restaurants_full.csv"  # the map shows the whole list
     if source == "synthetic":
@@ -334,7 +409,9 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
                                "country": r["country"], "lon": r.get("lon"), "url": None,
                                "accolades": accolades(r.get("lists"))}
                    for r in data["restaurants"]}
-        return rows, restaurants, details, preparations_from_extracted(data["menus"])
+        seen = {m["normalized_hash"]: (m.get("first_seen"), m.get("last_seen")) for m in data["menus"]}
+        return (rows, restaurants, details, preparations_from_extracted(data["menus"]),
+                manifests_from_extracted(data["menus"], seen))
     if source == "bucket":
         from menudb import handoff, storage
 
@@ -344,17 +421,19 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
-        return a.rows_from_extracted(menus, restaurants), restaurants, details, preparations_from_extracted(menus)
+        return (a.rows_from_extracted(menus, restaurants), restaurants, details,
+                preparations_from_extracted(menus), manifests_from_extracted(menus))
     if source == "db":
         from menudb.db import get_session
 
         with get_session() as session:
             rows, restaurants = a.load_db(session)
             preps = preparations_from_db(session)
+            manifests = manifests_from_db(session)
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
-        return rows, restaurants, details, preps
+        return rows, restaurants, details, preps, manifests
     raise ValueError(f"unknown source {source!r}")
 
 

@@ -10,7 +10,7 @@ ROOT = Path(__file__).parents[1]
 
 
 def build():
-    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    rows, restaurants, details, preps, _ = site.load("synthetic", ROOT)
     return site.build(rows, restaurants, source="synthetic", details=details, preparations=preps,
                       now=datetime(2026, 10, 15, tzinfo=timezone.utc))
 
@@ -64,7 +64,7 @@ def test_full_list_joins_the_map_without_menus(tmp_path):
     full.write_text("slug,name,city,country,lat,lon,website,publishes_menu,lists,coord_precision\n"
                     "syn-uk,Synthetic UK,London,GB,51.5,-0.13,,true,,\n"
                     "new-one,New One,Tbilisi,Georgia,41.7,44.8,,,,city\n")
-    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    rows, restaurants, details, preps, _ = site.load("synthetic", ROOT)
     site.add_full_list(restaurants, details, full)
     assert restaurants["new-one"] == a.Restaurant("new-one", "Other", 41.7, "unknown")
     d = site.build(rows, restaurants, source="synthetic", details=details, preparations=preps)
@@ -109,7 +109,7 @@ def test_accolades_parse_latest_year():
 
 
 def test_accolade_groups_need_enough_restaurants():
-    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    rows, restaurants, details, preps, _ = site.load("synthetic", ROOT)
     d = site.build(rows, restaurants, source="synthetic", details=details, min_group=3)
     assert d["groups"]["accolade_with_data"] == {"3 stars": 3, "World's 50 Best": 4}
     r = {x["slug"]: x for x in d["restaurants"]}
@@ -119,3 +119,19 @@ def test_accolade_groups_need_enough_restaurants():
     assert set(uni["by_accolade"]) <= {"3 stars", "World's 50 Best"}
     assert set(d["pairs_by_accolade"]) == {"3 stars", "World's 50 Best"}
     assert not build()["groups"]["accolade_with_data"]  # the default threshold is 10
+
+
+def test_menus_only_when_asked():
+    rows, restaurants, details, preps, manifests = site.load("synthetic", ROOT)
+    assert not any("menu_list" in r for r in build()["restaurants"]) and not build()["has_menus"]
+    d = site.build(rows, restaurants, source="synthetic", details=details, manifests=manifests)
+    r = {x["slug"]: x for x in d["restaurants"]}
+    ms = r["syn-japan-a"]["menu_list"]
+    assert d["has_menus"] and len(ms) == 2 and "syn-no-menu" not in manifests
+    assert ms[0]["first_seen"] and ms[0]["courses"][0]["k"]
+    names = {i["name"] for i in d["ingredients"]}
+    for m in ms:
+        for c in m["courses"]:
+            for name, preps in c["i"]:
+                assert name in names and isinstance(preps, list)
+    assert "raw_text" not in json.dumps(d)

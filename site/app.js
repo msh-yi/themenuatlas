@@ -487,12 +487,54 @@ function restaurant(_params, [slug]) {
     h("p", { class: "sub" }, [r.city, r.country].filter(Boolean).join(", ") + (r.region ? ` · ${r.region}` : ""),
       r.url ? h("span", {}, " · ", h("a", { href: r.url, rel: "noopener", target: "_blank" }, "restaurant website ↗")) : null),
     tiles([[r.menus, "distinct menus"], [r.ingredients, "ingredients"], [r.publishes_menu === "yes" ? "Yes" : r.publishes_menu === "no" ? "No" : "?", "publishes a menu"]]),
+    r.menu_list?.length ? h("section", { class: "stack", style: "margin-bottom:1.25rem" },
+      h("h2", { style: "margin:0" }, r.menu_list.length > 1 ? `Menus (${r.menu_list.length})` : "Menu"),
+      r.menu_list.map((m, i) => menuCard(m, i === 0, r))) : null,
     h("section", { class: "card" }, h("h2", {}, "Ingredients, most distinctive first"),
       used.length
         ? h("div", { class: "chips" }, distinct.map((i) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(i.name) }, i.name,
           h("span", { class: "n", title: "restaurants using it" }, i.restaurants.length))))
         : h("p", { class: "empty" }, "No menu data for this restaurant.")),
-    h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."));
+    r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."));
+}
+
+// One menu as a manifest: courses in order, each with its ingredients and how they're
+// prepared. Ingredient names only; the restaurant's own wording stays on its site.
+const MENU_TYPES = { tasting: "Tasting menu", a_la_carte: "À la carte", vegetarian: "Vegetarian menu", lunch: "Lunch menu",
+  prix_fixe_lunch: "Set lunch", prix_fixe_dinner: "Set dinner", kaiseki: "Kaiseki", event: "Event menu" };
+const LANGS = { en: "English", fr: "French", de: "German", it: "Italian", es: "Spanish", nl: "Dutch", da: "Danish", sv: "Swedish",
+  no: "Norwegian", pt: "Portuguese", ja: "Japanese", zh: "Chinese", ko: "Korean", ca: "Catalan", fi: "Finnish" };
+function fmtDate(d) {
+  try { return new Date(d + "T00:00:00Z").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" }); }
+  catch { return d; }
+}
+function menuCard(m, open, r) {
+  const n = new Set(m.courses.flatMap((c) => c.i.map(([name]) => name))).size;
+  const when = m.first_seen
+    ? (m.last_seen && m.last_seen !== m.first_seen ? `seen ${fmtDate(m.first_seen)} to ${fmtDate(m.last_seen)}` : `seen ${fmtDate(m.first_seen)}`)
+    : "date not recorded in this build";
+  let price = null;
+  if (m.price != null) {
+    try { price = new Intl.NumberFormat(undefined, { style: "currency", currency: m.currency || "EUR", maximumFractionDigits: 0 }).format(m.price); }
+    catch { price = `${m.price} ${m.currency || ""}`.trim(); }
+  }
+  const title = MENU_TYPES[m.type] || "Menu";
+  const meta = [`${m.courses.length} courses`, `${n} ingredients`, price, LANGS[m.lang] || m.lang, m.period, when].filter(Boolean).join(" · ");
+  let k = 0;
+  return h("details", { class: "card menu", open: open || null },
+    h("summary", {}, h("span", {}, title), h("span", { class: "muted menu-meta" }, meta)),
+    h("ol", { class: "courses" }, m.courses.map((c) => {
+      if (c.k !== "drink") k++;
+      return h("li", { class: "mc" },
+        h("span", { class: "mc-n" }, c.k === "drink" ? "" : String(k)),
+        h("div", { class: "mc-body" },
+          c.k && c.k !== "course" ? h("span", { class: "mc-kind" }, c.k) : null,
+          h("span", { class: "mc-items" }, c.i.flatMap(([name, preps], j) => [j ? h("span", { class: "sep" }, " · ") : null,
+            h("span", { class: "mi" }, byName.has(name) ? ingLink(name) : name,
+              preps.length ? h("span", { class: "muted mp" }, " " + preps.join(", ")) : null)]))));
+    })),
+    r.url ? h("p", { class: "muted", style: "font-size:.82rem;margin:.6rem 0 0" }, "Ingredients and preparations as read by the extractor. For the dishes as the chef wrote them, see ",
+      h("a", { href: r.url, rel: "noopener", target: "_blank" }, "the restaurant's site ↗"), ".") : null);
 }
 
 // --- coverage map -------------------------------------------------------------

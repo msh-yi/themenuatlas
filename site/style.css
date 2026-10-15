@@ -170,3 +170,16 @@ details.card > summary { cursor: pointer; font-weight: 600; margin-bottom: .5rem
 .more:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .via { font-size: .85rem; }
 .acc { color: var(--text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* restaurant menu manifest */
+details.menu > summary { display: flex; flex-wrap: wrap; gap: .2rem .75rem; align-items: baseline; margin-bottom: 0; }
+details.menu[open] > summary { margin-bottom: .6rem; }
+.menu-meta { font-weight: 400; font-size: .85rem; }
+.courses { list-style: none; margin: 0; padding: 0; display: grid; }
+.mc { display: grid; grid-template-columns: 2rem 1fr; gap: .5rem; padding: .45rem 0; border-top: 1px solid var(--border); }
+.mc-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .85rem; text-align: right; padding-top: .05rem; }
+.mc-body { min-width: 0; display: flex; flex-wrap: wrap; gap: .1rem .5rem; align-items: baseline; }
+.mc-kind { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.mc-items { min-width: 0; }
+.mp { font-size: .85rem; }
+.sep { color: var(--muted); }
