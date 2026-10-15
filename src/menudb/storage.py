@@ -61,3 +61,23 @@ def get_raw(key: str) -> bytes:
 
 def delete(key: str) -> None:
     _client().delete_object(Bucket=get_settings().snapshots_bucket, Key=key)
+
+
+def put_bytes(key: str, data: bytes, content_type: str) -> None:
+    _client().put_object(
+        Bucket=get_settings().snapshots_bucket, Key=key, Body=data, ContentType=content_type
+    )
+
+
+def list_keys(prefix: str) -> list[str]:
+    paginator = _client().get_paginator("list_objects_v2")
+    keys = []
+    for page in paginator.paginate(Bucket=get_settings().snapshots_bucket, Prefix=prefix):
+        keys += [obj["Key"] for obj in page.get("Contents", [])]
+    return keys
+
+
+def move(src: str, dst: str) -> None:
+    bucket = get_settings().snapshots_bucket
+    _client().copy_object(Bucket=bucket, Key=dst, CopySource={"Bucket": bucket, "Key": src})
+    delete(src)
