@@ -1,0 +1,5 @@
+start: https://www.hotelelephant.com/de/apostelstube/sternerestaurant/
+steps:
+- follow:
+    href_matches: Menue_Apostelstube_deutsch_ab_01\.10\.26\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.restaurant-alliance.fr/fr/cartes-menus.html
+steps:
+- follow:
+    href_matches: alliance_re\-servation\-de\-groupe\.pdf
+content: pdf

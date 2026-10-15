@@ -1,0 +1,5 @@
+start: https://werneckhof-schelling.de
+steps:
+- follow:
+    href_matches: MenueBusinessLunch\-2\.pdf
+content: pdf

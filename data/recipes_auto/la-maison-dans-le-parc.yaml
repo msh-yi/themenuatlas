@@ -1,0 +1,5 @@
+start: https://lamaisondansleparc.com/fr/
+steps:
+- follow:
+    href_matches: 4mains_davidcastagnet\.pdf
+content: pdf

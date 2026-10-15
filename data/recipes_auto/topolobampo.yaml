@@ -1,0 +1,5 @@
+start: https://topolochicago.com/menu-archive/
+steps:
+- follow:
+    href_matches: The\-Art\-Menu\-2023\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://wshs.nl/eat-drink/lizz/
+steps:
+- follow:
+    href_matches: LIZZ\-Menu\-zomer\-2026\-website\-2\.pdf
+content: pdf

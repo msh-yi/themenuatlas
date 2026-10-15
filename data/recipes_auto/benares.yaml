@@ -1,0 +1,5 @@
+start: https://benaresrestaurant.com/menus/
+steps:
+- follow:
+    href_matches: BENARES\-A\-LA\-CARTE\-2026\-DINNER\-22\.09\.26\.pdf
+content: pdf

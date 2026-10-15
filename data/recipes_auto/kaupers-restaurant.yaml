@@ -1,0 +1,5 @@
+start: https://www.kaupers-kapellenhof.de/speisekarte/
+steps:
+- follow:
+    href_matches: September\-Menue\-Kaupers\-Kapellenhof\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://ox-restaurant.de/
+steps:
+- follow:
+    href_matches: OX_Menue_10\.10\.26pdf\-2\.pdf
+content: pdf

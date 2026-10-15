@@ -1,0 +1,5 @@
+start: https://limpulsif-restaurant.com/fr/menu.html
+steps:
+- follow:
+    href_matches: carte\-et\-menu\-remasterise\-\.pdf
+content: pdf

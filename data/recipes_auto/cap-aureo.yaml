@@ -1,0 +1,5 @@
+start: https://www.maistra.com/properties/grand-park-hotel-rovinj/restaurants-bars/cap-aureo-signature-restaurant/#/
+steps:
+- follow:
+    href_matches: Maistra_GPHR_Cap_Aureo_hrana_web_GB_2026_asxtzr\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.alte-ueberfahrt.de
+steps:
+- follow:
+    href_matches: neue\-speisekarte\-januar\-2026\-mit\-1\-3zg\-dessert\-1\.pdf
+content: pdf

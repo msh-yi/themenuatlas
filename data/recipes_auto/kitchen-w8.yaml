@@ -1,0 +1,5 @@
+start: https://www.kitchenw8.com/set/
+steps:
+- follow:
+    href_matches: Set\-Menu\-14\.10\.26\-\.pdf
+content: pdf

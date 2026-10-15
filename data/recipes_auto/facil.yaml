@@ -1,0 +1,5 @@
+start: https://www.facil.de/de/menu/
+steps:
+- follow:
+    href_matches: 2_menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.casamazzucchelli.com
+steps:
+- follow:
+    href_matches: menu_eng\.pdf
+content: pdf

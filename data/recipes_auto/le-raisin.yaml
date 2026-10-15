@@ -1,0 +1,5 @@
+start: https://www.leraisin.com/carte-et-menus-restaurant-le-raisin/
+steps:
+- follow:
+    href_matches: Menus\-actuels\-25\-09\-26\-1\.pdf
+content: pdf

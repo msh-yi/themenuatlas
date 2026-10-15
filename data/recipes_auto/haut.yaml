@@ -1,0 +1,5 @@
+start: https://hautrestaurant.be/menu/
+steps:
+- follow:
+    href_matches: Haut_menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.davittorio.com/ristoranti/da-vittorio.html
+steps:
+- follow:
+    href_matches: Menu%20American%20Bar\.pdf
+content: pdf

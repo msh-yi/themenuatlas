@@ -1,0 +1,5 @@
+start: https://www.sonne-scheunenberg.ch/menus
+steps:
+- follow:
+    href_matches: Sonne%20Menu%20Oktober%202026\.pdf
+content: pdf

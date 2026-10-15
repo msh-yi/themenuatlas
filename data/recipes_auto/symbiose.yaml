@@ -1,0 +1,5 @@
+start: https://www.symbiose-cabourg.com/nos-cartes/
+steps:
+- follow:
+    href_matches: Carte\-food\-restau\-Fevrier\-2026_compressed54\.pdf
+content: pdf

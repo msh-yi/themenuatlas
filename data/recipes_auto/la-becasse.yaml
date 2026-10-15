@@ -1,0 +1,5 @@
+start: https://labecasse.de/
+steps:
+- follow:
+    href_matches: ABENDS\.pdf
+content: pdf

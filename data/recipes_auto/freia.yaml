@@ -1,0 +1,5 @@
+start: https://www.freia-restaurant.com/menu
+steps:
+- follow:
+    href_matches: 6898568dbfd9f10329469961_accord_ex_menu\.pdf
+content: pdf

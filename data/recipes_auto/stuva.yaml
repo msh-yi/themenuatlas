@@ -1,0 +1,5 @@
+start: https://yscla.at/en/restaurant-ischgl-en/our-menus/
+steps:
+- follow:
+    href_matches: space\-speisekarte\-en\.pdf
+content: pdf

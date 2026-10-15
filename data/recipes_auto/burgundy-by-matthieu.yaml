@@ -1,0 +1,5 @@
+start: https://burgundybym.fr/fr/
+steps:
+- follow:
+    href_matches: carte\-des\-digestifs\.pdf
+content: pdf

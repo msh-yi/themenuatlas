@@ -1,0 +1,5 @@
+start: http://bebrout.com
+steps:
+- follow:
+    href_matches: Menu\.pdf
+content: pdf

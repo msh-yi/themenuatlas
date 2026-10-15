@@ -1,0 +1,5 @@
+start: https://www.theflorentin.com/de/kulinarik/the-dune
+steps:
+- follow:
+    href_matches: TheFlorentin_byAlthoffCollection_TheDune_Menu_DE\.pdf
+content: pdf

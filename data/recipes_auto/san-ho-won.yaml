@@ -1,0 +1,5 @@
+start: https://www.sanhowon.com/menu
+steps:
+- follow:
+    href_matches: SAN\-HO\-WO\-Food\-Menu\.pdf
+content: pdf

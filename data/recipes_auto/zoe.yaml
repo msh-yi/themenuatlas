@@ -1,0 +1,5 @@
+start: https://www.restaurant-zoe.com/menu
+steps:
+- follow:
+    href_matches: c59010_36239e07398a4d0892697b0ee7b65d0b\.pdf
+content: pdf

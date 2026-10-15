@@ -1,0 +1,5 @@
+start: https://www.alianca1919.com/en/gastronomy/
+steps:
+- follow:
+    href_matches: MENUS\-ALIANCA\-ENGL\-2026\.pdf
+content: pdf

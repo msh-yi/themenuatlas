@@ -1,0 +1,6 @@
+start: https://portlandrestaurant.co.uk/menus
+steps:
+- follow:
+    href_matches: Website\ \-\ 07\.10\ Lunch\ menu\ 2026\ \-\ Google\ Docs\.pdf
+content: pdf
+render: js

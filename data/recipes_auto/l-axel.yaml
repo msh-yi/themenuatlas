@@ -1,0 +1,5 @@
+start: https://www.laxel-restaurant.com/en/menu-restaurant-fontainebleau.html
+steps:
+- follow:
+    href_matches: diner\-septembre\-prix\-anglais\.pdf
+content: pdf

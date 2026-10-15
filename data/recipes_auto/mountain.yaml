@@ -1,0 +1,5 @@
+start: https://mountainbeakstreet.com
+steps:
+- follow:
+    href_matches: mountain\-food\-menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.morenocedroni.it/la-madonnina-del-pescatore/
+steps:
+- follow:
+    href_matches: MENU\-MADONNINA\-ITA\-2026\.pdf
+content: pdf

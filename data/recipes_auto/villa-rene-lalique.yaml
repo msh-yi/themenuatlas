@@ -1,0 +1,5 @@
+start: https://villarenelalique.com/fr/gastronomie/restaurant-gastronomique-alsacecarte-menus.html
+steps:
+- follow:
+    href_matches: villa\-rene\-lalique_carte\-et\-menus_francais\.pdf
+content: pdf

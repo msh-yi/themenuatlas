@@ -1,0 +1,5 @@
+start: https://www.loreedelaforet.fr/menus.html
+steps:
+- follow:
+    href_matches: degust\.pdf
+content: pdf

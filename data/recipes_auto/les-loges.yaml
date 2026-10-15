@@ -1,0 +1,5 @@
+start: https://courdesloges.com/fr/restaurant-gastronomique-lyon-5.html
+steps:
+- follow:
+    href_matches: menu\-loges\-fr\-a\-choix\-145\-178\.pdf
+content: pdf

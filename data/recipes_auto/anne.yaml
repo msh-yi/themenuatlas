@@ -1,0 +1,5 @@
+start: https://www.pavillon-de-la-reine.com/restaurant
+steps:
+- follow:
+    href_matches: 69414a1be40a45bd0d4260a4_CARTE%20ANNE%202025\.pdf
+content: pdf

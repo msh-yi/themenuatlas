@@ -1,0 +1,5 @@
+start: https://www.almalisboa.pt/
+steps:
+- follow:
+    href_matches: 68ff852f3fe8ce6306f57fd4_OUT25_ALMA_EMENTA_PRINCIPAL_DEGUSTACAO_EN\.pdf
+content: pdf

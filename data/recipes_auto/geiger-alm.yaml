@@ -1,0 +1,5 @@
+start: https://www.geigeralm.at/menue/
+steps:
+- follow:
+    href_matches: Geiger\-Alm\-Menue\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.anona.fr/les-cartes
+steps:
+- follow:
+    href_matches: 32db1c_9e0502ed3b9c47699dfb52cd90d9d44e\.pdf
+content: pdf

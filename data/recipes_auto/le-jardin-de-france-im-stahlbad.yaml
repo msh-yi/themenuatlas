@@ -1,0 +1,5 @@
+start: https://lejardindefrance.de/baden-baden/aktuell
+steps:
+- follow:
+    href_matches: de_alacarte\.pdf
+content: pdf

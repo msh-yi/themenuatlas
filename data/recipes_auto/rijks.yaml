@@ -1,0 +1,5 @@
+start: https://www.rijksrestaurant.nl/menu/
+steps:
+- follow:
+    href_matches: RIJKS®\-MENU\.pdf
+content: pdf

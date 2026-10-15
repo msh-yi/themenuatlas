@@ -1,0 +1,5 @@
+start: https://www.douce-steiner.de/
+steps:
+- follow:
+    href_matches: menue_carte\.pdf
+content: pdf

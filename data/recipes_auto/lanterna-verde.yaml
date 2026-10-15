@@ -1,0 +1,5 @@
+start: https://www.lanternaverde.com/menu-ristorante-lanterna-verde/
+steps:
+- follow:
+    href_matches: menu\-lanterna\-verde\.pdf
+content: pdf

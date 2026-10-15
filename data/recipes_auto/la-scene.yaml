@@ -1,0 +1,5 @@
+start: https://www.la-scene.paris/
+steps:
+- follow:
+    href_matches: Carte\-BISTROT\-2026\-09\-1\.pdf
+content: pdf

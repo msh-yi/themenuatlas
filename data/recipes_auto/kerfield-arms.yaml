@@ -1,0 +1,5 @@
+start: https://www.thekerfieldarms.co.uk
+steps:
+- follow:
+    href_matches: Sunday\-Menu\-041026\.pdf
+content: pdf

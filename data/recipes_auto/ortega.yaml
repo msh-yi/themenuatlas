@@ -1,0 +1,6 @@
+start: https://www.ortega.co.nz/menus.html
+steps:
+- follow:
+    href_matches: sample__105_set_menu_\-_october\.pdf
+content: pdf
+render: js

@@ -1,0 +1,5 @@
+start: https://www.maintower-restaurant.de
+steps:
+- follow:
+    href_matches: SIGNATURE\-MENU\-ENGLISCH\-HP\-v10\.pdf
+content: pdf

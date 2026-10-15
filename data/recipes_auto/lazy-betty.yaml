@@ -1,0 +1,5 @@
+start: https://www.lazybettyatl.com/menu
+steps:
+- follow:
+    href_matches: 891541_d6082a0bbb2144ae93156807f54a9284\.pdf
+content: pdf

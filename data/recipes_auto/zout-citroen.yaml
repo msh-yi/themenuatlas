@@ -1,0 +1,5 @@
+start: https://www.zoutencitroen.nl/lunchkaart/
+steps:
+- follow:
+    href_matches: 4\-9\-2026\-a\-la\-carte\.pdf
+content: pdf

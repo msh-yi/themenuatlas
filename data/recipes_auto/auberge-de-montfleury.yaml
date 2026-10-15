@@ -1,0 +1,5 @@
+start: https://auberge-de-montfleury.fr/fr/
+steps:
+- follow:
+    href_matches: menu\-decouvert\-pagina\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.mod-dining.com/speisekarte-2/
+steps:
+- follow:
+    href_matches: Speisekarte_Oktober26\-1_261009_105017\.pdf
+content: pdf

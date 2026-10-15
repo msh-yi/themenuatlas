@@ -1,0 +1,5 @@
+start: https://www.andreaaprea.com/il-caffe-bistrot/
+steps:
+- follow:
+    href_matches: Per\-sito\-pranzo\-e\-cena\-bistrot\.pdf
+content: pdf

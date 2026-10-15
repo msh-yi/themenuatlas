@@ -1,0 +1,5 @@
+start: https://beige-tokyo.com/menu
+steps:
+- follow:
+    href_matches: carte_lunch_261008\.pdf
+content: pdf

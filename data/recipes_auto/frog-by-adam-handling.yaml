@@ -1,0 +1,5 @@
+start: https://www.frogbyadamhandling.com/
+steps:
+- follow:
+    href_matches: Frog\-by\-AH\-Sample\-4\-Course\-Menu\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.restaurant-kunz.de/
+steps:
+- follow:
+    href_matches: Speisekarte\+Kunz\+Gourmet\+ab\+Oktober\+26\.pdf
+content: pdf

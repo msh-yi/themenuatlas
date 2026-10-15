@@ -1,0 +1,5 @@
+start: https://yucatan.chablehotels.com/cuisine/beyond-the-restaurants/
+steps:
+- follow:
+    href_matches: Menu\-Casita\-Club\.pdf
+content: pdf

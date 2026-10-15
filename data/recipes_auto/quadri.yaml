@@ -1,0 +1,5 @@
+start: https://alajmo.it/pages/homepage-ristorante-quadri
+steps:
+- follow:
+    href_matches: Quadri_AUTUNNO\-26\.pdf
+content: pdf

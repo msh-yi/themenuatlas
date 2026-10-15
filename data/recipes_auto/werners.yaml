@@ -1,0 +1,5 @@
+start: https://www.hotel-schloss-eberstein.de/restaurants/speisekarten/
+steps:
+- follow:
+    href_matches: 06\-Menuekarte\-16\.09\.\-31\.12\-1\.pdf
+content: pdf

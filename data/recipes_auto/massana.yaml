@@ -1,0 +1,5 @@
+start: https://www.restaurantmassana.com/la-cuina/
+steps:
+- follow:
+    href_matches: CAT_Menu_Massana\.pdf
+content: pdf

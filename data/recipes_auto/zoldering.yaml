@@ -1,0 +1,5 @@
+start: https://www.zoldering.nl/wijn-menu
+steps:
+- follow:
+    href_matches: c997aa_32f1769ae08f49a4bc1930864560f823\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.geschwister-rauch.at/
+steps:
+- follow:
+    href_matches: GAUMENREISE\.pdf
+content: pdf

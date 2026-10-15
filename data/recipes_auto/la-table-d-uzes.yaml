@@ -1,0 +1,5 @@
+start: https://www.latableduzes.fr/
+steps:
+- follow:
+    href_matches: lamaisonduzes\-menu\-mars\-2025\.pdf
+content: pdf

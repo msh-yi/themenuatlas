@@ -1,0 +1,5 @@
+start: https://rauschrauschrausch.com/
+steps:
+- follow:
+    href_matches: RAUSCH\-Menu\-online\.pdf
+content: pdf

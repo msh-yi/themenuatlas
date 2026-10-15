@@ -1,0 +1,5 @@
+start: https://www.ristorantetivolicortina.it
+steps:
+- follow:
+    href_matches: menu\-estate\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: http://www.ilconviviotroiani.it/menu.php
+steps:
+- follow:
+    href_matches: Menu\ ITA\ 2026\ NEW\.pdf
+content: pdf

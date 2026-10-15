@@ -1,0 +1,5 @@
+start: https://www.central-soelden.com/kulinarik/gourmet-und-wein/oetztaler-stube.html
+steps:
+- follow:
+    href_matches: menue_oetztaler_stube\.pdf
+content: pdf

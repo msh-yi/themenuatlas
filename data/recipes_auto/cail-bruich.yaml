@@ -1,0 +1,5 @@
+start: https://www.cailbruich.co.uk/menus
+steps:
+- follow:
+    href_matches: Sample\-Dinner\-Menu\-October\-2026\-ddbx\.pdf
+content: pdf

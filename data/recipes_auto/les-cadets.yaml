@@ -1,0 +1,5 @@
+start: https://www.restaurantlescadets.fr/
+steps:
+- follow:
+    href_matches: LESCADETS_CarteDesVins_Web\.pdf
+content: pdf

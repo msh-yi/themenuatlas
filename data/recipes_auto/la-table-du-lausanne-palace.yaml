@@ -1,0 +1,5 @@
+start: https://www.lausanne-palace.ch/restaurants-bars/la-table-du-lausanne-palace/le-restaurant/
+steps:
+- follow:
+    href_matches: LA_TABLE_MENU_FR\.pdf
+content: pdf

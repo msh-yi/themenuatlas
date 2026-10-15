@@ -1,0 +1,5 @@
+start: https://www.lopidom.fr/fr/carte-et-menu.html
+steps:
+- follow:
+    href_matches: menu\-reflet\-site\.pdf
+content: pdf

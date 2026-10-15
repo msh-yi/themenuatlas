@@ -1,0 +1,5 @@
+start: https://www.arcrestaurant.de/menu
+steps:
+- follow:
+    href_matches: e2af32_e7eec3c375e74b2b9dd94b24e0c0dde4\.pdf
+content: pdf

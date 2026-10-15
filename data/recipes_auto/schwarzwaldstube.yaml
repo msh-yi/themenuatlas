@@ -1,0 +1,5 @@
+start: https://www.traube-tonbach.de/kulinarik/schwarzwaldstube/
+steps:
+- follow:
+    href_matches: Schwarzwaldstube_Speisekarte_DE\.pdf
+content: pdf

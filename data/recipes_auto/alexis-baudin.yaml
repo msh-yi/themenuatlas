@@ -1,0 +1,5 @@
+start: https://alexisbaudin.fr/
+steps:
+- follow:
+    href_matches: Menu\-Saint\-valentin\-2025\.pdf
+content: pdf

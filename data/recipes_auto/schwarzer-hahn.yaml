@@ -1,0 +1,5 @@
+start: https://www.deidesheimerhof.de/de/restaurants/speisekarten
+steps:
+- follow:
+    href_matches: Speisekarte%20Restaurant%20Sankt%20Urban\.pdf
+content: pdf

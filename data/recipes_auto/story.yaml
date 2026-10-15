@@ -1,0 +1,5 @@
+start: https://restaurantstory.co.uk/menu/
+steps:
+- follow:
+    href_matches: Sample\-Vegetarian\-Menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.jerome-nutile.com/fr/
+steps:
+- follow:
+    href_matches: menu\-jour\-bistrau\.pdf
+content: pdf

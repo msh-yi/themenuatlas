@@ -1,0 +1,5 @@
+start: https://maisonmedard.com/nos-menus/
+steps:
+- follow:
+    href_matches: Menu\-site\-internet\.pdf
+content: pdf

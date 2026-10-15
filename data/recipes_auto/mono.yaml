@@ -1,0 +1,5 @@
+start: https://www.mono.hk/menu
+steps:
+- follow:
+    href_matches: REGULAR\-DINNER\-MENU_102026\.pdf
+content: pdf

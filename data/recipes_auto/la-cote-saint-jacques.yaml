@@ -1,0 +1,5 @@
+start: https://www.cotesaintjacques.com/
+steps:
+- follow:
+    href_matches: Carte%20d%C3%A9jeuner%20et%20d%C3%AEner%2024%20septembre%202026_FR_Prix\.pdf\.pdf
+content: pdf

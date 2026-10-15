@@ -1,0 +1,5 @@
+start: https://almadrigale.it/menu/
+steps:
+- follow:
+    href_matches: ENG\-Al\-Madrigale\-Menu\-Marzo\-2026\.pdf
+content: pdf

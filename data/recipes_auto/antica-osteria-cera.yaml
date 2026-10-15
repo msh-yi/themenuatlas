@@ -1,0 +1,5 @@
+start: https://www.osteriacera.it/
+steps:
+- follow:
+    href_matches: menu\-antica\-osteria\-cera\.pdf
+content: pdf

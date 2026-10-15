@@ -1,0 +1,5 @@
+start: https://www.cantinepapalisbeth.de/
+steps:
+- follow:
+    href_matches: Menu\-\+Fenster\+u\+Webseite\+1026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.restaurant-laparte.fr/fr/carte-menus/
+steps:
+- follow:
+    href_matches: menu\-degustation\.pdf
+content: pdf

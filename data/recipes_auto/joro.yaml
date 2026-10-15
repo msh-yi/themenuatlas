@@ -1,0 +1,5 @@
+start: https://jororestaurant.co.uk/
+steps:
+- follow:
+    href_matches: SAMPLE\-MENU\-TWO\-SEPT\-26\.pdf
+content: pdf

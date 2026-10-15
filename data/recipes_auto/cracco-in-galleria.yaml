@@ -1,0 +1,5 @@
+start: https://www.ristorantecracco.it/
+steps:
+- follow:
+    href_matches: Menu\-ita\-lug\-26\.pdf
+content: pdf

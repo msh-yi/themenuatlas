@@ -1,0 +1,5 @@
+start: https://kettnerskamota.de/speisekarterl/
+steps:
+- follow:
+    href_matches: Speisekarte_Kettners_Kamota\.pdf
+content: pdf

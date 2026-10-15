@@ -1,0 +1,5 @@
+start: https://www.sprucesf.com/menu
+steps:
+- follow:
+    href_matches: Spruce_Dinner_91526\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.chezmichele.fr/fr/
+steps:
+- follow:
+    href_matches: menu\-v28\-09\-26\.pdf
+content: pdf

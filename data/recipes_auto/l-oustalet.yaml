@@ -1,0 +1,5 @@
+start: https://www.loustalet-gigondas.fr/pages/menu-gastro
+steps:
+- follow:
+    href_matches: Menu_Degustation_2026_FR\.pdf
+content: pdf

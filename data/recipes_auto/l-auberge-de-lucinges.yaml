@@ -1,0 +1,5 @@
+start: https://www.laubergedelucinges.fr/menu-lauberge-de-lucinges-1338
+steps:
+- follow:
+    href_matches: ACTE\ 21bis\.pdf
+content: pdf

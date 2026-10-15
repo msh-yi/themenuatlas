@@ -1,0 +1,5 @@
+start: https://www.andohk.com/our-menu
+steps:
+- follow:
+    href_matches: _Dinner\-Menu\-1\.pdf
+content: pdf

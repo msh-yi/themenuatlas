@@ -1,0 +1,5 @@
+start: https://www.ristoranteicastagni.com/ristorante/menu/
+steps:
+- follow:
+    href_matches: menu_2026_10_07\.pdf
+content: pdf

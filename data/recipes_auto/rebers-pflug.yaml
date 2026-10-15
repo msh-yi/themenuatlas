@@ -1,0 +1,5 @@
+start: https://rebers-pflug.de/
+steps:
+- follow:
+    href_matches: Speisekarte\.deutsch\-NEUJuli\.\-26\-NEUDESIGN\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.chishuru.com/food-and-drink
+steps:
+- follow:
+    href_matches: Chishuru\ lunch\ menu\.pdf
+content: pdf

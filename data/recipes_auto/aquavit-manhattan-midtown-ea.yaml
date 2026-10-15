@@ -1,0 +1,5 @@
+start: http://www.aquavit.org/dining-room
+steps:
+- follow:
+    href_matches: DR\-Lunch\-101526\-fmrl\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurant-yozora.com/fr/restaurant-chic-metz.html
+steps:
+- follow:
+    href_matches: menu\-yozora\.pdf
+content: pdf

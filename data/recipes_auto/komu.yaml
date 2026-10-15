@@ -1,0 +1,5 @@
+start: https://komu-restaurant.de/menue/
+steps:
+- follow:
+    href_matches: komu\-restaurant\-abendmenue\.pdf
+content: pdf

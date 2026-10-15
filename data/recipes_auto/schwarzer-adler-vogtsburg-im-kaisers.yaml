@@ -1,0 +1,5 @@
+start: https://www.franz-keller.de/winzerhaus-rebstock/speisekarte
+steps:
+- follow:
+    href_matches: SPEISEKARTE_ab_10\.10\.2026\.pdf
+content: pdf

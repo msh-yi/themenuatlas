@@ -1,0 +1,5 @@
+start: https://www.osteriaenoteca.ch/menu/
+steps:
+- follow:
+    href_matches: Osteria\-dellEnoteca\-Losone\-Menu\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.manoir-du-lys.fr/fr/
+steps:
+- follow:
+    href_matches: fr\-carte\-restaurant\-septembre\-2026\-manoir\-du\-lys\.pdf
+content: pdf

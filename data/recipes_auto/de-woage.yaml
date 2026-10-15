@@ -1,0 +1,5 @@
+start: https://restobardewoage.nl/menukaart/
+steps:
+- follow:
+    href_matches: Drankenkaart\-Restobar\-de\-Woage\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.lerelaisdesmoines.com/fr/
+steps:
+- follow:
+    href_matches: 151026\-fetes\-rdm_menu_web\.pdf
+content: pdf

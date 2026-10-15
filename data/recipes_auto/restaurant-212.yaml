@@ -1,0 +1,5 @@
+start: https://www.212.amsterdam/restaurant-212
+steps:
+- follow:
+    href_matches: 0d6402_59744b64915f4aaeac94af68a7443835\.pdf
+content: pdf

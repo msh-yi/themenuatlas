@@ -1,0 +1,5 @@
+start: https://labastidebourrelly.com/fr/
+steps:
+- follow:
+    href_matches: fr\-carte\-la\-bastide\-bourrelly\-15\.10\.2026\.pdf
+content: pdf

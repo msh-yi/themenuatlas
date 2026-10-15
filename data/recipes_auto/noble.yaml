@@ -1,0 +1,5 @@
+start: https://www.noblegastrohouse.nl/menu
+steps:
+- follow:
+    href_matches: NL\-Aperitievenkaart\.pdf
+content: pdf

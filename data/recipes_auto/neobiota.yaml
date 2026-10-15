@@ -1,0 +1,5 @@
+start: https://www.restaurant-neobiota.de/sterne-restaurant-koeln
+steps:
+- follow:
+    href_matches: 415735_5a41d5deec234e0da63e345bcbc873df\.pdf
+content: pdf

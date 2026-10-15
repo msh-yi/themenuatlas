@@ -1,0 +1,5 @@
+start: https://www.restaurantamsterdammertje.nl
+steps:
+- follow:
+    href_matches: 10\.\-Menukaart\-Oktober\-2026\-NL\.pdf
+content: pdf

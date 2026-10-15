@@ -1,0 +1,5 @@
+start: https://restaurangkoka.se/
+steps:
+- follow:
+    href_matches: Meny\.pdf
+content: pdf

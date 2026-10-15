@@ -1,0 +1,5 @@
+start: https://hide.co.uk/
+steps:
+- follow:
+    href_matches: CHRISTMAS\-MENU\.pdf
+content: pdf

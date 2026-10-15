@@ -1,0 +1,5 @@
+start: https://www.domainedarondeau.com/vicomte/
+steps:
+- follow:
+    href_matches: carte\-aout\-26\.pdf
+content: pdf

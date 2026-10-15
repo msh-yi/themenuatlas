@@ -1,0 +1,5 @@
+start: https://www.hotel-lehautallier.com/fr/
+steps:
+- follow:
+    href_matches: 26\-menus\-automne\-n4\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://domaine-de-clairefontaine.fr/fr/la-maison/la-maison-restaurant-gastronomique.html
+steps:
+- follow:
+    href_matches: menus\-domaine\.pdf
+content: pdf

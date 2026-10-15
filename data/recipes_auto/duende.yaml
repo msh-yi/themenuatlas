@@ -1,0 +1,5 @@
+start: https://www.maison-albar-hotels-l-imperator.com/fr/page/restaurant-etoile-nimes.5196.html
+steps:
+- follow:
+    href_matches: DUENDE\-Menu\.pdf\.pdf
+content: pdf

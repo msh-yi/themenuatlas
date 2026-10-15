@@ -1,0 +1,5 @@
+start: https://www.emporiumhotel.com/es/restaurant-emporium
+steps:
+- follow:
+    href_matches: menu\-cast\-1791803558\.pdf
+content: pdf

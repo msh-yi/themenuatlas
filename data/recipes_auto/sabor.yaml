@@ -1,0 +1,5 @@
+start: https://www.saborrestaurants.co.uk/la-mesa
+steps:
+- follow:
+    href_matches: La_Mesa_Set_Menu_PDF\.pdf
+content: pdf

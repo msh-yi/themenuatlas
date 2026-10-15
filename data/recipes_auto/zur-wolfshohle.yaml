@@ -1,0 +1,5 @@
+start: https://www.wolfshoehle-freiburg.de/
+steps:
+- follow:
+    href_matches: Speisekarte_14\.10\.2026\.pdf
+content: pdf

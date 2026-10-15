@@ -1,0 +1,5 @@
+start: https://www.parkkenmare.com/dining
+steps:
+- follow:
+    href_matches: landline_menu\-23062026\-most\-up\-to\-date\-3\.pdf
+content: pdf

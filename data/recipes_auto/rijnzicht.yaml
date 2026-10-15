@@ -1,0 +1,5 @@
+start: https://www.rijnzicht.nl/
+steps:
+- follow:
+    href_matches: 2026\.08\-Menu\-4\.pdf
+content: pdf

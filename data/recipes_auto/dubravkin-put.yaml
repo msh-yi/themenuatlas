@@ -1,0 +1,5 @@
+start: https://dubravkin-put.com/
+steps:
+- follow:
+    href_matches: Rucak\-09\-26\.pdf
+content: pdf

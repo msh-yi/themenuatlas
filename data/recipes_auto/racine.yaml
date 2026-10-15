@@ -1,0 +1,5 @@
+start: https://www.racine.re/
+steps:
+- follow:
+    href_matches: Racine_CarteDesVins_Definitive_2026_08\-08\-26\.pdf
+content: pdf

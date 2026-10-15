@@ -1,0 +1,5 @@
+start: https://www.paris-restaurant-pur.fr/
+steps:
+- follow:
+    href_matches: Menu\-Pur\-FR\-dgeh\.pdf
+content: pdf

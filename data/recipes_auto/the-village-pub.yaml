@@ -1,0 +1,5 @@
+start: https://www.thevillagepub.net/menus
+steps:
+- follow:
+    href_matches: VP_Dinner_92326\.pdf
+content: pdf

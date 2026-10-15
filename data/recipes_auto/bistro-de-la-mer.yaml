@@ -1,0 +1,5 @@
+start: https://www.bistrodelamer.com/bistrodelamer
+steps:
+- follow:
+    href_matches: 8d2639_8a0259ad1d004580a1be807450c91009\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://doblers-restaurant.de/speisekarten/
+steps:
+- follow:
+    href_matches: Speisekarte\-NEU\-24\.pdf
+content: pdf

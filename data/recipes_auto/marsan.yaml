@@ -1,0 +1,5 @@
+start: https://www.marsanhelenedarroze.com/
+steps:
+- follow:
+    href_matches: FR%20\-%2008\.10%20\-%20menu%20en%208%20services\.pdf
+content: pdf

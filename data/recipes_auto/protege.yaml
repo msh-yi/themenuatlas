@@ -1,0 +1,5 @@
+start: https://www.protegepaloalto.com/
+steps:
+- follow:
+    href_matches: PROTEGE\-LOUNGE\-MENU\.pdf
+content: pdf

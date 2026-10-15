@@ -1,0 +1,5 @@
+start: https://www.casadelmar.fr/fr/restaurants/le-casadelmar
+steps:
+- follow:
+    href_matches: menus_casadelmar_fr_avec_prix_85_\.pdf
+content: pdf

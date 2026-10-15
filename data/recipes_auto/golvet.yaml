@@ -1,0 +1,5 @@
+start: https://golvet.de
+steps:
+- follow:
+    href_matches: Golvet\-Bar\-Menu\.pdf
+content: pdf

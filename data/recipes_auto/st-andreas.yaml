@@ -1,0 +1,5 @@
+start: https://hotel-blauerengel.de/brauerei/st-andreas/
+steps:
+- follow:
+    href_matches: STA\-Menue_August\-2026\.pdf
+content: pdf

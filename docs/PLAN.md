@@ -153,6 +153,8 @@ Websites and coordinates come from the seed CSV, Wikidata (by article, then one 
 
 **Menu discovery** (`menudb discover`, `src/menudb/discover.py`) finds menus without hand recipes: generic link scoring plus a food-word count, with a headless Chromium retry for sites that need JavaScript. It writes recipes to `data/recipes_auto/`, statuses to `data/seed/discovery.csv`, and with `--to-bucket` stores the documents and queues them in `pending/`. `seed --auto-dir` (default `data/recipes_auto`) uses a generated recipe where no hand recipe exists. `check.yml` still seeds only the 34-restaurant test set.
 
+First run (2026-10-15, cloud session): of 1,711 restaurants with a website, 493 `menu_found` and 214 `menu_maybe` (707 recipes; 706 documents stored and queued in `pending/`), 731 no menu found, 137 robots.txt disallow, 123 failed (HTTP errors, timeouts), 1 TDM opt-out. Robots refusals and failures include sites the cloud proxy can't reach; rerun those from Actions before treating them as opt-outs. 2,742 restaurants have no website yet.
+
 ## Analysis notebook (`notebooks/01_pairings.ipynb`)
 
 - Ingredient frequency overall, by region, and by hemisphere-relative season (`seasons.py`).

@@ -1,0 +1,5 @@
+start: https://circlelyon.fr
+steps:
+- follow:
+    href_matches: CARTE\-VINS\-ET\-BOISSONS\-CIRCLE\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.restaurant-dejuwelier.nl/restaurantdejuwelier
+steps:
+- follow:
+    href_matches: 8d2639_c9146ab2280c4ab382b75f49ab04d5c8\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.hallmann-klee.de/speisekarte
+steps:
+- follow:
+    href_matches: d25d4b_fa46d2274232420a99cd34cfd66ef841\.pdf
+content: pdf

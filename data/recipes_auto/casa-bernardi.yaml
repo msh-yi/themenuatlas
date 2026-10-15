@@ -1,0 +1,5 @@
+start: https://casabernardi.es/menus/
+steps:
+- follow:
+    href_matches: Pasta\-lovers\-Frances\-postre\.pdf
+content: pdf

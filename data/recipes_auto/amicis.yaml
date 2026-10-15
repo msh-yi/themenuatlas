@@ -1,0 +1,5 @@
+start: https://www.restaurant-amicis.fr/fr/carte-menus.html
+steps:
+- follow:
+    href_matches: menu_bistrot_amicis_fr\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurantzeezout.nl
+steps:
+- follow:
+    href_matches: MENUKAART\-ENGELS\-JULI\-2026\.pdf
+content: pdf

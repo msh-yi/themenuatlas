@@ -1,0 +1,5 @@
+start: https://www.lafauriepeyragueylalique.com/le-restaurant/
+steps:
+- follow:
+    href_matches: Menu\-automne\-16\-octobre\-2026\-FR\.pdf
+content: pdf

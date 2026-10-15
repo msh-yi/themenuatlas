@@ -1,0 +1,5 @@
+start: https://restauranterodero.com/menus/
+steps:
+- follow:
+    href_matches: Degustar\.pdf
+content: pdf

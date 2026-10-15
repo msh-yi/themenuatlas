@@ -1,0 +1,5 @@
+start: https://osiprestaurant.com/
+steps:
+- follow:
+    href_matches: Tasting\-A6\-2\.pdf
+content: pdf

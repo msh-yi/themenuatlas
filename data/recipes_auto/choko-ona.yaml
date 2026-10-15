@@ -1,0 +1,5 @@
+start: https://choko-ona.fr/
+steps:
+- follow:
+    href_matches: CHOKO\-ONA\-MENU\-RESTAURANT\-SEPT2\.pdf
+content: pdf

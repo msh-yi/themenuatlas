@@ -1,0 +1,5 @@
+start: https://auberge-du-pont.com/menus/
+steps:
+- follow:
+    href_matches: dici\-et\-dailleurs\-octobre\.pdf
+content: pdf

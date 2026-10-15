@@ -1,0 +1,5 @@
+start: http://www.lescarbille.fr/la-cuisine-et-la-cave/
+steps:
+- follow:
+    href_matches: MENU\-site\-24\-SEPT\-26\.pdf
+content: pdf

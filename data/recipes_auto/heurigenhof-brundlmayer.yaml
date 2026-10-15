@@ -1,0 +1,5 @@
+start: https://heurigenhof.at/
+steps:
+- follow:
+    href_matches: SpeisekarteAlaCarte\.pdf
+content: pdf

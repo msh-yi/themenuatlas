@@ -1,0 +1,5 @@
+start: https://www.molzbachhof.at/genuss/gourmetrestaurant/
+steps:
+- follow:
+    href_matches: Gaumenkitzel_MBH_2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://almae-collection.com/armancette/restaurants/la-table-darmante/
+steps:
+- follow:
+    href_matches: TA_noel\-1\.pdf
+content: pdf
