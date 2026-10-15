@@ -169,3 +169,4 @@ details.card > summary { cursor: pointer; font-weight: 600; margin-bottom: .5rem
 .more:hover { background: var(--surface-2); }
 .more:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .via { font-size: .85rem; }
+.acc { color: var(--text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }

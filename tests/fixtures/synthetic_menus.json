@@ -7,7 +7,8 @@
    "country": "DK",
    "lat": 55.7,
    "lon": 12.6,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:3;w50b:2025:12"
   },
   {
    "slug": "syn-nordic-b",
@@ -16,7 +17,8 @@
    "country": "SE",
    "lat": 59.3,
    "lon": 18.1,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:2"
   },
   {
    "slug": "syn-france",
@@ -25,7 +27,8 @@
    "country": "FR",
    "lat": 48.9,
    "lon": 2.35,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:3;michelin:2020:2"
   },
   {
    "slug": "syn-uk",
@@ -34,7 +37,8 @@
    "country": "GB",
    "lat": 51.5,
    "lon": -0.13,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:1"
   },
   {
    "slug": "syn-japan-a",
@@ -43,7 +47,8 @@
    "country": "JP",
    "lat": 35.7,
    "lon": 139.7,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:3;w50b:2025:40"
   },
   {
    "slug": "syn-japan-b",
@@ -52,7 +57,8 @@
    "country": "JP",
    "lat": 35.0,
    "lon": 135.8,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:2"
   },
   {
    "slug": "syn-australia",
@@ -61,7 +67,8 @@
    "country": "AU",
    "lat": -37.8,
    "lon": 145.0,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "w50b:2025:58"
   },
   {
    "slug": "syn-peru",
@@ -70,7 +77,8 @@
    "country": "PE",
    "lat": -12.1,
    "lon": -77.0,
-   "publishes_menu": "yes"
+   "publishes_menu": "yes",
+   "lists": "michelin:2026:1;w50b:2025:7"
   },
   {
    "slug": "syn-no-menu",
@@ -79,7 +87,8 @@
    "country": "US",
    "lat": 40.7,
    "lon": -74.0,
-   "publishes_menu": "no"
+   "publishes_menu": "no",
+   "lists": "nytnyc:2026:30"
   }
  ],
  "menus": [

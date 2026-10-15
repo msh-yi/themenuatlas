@@ -96,3 +96,26 @@ def test_lexicon_info_gives_category_and_other_names(tmp_path):
     assert info["aubergine"] == {"category": "vegetable", "parent": None, "aka": ["eggplant", "berenjena", "ナス"]}
     assert info["white asparagus"]["parent"] == "asparagus"
     assert info["basil"] == {"category": "herb", "parent": None, "aka": []}
+
+
+def test_accolades_parse_latest_year():
+    a = site.accolades("michelin:2026:3;michelin:2020:2;michelin:2026:1;w50b:2023:40;w50b:2025:83;"
+                       "nyt:2026:america50;nytnyc:2024:14;nytnyc:2026:48")
+    assert a == {"stars": 3, "stars_year": 2026, "w50b": 83, "w50b_year": 2025, "nyt50": 2026,
+                 "nytnyc": 48, "nytnyc_year": 2026}
+    assert site.accolades("michelin:2017:1;michelin:2026:2")["stars"] == 2
+    assert site.accolades("") == {} and site.accolade_groups({}) == []
+    assert site.accolade_groups(a) == ["3 stars", "World's 50 Best", "NYT America 50", "NYT NYC 100"]
+
+
+def test_accolade_groups_need_enough_restaurants():
+    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    d = site.build(rows, restaurants, source="synthetic", details=details, min_group=3)
+    assert d["groups"]["accolade_with_data"] == {"3 stars": 3, "World's 50 Best": 4}
+    r = {x["slug"]: x for x in d["restaurants"]}
+    assert r["syn-nordic-a"]["tiers"] == ["3 stars", "World's 50 Best"]
+    assert r["syn-no-menu"]["tiers"] == ["NYT NYC 100"]  # listed, but no menus: no group stats
+    uni = next(i for i in d["ingredients"] if i["name"] == "uni")
+    assert set(uni["by_accolade"]) <= {"3 stars", "World's 50 Best"}
+    assert set(d["pairs_by_accolade"]) == {"3 stars", "World's 50 Best"}
+    assert not build()["groups"]["accolade_with_data"]  # the default threshold is 10

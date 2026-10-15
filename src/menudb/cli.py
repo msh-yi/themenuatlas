@@ -694,6 +694,7 @@ def export_site(
 
     data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
                       min_restaurants=min_restaurants, wikipedia=wiki.urls(),
+                      min_group=2 if source == "synthetic" else site.MIN_GROUP,
                       lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"))
     path = site.write(data, out)
     if to_bucket:

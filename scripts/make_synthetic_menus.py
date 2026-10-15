@@ -26,6 +26,12 @@ DETAILS = {
     "syn-australia": ("Synthetic Australia", "Melbourne", 145.0),
     "syn-peru": ("Synthetic Peru", "Lima", -77.0), "syn-no-menu": ("Synthetic No Menu", "New York", -74.0),
 }
+# Accolades in the full list's `lists` format (no rng calls).
+LISTS = {"syn-nordic-a": "michelin:2026:3;w50b:2025:12", "syn-nordic-b": "michelin:2026:2",
+         "syn-france": "michelin:2026:3;michelin:2020:2", "syn-uk": "michelin:2026:1",
+         "syn-japan-a": "michelin:2026:3;w50b:2025:40", "syn-japan-b": "michelin:2026:2",
+         "syn-australia": "w50b:2025:58", "syn-peru": "michelin:2026:1;w50b:2025:7",
+         "syn-no-menu": "nytnyc:2026:30"}
 # Fixed preparations (no rng calls, so the planted ingredient draws stay the same).
 PREPARATIONS = {"beetroot": ["roasted", "pickled"], "horseradish": ["grated"],
                 "scallop": ["seared"], "brown butter": ["emulsified"], "rice": ["steamed"],
@@ -64,7 +70,8 @@ for slug, country, lat in RESTAURANTS:
 
 restaurants = [(s, c, lat, "yes") for s, c, lat in RESTAURANTS] + [("syn-no-menu", "US", 40.7, "no")]
 out = {"restaurants": [{"slug": s, "name": DETAILS[s][0], "city": DETAILS[s][1], "country": c,
-                        "lat": lat, "lon": DETAILS[s][2], "publishes_menu": pub}
+                        "lat": lat, "lon": DETAILS[s][2], "publishes_menu": pub,
+                        "lists": LISTS[s]}
                        for s, c, lat, pub in restaurants],
        "menus": menus}
 path = Path(__file__).parents[1] / "tests/fixtures/synthetic_menus.json"

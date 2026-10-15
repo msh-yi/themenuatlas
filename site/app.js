@@ -131,7 +131,7 @@ function table(rows, cols, state, onSort) {
     return state.dir === "asc" ? c : -c;
   });
   const head = h("tr", {}, cols.map((c) => h("th", { class: c.num ? "num" : null, "aria-sort": c.key === col.key ? (state.dir === "asc" ? "ascending" : "descending") : null },
-    c.nosort ? c.label : h("button", { onclick: () => onSort(c.key, c.key === col.key && state.dir === "desc" ? "asc" : (c.key === col.key ? "desc" : (c.num ? "desc" : "asc"))) },
+    c.nosort ? c.label : h("button", { onclick: () => onSort(c.key, c.key === col.key && state.dir === "desc" ? "asc" : (c.key === col.key ? "desc" : (c.first || (c.num ? "desc" : "asc")))) },
       c.label + (c.key === col.key ? (state.dir === "asc" ? " ↑" : " ↓") : "")))));
   // Long tables render in pages; "Show more" appends the next page in place.
   const page = state.page || 100;
@@ -155,7 +155,47 @@ function groupOptions(selected) {
   const opt = (v, l) => h("option", { value: v, selected: v === selected }, l);
   return [opt("", "All restaurants"),
     h("optgroup", { label: "Region" }, D.groups.region.map((g) => opt("region:" + g, g))),
+    accoladeGroups().length ? h("optgroup", { label: "Accolade" }, accoladeGroups().map((g) => opt("accolade:" + g, g))) : null,
     D.groups.season.some((g) => g !== "unknown") ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.filter((g) => g !== "unknown").map((g) => opt("season:" + g, cap(g)))) : null];
+}
+// accolade groups with enough menus for shares and pairings
+const accoladeGroups = () => Object.keys(D.groups.accolade_with_data || {});
+
+// --- accolades ----------------------------------------------------------------
+
+// "★★★ · 50 Best #12 · NYT NYC #48"; "" when the restaurant is on none of the lists.
+function accoladeText(a = {}) {
+  return [a.stars ? "★".repeat(a.stars) : null, a.w50b ? `50 Best #${a.w50b}` : null,
+    a.nyt50 ? "NYT America 50" : null, a.nytnyc ? `NYT NYC #${a.nytnyc}` : null].filter(Boolean).join(" · ");
+}
+function accoladeTitle(a = {}) {
+  return [a.stars ? `${a.stars} Michelin star${a.stars > 1 ? "s" : ""} (${a.stars_year} guide)` : null,
+    a.w50b ? `No. ${a.w50b} on The World's 50 Best Restaurants ${a.w50b_year} (1–100)` : null,
+    a.nyt50 ? `New York Times, The 50 Best Restaurants in America ${a.nyt50}` : null,
+    a.nytnyc ? `No. ${a.nytnyc} on the New York Times 100 Best Restaurants in NYC ${a.nytnyc_year}` : null].filter(Boolean).join("\n");
+}
+// Higher is more decorated: stars first, then 50 Best rank, then the NYT lists.
+function accoladeScore(a = {}) {
+  return (a.stars || 0) * 1000 + (a.w50b ? 500 - a.w50b : 0) + (a.nyt50 ? 50 : 0) + (a.nytnyc ? (101 - a.nytnyc) / 10 : 0);
+}
+function accoladeCell(a) {
+  const t = accoladeText(a);
+  return t ? h("span", { class: "acc", title: accoladeTitle(a) }, t) : h("span", { class: "muted" }, "–");
+}
+// Filter values: "" (all), a group name, "starred" (any Michelin star) or "none".
+function accoladeSelect(selected, groups = D.groups.accolade || []) {
+  const opt = (v, l) => h("option", { value: v, selected: v === selected }, l);
+  const n = (f) => D.restaurants.filter((r) => accoladeMatch(r, f)).length;
+  return h("select", {}, opt("", "Any or none"),
+    groups.map((g) => opt(g, `${g} (${n(g)})`)),
+    groups.some((g) => g.endsWith("star") || g.endsWith("stars")) ? opt("starred", `Any Michelin star (${n("starred")})`) : null,
+    opt("none", `None of these lists (${n("none")})`));
+}
+function accoladeMatch(r, f) {
+  if (!f) return true;
+  if (f === "starred") return !!r.accolades?.stars;
+  if (f === "none") return !(r.tiers || []).length;
+  return (r.tiers || []).includes(f);
 }
 const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
 // lowercase without accents, so "cepe" finds "cèpe"
@@ -164,7 +204,7 @@ const fold = (x) => (x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").t
 function groupShare(ing, group) {
   if (!group) return ing.share;
   const [kind, g] = group.split(":");
-  return (kind === "region" ? ing.by_region : ing.by_season)[g];
+  return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
 // --- views --------------------------------------------------------------------
@@ -225,6 +265,7 @@ function ingredient(_params, [name]) {
     .map((p) => ({ ...p, other: p.a === name ? p.b : p.a }));
   const regions = D.groups.region.filter((g) => ing.by_region[g] != null).map((g) => [g, ing.by_region[g]]);
   const seasons = D.groups.season.filter((g) => ing.by_season[g] != null).map((g) => [cap(g), ing.by_season[g]]);
+  const accolades = accoladeGroups().map((g) => [g, (ing.by_accolade || {})[g] || 0]);
   const rs = ing.restaurants.map((slug) => byRestaurant.get(slug) || { slug, name: slug })
     .sort((a, b) => a.name.localeCompare(b.name));
   const LIST = 40;
@@ -242,6 +283,8 @@ function ingredient(_params, [name]) {
       [ing.preparations[0]?.[0] || "–", "most common preparation"]]),
     h("div", { class: "grid2" },
       h("section", { class: "card" }, h("h2", {}, "Share of menus by region"), barChart(regions, { max: 1 })),
+      accolades.length ? h("section", { class: "card" }, h("h2", {}, "Share of menus by accolade"),
+        barChart(accolades, { max: 1, note: "Among the restaurants with menus in each group. A restaurant can be in several." })) : null,
       h("section", { class: "card" }, h("h2", {}, "Share of menus by season"),
         seasons.every(([g]) => g === "Unknown")
           ? h("p", { class: "empty" }, "No menu dates in this build yet, so no seasons.")
@@ -271,15 +314,18 @@ function ingredient(_params, [name]) {
 
 function pairings(params) {
   const out = h("div", {});
+  const accSel = h("select", {}, h("option", { value: "" }, "All restaurants"),
+    accoladeGroups().map((g) => h("option", { value: g, selected: g === params.get("acc") }, `${g} (${D.groups.accolade_with_data[g]} with menus)`)));
+  const pool = () => (accSel.value && D.pairs_by_accolade?.[accSel.value]) || D.pairs;
   const maxR = D.pairs.reduce((m, p) => Math.max(m, p.restaurants), D.min_restaurants);
-  // With lots of data, start from pairs seen at 5+ restaurants so one-off dishes don't lead.
-  const defaultMin = D.pairs.length > 2000 ? Math.min(5, maxR) : D.min_restaurants;
+  // With lots of data, start from pairs seen at more restaurants so one-off dishes don't lead.
+  const defaultMin = () => { const n = pool().length; return n > 2000 ? Math.min(5, maxR) : n > 500 ? Math.min(3, maxR) : D.min_restaurants; };
   const state = { sort: params.get("sort") || "lift", dir: params.get("dir") || "desc" };
   const search = h("input", { type: "search", placeholder: "filter by ingredient", value: params.get("q") || "", "aria-label": "Filter pairings by ingredient" });
   const steps = [...new Set([D.min_restaurants, 3, 5, 10, 20, 50, 100].filter((v) => v >= D.min_restaurants && v <= maxR))];
   const minSel = h("select", {}, steps.map((n, i) => {
     const v = String(n);
-    return h("option", { value: v, selected: v === (params.get("min") || String(defaultMin)) }, v + "+");
+    return h("option", { value: v, selected: v === (params.get("min") || String(defaultMin())) }, v + "+");
   }));
   const chartHost = h("section", { class: "card" });
   const tableHost = h("div", {});
@@ -287,14 +333,17 @@ function pairings(params) {
   const live = () => {
     const p = new URLSearchParams();
     const q = search.value.toLowerCase().trim(), min = Number(minSel.value);
-    if (q) p.set("q", q); if (min !== defaultMin) p.set("min", min);
+    if (q) p.set("q", q); if (min !== defaultMin()) p.set("min", min); if (accSel.value) p.set("acc", accSel.value);
     if (state.sort !== "lift") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
-    const rows = D.pairs.filter((x) => x.restaurants >= min && (!q || x.a.includes(q) || x.b.includes(q)));
+    const all = pool();
+    const rows = all.filter((x) => x.restaurants >= min && (!q || x.a.includes(q) || x.b.includes(q)));
     chartHost.replaceChildren(h("h2", {}, "Lift against support"),
       h("p", { class: "muted", style: "margin-top:-.5rem;font-size:.85rem" }, "Up is a stronger-than-chance pairing; right is a more common one. Hover a point; click to open its first ingredient."),
       scatter(rows));
-    tableHost.replaceChildren(h("p", { class: "muted" }, `${rows.length} of ${D.pairs.length} pairings`),
+    tableHost.replaceChildren(h("p", { class: "muted" }, `${rows.length} of ${all.length} pairings` +
+      (accSel.value ? `, scored among ${accSel.value} restaurants only` : "") +
+      (accSel.value && all.length >= 3000 ? " (the 3,000 seen at the most restaurants)" : "")),
       table(rows, [
         { key: "a", label: "Pair", sort: (r) => r.a + " " + r.b, render: (r) => h("span", {}, ingLink(r.a), " + ", ingLink(r.b)) },
         { key: "lift", label: "Lift", num: true, render: (r) => num(r.lift, 1) + "×" },
@@ -305,9 +354,11 @@ function pairings(params) {
   };
   search.addEventListener("input", live);
   minSel.addEventListener("change", live);
+  accSel.addEventListener("change", () => { minSel.value = String(defaultMin()); live(); });
   out.append(h("h1", {}, "Pairings"),
     h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent.`),
-    h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel)),
+    h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel),
+      accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null),
     chartHost, tableHost);
   live();
   return out;
@@ -357,29 +408,70 @@ function restaurants(params) {
   const out = h("div", {});
   const state = { sort: params.get("sort") || "name", dir: params.get("dir") || "asc" };
   const opt = (v, l, sel) => h("option", { value: v, selected: v === sel }, l);
+  const search = h("input", { type: "search", placeholder: "name or city", value: params.get("q") || "", "aria-label": "Search restaurants by name or city" });
   const regionSel = h("select", {}, opt("", "All regions", params.get("region") || ""), D.groups.region.map((g) => opt(g, g, params.get("region") || "")));
+  const accSel = accoladeSelect(params.get("acc") || "");
+  const menuSel = h("select", {}, [["", "All"], ["data", "With menus collected"], ["yes", "Publishes a menu"], ["blocked", "Opted out or blocked"]]
+    .map(([v, l]) => opt(v, l, params.get("menus") || "")));
+  const groupSel = h("select", {}, [["", "No grouping"], ["region", "Region"], ["accolade", "Accolade"]].map(([v, l]) => opt(v, l, params.get("by") || "")));
+  const summaryHost = h("div", {});
   const host = h("div", {});
+  const menuMatch = (r, f) => !f || (f === "data" ? r.menus > 0 : f === "yes" ? r.publishes_menu === "yes" : r.blocked);
   const live = () => {
     const p = new URLSearchParams();
+    const q = fold(search.value.trim());
+    if (search.value) p.set("q", search.value);
     if (regionSel.value) p.set("region", regionSel.value);
+    if (accSel.value) p.set("acc", accSel.value);
+    if (menuSel.value) p.set("menus", menuSel.value);
+    if (groupSel.value) p.set("by", groupSel.value);
     if (state.sort !== "name") p.set("sort", state.sort); if (state.dir !== "asc") p.set("dir", state.dir);
     setParams(p);
-    const rows = D.restaurants.filter((r) => !regionSel.value || r.region === regionSel.value);
-    host.replaceChildren(table(rows, [
-      { key: "name", label: "Restaurant", render: (r) => h("a", { href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name) },
-      { key: "city", label: "City", render: (r) => r.city || "–" },
-      { key: "region", label: "Region" },
-      { key: "menus", label: "Menus", num: true },
-      { key: "ingredients", label: "Ingredients", num: true },
-      { key: "url", label: "Source", nosort: true, render: (r) => r.url ? h("a", { href: r.url, rel: "noopener", target: "_blank" }, "website ↗") : h("span", { class: "muted" }, "–") },
-    ], state, (sort, dir) => { state.sort = sort; state.dir = dir; live(); }));
+    const rows = D.restaurants.filter((r) => (!regionSel.value || r.region === regionSel.value) && accoladeMatch(r, accSel.value)
+      && menuMatch(r, menuSel.value) && (!q || fold(r.name).includes(q) || fold(r.city).includes(q)))
+      .map((r) => ({ ...r, acc: accoladeScore(r.accolades) }));
+    summaryHost.replaceChildren(groupSel.value ? groupSummary(rows, groupSel.value) : "");
+    host.replaceChildren(h("p", { class: "muted" }, `${rows.length.toLocaleString()} of ${D.restaurants.length.toLocaleString()} restaurants`),
+      table(rows, [
+        { key: "name", label: "Restaurant", render: (r) => h("a", { href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name) },
+        { key: "city", label: "City", render: (r) => r.city || "–" },
+        { key: "region", label: "Region" },
+        { key: "acc", label: "Accolade", first: "desc", render: (r) => accoladeCell(r.accolades) },
+        { key: "menus", label: "Menus", num: true },
+        { key: "ingredients", label: "Ingredients", num: true },
+        { key: "url", label: "Source", nosort: true, render: (r) => r.url ? h("a", { href: r.url, rel: "noopener", target: "_blank", style: "white-space:nowrap" }, "website ↗") : h("span", { class: "muted" }, "–") },
+      ], state, (sort, dir) => { state.sort = sort; state.dir = dir; live(); }));
   };
-  regionSel.addEventListener("change", live);
+  search.addEventListener("input", live);
+  for (const el of [regionSel, accSel, menuSel, groupSel]) el.addEventListener("change", live);
   out.append(h("h1", {}, "Restaurants"),
-    h("p", { class: "sub" }, "Every restaurant in the seed list, including those that don't publish a menu."),
-    h("div", { class: "filters" }, h("label", {}, "Region", regionSel)), host);
+    h("p", { class: "sub" }, "Every restaurant in the list, including those that don't publish a menu. Stars are from the most recent Michelin guide the list records."),
+    h("div", { class: "filters" }, h("label", {}, "Search", search), h("label", {}, "Region", regionSel), h("label", {}, "Accolade", accSel),
+      h("label", {}, "Menus", menuSel), h("label", {}, "Group by", groupSel)),
+    summaryHost, host);
   live();
   return out;
+}
+
+// One row per region or accolade group for the filtered restaurants.
+function groupSummary(rows, by) {
+  const keys = by === "region" ? D.groups.region : [...(D.groups.accolade || []), "None of these lists"];
+  const of = (r) => by === "region" ? [r.region] : (r.tiers?.length ? r.tiers : ["None of these lists"]);
+  const acc = new Map(keys.map((k) => [k, { group: k, restaurants: 0, yes: 0, data: 0, menus: 0 }]));
+  for (const r of rows) for (const k of of(r)) {
+    const g = acc.get(k); if (!g) continue;
+    g.restaurants++; if (r.publishes_menu === "yes") g.yes++; if (r.menus) g.data++; g.menus += r.menus;
+  }
+  const out = [...acc.values()].filter((g) => g.restaurants).map((g) => ({ ...g, rate: g.data / g.restaurants }));
+  return h("section", { class: "card" }, h("h2", {}, by === "region" ? "By region" : "By accolade"),
+    by === "accolade" ? h("p", { class: "muted", style: "margin-top:-.5rem;font-size:.85rem" }, "A restaurant can be in several groups.") : null,
+    table(out, [
+      { key: "group", label: by === "region" ? "Region" : "Accolade" },
+      { key: "restaurants", label: "Restaurants", num: true },
+      { key: "yes", label: "Publish a menu", num: true },
+      { key: "data", label: "With menus", num: true },
+      { key: "rate", label: "Covered", num: true, render: (g) => pct(g.rate) },
+    ], { sort: "restaurants", dir: "desc" }, () => {}));
 }
 
 function restaurant(_params, [slug]) {
@@ -391,6 +483,7 @@ function restaurant(_params, [slug]) {
   return h("div", {},
     h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/restaurants" }, "← Restaurants")),
     h("h1", {}, r.name),
+    accoladeText(r.accolades) ? h("p", { class: "acc", style: "margin:-.1rem 0 .4rem", title: accoladeTitle(r.accolades) }, accoladeText(r.accolades)) : null,
     h("p", { class: "sub" }, [r.city, r.country].filter(Boolean).join(", ") + (r.region ? ` · ${r.region}` : ""),
       r.url ? h("span", {}, " · ", h("a", { href: r.url, rel: "noopener", target: "_blank" }, "restaurant website ↗")) : null),
     tiles([[r.menus, "distinct menus"], [r.ingredients, "ingredients"], [r.publishes_menu === "yes" ? "Yes" : r.publishes_menu === "no" ? "No" : "?", "publishes a menu"]]),
@@ -515,7 +608,7 @@ function coverageMap(params, opts = {}) {
 
   const sync = () => {
     if (opts.sync === false) return;
-    const p = new URLSearchParams();
+    const p = new URLSearchParams(opts.extra || {});
     if (preset && preset !== "World") p.set("view", preset);
     if (hidden.size) p.set("hide", [...hidden].join(","));
     setParams(p);
@@ -773,13 +866,30 @@ function coverageMap(params, opts = {}) {
 
 function coverage(params) {
   const rows = D.coverage.map((c) => ({ ...c, rate: c.restaurants ? c.with_data / c.restaurants : 0 }));
-  const t = D.totals;
+  const accSel = accoladeSelect(params.get("acc") || "");
+  const tilesHost = h("div", {}), mapHost = h("div", {});
+  const render = () => {
+    const f = accSel.value;
+    const rs = D.restaurants.filter((r) => accoladeMatch(r, f));
+    const withData = rs.filter((r) => r.menus).length;
+    tilesHost.replaceChildren(tiles([[rs.length, f ? "restaurants in this group" : "restaurants in the list"],
+      [rs.filter((r) => r.publishes_menu === "yes").length, "publish a menu"],
+      [withData, "with menus collected"], [pct(rs.length ? withData / rs.length : 0), "covered"]]));
+    const p = new URLSearchParams(location.hash.split("?")[1] || "");
+    mapHost.replaceChildren(coverageMap(p, { only: f ? new Set(rs.map((r) => r.slug)) : null, extra: f ? { acc: f } : {},
+      shadeLabel: f ? "restaurants in this group" : undefined }));
+  };
+  accSel.addEventListener("change", () => {
+    const p = new URLSearchParams(location.hash.split("?")[1] || "");
+    accSel.value ? p.set("acc", accSel.value) : p.delete("acc");
+    setParams(p); render();
+  });
+  render();
   return h("div", {},
     h("h1", {}, "Coverage"),
     h("p", { class: "sub" }, "Where the menus come from. Read every chart on this site against this map: a region with two restaurants says little."),
-    tiles([[t.restaurants, "restaurants in the list"], [D.restaurants.filter((r) => r.publishes_menu === "yes").length, "publish a menu"],
-      [t.restaurants_with_data, "with menus collected"], [pct(t.restaurants ? t.restaurants_with_data / t.restaurants : 0), "covered"]]),
-    coverageMap(params),
+    h("div", { class: "filters" }, h("label", {}, "Accolade", accSel)),
+    tilesHost, mapHost,
     h("details", { class: "card" }, h("summary", {}, "Coverage by region, as a table"),
       table(rows, [
         { key: "region", label: "Region" },

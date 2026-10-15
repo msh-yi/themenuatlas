@@ -21,6 +21,60 @@ from menudb import analysis as a
 
 SCHEMA = 1
 SEASONS = ["spring", "summer", "autumn", "winter", "tropical", "unknown"]
+# Accolade groups, most selective first. A restaurant can be in several.
+ACCOLADES = ["3 stars", "2 stars", "1 star", "World's 50 Best", "NYT America 50", "NYT NYC 100"]
+# Groups with fewer restaurants with menus get no ingredient shares or pairings: too few
+# to say anything, and too close to describing single restaurants.
+MIN_GROUP = 10
+PAIRS_PER_GROUP = 3000
+
+
+def accolades(lists: str | None) -> dict:
+    """Public list facts from a `lists` cell such as
+    "michelin:2026:3;michelin:2020:2;w50b:2025:83;nyt:2026:america50;nytnyc:2026:48".
+
+    Michelin stars come from the most recent year listed (the highest, if a year repeats);
+    ranks likewise from each list's most recent year.
+    """
+    best: dict[str, tuple[int, int]] = {}  # list -> (year, value)
+    for entry in filter(None, (lists or "").split(";")):
+        kind, _, rest = entry.strip().partition(":")
+        year, _, value = rest.partition(":")
+        if not year.isdigit():
+            continue
+        y = int(year)
+        if kind == "michelin" and value.isdigit():
+            v = int(value)
+            if kind not in best or (y, v) > best[kind]:
+                best[kind] = (y, v)
+        elif kind in ("w50b", "nytnyc") and value.isdigit():
+            if kind not in best or y > best[kind][0]:
+                best[kind] = (y, int(value))
+        elif kind == "nyt":
+            best[kind] = (y, 0)
+    out: dict = {}
+    if "michelin" in best and best["michelin"][1]:
+        out["stars"], out["stars_year"] = best["michelin"][1], best["michelin"][0]
+    if "w50b" in best:
+        out["w50b"], out["w50b_year"] = best["w50b"][1], best["w50b"][0]
+    if "nyt" in best:
+        out["nyt50"] = best["nyt"][0]
+    if "nytnyc" in best:
+        out["nytnyc"], out["nytnyc_year"] = best["nytnyc"][1], best["nytnyc"][0]
+    return out
+
+
+def accolade_groups(acc: dict) -> list[str]:
+    tiers = []
+    if acc.get("stars"):
+        tiers.append({3: "3 stars", 2: "2 stars"}.get(acc["stars"], "1 star"))
+    if "w50b" in acc:
+        tiers.append("World's 50 Best")
+    if "nyt50" in acc:
+        tiers.append("NYT America 50")
+    if "nytnyc" in acc:
+        tiers.append("NYT NYC 100")
+    return tiers
 
 
 def preparations_from_extracted(menus: Iterable[dict]) -> dict[str, Counter]:
@@ -70,6 +124,7 @@ def restaurant_details(csv_path: Path | None) -> dict[str, dict]:
         return {r["slug"]: {"name": r["name"], "city": r["city"], "country": r["country"],
                             "lon": float(r["lon"]) if r.get("lon") else None,
                             "approx": (r.get("coord_precision") or "").strip().lower() == "city",
+                            "accolades": accolades(r.get("lists")),
                             "url": r["website"]} for r in csv.DictReader(f)}
 
 
@@ -86,7 +141,9 @@ def add_full_list(restaurants: dict[str, a.Restaurant], details: dict[str, dict]
     if not full_csv.exists():
         return
     for slug, det in restaurant_details(full_csv).items():
-        details.setdefault(slug, det)
+        known = details.setdefault(slug, det)
+        if det["accolades"]:  # the full list is the more complete and recent source
+            known["accolades"] = det["accolades"]
     with full_csv.open() as f:
         for r in csv.DictReader(f):
             if r["slug"] in restaurants:
@@ -168,7 +225,7 @@ def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
 
 def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: str,
           details: dict[str, dict] | None = None, preparations: dict[str, Counter] | None = None,
-          min_restaurants: int = 2, now: datetime | None = None,
+          min_restaurants: int = 2, min_group: int = MIN_GROUP, now: datetime | None = None,
           wikipedia: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None) -> dict:
     """`wikipedia` maps ingredient name -> article URL (see wiki.py); `lexicon` comes
     from lexicon_info()."""
@@ -185,12 +242,30 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         menus[r.restaurant].add(r.menu)
     pairs = a.pair_stats(rows, min_restaurants=min_restaurants)
 
+    # accolade groups: ingredient shares and pairings among the restaurants in each
+    tiers = {slug: accolade_groups(details.get(slug, {}).get("accolades") or {}) for slug in restaurants}
+    by_accolade: dict[str, dict[str, float]] = defaultdict(dict)
+    pairs_by_accolade: dict[str, list[dict]] = {}
+    accolade_with_data: dict[str, int] = {}
+    for g in ACCOLADES:
+        grows = [r for r in rows if g in tiers.get(r.restaurant, ())]
+        n = len({r.restaurant for r in grows})
+        if n < min_group:
+            continue
+        accolade_with_data[g] = n
+        for d in a.ingredient_frequency(grows):
+            by_accolade[d["ingredient"]][g] = round(d["share"], 4)
+        gp = sorted(a.pair_stats(grows, min_restaurants=min_restaurants),
+                    key=lambda p: (-p["restaurants"], -p["lift"], p["a"], p["b"]))
+        pairs_by_accolade[g] = [_pair(p) for p in gp[:PAIRS_PER_GROUP]]
+
     ingredients = [{
         "name": d["ingredient"],
         "share": round(d["share"], 4),
         "restaurants": sorted(users[d["ingredient"]]),
         "by_region": by_region.get(d["ingredient"], {}),
         "by_season": by_season.get(d["ingredient"], {}),
+        "by_accolade": by_accolade.get(d["ingredient"], {}),
         "preparations": preparations.get(d["ingredient"], Counter()).most_common(8),
         "wikipedia": wikipedia.get(d["ingredient"]),
         **{k: v for k, v in lexicon.get(d["ingredient"], {}).items() if v},
@@ -203,8 +278,10 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
             "slug": slug, "name": det.get("name") or slug, "city": det.get("city"),
             "country": det.get("country"), "region": r.region, "lat": r.lat, "lon": det.get("lon"),
             "approx": bool(det.get("approx")),
+            "accolades": det.get("accolades") or {}, "tiers": tiers.get(slug, []),
             "blocked": bool(det.get("blocked")),
-            "url": det.get("url"), "publishes_menu": r.publishes_menu,
+            "url": det.get("url"),
+            "publishes_menu": "yes" if menus.get(slug) else r.publishes_menu,
             "menus": len(menus.get(slug, ())),
             "ingredients": sum(slug in u for u in users.values()),
         })
@@ -213,6 +290,10 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "region": sorted({r.region for r in restaurants.values()}),
         "season": [s for s in SEASONS if any(r.season == s for r in rows)],
         "category": sorted({i["category"] for i in ingredients if i.get("category")}),
+        # every accolade some restaurant holds (restaurant filters), and those with
+        # enough menus for ingredient shares and pairings
+        "accolade": [g for g in ACCOLADES if any(g in t for t in tiers.values())],
+        "accolade_with_data": accolade_with_data,
     }
     return {
         "schema": SCHEMA,
@@ -231,10 +312,14 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "coverage": a.coverage(restaurants, rows),
         "restaurants": restaurant_list,
         "ingredients": ingredients,
-        "pairs": [{"a": p["a"], "b": p["b"], "support": round(p["support"], 5),
-                   "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3),
-                   "restaurants": p["restaurants"]} for p in pairs],
+        "pairs": [_pair(p) for p in pairs],
+        "pairs_by_accolade": pairs_by_accolade,
     }
+
+
+def _pair(p: dict) -> dict:
+    return {"a": p["a"], "b": p["b"], "support": round(p["support"], 5),
+            "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3), "restaurants": p["restaurants"]}
 
 
 def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict]:
@@ -246,7 +331,8 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         rows, restaurants = a.load_synthetic(path)
         data = json.loads(path.read_text())
         details = {r["slug"]: {"name": r.get("name"), "city": r.get("city"),
-                               "country": r["country"], "lon": r.get("lon"), "url": None}
+                               "country": r["country"], "lon": r.get("lon"), "url": None,
+                               "accolades": accolades(r.get("lists"))}
                    for r in data["restaurants"]}
         return rows, restaurants, details, preparations_from_extracted(data["menus"])
     if source == "bucket":
