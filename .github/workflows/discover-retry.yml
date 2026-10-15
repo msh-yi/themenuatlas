@@ -27,7 +27,7 @@ permissions:
 jobs:
   retry:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 350
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -58,7 +58,7 @@ jobs:
           RENDER: ${{ inputs.render }}
         run: |
           args=()
-          [ "$RENDER" = "true" ] && args+=(--render --js-workers 6)
+          [ "$RENDER" = "true" ] && args+=(--render --js-workers 12)
           for s in ${STATUSES:-robots failed}; do args+=(--retry "$s"); done
           uv run menudb discover --workers 16 --js --to-bucket "${args[@]}"
 

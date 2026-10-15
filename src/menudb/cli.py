@@ -293,7 +293,8 @@ def discover(
 
     if js or render:
         retry_js += [r for r in static if done[r["slug"]]["status"] == "needs_js"]
-        groups = [retry_js[i::js_workers] for i in range(js_workers)]
+        # small chunks, each with its own browser, so progress is saved as it goes
+        groups = [retry_js[i:i + 10] for i in range(0, len(retry_js), 10)]
         with ThreadPoolExecutor(js_workers) as ex:
             for fut in as_completed([ex.submit(run_rendered, g) for g in groups if g]):
                 for slug, d, stored in fut.result():
