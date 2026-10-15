@@ -31,7 +31,10 @@ jobs:
       AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
     steps:
+      # main as of when the job starts, not when it was queued: another run may have committed since
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: astral-sh/setup-uv@v6
 

@@ -35,7 +35,10 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       RESPECT_ROBOTS: "false"
     steps:
+      # main as of when the job starts, not when it was queued: another run may have committed since
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: astral-sh/setup-uv@v6
 
