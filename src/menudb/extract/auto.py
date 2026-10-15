@@ -4,9 +4,9 @@ Splits a menu's text into dishes line by line, finds ingredients and preparation
 with the multilingual lexicons in `data/lexicon/`, and returns the same
 `ExtractedMenu` a session would write. It is rougher than a model: it only knows
 the ingredients in the lexicon, and it leaves poetic titles and most Japanese,
-Chinese and Korean menus thin. Comma-separated phrases it can't match become
-components with no `name`, which import sends to the review queue as `open`, so
-the lexicon can grow from what the menus actually say.
+Chinese and Korean menus thin. Comma-separated phrases it can't match never become
+components (most are prose fragments); `extract-auto` collects them as lexicon
+candidates in the bucket's review/lexicon_candidates.json instead.
 
 Works on text only (pure functions); `menudb extract-auto` does the bucket I/O.
 """
@@ -19,7 +19,7 @@ from pathlib import Path
 
 from menudb.extract.schema import ComponentOut, CourseOut, ExtractedMenu, PendingItem
 
-EXTRACTOR = "lexicon-1"  # bump the number when the rules change enough to re-run
+EXTRACTOR = "lexicon-2"  # bump the number when the rules change enough to re-run
 
 LEXICON_DIR = Path(__file__).resolve().parents[3] / "data" / "lexicon"
 
@@ -375,7 +375,8 @@ _FILLER = set(fold(w) for w in """
 _ROLE_BY_CAT = {"herb": "seasoning", "spice": "seasoning", "grain": "base"}
 
 
-def _components(dish: str, langs: list[str], ing: Lexicon, prep: Lexicon) -> list[ComponentOut]:
+def _components(dish: str, langs: list[str], ing: Lexicon, prep: Lexicon,
+                candidates: list[str] | None = None) -> list[ComponentOut]:
     hits = find(ing, dish, langs)
     preps = find(prep, dish, langs)
     # segment boundaries: commas, "and"/"with", brackets, ...
@@ -422,7 +423,8 @@ def _components(dish: str, langs: list[str], ing: Lexicon, prep: Lexicon) -> lis
         out[name] = ComponentOut(raw_term=dish[h.start:h.end][:200], name=name, role=role,
                                  preparations=sorted(set(names)))
 
-    # unmatched short phrases go to the review queue (name None)
+    # Unmatched short phrases are lexicon candidates, never components: most are
+    # fragments of prose ("around", "his image as gracious"), not ingredients.
     for a, b in zip(cuts, cuts[1:]):
         if any(h.start < b and h.end > a for h in hits):
             continue
@@ -435,8 +437,8 @@ def _components(dish: str, langs: list[str], ing: Lexicon, prep: Lexicon) -> lis
         phrase = " ".join(words)
         if 1 <= len(words) <= 4 and len(phrase) >= 3 and not _PRICE.search(phrase) \
                 and any(c.isalpha() for c in phrase) and fold(phrase) not in _HEADING_OF:
-            key = "?" + fold(phrase)
-            out.setdefault(key, ComponentOut(raw_term=phrase[:200], name=None, role=None))
+            if candidates is not None:
+                candidates.append(phrase[:200])
     return list(out.values())
 
 
@@ -518,8 +520,9 @@ def _prices(text: str, country: str | None) -> list[tuple[float, str, bool]]:
     return out
 
 
-def extract(item: PendingItem, country: str | None = None,
-            lexicon_dir: Path = LEXICON_DIR) -> ExtractedMenu:
+def extract(item: PendingItem, country: str | None = None, lexicon_dir: Path = LEXICON_DIR,
+            candidates: list[str] | None = None) -> ExtractedMenu:
+    """`candidates`, if given, collects unmatched phrases from dish lines (for the lexicon)."""
     ing, prep = load(lexicon_dir)
     text = item.text or ""
     base = dict(slug=item.slug, normalized_hash=item.normalized_hash, menu_id=item.menu_id,
@@ -553,9 +556,12 @@ def extract(item: PendingItem, country: str | None = None,
         if fold(raw) in seen:
             continue  # the same dish on two menus of one page counts once
         seen.add(fold(raw))
-        comps = _components(raw.replace("\n", " , "), langs, ing, prep)
+        found: list[str] = []
+        comps = _components(raw.replace("\n", " , "), langs, ing, prep, found)
         if not any(c.name for c in comps):
             continue
+        if candidates is not None:
+            candidates.extend(found)
         courses.append((raw, head, comps))
     out = []
     for i, (raw, head, comps) in enumerate(courses):

@@ -5,6 +5,8 @@
     imported/<slug>/<normalized_hash>.json   moved there by `import --from-bucket`
     processed/<slug>/<normalized_hash>.json  pending items `extract-auto` has done, kept so
                                              it can re-run when the lexicon improves
+    review/candidates/<slug>/<hash>.json     phrases `extract-auto` couldn't match, per document;
+    review/lexicon_candidates.json           the same, totalled, for growing the lexicon
 
 Keys use (slug, normalized_hash), the same identity as a menu row, so a document
 can be queued and extracted before `check` has created its menu; import waits
@@ -29,6 +31,7 @@ from menudb.normalize import content_hash, normalized_hash
 log = logging.getLogger(__name__)
 
 PENDING, EXTRACTED, IMPORTED, PROCESSED = "pending/", "extracted/", "imported/", "processed/"
+CANDIDATES, CANDIDATES_SUMMARY = "review/candidates/", "review/lexicon_candidates.json"
 
 
 def key(prefix: str, slug: str, nhash: str) -> str:
@@ -144,21 +147,47 @@ def extract_auto(slugs: set[str] | None = None, countries: dict[str, str] | None
             if done and not get_json(done).get("extractor", "").startswith("lexicon"):
                 counts["kept_session_extraction"] += 1
                 continue
-        ex = auto.extract(item, country=countries.get(item.slug))
+        found: list[str] = []
+        ex = auto.extract(item, country=countries.get(item.slug), candidates=found)
         counts["extracted"] += 1
         counts["menus" if ex.is_menu else "not_a_menu"] += 1
         counts["courses"] += len(ex.courses)
         comps = [c for co in ex.courses for c in co.components]
         counts["components"] += len(comps)
-        counts["unnamed_components"] += sum(1 for c in comps if not c.name)
+        counts["candidates"] += len(found)
         log.info("extracted slug=%s hash=%s is_menu=%s courses=%d",
                  item.slug, item.normalized_hash[:12], ex.is_menu, len(ex.courses))
         if dry_run:
             continue
         put_json(out, ex)
+        storage.put_bytes(key(CANDIDATES, item.slug, item.normalized_hash),
+                          json.dumps({"language": ex.language, "phrases": found}).encode(),
+                          "application/json")
         if k.startswith(PENDING):
             storage.move(k, PROCESSED + k.removeprefix(PENDING))
+    if counts["extracted"] and not dry_run:
+        summarize_candidates()
     return counts
+
+
+def summarize_candidates() -> int:
+    """Total the per-document candidates into review/lexicon_candidates.json:
+    phrase, language, how many restaurants use it. Returns the number of phrases."""
+    from menudb.extract.auto import fold
+
+    totals: dict[tuple[str, str], dict] = {}
+    for k in storage.list_keys(CANDIDATES):
+        slug = k.removeprefix(CANDIDATES).split("/")[0]
+        doc = get_json(k)
+        for phrase in set(doc.get("phrases", [])):
+            row = totals.setdefault((fold(phrase), doc.get("language") or "und"),
+                                    {"phrase": phrase, "language": doc.get("language"), "slugs": set()})
+            row["slugs"].add(slug)
+    rows = sorted(({"phrase": r["phrase"], "language": r["language"], "restaurants": len(r["slugs"])}
+                   for r in totals.values()), key=lambda r: (-r["restaurants"], r["phrase"]))
+    storage.put_bytes(CANDIDATES_SUMMARY, json.dumps(rows, ensure_ascii=False).encode(),
+                      "application/json")
+    return len(rows)
 
 
 # --- import -------------------------------------------------------------------

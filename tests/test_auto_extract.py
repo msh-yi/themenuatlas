@@ -77,9 +77,11 @@ def test_plurals_compounds_and_unmatched_phrases():
     found = lambda s, langs: [h.entry.name for h in auto.find(ing, s, langs)]  # noqa: E731
     assert found("Heritage tomatoes, radishes and cherries", ["en"]) == ["tomato", "radish", "cherry"]
     assert found("Steinpilzrisotto mit Kalbsbries", ["de", "en"]) == ["porcini", "risotto", "sweetbread"]
-    ex = auto.extract(item("Turbot, Zorblax foam\nLamb, onion\nDuck, plum\nPork, apple\nHake, leek\n"))
-    unnamed = [c.raw_term for c in ex.courses[0].components if not c.name]
-    assert unnamed == ["Zorblax"]  # goes to the review queue on import
+    found: list[str] = []
+    ex = auto.extract(item("Turbot, Zorblax foam\nLamb, onion\nDuck, plum\nPork, apple\nHake, leek\n"),
+                      candidates=found)
+    assert all(c.name for co in ex.courses for c in co.components)  # never unnamed components
+    assert found == ["Zorblax"]  # a lexicon candidate instead
 
 
 def test_not_a_menu():
@@ -101,6 +103,8 @@ def test_extract_auto_writes_extracted_and_keeps_session_work(bucket):  # noqa: 
     assert handoff.key(handoff.PROCESSED, "a", a.normalized_hash) in bucket
     assert handoff.key(handoff.PENDING, "a", a.normalized_hash) not in bucket
     assert handoff.key(handoff.PENDING, "b", b.normalized_hash) in bucket  # filtered out
+    assert json.loads(bucket[handoff.CANDIDATES_SUMMARY]) == [] or isinstance(
+        json.loads(bucket[handoff.CANDIDATES_SUMMARY]), list)
 
     # a session later replaces it; a rerun must not overwrite the session's work
     session = json.loads(bucket[k]) | {"extractor": "claude-code-session"}
