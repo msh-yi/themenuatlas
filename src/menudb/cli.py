@@ -139,6 +139,36 @@ def probe(
 
 
 @app.command()
+def backfill(
+    slugs: list[str] = typer.Argument(None, help="restaurant slugs; default: every source"),
+    since: str = typer.Option(None, help="earliest capture, YYYY or YYYYMMDD"),
+    max_captures: int = typer.Option(24, help="most recent N monthly captures per source"),
+):
+    """Record menu history from the Wayback Machine (origin=wayback snapshots).
+
+    Needs Postgres, and web.archive.org isn't reachable from cloud sessions, so this
+    runs in Actions (backfill.yml) or locally. Prints counts only.
+    """
+    from menudb.db import get_session
+    from menudb.db.models import Restaurant, Source
+    from menudb.fetch.http import Fetcher
+    from menudb.wayback import WAYBACK_INTERVAL, backfill_source
+
+    s = get_settings()
+    totals: dict[str, int] = {}
+    with get_session() as session, Fetcher(s.user_agent) as live, \
+            Fetcher(s.user_agent, min_interval=WAYBACK_INTERVAL) as wb:
+        q = select(Source).join(Restaurant).order_by(Source.id)
+        if slugs:
+            q = q.where(Restaurant.slug.in_(slugs))
+        for source in session.scalars(q).all():
+            counts = backfill_source(session, source, wb, live, since=since, max_captures=max_captures)
+            for k, v in counts.items():
+                totals[k] = totals.get(k, 0) + v
+    _summary("menudb backfill", totals)
+
+
+@app.command()
 def smoke():
     """End-to-end check of each Neon service: Postgres, Object Storage, Auth."""
     from menudb import storage

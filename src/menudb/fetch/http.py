@@ -176,6 +176,8 @@ class Fetcher:
         ctype = r.headers.get("content-type", "").split(";")[0].strip().lower()
         tdm = (
             r.headers.get("tdm-reservation", "").strip() == "1"
+            # Wayback replays carry the original response headers with this prefix
+            or r.headers.get("x-archive-orig-tdm-reservation", "").strip() == "1"
             or self._tdm_from_wellknown(str(r.url), host)
             or ("html" in ctype and bool(_TDM_META.search(r.text[:20000])))
         )

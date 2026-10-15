@@ -1,0 +1,48 @@
+# Manual: menu history from the Wayback Machine. Logs carry counts only.
+name: backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: restaurant slugs, space-separated (blank = all)
+        required: false
+      since:
+        description: earliest capture, YYYY or YYYYMMDD (blank = all)
+        required: false
+      max_captures:
+        description: most recent N monthly captures per source
+        required: false
+        default: "24"
+
+concurrency:
+  group: check  # shares the database with check.yml; don't overlap
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --no-dev
+      - run: uv run menudb seed
+      - name: menudb backfill
+        env:
+          SLUGS: ${{ inputs.slugs }}
+          SINCE: ${{ inputs.since }}
+          MAX_CAPTURES: ${{ inputs.max_captures }}
+        # $SLUGS is unquoted on purpose: one argument per slug
+        run: uv run menudb backfill $SLUGS ${SINCE:+--since "$SINCE"} --max-captures "${MAX_CAPTURES:-24}"
+      # Queue the new historical menus for extraction in a session
+      - run: uv run menudb pending --to-bucket

@@ -105,7 +105,7 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 - `ingredients.py` matches terms against aliases. Unmatched terms go to `review_queue`, and `menudb review` maps them.
 - **Automating later:** a scheduled Claude Code routine (`/schedule`), or `claude-code-action` with a subscription token.
 
-**`menudb backfill <slug>`** (to build)
+**`menudb backfill [slug...]`** (built; runs in Actions `backfill.yml`)
 
 - Uses the Wayback CDX API with `collapse=digest` and replays the recipe against `web.archive.org/web/<ts>id_/<url>`.
 - Stores the results as `origin=wayback` snapshots.
@@ -145,7 +145,7 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 3. ✅ Seed CSV committed (34 restaurants). Recipes for 15 restaurants (20 sources) in `data/recipes/`, with coverage notes in `data/recipes/README.md`. `menudb probe` walks recipes without a database; on 2026-10-15 all sources resolved and their raw documents were stored in the bucket from a cloud session.
    ⏭ **Next:** add the Actions secrets and run `check.yml` once by hand (`seed`, then `check`). Then extraction (step 4).
 4. Extraction in sessions via the bucket handoff (`pending --to-bucket` / `extract-io` / `import --from-bucket` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
-5. `wayback.py` backfill for all 30.
+5. ✅ `wayback.py` / `menudb backfill` (Actions `backfill.yml`, manual). Monthly distinct captures of each recipe's start page, replayed through `id_` URLs at about 1 request per second; the restaurant's current robots.txt and TDM still apply; `render: js` sources are skipped. web.archive.org resets connections from cloud sessions, so it has only run in tests so far.
 6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, then `check`). Still to do: the repo secrets, and the `import --from-bucket` / `pending --to-bucket` steps once those commands exist.
 7. Notebook.
 
