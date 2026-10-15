@@ -28,23 +28,10 @@ import httpx
 sys.path.insert(0, str(Path(__file__).parent))
 from build_full_list import norm_name  # noqa: E402
 
+from menudb.domains import NOT_OFFICIAL, PLATFORM  # noqa: E402
+
 BRAVE = "https://api.search.brave.com/res/v1/web/search"
 LANGSEARCH = "https://api.langsearch.com/v1/web-search"
-NOT_OFFICIAL = re.compile(
-    r"(?i)(tripadvisor|yelp|google\.|facebook|instagram|tiktok|twitter|x\.com|youtube|linkedin|"
-    r"michelin|theworlds50best|the50\.com|opentable|resy|exploretock|sevenrooms|thefork|quandoo|"
-    r"tablecheck|tabelog|gurunavi|retty|dianping|meituan|openrice|zomato|timeout|eater\.com|"
-    r"infatuation|nytimes|wikipedia|wikidata|foursquare|ubereats|deliveroo|doordash|grubhub|"
-    r"booking\.com|expedia|hotels\.com|agoda|trip\.com|gaultmillau|falstaff|restaurantguru|"
-    r"menupix|sluurpy|wanderlog|lafourchette|cntraveler|forbes|condenast|guide\.|reddit|pinterest|"
-    r"evendo|elitetraveler|foodle|usarestaurants|delectable|wikirank|reportergourmet|finedininglovers|"
-    r"myartguides|scoop\.com|restaurantji|economictimes|livejapan|leadingrestaurants|wikiwand|"
-    r"news|magazine|journal|times|post\.|guardian|telegraph|travel|tourism|visit|blog|review|"
-    r"directory|listing|menu(s)?\.(com|info)|yellowpages|pagesjaunes|happycow|gayot|bonappetit|"
-    r"robbreport|cntraveller|lonelyplanet|fodors|frommers|culinarybackstreets|gastronomia|"
-    r"amazon|ebay|apple\.com|wix\.com|twitch|threads\.net|weibo|xiaohongshu|naver\.com|"
-    r"kakao|line\.me|hotpepper|ikyu|tablelog|chope|eatigo|quandoo|bookatable|dish\.co)"
-)
 
 
 # Words too common in restaurant names to show a domain is this restaurant's own.
@@ -52,10 +39,6 @@ GENERIC = set("""restaurant restaurants ristorante restaurante trattoria osteria
 bistrot taverna cafe caffe kitchen table house room bar grill dining food foods sushi ramen club
 chez maison casa hotel wine wines and the les des del della dal tea garden steak steakhouse
 pizza pizzeria bakery noodle noodles cuisine cucina wok fish market""".split())
-# Hosting, blog and social platforms, where a name match on the subdomain proves nothing.
-PLATFORM = re.compile(r"(?i)(wordpress\.com|blogspot\.|medium\.com|substack\.com|tumblr\.com|"
-                      r"wixsite\.com|weebly\.com|squarespace\.com|github\.io|snapchat\.com|"
-                      r"linktr\.ee|business\.site|sites\.google\.com)")
 
 
 def domain_label(host: str) -> str:

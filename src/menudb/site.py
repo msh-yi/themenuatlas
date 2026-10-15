@@ -18,7 +18,7 @@ import csv
 import json
 from collections import Counter, defaultdict
 from collections.abc import Iterable
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from menudb import analysis as a
@@ -358,6 +358,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
             "url": det.get("url"),
             "publishes_menu": "yes" if menus.get(slug) else r.publishes_menu,
             "menus": len(menus.get(slug, ())),
+            # when this restaurant's menus were first and last seen (dates only)
+            "first_seen": det.get("first_seen"), "last_seen": det.get("last_seen"),
             "ingredients": sum(slug in u for u in users.values()),
         })
         if manifests and manifests.get(slug):
@@ -416,6 +418,8 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
                                "accolades": accolades(r.get("lists"))}
                    for r in data["restaurants"]}
         seen = {m["normalized_hash"]: (m.get("first_seen"), m.get("last_seen")) for m in data["menus"]}
+        add_windows(details, ((m["slug"], *seen[m["normalized_hash"]]) for m in data["menus"]
+                              if m.get("is_menu", True)))
         return (rows, restaurants, details, preparations_from_extracted(data["menus"]),
                 manifests_from_extracted(data["menus"], seen))
     if source == "bucket":
@@ -427,8 +431,12 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
-        return (a.rows_from_extracted(menus, restaurants), restaurants, details,
-                preparations_from_extracted(menus), manifests_from_extracted(menus))
+        seen = bucket_seen()
+        add_windows(details, ((m["slug"], *seen[m["normalized_hash"]]) for m in menus
+                              if m.get("is_menu", True) and m["normalized_hash"] in seen))
+        first = {h: date.fromisoformat(f) for h, (f, _) in seen.items()}
+        return (a.rows_from_extracted(menus, restaurants, first), restaurants, details,
+                preparations_from_extracted(menus), manifests_from_extracted(menus, seen))
     if source == "db":
         from menudb.db import get_session
 
@@ -436,11 +444,52 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
             rows, restaurants = a.load_db(session)
             preps = preparations_from_db(session)
             manifests = manifests_from_db(session)
+            windows = menu_windows_from_db(session)
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
+        add_windows(details, windows)
         return rows, restaurants, details, preps, manifests
     raise ValueError(f"unknown source {source!r}")
+
+
+def add_windows(details: dict[str, dict], menus: Iterable[tuple[str, str | None, str | None]]) -> None:
+    """Set each restaurant's first_seen / last_seen (ISO dates) from (slug, first, last) per menu."""
+    for slug, first, last in menus:
+        det = details.setdefault(slug, {})
+        if first and (det.get("first_seen") is None or first < det["first_seen"]):
+            det["first_seen"] = first
+        last = last or first
+        if last and (det.get("last_seen") is None or last > det["last_seen"]):
+            det["last_seen"] = last
+
+
+def menu_windows_from_db(session) -> list[tuple[str, str, str]]:
+    """(slug, first_seen, last_seen) per menu that counts: not excluded, not not-a-menu."""
+    from sqlalchemy import or_, select
+
+    from menudb.db.models import Menu, Restaurant
+
+    q = (select(Restaurant.slug, Menu.first_seen, Menu.last_seen)
+         .join(Menu, Menu.restaurant_id == Restaurant.id)
+         .where(Menu.excluded_reason.is_(None),
+                or_(Menu.menu_type.is_(None), Menu.menu_type != "not_a_menu")))
+    return [(slug, f.date().isoformat(), (l or f).date().isoformat()) for slug, f, l in session.execute(q)]
+
+
+def bucket_seen() -> dict[str, tuple[str, str]]:
+    """normalized_hash -> (first, last) dates for bucket-only builds, which have no menu rows:
+    when each document was first and last queued (pending/ or processed/). Approximate."""
+    from menudb import handoff, storage
+
+    seen: dict[str, tuple[str, str]] = {}
+    for prefix in (handoff.PENDING, handoff.PROCESSED):
+        for k, when in storage.list_modified(prefix).items():
+            h = k.rsplit("/", 1)[-1].removesuffix(".json")
+            d = when.date().isoformat()
+            f, l = seen.get(h, (d, d))
+            seen[h] = (min(f, d), max(l, d))
+    return seen
 
 
 def shard(slug: str) -> str:
@@ -455,7 +504,7 @@ def shard(slug: str) -> str:
 # Restaurant fields left out when they hold their default; the site fills them back in.
 _DEFAULTS = {"approx": False, "blocked": False, "menus": 0, "ingredients": 0, "accolades": {},
              "tiers": [], "publishes_menu": "unknown", "url": None, "city": None, "country": None,
-             "lat": None, "lon": None}
+             "lat": None, "lon": None, "first_seen": None, "last_seen": None}
 
 
 def split(data: dict) -> dict[str, object]:

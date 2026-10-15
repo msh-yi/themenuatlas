@@ -742,12 +742,19 @@ SITE_KEY = "site/"  # private: real-data builds stay in the bucket until publish
 
 @app.command()
 def stats():
-    """Row counts per table (counts only), also written to the Actions step summary."""
+    """Row counts per table and data-quality checks (counts, slugs and hosts only), also
+    written to the Actions step summary."""
+    from menudb import quality
     from menudb.db import get_session
     from menudb.stats import row_counts
 
     with get_session() as session:
         _summary("menudb stats", row_counts(session))
+        rows = quality.checks(session)
+    typer.echo(" ".join(f"{r['check']}: {r['count']}" for r in rows))
+    if path := os.environ.get("GITHUB_STEP_SUMMARY"):
+        with open(path, "a") as f:
+            f.write("### Data quality\n" + quality.markdown(rows) + "\n")
 
 
 @app.command()

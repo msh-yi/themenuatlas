@@ -138,6 +138,9 @@ def extract_auto(slugs: set[str] | None = None, countries: dict[str, str] | None
             continue
         if limit is not None and counts["extracted"] >= limit:
             break
+        if not storage.exists(k):  # moved since the listing (`menudb exclude`, another run)
+            counts["vanished"] += 1
+            continue
         item = PendingItem.model_validate(get_json(k))
         if not item.text:
             counts["no_text_layer"] += 1

@@ -86,3 +86,12 @@ def move(src: str, dst: str) -> None:
 def last_modified(key: str):
     """When the object was stored (timezone-aware datetime)."""
     return _client().head_object(Bucket=get_settings().snapshots_bucket, Key=key)["LastModified"]
+
+
+def list_modified(prefix: str) -> dict:
+    """key -> when it was stored, for every object under `prefix` (one listing, no HEADs)."""
+    paginator = _client().get_paginator("list_objects_v2")
+    out = {}
+    for page in paginator.paginate(Bucket=get_settings().snapshots_bucket, Prefix=prefix):
+        out.update({obj["Key"]: obj["LastModified"] for obj in page.get("Contents", [])})
+    return out

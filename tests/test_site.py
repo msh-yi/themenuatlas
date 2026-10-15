@@ -157,3 +157,30 @@ def test_split_files_round_trip(tmp_path):
     full = {r["slug"]: r for r in d["restaurants"]}
     assert shard["syn-japan-a"] == full["syn-japan-a"]["menu_list"]
     assert site.shard("syn-japan-a") == "62" and site.shard("jordnær") == "39"  # same as site/app.js
+
+
+def test_restaurants_carry_first_and_last_seen():
+    rows, restaurants, details, preps, manifests = site.load("synthetic", ROOT)
+    d = site.build(rows, restaurants, source="synthetic", details=details)
+    with_menus = [r for r in d["restaurants"] if r["menus"]]
+    assert with_menus and all(r["first_seen"] <= r["last_seen"] for r in with_menus)
+    assert all(r["first_seen"] is None for r in d["restaurants"] if not r["menus"])
+    first = {m["first_seen"] for ms in manifests.values() for m in ms}
+    assert min(r["first_seen"] for r in with_menus) == min(first)
+
+
+def test_add_windows_and_bucket_seen(monkeypatch):
+    from datetime import datetime, timezone
+
+    details = {"a": {"name": "A"}}
+    site.add_windows(details, [("a", "2026-03-01", "2026-05-01"), ("a", "2026-01-10", None),
+                               ("b", "2026-02-02", "2026-02-02")])
+    assert details["a"] == {"name": "A", "first_seen": "2026-01-10", "last_seen": "2026-05-01"}
+    assert details["b"] == {"first_seen": "2026-02-02", "last_seen": "2026-02-02"}
+
+    from menudb import storage
+    t = lambda m: datetime(2026, m, 1, tzinfo=timezone.utc)  # noqa: E731
+    objs = {"pending/": {"pending/x/h1.json": t(9)}, "processed/": {"processed/x/h1.json": t(3),
+                                                                    "processed/y/h2.json": t(4)}}
+    monkeypatch.setattr(storage, "list_modified", lambda p: objs[p])
+    assert site.bucket_seen() == {"h1": ("2026-03-01", "2026-09-01"), "h2": ("2026-04-01", "2026-04-01")}
