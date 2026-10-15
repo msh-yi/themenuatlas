@@ -153,6 +153,7 @@ def discover(
     workers: int = typer.Option(8, help="sites checked in parallel (one host per worker)"),
     js: bool = typer.Option(False, help="retry sites that need JavaScript in headless Chromium"),
     redo: bool = typer.Option(False, help="re-check restaurants that already have a status"),
+    retry: list[str] = typer.Option(None, help="re-check only restaurants with this status (repeatable), e.g. robots"),
     limit: int = typer.Option(None, help="max restaurants this run"),
     to_bucket: bool = typer.Option(False, help="store found menus in the bucket and queue them in pending/"),
 ):
@@ -188,6 +189,9 @@ def discover(
     for r in rows:
         if (hand_dir / f"{r['slug']}.yaml").exists():
             done[r["slug"]] = {"slug": r["slug"], "status": "hand_recipe"}
+        elif retry:
+            if done.get(r["slug"], {}).get("status") in retry:
+                todo.append(r)
         elif redo or r["slug"] not in done or (js and done[r["slug"]].get("status") == "needs_js"):
             todo.append(r)
     todo = todo[:limit] if limit else todo

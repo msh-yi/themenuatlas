@@ -1,0 +1,66 @@
+# Manual: rerun menu discovery for restaurants whose last attempt was refused by robots.txt
+# or failed (HTTP errors, timeouts). Cloud sessions reach some sites only through a proxy
+# that sites refuse, so Actions gives these a fair second try. Stores found menus in the
+# bucket, queues them in pending/, and commits the updated statuses and recipes to main.
+# Logs are public: menudb prints slugs, scores and statuses only.
+name: discover-retry
+
+on:
+  workflow_dispatch:
+    inputs:
+      statuses:
+        description: "statuses to retry, space-separated"
+        required: false
+        default: "robots failed"
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --frozen --no-dev
+
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(uv run python -c 'import importlib.metadata as m; print(m.version("playwright"))')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - run: uv run playwright install --with-deps chromium
+
+      - name: menudb discover (retry)
+        env:
+          STATUSES: ${{ inputs.statuses }}
+        run: |
+          args=()
+          for s in ${STATUSES:-robots failed}; do args+=(--retry "$s"); done
+          uv run menudb discover --workers 16 --js --to-bucket "${args[@]}"
+
+      - name: Commit statuses and recipes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add data/seed/discovery.csv data/recipes_auto
+          git diff --cached --quiet && exit 0
+          git commit -m "discover-retry: rerun ${{ inputs.statuses }} from Actions"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 5; done
+          exit 1
