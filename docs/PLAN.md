@@ -159,6 +159,8 @@ Websites and coordinates come from the seed CSV, Wikidata (by article, then one 
 
 First run (2026-10-15, cloud session): of 1,711 restaurants with a website, 493 `menu_found` and 214 `menu_maybe` (707 recipes; 706 documents stored and queued in `pending/`), 731 no menu found, 137 robots.txt disallow, 123 failed (HTTP errors, timeouts), 1 TDM opt-out. Robots refusals and failures include sites the cloud proxy can't reach; rerun those from Actions before treating them as opt-outs. 2,742 restaurants have no website yet.
 
+After the Actions reruns, the Chromium pass and the first LangSearch run (2026-10-15 evening): 2,451 of 4,550 restaurants have a website; 720 `menu_found` + 311 `menu_maybe` (1,029 documents stored and queued), 1,217 no menu found, 89 `bot_blocked` (80 Cloudflare, 8 CAPTCHA, 1 DataDome; not circumvented), 95 failed (dead domains, certificate errors, timeouts). `find-websites.yml` runs daily (LangSearch, `LANGSEARCH_API_KEY`) until every restaurant has been searched.
+
 ## Analysis notebook (`notebooks/01_pairings.ipynb`)
 
 - Ingredient frequency overall, by region, and by hemisphere-relative season (`seasons.py`).
