@@ -40,48 +40,61 @@ def seed(session: Session, csv_path: Path, recipes_dir: Path | None,
     rather than as `check` sources."""
     counts = {"restaurants": 0, "sources": 0}
     with csv_path.open() as f:
-        for row in csv.DictReader(f):
-            r = session.scalar(select(Restaurant).where(Restaurant.slug == row["slug"]))
-            if r is None:
-                r = Restaurant(slug=row["slug"])
-                session.add(r)
-            r.name, r.city = row["name"], row["city"] or None
-            r.country = country_code(row["country"])
-            r.lat = float(row["lat"]) if row["lat"] else None
-            r.lon = float(row["lon"]) if row["lon"] else None
-            r.website = row["website"] or None
-            r.publishes_menu = _PUBLISHES[(row.get("publishes_menu") or "").strip().lower()]
-            session.flush()
-            counts["restaurants"] += 1
+        rows = list(csv.DictReader(f))
+    # Bulk-load what exists: one query each instead of several per row, which matters
+    # for the 4,500-row full list over the network.
+    slugs = [row["slug"] for row in rows]
+    existing = {r.slug: r for r in session.scalars(select(Restaurant).where(Restaurant.slug.in_(slugs)))}
+    restaurants = []
+    for row in rows:
+        r = existing.get(row["slug"])
+        if r is None:
+            r = existing[row["slug"]] = Restaurant(slug=row["slug"])
+            session.add(r)
+        r.name, r.city = row["name"], row["city"] or None
+        r.country = country_code(row["country"])
+        r.lat = float(row["lat"]) if row["lat"] else None
+        r.lon = float(row["lon"]) if row["lon"] else None
+        r.website = row["website"] or None
+        r.publishes_menu = _PUBLISHES[(row.get("publishes_menu") or "").strip().lower()]
+        restaurants.append(r)
+        counts["restaurants"] += 1
+    session.flush()
 
-            seen = set()
-            for entry in filter(None, (row.get("lists") or "").split(";")):
-                list_name, year, value = entry.split(":")
-                if (list_name, year) in seen:  # e.g. Hong Kong 3 stars and Macau 1: keep the first
-                    continue
-                seen.add((list_name, year))
-                m = session.scalar(select(ListMembership).where(
-                    ListMembership.restaurant_id == r.id,
-                    ListMembership.list_name == list_name, ListMembership.year == int(year)))
-                if m is None:
-                    session.add(ListMembership(restaurant_id=r.id, list_name=list_name,
-                                               year=int(year), value=value))
-                else:
-                    m.value = value
+    ids = [r.id for r in restaurants]
+    memberships = {(m.restaurant_id, m.list_name, m.year): m for m in session.scalars(
+        select(ListMembership).where(ListMembership.restaurant_id.in_(ids)))}
+    sources = {(s.restaurant_id, s.label): s for s in session.scalars(
+        select(Source).where(Source.restaurant_id.in_(ids)))} if recipes_dir is not None else {}
 
-            if recipes_dir is None:
+    for row, r in zip(rows, restaurants):
+        seen = set()
+        for entry in filter(None, (row.get("lists") or "").split(";")):
+            list_name, year, value = entry.split(":")
+            if (list_name, year) in seen:  # e.g. Hong Kong 3 stars and Macau 1: keep the first
                 continue
-            recipe_file = recipes_dir / f"{r.slug}.yaml"
-            if not recipe_file.exists() and auto_dir is not None:
-                recipe_file = auto_dir / f"{r.slug}.yaml"
-            if recipe_file.exists():
-                for label, parsed in load_recipes(recipe_file).items():
-                    recipe = parsed.model_dump(mode="json")
-                    src = session.scalar(select(Source).where(
-                        Source.restaurant_id == r.id, Source.label == label))
-                    if src is None:
-                        session.add(Source(restaurant_id=r.id, label=label, recipe=recipe, validators={}))
-                    elif src.recipe != recipe:
-                        src.recipe, src.consecutive_failures, src.last_error = recipe, 0, None
-                    counts["sources"] += 1
+            seen.add((list_name, year))
+            m = memberships.get((r.id, list_name, int(year)))
+            if m is None:
+                m = memberships[(r.id, list_name, int(year))] = ListMembership(
+                    restaurant_id=r.id, list_name=list_name, year=int(year), value=value)
+                session.add(m)
+            else:
+                m.value = value
+
+        if recipes_dir is None:
+            continue
+        recipe_file = recipes_dir / f"{r.slug}.yaml"
+        if not recipe_file.exists() and auto_dir is not None:
+            recipe_file = auto_dir / f"{r.slug}.yaml"
+        if recipe_file.exists():
+            for label, parsed in load_recipes(recipe_file).items():
+                recipe = parsed.model_dump(mode="json")
+                src = sources.get((r.id, label))
+                if src is None:
+                    session.add(Source(restaurant_id=r.id, label=label, recipe=recipe, validators={}))
+                elif src.recipe != recipe:
+                    src.recipe, src.consecutive_failures, src.last_error = recipe, 0, None
+                counts["sources"] += 1
+    session.flush()
     return counts
