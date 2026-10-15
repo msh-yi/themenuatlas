@@ -480,6 +480,13 @@ def main():
                 r["country"] = k["country"]
             r["website_source"] = "seed"
 
+    # Keep websites found by search (scripts/find_websites.py) across rebuilds.
+    if args.out.exists():
+        for old in csv.DictReader(args.out.open()):
+            r = rows.get(old["slug"])
+            if r and not r["website"] and old.get("website_source") == "search":
+                r["website"], r["website_source"] = old["website"], "search"
+
     wd = wikidata(http, sorted({r["article"] for r in rows.values() if r["article"]}))
     for r in rows.values():
         d = wd.get(r["article"] or "")
