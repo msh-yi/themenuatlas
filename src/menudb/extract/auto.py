@@ -19,7 +19,7 @@ from pathlib import Path
 
 from menudb.extract.schema import ComponentOut, CourseOut, ExtractedMenu, PendingItem
 
-EXTRACTOR = "lexicon-2"  # bump the number when the rules change enough to re-run
+EXTRACTOR = "lexicon-3"  # bump the number when the rules change enough to re-run
 
 LEXICON_DIR = Path(__file__).resolve().parents[3] / "data" / "lexicon"
 
@@ -99,9 +99,9 @@ def _parse(path: Path, prep: bool) -> Lexicon:
         if line.startswith("## "):
             category = line[3:].strip()
             continue
-        if not line or line.startswith("#") or "=" not in line:
+        if not line or line.startswith("#"):
             continue
-        head, _, body = line.partition("=")
+        head, _, body = line.partition("=")  # a bare "name > parent" has no terms
         role = None
         if prep and "@" in head:
             head, _, role = head.partition("@")
@@ -122,11 +122,15 @@ def load(directory: Path = LEXICON_DIR) -> tuple[Lexicon, Lexicon]:
             _parse(directory / "preparations.txt", prep=True))
 
 
-def _pick(cands: list[tuple[str, Entry]], langs: list[str]) -> Entry | None:
+def _pick(cands: list[tuple[str, Entry]], langs: list[str], fallback: bool = False) -> Entry | None:
     for lang in langs:
         for lg, entry in cands:
             if lg == lang:
                 return entry
+    # A word from another language ("Kartoffel" on an English page) still counts when
+    # every language agrees on what it means.
+    if fallback and cands and len({e.name for _, e in cands}) == 1:
+        return cands[0][1]
     return None
 
 
@@ -144,8 +148,9 @@ def find(lex: Lexicon, text: str, langs: list[str]) -> list[Hit]:
     i = 0
     while i < len(toks):
         for n in range(min(lex.max_len, len(toks) - i), 0, -1):
-            cands = lex.words.get(tuple(t for t, _, _ in toks[i:i + n]))
-            entry = _pick(cands, langs) if cands else None
+            key = tuple(t for t, _, _ in toks[i:i + n])
+            cands = lex.words.get(key)
+            entry = _pick(cands, langs, fallback=len("".join(key)) >= 6) if cands else None
             if entry:
                 hits.append(Hit(toks[i][1], toks[i + n - 1][2], entry))
                 i += n
@@ -364,6 +369,11 @@ _FILLER = set(fold(w) for w in """
     our its their in on au aux al alla del della dello dei to from per for served variation selection
     choice homemade house seasonal season market garden farm local fresh young baby little petite
     mini warm cold hot chilled light classic traditional signature style chef chef's own day our
+    fillet filet loin breast shoulder saddle belly leg rib ribs skin bone bones cheek wing thigh
+    neck tail head heart side sides mains main dishes dish tasting first assortment combination
+    topped made seasoned spiced spicy creamy aromatic natural white pink black sea isle bois mer
+    ferme jardin saisons moment flamme france viande viandes fleisch voorgerechten hoofdgerechten
+    nagerechten playing hero gallery paused verre suprême supreme fil bout coffre cotes têtes
     medley trio duo texture textures variation variations version cooked fond sauce eur menu
     menus course courses or main starter starters plat plats une un sur comme two one by op een
     experience carte cuisine maison pour every each is at your we including extra add this people
