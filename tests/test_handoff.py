@@ -237,7 +237,10 @@ def test_stats_counts(session, bucket):
 
 @pytest.mark.db
 def test_exclude_flags_quarantines_and_undoes(session, bucket):
-    from menudb.exclude import exclude
+    from menudb.exclude import exclude as run, items_from
+
+    def exclude(session, rejected, reason, apply=False, undo=False):
+        return run(session, items_from(rejected, []), apply=apply, undo=undo)
 
     menu = make_menu(session, bucket)
     session.get(Restaurant, menu.restaurant_id).website = "https://wrong.example/"
@@ -262,3 +265,20 @@ def test_exclude_flags_quarantines_and_undoes(session, bucket):
     assert menu.excluded_reason is None
     assert session.get(Restaurant, menu.restaurant_id).website == "https://wrong.example/"
     assert len(handoff.storage.list_keys(handoff.PENDING)) == 1
+
+
+@pytest.mark.db
+def test_exclude_one_shared_document_keeps_website(session, bucket):
+    from menudb.exclude import exclude, items_from
+
+    menu = make_menu(session, bucket)
+    session.get(Restaurant, menu.restaurant_id).website = "https://r.example/"
+    session.commit()
+    items = items_from([], [{"slug": "r", "normalized_hash": "other", "reason": "shared_document"}])
+    assert exclude(session, items, apply=True)["menus"] == 0  # another menu's hash: untouched
+    items = items_from([], [{"slug": "r", "normalized_hash": menu.normalized_hash,
+                             "reason": "shared_document"}])
+    exclude(session, items, apply=True)
+    session.refresh(menu)
+    assert menu.excluded_reason == "shared_document"
+    assert session.get(Restaurant, menu.restaurant_id).website == "https://r.example/"

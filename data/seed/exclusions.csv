@@ -1,0 +1,13 @@
+slug,normalized_hash,reason,website,note
+akasaka-kikunoi,ce5aa1e4644a5d36840c6a1834ca8ecf2e47533bec4751a84316f939730bb5aa,shared_document,,same document as kikunoi-honten (kikunoi.jp site page)
+citrin,d97706c39f8f13d26181bfc4dc821221669e468cd7b38f2c118d5b5c62c486f7,shared_document,,same document as melisse (shared citrinandmelisse.com site)
+deanes,6c97bf77b69c50e98bef332be89122321eab52063552ac68e2b27df40596cea0,shared_document,,same document as eipic
+the-progress,f53e743860dd923b989c5cd344a638b794f91712158a29688025aa30813efe9c,shared_document,,same document as state-bird-provisions (statebirdsf.com)
+beluga-loves-you,,duplicate_listing,,same restaurant as beluga-maastricht
+birdsong,,wrong_website,https://www.richtablesf.com/outdoor-dining/,website was Rich Table's outdoor-dining page; now birdsongsf.com
+ikoyi,,wrong_website,https://www.theworlds50best.com/stories/News/ikoyi-one-to-watch.html,website was a 50 Best article; now ikoyilondon.com
+alla-prima,,aggregator_host,https://www.viamichelin.de/web/Suchen_Restaurants/Seoul-_-Alla_Prima-zgsnt547,website was a ViaMichelin listing
+taiwanese-gourmet,,aggregator_host,https://www.yelp.com/biz/taiwanese-gourmet-elmhurst-4,website was a Yelp listing
+alpenroyal-gourmet-restaurant,,aggregator_host,https://www.valgardena.it/en/addresses/detail/base/company/selva-val-gardena/alpenroyal-gourmet/C0DF932576D911D18F2900A02427D15E/?RequestKey=170783630965cb8395034a5,website was a Val Gardena tourism listing
+suinsom,,aggregator_host,https://www.valgardena.it/en/addresses/detail/base/company/selva-val-gardena/suinsom/C0DF941F76D911D18F2900A02427D15E/?RequestKey=170790470065cc8ebcceec7,website was a Val Gardena tourism listing
+kitchen,,aggregator_host,https://my-kitchen-ronago.business.site/,website was a business.site page

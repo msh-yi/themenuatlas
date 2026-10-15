@@ -759,21 +759,26 @@ def stats():
 
 @app.command()
 def exclude(
-    file: Path = typer.Option(Path("data/seed/rejected_websites.csv"), help="slug,website,reason,... rows"),
-    reason: str = typer.Option("search_rejected", help="stored in menu.excluded_reason"),
+    rejected: Path = typer.Option(Path("data/seed/rejected_websites.csv"),
+                                  help="wrong search-matched websites (find_websites.py)"),
+    exclusions: Path = typer.Option(Path("data/seed/exclusions.csv"),
+                                    help="slug,normalized_hash,reason,website,note rows (by hand)"),
     apply: bool = typer.Option(False, help="make the change; without it, only print counts"),
-    undo: bool = typer.Option(False, help="clear the flag, restore websites and bucket items"),
+    undo: bool = typer.Option(False, help="clear the flags, restore websites and bucket items"),
 ):
-    """Flag menus of restaurants whose website was wrongly matched, and quarantine their bucket
-    items. Prints counts first; nothing changes without --apply. Reversible with --undo."""
+    """Flag menus that don't belong to their restaurant and quarantine their bucket items.
+    Prints counts first; nothing changes without --apply. Reversible with --undo."""
     import csv
 
     from menudb.db import get_session
-    from menudb.exclude import exclude as run_exclude
+    from menudb.exclude import exclude as run_exclude, items_from
 
-    rows = list(csv.DictReader(file.open()))
+    def read(path: Path) -> list[dict]:
+        return list(csv.DictReader(path.open())) if path.exists() else []
+
+    items = items_from(read(rejected), read(exclusions))
     with get_session() as session:
-        counts = run_exclude(session, rows, reason, apply=apply, undo=undo)
+        counts = run_exclude(session, items, apply=apply, undo=undo)
     _summary(f"menudb exclude ({'undo' if undo else 'exclude'}, {'applied' if apply else 'dry run'})",
              counts)
 

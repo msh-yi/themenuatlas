@@ -86,7 +86,7 @@ hisa-franko,Hiša Franko,Kobarid,SI,46.2472,13.5378,https://www.hisafranko.com,,
 huniik,Huniik,Yucatán–Mérida,MX,20.9763,-89.6216,https://www.huniik.com/,,michelin:2026:1;w50b:2025:89,wikipedia:List of Michelin-starred restaurants in Mexico@1379992607;theworlds50best.com,wikidata,exact
 hyotei,Hyotei,Kyoto,JP,35.0114,135.7865,http://hyotei.co.jp/en/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,wikidata-name,exact
 iida,Iida,Kyoto,JP,35.0098,135.7648,,,michelin:2020:3,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,,exact
-ikoyi,Ikoyi,Westminster,GB,51.5124,-0.115,https://www.theworlds50best.com/stories/News/ikoyi-one-to-watch.html,,michelin:2026:2;w50b:2025:15,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377;theworlds50best.com,w50b,exact
+ikoyi,Ikoyi,Westminster,GB,51.5124,-0.115,https://ikoyilondon.com/,,michelin:2026:2;w50b:2025:15,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377;theworlds50best.com,manual,exact
 isshisoden-nakamura,Isshisoden Nakamura,Kyoto,JP,35.0103,135.7652,http://www.kyoryori-nakamura.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,wikidata-name,exact
 jade-dragon,Jade Dragon,City of Dreams,HK,22.3492,114.1858,,,michelin:2026:3;michelin:2020:3,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,search_rejected,country
 jan-munich-maxvorstadt,JAN,Munich – Maxvorstadt,DE,48.1448,11.5629,https://jan-hartwig.com/en/,,michelin:2026:3;w50b:2025:50,wikipedia:List of Michelin-starred restaurants in Germany@1377183685;theworlds50best.com,w50b,exact
@@ -289,7 +289,7 @@ alevante,Alevante,Chiclana de la Frontera,ES,36.4191,-6.1461,,,michelin:2026:2,w
 alex,Alex,Las Vegas Strip – Wynn Las Vegas,US,36.1294,-115.166,,,michelin:2009:2,wikipedia:List of Michelin-starred restaurants in the American Southwest@1372514520,search_rejected,exact
 alex-dilling-at-hotel-cafe-royal,Alex Dilling at Hotel Café Royal,Westminster,GB,51.5101,-0.1359,,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,search_rejected,exact
 alinea,Alinea,Chicago,US,41.91,-87.65,https://www.alinearestaurant.com/,false,michelin:2025:2,wikipedia:List of Michelin-starred restaurants in Chicago@1376917910,seed,exact
-alla-prima,Alla Prima,Gangnam,KR,37.5134,127.026,https://www.viamichelin.de/web/Suchen_Restaurants/Seoul-_-Alla_Prima-zgsnt547,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in South Korea@1363392745,osm,exact
+alla-prima,Alla Prima,Gangnam,KR,37.5134,127.026,,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in South Korea@1363392745,rejected,exact
 allen,Allen,Gangnam,KR,37.5177,127.0473,,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in South Korea@1363392745,search_rejected,city
 alliance,Alliance,Paris – 5th Panthéon,FR,48.8499,2.3533,https://www.restaurant-alliance.fr/,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,osm,exact
 alma,Alma,Lisbon,PT,38.7102,-9.1411,https://www.almalisboa.pt/,,michelin:2020:2,wikipedia:List of Michelin-starred restaurants in Portugal@1379738728,osm,exact
@@ -342,7 +342,7 @@ baumaniere-1850,Baumanière 1850,Savoie – Courchevel,FR,45.4949,6.3847,,,miche
 baume,Baumé,Palo Alto,US,37.4281,-122.143,http://www.maisonbaume.com/,,michelin:2018:2,wikipedia:List of Michelin-starred restaurants in California@1374116755,wikidata,exact
 beluga-maastricht,Beluga,Maastricht,NL,50.8461,5.6988,https://belugalovesyou.com,,michelin:2010:2,wikipedia:List of Michelin-starred restaurants in the Netherlands@1377184943,wikidata,exact
 big-cat,BIG CAT,,US,39.7837,-100.4459,,,nyt:2026:america50,nyt-google-maps-list,search_rejected,country
-birdsong,Birdsong,San Francisco – SoMa,US,37.7794,-122.4104,https://www.richtablesf.com/outdoor-dining/,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in California@1374116755,osm,exact
+birdsong,Birdsong,San Francisco – SoMa,US,37.7794,-122.4104,https://www.birdsongsf.com/,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in California@1374116755,manual,exact
 birria-landia,Birria-Landia,New York,US,40.7472,-73.8886,https://birrialandia.com/,,nytnyc:2026:74;nytnyc:2024:70;nytnyc:2023:18,nyt-nyc-google-maps-list,osm,exact
 bistrot-ha,Bistrot Ha,,US,39.7837,-100.4459,,,nyt:2026:america50,nyt-google-maps-list,search_rejected,country
 blanc,Blanc,Paris – 16th Passy,FR,48.8478,2.2658,https://www.aubergemoutonblanc.com/,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,osm,exact
@@ -966,7 +966,7 @@ taco-mix-harlem,Taco Mix HARLEM,New York,US,40.7972,-73.9387,https://www.tacomix
 taco-mix-inwood,Taco Mix INWOOD,New York,US,40.7127,-74.006,,,nytnyc:2026:70,nyt-nyc-google-maps-list,search_rejected,city
 tacos-wuey-detroit,Tacos Wuey Detroit,,US,39.7837,-100.4459,,,nyt:2026:america50,nyt-google-maps-list,search_rejected,country
 taian-table,Taian Table泰安门,"Garden Hotel, Guangzhou[11]inYuexiu",CN,34.5412,108.9237,,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in Guangzhou@1374047995,,country
-taiwanese-gourmet,Taiwanese Gourmet,New York,US,40.7398,-73.8786,https://www.yelp.com/biz/taiwanese-gourmet-elmhurst-4,,nytnyc:2026:61,nyt-nyc-google-maps-list,osm,exact
+taiwanese-gourmet,Taiwanese Gourmet,New York,US,40.7398,-73.8786,,,nytnyc:2026:61,nyt-nyc-google-maps-list,rejected,exact
 takagi,Takagi,Ashiya,JP,34.7274,135.304,,,michelin:2016:2,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,,city
 takao-takano,Takao Takano,Lyon – 6th Arrondissement,FR,45.7704,4.8427,http://www.takaotakano.com,,michelin:2026:2,wikipedia:List of Michelin-starred restaurants in France@1348771427,wikidata-name,exact
 takoyasu,Takoyasu,Osaka,JP,34.6938,135.5015,,,michelin:2020:2,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,,city
@@ -1197,7 +1197,7 @@ alo,Alo,Toronto – Downtown,CA,43.6486,-79.3959,https://alorestaurant.com/,,mic
 alon-omakase,Alon Omakase,Warsaw – Mokotów,PL,52.2334,21.0711,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Poland@1356491621,search_rejected,city
 alouette,Alouette,Copenhagen,DK,55.6625,12.5758,http://www.restaurantalouette.dk,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Denmark@1359685069,wikidata-name,exact
 alpage,Alpage,Savoie – Courchevel,FR,45.4949,6.3847,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,,city
-alpenroyal-gourmet-restaurant,Alpenroyal Gourmet Restaurant,Sëlva,IT,46.5591,11.7468,https://www.valgardena.it/en/addresses/detail/base/company/selva-val-gardena/alpenroyal-gourmet/C0DF932576D911D18F2900A02427D15E/?RequestKey=170783630965cb8395034a5,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
+alpenroyal-gourmet-restaurant,Alpenroyal Gourmet Restaurant,Sëlva,IT,46.5591,11.7468,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,rejected,exact
 alpin-gourmet-stube,Alpin Gourmet Stube,Sankt Anton am Arlberg,AT,47.1289,10.2664,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,search_rejected,city
 alquimia-laboratorio,Alquimia - Laboratorio,Valladolid,ES,41.62,-4.726,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,search_rejected,city
 alt-wyk,Alt Wyk,Wyk,DE,54.6902,8.5708,https://www.alt-wyk.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
@@ -2561,7 +2561,7 @@ kiro-sushi,Kiro Sushi,Logrono,ES,42.4748,-2.4507,,,michelin:2026:1,wikipedia:Lis
 kishin,Kishin,Kushiro,JP,42.985,144.382,,,michelin:2017:1,wikipedia:List of Michelin-starred restaurants in Hokkaido@1379835312,,city
 kissa-tanto,Kissa Tanto,DTES,CA,49.2806,-123.0981,https://www.kissatanto.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Vancouver@1378988722,wikidata,exact
 kisui,Kisui,Sapporo – Chuo-ku,JP,43.0619,141.3543,,,michelin:2017:1,wikipedia:List of Michelin-starred restaurants in Hokkaido@1379835312,,city
-kitchen,Kitchen,Como,IT,45.8306,8.9853,https://my-kitchen-ronago.business.site/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
+kitchen,Kitchen,Como,IT,45.8306,8.9853,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,rejected,exact
 kitchen-bodrum-yalkavak,Kitchen,Bodrum – Yalıkavak,TR,37.0344,27.4307,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Turkey@1347100365,,city
 kitchen-w8,Kitchen W8,Kensington and Chelsea,GB,51.4991,-0.1969,https://www.kitchenw8.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,osm,exact
 kitcho,Kitcho (吉兆割烹壽司),Taipei–Da'an,TW,25.0375,121.5637,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,,city
@@ -4027,7 +4027,7 @@ subtiel,Subtiel,De Panne,BE,51.0988,2.5924,,,michelin:2026:1,wikipedia:List of M
 sud-777,Sud 777,Mexico City–Álvaro Obregón,MX,19.3088,-99.2091,https://sud777.com.mx/en,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Mexico@1379992607,wikidata,exact
 sui-generis,sui generis.,Saronno,IT,45.6273,9.0346,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,,city
 sui-oya,Sui Oya,Osaka,JP,34.6938,135.5015,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,,city
-suinsom,Suinsom,Sëlva,IT,46.557,11.7599,https://www.valgardena.it/en/addresses/detail/base/company/selva-val-gardena/suinsom/C0DF941F76D911D18F2900A02427D15E/?RequestKey=170790470065cc8ebcceec7,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
+suinsom,Suinsom,Sëlva,IT,46.557,11.7599,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,rejected,exact
 sumibiyaki-arashi,Sumibiyaki Arashi,Mount Pleasant,CA,49.263,-123.0975,https://sumibiyakiarashi.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Vancouver@1378988722,osm,exact
 summer-palace,Summer Palace,Central Region - Central Area,SG,1.3571,103.8195,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Singapore@1379530352,,country
 summer-pavilion,Summer Pavilion,Central Region - Central Area,SG,1.3571,103.8195,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Singapore@1379530352,,country
