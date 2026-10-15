@@ -295,7 +295,7 @@ function ingredient(_params, [name]) {
         seasons.every(([g]) => g === "Unknown")
           ? h("p", { class: "empty" }, "No menu dates in this build yet, so no seasons.")
           : !seasonsReady()
-          ? h("p", { class: "empty" }, `Every menu so far was first seen between ${fmtDate(D.seen_range[0])} and ${fmtDate(D.seen_range[1])}, so seasons would only show which hemisphere a restaurant is in. They'll appear once the menus span most of a year.`)
+          ? h("p", { class: "empty" }, `Every menu so far was first seen ${D.seen_range[0] === D.seen_range[1] ? "on " + fmtDate(D.seen_range[0]) : `between ${fmtDate(D.seen_range[0])} and ${fmtDate(D.seen_range[1])}`}, so seasons would only show which hemisphere a restaurant is in. They'll appear once the menus span most of a year.`)
           : barChart(seasons.filter(([g]) => g !== "Unknown"), { max: 1, note: "Southern Hemisphere dates shift six months; tropical restaurants are their own group." }))),
     h("div", { class: "grid2", style: "margin-top:1.25rem" },
       h("section", { class: "card" }, h("h2", {}, "Pairs with"),
