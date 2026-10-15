@@ -55,3 +55,20 @@ def test_city_level_coordinates_are_flagged(tmp_path):
     details = site.restaurant_details(path)
     assert details["a"]["approx"] is True and details["b"]["approx"] is False
     assert details["a"]["lon"] == 10.7
+
+
+def test_full_list_joins_the_map_without_menus(tmp_path):
+    from menudb import analysis as a
+
+    full = tmp_path / "full.csv"
+    full.write_text("slug,name,city,country,lat,lon,website,publishes_menu,lists,coord_precision\n"
+                    "syn-uk,Synthetic UK,London,GB,51.5,-0.13,,true,,\n"
+                    "new-one,New One,Tbilisi,Georgia,41.7,44.8,,,,city\n")
+    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    site.add_full_list(restaurants, details, full)
+    assert restaurants["new-one"] == a.Restaurant("new-one", "Other", 41.7, "unknown")
+    d = site.build(rows, restaurants, source="synthetic", details=details, preparations=preps)
+    r = {x["slug"]: x for x in d["restaurants"]}
+    assert r["new-one"]["menus"] == 0 and r["new-one"]["approx"] is True and r["new-one"]["lon"] == 44.8
+    assert r["syn-uk"]["menus"] == 2  # already in the analysis set: unchanged
+    assert d["totals"]["restaurants"] == 10

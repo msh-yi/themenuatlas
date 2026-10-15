@@ -73,6 +73,33 @@ def restaurant_details(csv_path: Path | None) -> dict[str, dict]:
                             "url": r["website"]} for r in csv.DictReader(f)}
 
 
+def add_full_list(restaurants: dict[str, a.Restaurant], details: dict[str, dict],
+                  full_csv: Path) -> None:
+    """Add every restaurant in data/seed/restaurants_full.csv to the coverage map.
+
+    The analysis set (restaurants.csv, or the database) is unchanged; restaurants only
+    in the full list have no menus yet. Countries the seed code table doesn't know
+    fall into region "Other" instead of failing the export.
+    """
+    from menudb.seed import _PUBLISHES, country_code
+
+    if not full_csv.exists():
+        return
+    for slug, det in restaurant_details(full_csv).items():
+        details.setdefault(slug, det)
+    with full_csv.open() as f:
+        for r in csv.DictReader(f):
+            if r["slug"] in restaurants:
+                continue
+            try:
+                code = country_code(r["country"])
+            except ValueError:
+                code = None
+            restaurants[r["slug"]] = a.Restaurant(
+                r["slug"], a.region_of(code), float(r["lat"]) if r.get("lat") else None,
+                _PUBLISHES.get((r.get("publishes_menu") or "").strip().lower(), "unknown"))
+
+
 def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
     """ingredient -> group -> share."""
     out: dict[str, dict[str, float]] = defaultdict(dict)
@@ -146,6 +173,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
 def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict]:
     """rows, restaurants, restaurant details and preparations for one source."""
     csv_path = root / "data/seed/restaurants.csv"
+    full_csv = root / "data/seed/restaurants_full.csv"  # the map shows the whole list
     if source == "synthetic":
         path = root / "tests/fixtures/synthetic_menus.json"
         rows, restaurants = a.load_synthetic(path)
@@ -160,15 +188,18 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         restaurants = a.restaurants_from_csv(csv_path)
         menus = [handoff.get_json(k) for prefix in (handoff.EXTRACTED, handoff.IMPORTED)
                  for k in storage.list_keys(prefix)]
-        return (a.rows_from_extracted(menus, restaurants), restaurants,
-                restaurant_details(csv_path), preparations_from_extracted(menus))
+        details = restaurant_details(csv_path)
+        add_full_list(restaurants, details, full_csv)
+        return a.rows_from_extracted(menus, restaurants), restaurants, details, preparations_from_extracted(menus)
     if source == "db":
         from menudb.db import get_session
 
         with get_session() as session:
             rows, restaurants = a.load_db(session)
             preps = preparations_from_db(session)
-        return rows, restaurants, restaurant_details(csv_path), preps
+        details = restaurant_details(csv_path)
+        add_full_list(restaurants, details, full_csv)
+        return rows, restaurants, details, preps
     raise ValueError(f"unknown source {source!r}")
 
 
