@@ -141,10 +141,11 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 
 1. ✅ Scaffold: uv project, config, Alembic schema (applied to Neon), storage, CLI (`seed`, `check`, `smoke`), tests.
 2. ✅ Fetcher (robots/TDM/rate limit/conditional GET), normalization, recipe runner, `check` pipeline. 19 tests pass.
-3. ⏭ **Next:** the seed CSV is drafted for review in the project files, not yet in the repo (33 restaurants; list status still to verify against the official sources). After sign-off: write recipes for the 30, then `seed` and the first live `check`. Those need Postgres, so they run locally or in Actions.
+3. ✅ Seed CSV committed (34 restaurants). Recipes for 13 restaurants (17 sources) in `data/recipes/`, with coverage notes in `data/recipes/README.md`. `menudb probe` walks recipes without a database; on 2026-10-15 all 17 sources resolved and their raw documents were stored in the bucket from a cloud session.
+   ⏭ **Next:** add the Actions secrets and run `check.yml` once by hand (`seed`, then `check`). Then extraction (step 4).
 4. Extraction in sessions via the bucket handoff (`pending --to-bucket` / `extract-io` / `import --from-bucket` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
 5. `wayback.py` backfill for all 30.
-6. GitHub Actions workflow and secrets. Needed before cloud sessions can do any database-backed work end to end, so it may move ahead of step 5.
+6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, then `check`). Still to do: the repo secrets, and the `import --from-bucket` / `pending --to-bucket` steps once those commands exist.
 7. Notebook.
 
 ## Verification

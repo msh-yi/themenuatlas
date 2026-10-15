@@ -12,7 +12,10 @@ after the last step are the menu documents to fetch and hash.
 """
 
 import re
+from pathlib import Path
 from typing import Callable, Literal
+
+import yaml
 
 from pydantic import BaseModel, Field
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
@@ -100,3 +103,11 @@ def resolve(recipe: Recipe, get_html: GetHtml) -> list[str]:
             raise RecipeError(f"step {i} matched nothing")
         urls = list(dict.fromkeys(next_urls))
     return urls
+
+
+def load_recipes(path: Path) -> dict[str, Recipe]:
+    """Read data/recipes/<slug>.yaml: a single recipe, or {label: recipe} for several menus."""
+    docs = yaml.safe_load(path.read_text())
+    if "start" in docs:
+        docs = {"main": docs}
+    return {label: Recipe.model_validate(body) for label, body in docs.items()}

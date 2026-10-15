@@ -7,15 +7,16 @@ from playwright.sync_api import Browser, sync_playwright
 
 
 class BrowserRenderer:
-    def __init__(self, user_agent: str, timeout_ms: int = 30_000):
+    def __init__(self, user_agent: str, executable_path: str | None = None, timeout_ms: int = 30_000):
         self.user_agent = user_agent
+        self.executable_path = executable_path
         self.timeout_ms = timeout_ms
         self._pw = None
         self._browser: Browser | None = None
 
     def __enter__(self):
         self._pw = sync_playwright().start()
-        self._browser = self._pw.chromium.launch()
+        self._browser = self._pw.chromium.launch(executable_path=self.executable_path)
         return self
 
     def __exit__(self, *exc):

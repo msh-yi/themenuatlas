@@ -1,0 +1,3 @@
+# Menu text only appears after JavaScript runs
+start: https://www.theledbury.com/food-wine
+render: js

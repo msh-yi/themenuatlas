@@ -25,6 +25,7 @@ uv run menudb smoke              # Postgres + object storage + Neon Auth, end to
 uv run alembic upgrade head      # after adding a migration
 uv run menudb seed               # data/seed/restaurants.csv + data/recipes/<slug>.yaml
 uv run menudb check --limit 5
+uv run menudb probe [slug...]        # walk recipes with no database; --to-bucket stores raw files
 uv run playwright install --with-deps chromium   # only when a recipe uses render: js
 ```
 
@@ -34,6 +35,7 @@ uv run playwright install --with-deps chromium   # only when a recipe uses rende
   - locally, they're in `.env.local` (from `neon env pull`);
   - in cloud sessions, they're set as environment variables.
 - `CONTACT_URL` is optional.
+- `CHROMIUM_PATH` is optional. In cloud sessions, set it to `/opt/pw-browsers/chromium` for `render: js` recipes.
 
 Cloud sessions install dependencies through the SessionStart hook (`scripts/session-start.sh`).
 

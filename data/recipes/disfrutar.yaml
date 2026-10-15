@@ -1,0 +1,5 @@
+# Tasting menu info is a PDF behind "+ INFO AND PRICE" on the homepage
+start: https://www.disfrutarbarcelona.com/
+steps:
+  - select: {css: "a[href*='/uploads/offers/'][href$='.pdf']", pick: first}
+content: pdf

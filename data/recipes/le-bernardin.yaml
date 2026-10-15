@@ -1,0 +1,13 @@
+# Menu pages are rendered client-side
+chefs-tasting:
+  start: https://www.le-bernardin.com/menus/dining-room/chef-s-tasting
+  render: js
+vegetarian-tasting:
+  start: https://www.le-bernardin.com/menus/dining-room/vegetarian-tasting
+  render: js
+dinner:
+  start: https://www.le-bernardin.com/menus/dining-room/dinner
+  render: js
+lunch:
+  start: https://www.le-bernardin.com/menus/dining-room/lunch
+  render: js

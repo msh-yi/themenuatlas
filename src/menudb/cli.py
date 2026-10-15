@@ -1,3 +1,4 @@
+import contextlib
 import csv
 import logging
 import os
@@ -6,7 +7,6 @@ from pathlib import Path
 
 import httpx
 import typer
-import yaml
 from sqlalchemy import select, text
 
 from menudb.config import get_settings
@@ -36,7 +36,7 @@ def seed(
     """
     from menudb.db import get_session
     from menudb.db.models import ListMembership, Restaurant, Source
-    from menudb.recipes import Recipe
+    from menudb.recipes import load_recipes
 
     with get_session() as session, csv_path.open() as f:
         for row in csv.DictReader(f):
@@ -64,9 +64,8 @@ def seed(
 
             recipe_file = recipes_dir / f"{r.slug}.yaml"
             if recipe_file.exists():
-                docs = yaml.safe_load(recipe_file.read_text())
-                for label, body in (docs if "start" not in docs else {"main": docs}).items():
-                    recipe = Recipe.model_validate(body).model_dump(mode="json")
+                for label, parsed in load_recipes(recipe_file).items():
+                    recipe = parsed.model_dump(mode="json")
                     src = session.scalar(select(Source).where(
                         Source.restaurant_id == r.id, Source.label == label))
                     if src is None:
@@ -94,7 +93,7 @@ def check(limit: int = typer.Option(None, help="max sources to check this run"))
         if needs_js:
             from menudb.fetch.browser import BrowserRenderer
 
-            with BrowserRenderer(s.user_agent) as renderer:
+            with BrowserRenderer(s.user_agent, s.chromium_path or None) as renderer:
                 counts = run_check(session, fetcher, renderer, limit)
         else:
             counts = run_check(session, fetcher, None, limit)
@@ -108,6 +107,69 @@ def check(limit: int = typer.Option(None, help="max sources to check this run"))
     if path := os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(path, "a") as f:
             f.write("### menudb check\n```\n" + summary + "\n```\n")
+
+
+@app.command()
+def probe(
+    slugs: list[str] = typer.Argument(None, help="restaurant slugs; default: every recipe"),
+    recipes_dir: Path = typer.Option(Path("data/recipes")),
+    to_bucket: bool = typer.Option(False, help="store raw documents in the snapshots bucket"),
+):
+    """Walk recipes without a database, e.g. to test a recipe or from a cloud session.
+
+    Prints kind, size and hash per document, never menu text. With --to-bucket the
+    raw bytes go to the private bucket under raw/<sha256>, the same keys `check` uses,
+    so a later `check` finds them already stored.
+    """
+    from menudb import storage
+    from menudb.extract.text import document_kind, document_text
+    from menudb.fetch.http import Fetcher, RobotsDisallowed
+    from menudb.normalize import content_hash
+    from menudb.pipeline import _MIME, fetch_documents, html_getter
+    from menudb.recipes import load_recipes
+
+    s = get_settings()
+    files = sorted(recipes_dir.glob("*.yaml"))
+    if slugs:
+        files = [f for f in files if f.stem in slugs]
+    sources = [(f.stem, label, r) for f in files for label, r in load_recipes(f).items()]
+    counts = {"ok": 0, "failed": 0, "opted_out": 0}
+
+    renderer = None
+    with Fetcher(s.user_agent) as fetcher, contextlib.ExitStack() as stack:
+        if any(r.render == "js" for *_, r in sources):
+            from menudb.fetch.browser import BrowserRenderer
+
+            renderer = stack.enter_context(BrowserRenderer(s.user_agent, s.chromium_path or None))
+        for slug, label, recipe in sources:
+            name = f"{slug}/{label}"
+            try:
+                docs = list(fetch_documents(recipe, fetcher, html_getter(recipe, fetcher, renderer), {}))
+            except RobotsDisallowed:
+                counts["failed"] += 1
+                typer.echo(f"{name}: failed robots.txt disallows")
+                continue
+            except Exception as e:
+                counts["failed"] += 1
+                typer.echo(f"{name}: failed {type(e).__name__}: {e}"[:300])
+                continue
+            if any(d.tdm_reserved for d in docs):
+                counts["opted_out"] += 1
+                typer.echo(f"{name}: opted out (tdm-reservation)")
+                continue
+            counts["ok"] += 1
+            typer.echo(f"{name}: ok, {len(docs)} document(s)")
+            for d in docs:
+                kind = document_kind(d.content_type, d.url, d.data)
+                text = document_text(kind, d.data)
+                h = content_hash(d.data)
+                stored = ""
+                if to_bucket:
+                    storage.put_raw(h, d.data, _MIME[kind])
+                    stored = ", stored"
+                chars = f"{len(text)} text chars" if text else "no text layer"
+                typer.echo(f"  {kind} {len(d.data)} bytes, {chars}, sha256 {h[:12]}{stored}")
+    typer.echo(" ".join(f"{k}: {v}" for k, v in counts.items()))
 
 
 @app.command()

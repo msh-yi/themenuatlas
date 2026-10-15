@@ -1,0 +1,5 @@
+# The current menu is a single image (filename changes with each menu)
+start: https://www.atomixnyc.com/current-menu
+steps:
+  - select: {css: "img[src*='_WEB']", attr: src, pick: first}
+content: image

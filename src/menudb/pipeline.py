@@ -5,6 +5,8 @@ Logs carry IDs, hashes and statuses only, never menu text: Actions logs are publ
 
 import logging
 from collections import Counter
+from collections.abc import Iterator
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import or_, select
@@ -73,6 +75,40 @@ def _record_document(
     return True
 
 
+@dataclass
+class Document:
+    url: str
+    data: bytes
+    content_type: str
+    tdm_reserved: bool
+
+
+def html_getter(recipe: Recipe, fetcher: Fetcher, renderer=None):
+    """Navigation-page loader for a recipe: plain HTTP, or headless Chromium for render: js."""
+    def get_html(url: str) -> tuple[str, str]:
+        if recipe.render == "js":
+            if not fetcher.allowed(url):
+                raise RobotsDisallowed(url)
+            return renderer.render(url)
+        return fetcher.get_html(url)
+    return get_html
+
+
+def fetch_documents(recipe: Recipe, fetcher: Fetcher, get_html, validators: dict) -> Iterator[Document]:
+    """Walk the recipe and fetch each menu document. Skips 304s; updates `validators` in place."""
+    for url in resolve(recipe, get_html):
+        if recipe.render == "js" and recipe.content == "html_main":
+            _, html = get_html(url)
+            yield Document(url, html.encode(), "text/html", False)
+            continue
+        v = validators.get(url, {})
+        res = fetcher.get(url, etag=v.get("etag"), last_modified=v.get("last_modified"))
+        if res.not_modified:
+            continue
+        validators[url] = {"etag": res.etag, "last_modified": res.last_modified}
+        yield Document(url, res.content, res.content_type, res.tdm_reserved)
+
+
 def check_source(session: Session, source: Source, fetcher: Fetcher, renderer=None,
                  now: datetime | None = None) -> str:
     """Returns one of: unchanged | changed | failed | opted_out."""
@@ -80,12 +116,7 @@ def check_source(session: Session, source: Source, fetcher: Fetcher, renderer=No
     recipe = Recipe.model_validate(source.recipe)
     source.last_checked = now
 
-    def get_html(url: str) -> tuple[str, str]:
-        if recipe.render == "js":
-            if not fetcher.allowed(url):
-                raise RobotsDisallowed(url)
-            return renderer.render(url)
-        return fetcher.get_html(url)
+    get_html = html_getter(recipe, fetcher, renderer)
 
     try:
         # savepoint: a failure part-way through leaves no half-recorded menus
@@ -116,23 +147,12 @@ def check_source(session: Session, source: Source, fetcher: Fetcher, renderer=No
 
 
 def _walk(session, source, recipe, fetcher, get_html, now) -> tuple[bool, dict, bool]:
-    urls = resolve(recipe, get_html)
     changed = False
     validators = dict(source.validators or {})
-    for url in urls:
-        if recipe.render == "js" and recipe.content == "html_main":
-            _, html = get_html(url)
-            data, ctype, tdm = html.encode(), "text/html", False
-        else:
-            v = validators.get(url, {})
-            res = fetcher.get(url, etag=v.get("etag"), last_modified=v.get("last_modified"))
-            if res.not_modified:
-                continue
-            data, ctype, tdm = res.content, res.content_type, res.tdm_reserved
-            validators[url] = {"etag": res.etag, "last_modified": res.last_modified}
-        if tdm:
+    for doc in fetch_documents(recipe, fetcher, get_html, validators):
+        if doc.tdm_reserved:
             return False, validators, True
-        changed |= _record_document(session, source, url, data, ctype, now)
+        changed |= _record_document(session, source, doc.url, doc.data, doc.content_type, now)
     return changed, validators, False
 
 

@@ -1,0 +1,5 @@
+# Carte, lunch and dinner menus are PDFs linked from the homepage (French)
+start: https://www.alain-passard.com/
+steps:
+  - select: {css: "a[href*='/wp-content/uploads/'][href$='.pdf']", pick: all}
+content: pdf
