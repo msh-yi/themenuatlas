@@ -26,6 +26,7 @@ uv run python scripts/eval_auto_extract.py score <scratch>/ref   # aggregate sco
 - Only lexicon matches become components. Phrases it can't match are mostly prose fragments, so they never reach the site or the review queue. They go to the bucket as lexicon candidates: `review/candidates/<slug>/<hash>.json` per document, and `review/lexicon_candidates.json` with each phrase, its language and how many restaurants use it. Adding the common real ingredients to the lexicon, then `--rerun`, is how coverage grows.
 - Known weak spots: poetic dish titles, Japanese/Chinese/Korean menus (the lexicon is thin there), and menu type and price on multi-menu pages. It is coarser than a session (`bluefin tuna belly` becomes `tuna`).
 - Scores on the 19-menu reference set (2026-10-15): lenient ingredient recall 0.79, strict 0.64, precision 0.80, is_menu 18/19. The lexicon was partly written with those menus in view, so expect lower numbers on unseen menus. The hand-labelled eval is still the real test.
+- Hand-labelled check (set up 2026-10-15): five script-extracted menus not used to build the lexicon (en, fr, de, it, es), on a private labelling page (claude.ai artifact "Extraction Check", answers in its database collection `labels`). The menus shown are stored privately as `review/hand-labels/pick.json` in the bucket. To score: read the `labels` collection into a scratch directory as `<slug>.json`, then `uv run python scripts/score_hand_labels.py <pick.json> <dir>` (prints rates only).
 
 ## Extracting in a session
 
