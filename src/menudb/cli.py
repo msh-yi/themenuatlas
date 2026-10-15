@@ -154,6 +154,8 @@ def discover(
     js: bool = typer.Option(False, help="retry sites that need JavaScript in headless Chromium"),
     redo: bool = typer.Option(False, help="re-check restaurants that already have a status"),
     retry: list[str] = typer.Option(None, help="re-check only restaurants with this status (repeatable), e.g. robots"),
+    render: bool = typer.Option(False, help="render every site in headless Chromium, not only empty ones"),
+    js_workers: int = typer.Option(4, help="headless browsers run in parallel"),
     limit: int = typer.Option(None, help="max restaurants this run"),
     to_bucket: bool = typer.Option(False, help="store found menus in the bucket and queue them in pending/"),
 ):
@@ -244,7 +246,8 @@ def discover(
                 out.append((r["slug"], d, stored))
         return out
 
-    static = [r for r in todo if not (js and done.get(r["slug"], {}).get("status") == "needs_js")]
+    static = [] if render else [
+        r for r in todo if not (js and done.get(r["slug"], {}).get("status") == "needs_js")]
     retry_js = [r for r in todo if r not in static]
     by_host: dict[str, list[dict]] = {}
     for r in static:
@@ -258,18 +261,19 @@ def discover(
                 save_status()
     save_status()
 
-    if js:
+    def run_rendered(group: list[dict]) -> list[tuple[str, Discovery, int | str]]:
+        """Headless Chromium pass; each worker thread has its own browser."""
         from menudb.fetch.browser import BrowserRenderer
+        from menudb.fetch.http import RobotsDisallowed
 
-        retry_js += [r for r in static if done[r["slug"]]["status"] == "needs_js"]
+        out = []
         with Fetcher(s.user_agent) as fetcher, BrowserRenderer(s.user_agent, s.chromium_path or None) as renderer:
             def rendered(url: str) -> tuple[str, str]:
                 if not fetcher.allowed(url):
-                    from menudb.fetch.http import RobotsDisallowed
                     raise RobotsDisallowed(url)
                 return renderer.render(url)
 
-            for r in retry_js:
+            for r in group:
                 try:
                     d = find_menu(r["website"], fetcher, rendered)
                 except Exception as e:
@@ -284,7 +288,17 @@ def discover(
                         stored = store(r["slug"], Recipe.model_validate(d.recipe), fetcher, renderer)
                     except Exception as e:
                         d.note = f"store failed: {type(e).__name__}"
-                record(r["slug"], d, stored)
+                out.append((r["slug"], d, stored))
+        return out
+
+    if js or render:
+        retry_js += [r for r in static if done[r["slug"]]["status"] == "needs_js"]
+        groups = [retry_js[i::js_workers] for i in range(js_workers)]
+        with ThreadPoolExecutor(js_workers) as ex:
+            for fut in as_completed([ex.submit(run_rendered, g) for g in groups if g]):
+                for slug, d, stored in fut.result():
+                    record(slug, d, stored)
+                save_status()
         save_status()
 
     from collections import Counter

@@ -1,5 +1,5 @@
 # Manual: rerun menu discovery for restaurants whose last attempt was refused by robots.txt
-# or failed (HTTP errors, timeouts). Cloud sessions reach some sites only through a proxy
+# or failed (HTTP errors, timeouts), or with render=true, any status in headless Chromium. Cloud sessions reach some sites only through a proxy
 # that sites refuse, so Actions gives these a fair second try. Stores found menus in the
 # bucket, queues them in pending/, and commits the updated statuses and recipes to main.
 # Logs are public: menudb prints slugs, scores and statuses only.
@@ -12,6 +12,10 @@ on:
         description: "statuses to retry, space-separated"
         required: false
         default: "robots failed"
+      render:
+        description: "render every retried site in headless Chromium (for menus loaded by JavaScript)"
+        type: boolean
+        default: false
 
 concurrency:
   group: discover
@@ -50,8 +54,10 @@ jobs:
       - name: menudb discover (retry)
         env:
           STATUSES: ${{ inputs.statuses }}
+          RENDER: ${{ inputs.render }}
         run: |
           args=()
+          [ "$RENDER" = "true" ] && args+=(--render --js-workers 6)
           for s in ${STATUSES:-robots failed}; do args+=(--retry "$s"); done
           uv run menudb discover --workers 16 --js --to-bucket "${args[@]}"
 
