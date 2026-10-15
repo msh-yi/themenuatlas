@@ -675,7 +675,8 @@ def export_site(
     from menudb import wiki
 
     data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
-                      min_restaurants=min_restaurants, wikipedia=wiki.urls())
+                      min_restaurants=min_restaurants, wikipedia=wiki.urls(),
+                      lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"))
     path = site.write(data, out)
     if to_bucket:
         from menudb import storage

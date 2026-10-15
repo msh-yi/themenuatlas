@@ -127,6 +127,37 @@ def apply_discovery(restaurants: dict[str, a.Restaurant], details: dict[str, dic
                 restaurants[r.slug] = replace(r, publishes_menu=found)
 
 
+def lexicon_info(path: Path) -> dict[str, dict]:
+    """canonical name -> {category, parent, aka}, from data/lexicon/ingredients.txt.
+
+    `aka` is the other names a menu may use (aubergine: eggplant, berenjena, ナス),
+    so the site's search finds an ingredient under any of them.
+    """
+    out: dict[str, dict] = {}
+    if not path.exists():
+        return out
+    category = None
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if line.startswith("## "):
+            category = line[3:].strip()
+            continue
+        if not line or line.startswith("#"):
+            continue
+        head, _, body = line.partition("=")
+        name, _, parent = head.partition(">")
+        name = name.strip().lower()
+        aka: list[str] = []
+        for part in body.split("|") if body else []:
+            _, _, terms = part.partition(":")
+            for t in terms.split(","):
+                t = t.strip()
+                if t and t.lower() != name and t not in aka:
+                    aka.append(t)
+        out[name] = {"category": category, "parent": parent.strip().lower() or None, "aka": aka[:24]}
+    return out
+
+
 def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
     """ingredient -> group -> share."""
     out: dict[str, dict[str, float]] = defaultdict(dict)
@@ -138,10 +169,12 @@ def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
 def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: str,
           details: dict[str, dict] | None = None, preparations: dict[str, Counter] | None = None,
           min_restaurants: int = 2, now: datetime | None = None,
-          wikipedia: dict[str, str] | None = None) -> dict:
-    """`wikipedia` maps ingredient name -> article URL (see wiki.py)."""
+          wikipedia: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None) -> dict:
+    """`wikipedia` maps ingredient name -> article URL (see wiki.py); `lexicon` comes
+    from lexicon_info()."""
     details = details or {}
     wikipedia = wikipedia or {}
+    lexicon = lexicon or {}
     preparations = preparations or {}
     overall = a.ingredient_frequency(rows)
     by_region, by_season = _share_by(rows, "region"), _share_by(rows, "season")
@@ -160,6 +193,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "by_season": by_season.get(d["ingredient"], {}),
         "preparations": preparations.get(d["ingredient"], Counter()).most_common(8),
         "wikipedia": wikipedia.get(d["ingredient"]),
+        **{k: v for k, v in lexicon.get(d["ingredient"], {}).items() if v},
     } for d in overall]
 
     restaurant_list = []
@@ -178,6 +212,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
     groups = {
         "region": sorted({r.region for r in restaurants.values()}),
         "season": [s for s in SEASONS if any(r.season == s for r in rows)],
+        "category": sorted({i["category"] for i in ingredients if i.get("category")}),
     }
     return {
         "schema": SCHEMA,

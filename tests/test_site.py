@@ -86,3 +86,13 @@ def test_discovery_fills_in_publishing_and_blocking(tmp_path):
     assert restaurants["x"].publishes_menu == "yes"
     assert restaurants["z"].publishes_menu == "unknown"  # unclear stays unknown
     assert details == {"y": {"blocked": True}}
+
+
+def test_lexicon_info_gives_category_and_other_names(tmp_path):
+    lex = tmp_path / "ingredients.txt"
+    lex.write_text("# comment\n## vegetable\naubergine = en: eggplant | es: berenjena | ja: ナス\n"
+                   "white asparagus > asparagus = fr: asperge blanche\n## herb\nbasil\n")
+    info = site.lexicon_info(lex)
+    assert info["aubergine"] == {"category": "vegetable", "parent": None, "aka": ["eggplant", "berenjena", "ナス"]}
+    assert info["white asparagus"]["parent"] == "asparagus"
+    assert info["basil"] == {"category": "herb", "parent": None, "aka": []}

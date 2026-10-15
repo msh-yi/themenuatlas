@@ -133,17 +133,33 @@ function table(rows, cols, state, onSort) {
   const head = h("tr", {}, cols.map((c) => h("th", { class: c.num ? "num" : null, "aria-sort": c.key === col.key ? (state.dir === "asc" ? "ascending" : "descending") : null },
     c.nosort ? c.label : h("button", { onclick: () => onSort(c.key, c.key === col.key && state.dir === "desc" ? "asc" : (c.key === col.key ? "desc" : (c.num ? "desc" : "asc"))) },
       c.label + (c.key === col.key ? (state.dir === "asc" ? " ↑" : " ↓") : "")))));
-  const body = sorted.map((r) => h("tr", {}, cols.map((c) => h("td", { class: c.num ? "num" : null }, c.render ? c.render(r) : r[c.key]))));
-  return h("div", { class: "tablewrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, body.length ? body : h("tr", {}, h("td", { colspan: cols.length, class: "empty" }, "Nothing matches.")))));
+  // Long tables render in pages; "Show more" appends the next page in place.
+  const page = state.page || 100;
+  const tbody = h("tbody", {});
+  const more = h("button", { type: "button", class: "more" });
+  let shown = 0;
+  const showMore = () => {
+    const next = sorted.slice(shown, shown + page);
+    tbody.append(...next.map((r) => h("tr", {}, cols.map((c) => h("td", { class: c.num ? "num" : null }, c.render ? c.render(r) : r[c.key])))));
+    shown += next.length;
+    more.textContent = `Show ${Math.min(page, sorted.length - shown)} more of ${sorted.length - shown}`;
+    more.hidden = shown >= sorted.length;
+  };
+  more.addEventListener("click", showMore);
+  if (sorted.length) showMore();
+  else { tbody.append(h("tr", {}, h("td", { colspan: cols.length, class: "empty" }, "Nothing matches."))); more.hidden = true; }
+  return h("div", {}, h("div", { class: "tablewrap" }, h("table", {}, h("thead", {}, head), tbody)), more);
 }
 
 function groupOptions(selected) {
   const opt = (v, l) => h("option", { value: v, selected: v === selected }, l);
   return [opt("", "All restaurants"),
     h("optgroup", { label: "Region" }, D.groups.region.map((g) => opt("region:" + g, g))),
-    D.groups.season.length ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.map((g) => opt("season:" + g, cap(g)))) : null];
+    D.groups.season.some((g) => g !== "unknown") ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.filter((g) => g !== "unknown").map((g) => opt("season:" + g, cap(g)))) : null];
 }
 const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
+// lowercase without accents, so "cepe" finds "cèpe"
+const fold = (x) => (x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
 function groupShare(ing, group) {
   if (!group) return ing.share;
@@ -158,24 +174,28 @@ function ingredients(params) {
   const t = D.totals;
   const resultsHost = h("div", {});
   const search = h("input", { type: "search", placeholder: "uni, beetroot, fermented…", value: params.get("q") || "",
-    "aria-label": "Search ingredients or preparations" });
+    "aria-label": "Search ingredients, other names for them, or preparations" });
   const sel = h("select", {}, groupOptions(params.get("g") || ""));
+  const catSel = h("select", {}, h("option", { value: "" }, "All kinds"),
+    (D.groups.category || []).map((c) => h("option", { value: c, selected: c === params.get("cat") }, cap(c))));
 
   const live = () => {
-    const q = search.value, group = sel.value;
+    const q = search.value, group = sel.value, cat = catSel.value;
     const p = new URLSearchParams();
-    if (q) p.set("q", q); if (group) p.set("g", group);
+    if (q) p.set("q", q); if (group) p.set("g", group); if (cat) p.set("cat", cat);
     if (state.sort !== "gshare") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
-    const needle = q.toLowerCase().trim();
+    const needle = fold(q.trim());
     const rows = D.ingredients
-      .map((i) => ({ ...i, gshare: groupShare(i, group), n: i.restaurants.length, prep: i.preparations[0]?.[0] || "" }))
-      .filter((i) => i.gshare != null && (!needle || i.name.includes(needle) || i.preparations.some(([pr]) => pr.includes(needle))));
+      .map((i) => ({ ...i, gshare: groupShare(i, group), n: i.restaurants.length, prep: i.preparations[0]?.[0] || "",
+        via: needle && !fold(i.name).includes(needle) ? (i.aka || []).find((a) => fold(a).includes(needle)) : null }))
+      .filter((i) => i.gshare != null && (!cat || i.category === cat)
+        && (!needle || fold(i.name).includes(needle) || i.via || i.preparations.some(([pr]) => fold(pr).includes(needle))));
     const max = Math.max(...rows.map((r) => r.gshare), 1e-9);
     resultsHost.replaceChildren(
       h("p", { class: "muted" }, `${rows.length} of ${D.ingredients.length} ingredients`),
       table(rows, [
-        { key: "name", label: "Ingredient", render: (r) => ingLink(r.name) },
+        { key: "name", label: "Ingredient", render: (r) => r.via ? h("span", {}, ingLink(r.name), h("span", { class: "muted via" }, ` as “${r.via}”`)) : ingLink(r.name) },
         { key: "gshare", label: group ? "Share in group" : "Share of menus", render: (r) => shareBar(r.gshare, max) },
         { key: "n", label: "Restaurants", num: true },
         { key: "prep", label: "Top preparation", render: (r) => r.prep || h("span", { class: "muted" }, "–") },
@@ -185,12 +205,13 @@ function ingredients(params) {
   };
   search.addEventListener("input", live);
   sel.addEventListener("change", live);
+  catSel.addEventListener("change", live);
   live();
   return h("div", {},
     h("h1", {}, "Ingredients"),
     h("p", { class: "sub" }, "How often each ingredient appears on published tasting menus. Each restaurant counts once, however many menus it publishes."),
     tiles([[t.restaurants_with_data, "restaurants with menus"], [t.menus, "distinct menus"], [t.ingredients, "ingredients"], [t.pairs, "pairings"]]),
-    h("div", { class: "filters" }, h("label", {}, "Search", search), h("label", {}, "Group", sel)),
+    h("div", { class: "filters" }, h("label", {}, "Search, in any language", search), h("label", {}, "Kind", catSel), h("label", {}, "Group", sel)),
     resultsHost);
 }
 
@@ -198,24 +219,33 @@ function ingredient(_params, [name]) {
   const ing = byName.get(name);
   if (!ing) return notFound();
   const total = D.totals.restaurants_with_data;
-  const pairs = D.pairs.filter((p) => p.a === name || p.b === name)
-    .map((p) => ({ ...p, other: p.a === name ? p.b : p.a }))
-    .sort((x, y) => y.lift - x.lift);
+  // Positive associations only, most widely shared first: a 40× lift seen at two
+  // restaurants is one chef's dish, not a pattern.
+  const pairs = D.pairs.filter((p) => (p.a === name || p.b === name) && p.lift > 1)
+    .map((p) => ({ ...p, other: p.a === name ? p.b : p.a }));
   const regions = D.groups.region.filter((g) => ing.by_region[g] != null).map((g) => [g, ing.by_region[g]]);
   const seasons = D.groups.season.filter((g) => ing.by_season[g] != null).map((g) => [cap(g), ing.by_season[g]]);
-  const rs = ing.restaurants.map((slug) => byRestaurant.get(slug) || { slug, name: slug });
+  const rs = ing.restaurants.map((slug) => byRestaurant.get(slug) || { slug, name: slug })
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const LIST = 40;
+  const children = D.ingredients.filter((i) => i.parent === name);
 
   return h("div", {},
     h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/" }, "← Ingredients")),
     h("h1", {}, cap(name)),
-    h("p", { class: "sub" }, `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`,
+    h("p", { class: "sub" }, ing.category ? `${cap(ing.category)} · ` : "", `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`,
       ing.wikipedia ? h("span", {}, " · ", wikiLink(ing.wikipedia, "Read about it on Wikipedia ↗")) : null),
+    ing.parent || children.length ? h("p", { class: "muted", style: "margin-top:-.75rem" },
+      ing.parent ? h("span", {}, "A kind of ", byName.has(ing.parent) ? ingLink(ing.parent) : ing.parent, ". ") : null,
+      children.length ? h("span", {}, "Kinds: ", children.flatMap((c, i) => [i ? ", " : "", ingLink(c.name)]), ".") : null) : null,
     tiles([[pct(ing.share), "share of menus"], [ing.restaurants.length, "restaurants"], [pairs.length, "pairings"],
       [ing.preparations[0]?.[0] || "–", "most common preparation"]]),
     h("div", { class: "grid2" },
       h("section", { class: "card" }, h("h2", {}, "Share of menus by region"), barChart(regions, { max: 1 })),
       h("section", { class: "card" }, h("h2", {}, "Share of menus by season"),
-        barChart(seasons, { max: 1, note: "Southern Hemisphere dates shift six months; tropical restaurants are their own group." }))),
+        seasons.every(([g]) => g === "Unknown")
+          ? h("p", { class: "empty" }, "No menu dates in this build yet, so no seasons.")
+          : barChart(seasons.filter(([g]) => g !== "Unknown"), { max: 1, note: "Southern Hemisphere dates shift six months; tropical restaurants are their own group." }))),
     h("div", { class: "grid2", style: "margin-top:1.25rem" },
       h("section", { class: "card" }, h("h2", {}, "Pairs with"),
         pairs.length
@@ -223,25 +253,33 @@ function ingredient(_params, [name]) {
             { key: "other", label: "Ingredient", render: (p) => ingLink(p.other) },
             { key: "lift", label: "Lift", num: true, render: (p) => num(p.lift, 1) + "×" },
             { key: "restaurants", label: "Restaurants", num: true },
-          ], { sort: "lift", dir: "desc" }, () => {})
+          ], { sort: "restaurants", dir: "desc", page: 15 }, () => {})
           : h("p", { class: "empty" }, `No pairing seen at ${D.min_restaurants}+ restaurants yet.`)),
       h("section", { class: "card stack" },
         h("div", {}, h("h2", {}, "Preparations"),
           ing.preparations.length
             ? h("div", { class: "chips" }, ing.preparations.map(([p, n]) => h("span", { class: "chip" }, p, h("span", { class: "n" }, n))))
             : h("p", { class: "empty" }, "None recorded.")),
+        ing.aka?.length ? h("div", {}, h("h2", {}, "Also on menus as"),
+          h("div", { class: "chips" }, ing.aka.map((a) => h("span", { class: "chip" }, a)))) : null,
         h("div", {}, h("h2", {}, "Restaurants"),
-          h("div", { class: "chips" }, rs.map((r) => h("a", { class: "chip", href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name)))))));
+          h("div", { class: "chips" }, rs.slice(0, LIST).map((r) => h("a", { class: "chip", href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name)),
+            rs.length > LIST ? h("span", { class: "muted" }, `and ${rs.length - LIST} more, all on the map below`) : null)))),
+    h("h2", { style: "margin-top:1.5rem" }, "Where it's on the menu"),
+    coverageMap(new URLSearchParams(), { only: new Set(ing.restaurants), sync: false, shadeLabel: "restaurants using it" }));
 }
 
 function pairings(params) {
   const out = h("div", {});
-  const maxR = Math.max(D.min_restaurants, ...D.pairs.map((p) => p.restaurants));
+  const maxR = D.pairs.reduce((m, p) => Math.max(m, p.restaurants), D.min_restaurants);
+  // With lots of data, start from pairs seen at 5+ restaurants so one-off dishes don't lead.
+  const defaultMin = D.pairs.length > 2000 ? Math.min(5, maxR) : D.min_restaurants;
   const state = { sort: params.get("sort") || "lift", dir: params.get("dir") || "desc" };
   const search = h("input", { type: "search", placeholder: "filter by ingredient", value: params.get("q") || "", "aria-label": "Filter pairings by ingredient" });
-  const minSel = h("select", {}, Array.from({ length: maxR - D.min_restaurants + 1 }, (_, i) => {
-    const v = String(D.min_restaurants + i);
-    return h("option", { value: v, selected: v === (params.get("min") || String(D.min_restaurants)) }, v + "+");
+  const steps = [...new Set([D.min_restaurants, 3, 5, 10, 20, 50, 100].filter((v) => v >= D.min_restaurants && v <= maxR))];
+  const minSel = h("select", {}, steps.map((n, i) => {
+    const v = String(n);
+    return h("option", { value: v, selected: v === (params.get("min") || String(defaultMin)) }, v + "+");
   }));
   const chartHost = h("section", { class: "card" });
   const tableHost = h("div", {});
@@ -249,7 +287,7 @@ function pairings(params) {
   const live = () => {
     const p = new URLSearchParams();
     const q = search.value.toLowerCase().trim(), min = Number(minSel.value);
-    if (q) p.set("q", q); if (min !== D.min_restaurants) p.set("min", min);
+    if (q) p.set("q", q); if (min !== defaultMin) p.set("min", min);
     if (state.sort !== "lift") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
     const rows = D.pairs.filter((x) => x.restaurants >= min && (!q || x.a.includes(q) || x.b.includes(q)));
@@ -276,8 +314,11 @@ function pairings(params) {
 }
 
 // Scatter: x = support (log scale), y = lift (log scale). One series.
-function scatter(rows) {
-  if (!rows.length) return h("p", { class: "empty" }, "No pairings match.");
+function scatter(all) {
+  if (!all.length) return h("p", { class: "empty" }, "No pairings match.");
+  // Thousands of SVG points get slow; plot the pairs seen at the most restaurants.
+  const CAP = 600;
+  const rows = all.length <= CAP ? all : [...all].sort((a, b) => b.restaurants - a.restaurants || b.lift - a.lift).slice(0, CAP);
   const W = 640, H = 310, m = { l: 44, r: 12, t: 10, b: 44 };
   const xs = rows.map((r) => r.support), ys = rows.map((r) => r.lift);
   const lx = (v) => Math.log10(v), pad = 0.08;
@@ -304,6 +345,10 @@ function scatter(rows) {
     hit.addEventListener("click", go);
     hit.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
     svg.append(dot, hit);
+  }
+  if (rows.length < all.length) {
+    return h("div", {}, svg, h("p", { class: "muted", style: "font-size:.8rem;margin:.25rem 0 0" },
+      `Showing the ${rows.length} pairs seen at the most restaurants, out of ${all.length}. Raise “Seen at” to narrow it.`));
   }
   return svg;
 }
@@ -438,12 +483,13 @@ function countryOf(r, x, y, byName) {
   return world().find((c) => x >= c.bbox[0] && x <= c.bbox[2] && y >= c.bbox[1] && y <= c.bbox[3] && pointInRings(c.rings, x, y)) || null;
 }
 
-function coverageMap(params) {
+function coverageMap(params, opts = {}) {
+  const source = opts.only ? D.restaurants.filter((r) => opts.only.has(r.slug)) : D.restaurants;
   const countries = world();
   const byName = new Map(countries.map((c) => [c.name.toLowerCase(), c]));
   const stats = new Map(); // country -> {total, yes, data}
   const dots = [];
-  for (const r of D.restaurants) {
+  for (const r of source) {
     if (r.lat == null || r.lon == null) continue;
     const [x, y] = equalEarth(r.lon, r.lat);
     const st = statusOf(r), c = countryOf(r, x, y, byName);
@@ -468,6 +514,7 @@ function coverageMap(params) {
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const sync = () => {
+    if (opts.sync === false) return;
     const p = new URLSearchParams();
     if (preset && preset !== "World") p.set("view", preset);
     if (hidden.size) p.set("hide", [...hidden].join(","));
@@ -705,13 +752,13 @@ function coverageMap(params) {
     h("button", { type: "button", "aria-label": "Show the whole world", onclick: () => goPreset("World") }, "⟲"));
   wrap.append(zoomButtons);
 
-  const legend = h("div", { class: "legend" }, [...STATUS].reverse().map((st) => h("button", {
+  const legend = h("div", { class: "legend" }, [...STATUS].reverse().filter((st) => counts[st.key]).map((st) => h("button", {
     type: "button", class: "key", "aria-pressed": String(!hidden.has(st.key)), title: "Show or hide",
     onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); sync(); redraw(); },
   }, h("span", { class: "swatch" + (st.hollow ? " hollow" : ""), style: `--c:var(${st.color})` }), st.label, h("span", { class: "n" }, counts[st.key]))),
-  h("span", { class: "shade" }, h("span", { class: "ramp" }), `Country shade: restaurants in the list (1 to ${maxTotal})`));
+  h("span", { class: "shade" }, h("span", { class: "ramp" }), `Country shade: ${opts.shadeLabel || "restaurants in the list"} (1 to ${maxTotal})`));
 
-  const unplaced = D.restaurants.length - dots.length;
+  const unplaced = source.length - dots.length;
   const approx = dots.filter((d) => d.r.approx).length;
   const notes = ["Scroll or pinch to zoom, drag to move. Click a country to zoom in, or a dot to open the restaurant.",
     approx ? `${approx} faded dots are placed at their city, not their address.` : null,

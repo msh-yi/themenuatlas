@@ -163,3 +163,9 @@ svg .hit { fill: transparent; cursor: pointer; }
 .swatch.hollow { background: transparent; border: 1.5px solid var(--c); }
 .seg button:focus-visible, .legend .key:focus-visible, .map:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 details.card > summary { cursor: pointer; font-weight: 600; margin-bottom: .5rem; }
+
+.more { margin-top: .6rem; font: inherit; font-size: .88rem; color: var(--accent); background: transparent;
+  border: 1px solid var(--border); border-radius: 6px; padding: .35rem .8rem; cursor: pointer; }
+.more:hover { background: var(--surface-2); }
+.more:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.via { font-size: .85rem; }
