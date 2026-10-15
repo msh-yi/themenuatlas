@@ -1,0 +1,5 @@
+start: https://thehoneycombers.com/hong-kong/guide-to-kennedy-town/
+steps:
+- follow:
+    href_matches: ec959d_6ddf71e465de4555bf32d76af70c2968\.pdf
+content: pdf
