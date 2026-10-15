@@ -1,6 +1,6 @@
 # Plan: first slice (pipeline + analysis)
 
-Approved 2026-10-14. Updated the same day: Neon replaces Cloudflare R2, and extraction runs in Claude Code sessions instead of through the Anthropic API.
+Approved 2026-10-14. Updated the same day: Neon replaces Cloudflare R2, and extraction runs in Claude Code sessions instead of through the Anthropic API. Updated 2026-10-15: cloud sessions can't reach Postgres, so they hand work to and from Actions through the bucket (see "Where work runs").
 
 ## Goal
 
@@ -26,6 +26,7 @@ This first slice proves the hard parts on about 30 restaurants before any web ap
 | Auth | Neon Auth is provisioned but unused until the web app exists |
 | Scheduling | GitHub Actions cron, running `check` only, with no LLM |
 | Extraction | In Claude Code sessions (subscription), not the API. No `ANTHROPIC_API_KEY`. |
+| Where work runs | Cloud sessions have no Postgres access; they exchange work with Actions through the `snapshots` bucket (`pending/`, `extracted/`). |
 | Repo | Code will be public. Data stays private (Neon) and never goes in the repo. |
 | Scope now | Pipeline and analysis notebook. No web app yet. |
 
@@ -43,6 +44,18 @@ This first slice proves the hard parts on about 30 restaurants before any web ap
   Opted-out sites are recorded and skipped.
 - **Opt-out path.** Plan a takedown/opt-out process for restaurants before launch.
 - **Public logs.** Actions logs are public, so log IDs, hashes and statuses only. Never log menu text or secrets.
+
+## Where work runs
+
+Cloud Claude Code sessions only allow HTTPS out, through a proxy. Object storage and Neon Auth work from there, but Postgres on port 5432 does not (checked 2026-10-15). Don't tunnel or relay Postgres through HTTPS: Claude Code's permission system blocks that as a containment escape. Instead, the private `snapshots` bucket is the handoff point:
+
+| Who | Does what | Postgres? |
+|---|---|---|
+| **GitHub Actions** (scheduled) | `check`, then `pending --to-bucket` writes unextracted menus to `pending/`. `import --from-bucket` loads `extracted/` into Postgres. | Yes, direct |
+| **Cloud session** | Reads `pending/`, extracts, writes JSON to `extracted/`. Also writes recipes and code, and runs the offline tests. | No |
+| **Local machine** | Occasional manual work: migrations, ad-hoc queries, `smoke`. | Yes |
+
+Extracted data reaches Postgres on the next Actions run (scheduled, or a manual `workflow_dispatch`). Raw menus and extraction output stay in the private bucket and never enter the repo. Neon's SQL-over-HTTPS API is the fallback if this round trip becomes a problem, at the cost of a second database code path.
 
 ## Data model (see `src/menudb/db/models.py`)
 
@@ -83,11 +96,11 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 4. **Failures** (recipe drift, HTTP errors, robots.txt) increment `consecutive_failures`, and the run summary lists the failing sources.
 5. **Cadence adapts:** unchanged → interval ×1.5 (max 30 days); changed → interval ÷2 (min 3 days).
 
-**Extraction** (to build). Runs in a session, not through the API.
+**Extraction** (to build). Runs in a cloud session, not through the API, with the bucket as the handoff (see "Where work runs").
 
-- `menudb pending` exports unextracted menus: id, language, text, or a pointer to the PDF/image.
-- Claude in the session produces JSON matching a pydantic `Menu` schema: courses, then components with raw term, suggested canonical English name, role and preparations, plus menu type, language and stated dates.
-- `menudb import <json>` validates the JSON, writes courses and components, and stamps `extraction_version` and the extractor name.
+- `menudb pending --to-bucket` (in Actions) writes one object per unextracted menu to `pending/<menu_id>.json`: id, language, text, or the snapshot key of the PDF/image.
+- The session reads `pending/`, and Claude produces JSON matching a pydantic `Menu` schema: courses, then components with raw term, suggested canonical English name, role and preparations, plus menu type, language and stated dates. It writes the result to `extracted/<menu_id>.json` and deletes the `pending/` object. A small `menudb extract-io` helper does the bucket reads and writes; it needs no database.
+- `menudb import --from-bucket` (in Actions) validates each `extracted/` object, writes courses and components, stamps `extraction_version` and the extractor name, then moves the object to `imported/`. `menudb import <json>` stays available for local use.
 - `ingredients.py` matches terms against aliases. Unmatched terms go to `review_queue`, and `menudb review` maps them.
 - **Automating later:** a scheduled Claude Code routine (`/schedule`), or `claude-code-action` with a subscription token.
 
@@ -100,7 +113,7 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 **GitHub Actions** (to build): `.github/workflows/check.yml`
 
 - Triggers: daily cron plus `workflow_dispatch`.
-- Steps: uv, Playwright Chromium (cached), `menudb check`.
+- Steps: uv, Playwright Chromium (cached), `menudb import --from-bucket`, `menudb check`, `menudb pending --to-bucket`.
 - Secrets: `DATABASE_URL`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ENDPOINT_URL_S3`, `AWS_REGION`. Bulk-set them with `gh secret set -f <file>`.
 - Scheduled workflows on public repos are disabled after 60 days without repo activity.
 
@@ -128,16 +141,16 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 
 1. ✅ Scaffold: uv project, config, Alembic schema (applied to Neon), storage, CLI (`seed`, `check`, `smoke`), tests.
 2. ✅ Fetcher (robots/TDM/rate limit/conditional GET), normalization, recipe runner, `check` pipeline. 19 tests pass.
-3. ⏭ **Next:** draft the seed CSV (user reviews it), write recipes for the 30, then `seed` and the first live `check`.
-4. Extraction in sessions (`pending` / `import` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
+3. ⏭ **Next:** the seed CSV is drafted for review in the project files, not yet in the repo (33 restaurants; list status still to verify against the official sources). After sign-off: write recipes for the 30, then `seed` and the first live `check`. Those need Postgres, so they run locally or in Actions.
+4. Extraction in sessions via the bucket handoff (`pending --to-bucket` / `extract-io` / `import --from-bucket` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
 5. `wayback.py` backfill for all 30.
-6. GitHub Actions workflow and secrets.
+6. GitHub Actions workflow and secrets. Needed before cloud sessions can do any database-backed work end to end, so it may move ahead of step 5.
 7. Notebook.
 
 ## Verification
 
 - **Tests:** `uv run pytest`. These run offline, and the DB tests use an embedded Postgres via pgserver.
-- **Services:** `uv run menudb smoke` checks Postgres, object storage and Neon Auth end to end.
+- **Services:** `uv run menudb smoke` checks Postgres, object storage and Neon Auth end to end. In a cloud session the Postgres check fails after about 30 seconds (connect timeouts), and that is expected.
 - **Pipeline:**
   - `menudb check --limit 3` creates snapshots and menus, and an immediate rerun reports 0 changed.
   - Backfill on a restaurant with PDF menus yields several distinct menus over time.

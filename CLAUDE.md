@@ -37,6 +37,8 @@ uv run playwright install --with-deps chromium   # only when a recipe uses rende
 
 Cloud sessions install dependencies through the SessionStart hook (`scripts/session-start.sh`).
 
+**Cloud sessions can't reach Postgres** (HTTPS-only proxy; port 5432 is blocked). Object storage and Auth work. Don't try to tunnel Postgres; see "Where work runs" in `docs/PLAN.md`.
+
 ## Conventions
 
 - **Schema changes:** edit `src/menudb/db/models.py`, then `alembic revision --autogenerate`, and check the generated migration.
