@@ -45,3 +45,13 @@ def test_no_course_text_or_course_grouping(tmp_path):
     # the fixture's raw_text is "synthetic"; course text and positions never leave
     assert "raw_text" not in text and '"position"' not in text and '"courses":[' not in text
     assert json.loads(text)["totals"] == d["totals"]
+
+
+def test_city_level_coordinates_are_flagged(tmp_path):
+    path = tmp_path / "r.csv"
+    path.write_text("slug,name,city,country,lat,lon,website,publishes_menu,lists,coord_precision\n"
+                    "a,A,Oslo,Norway,59.9,10.7,https://a.example/,true,,city\n"
+                    "b,B,Oslo,Norway,59.9,10.7,https://b.example/,true,,\n")
+    details = site.restaurant_details(path)
+    assert details["a"]["approx"] is True and details["b"]["approx"] is False
+    assert details["a"]["lon"] == 10.7

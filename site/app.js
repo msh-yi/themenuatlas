@@ -351,20 +351,166 @@ function restaurant(_params, [slug]) {
     h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."));
 }
 
-function coverage() {
+// --- coverage map -------------------------------------------------------------
+
+// Equal Earth projection (lon/lat in degrees -> unit plane, y up).
+function equalEarth(lon, lat) {
+  const A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, M = Math.sqrt(3) / 2;
+  const l = (lon * Math.PI) / 180, th = Math.asin(M * Math.sin((lat * Math.PI) / 180));
+  const t2 = th * th, t6 = t2 * t2 * t2;
+  return [(l * Math.cos(th)) / (M * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2))),
+    th * (A1 + A2 * t2 + t6 * (A3 + A4 * t2))];
+}
+
+// [west, south, east, north] in degrees
+const VIEWS = {
+  World: [-180, -56, 180, 78], Europe: [-11, 35, 32, 64], "North America": [-128, 14, -60, 52],
+  "Latin America": [-118, -45, -34, 33], Asia: [68, -10, 146, 46], Oceania: [110, -48, 180, -8],
+};
+
+const STATUS = [
+  // drawn in this order, so the categories that matter most end up on top
+  { key: "unknown", label: "Not checked yet", color: "--dot-unknown", hollow: true },
+  { key: "no", label: "Doesn't publish a menu", color: "--dot-none", hollow: true },
+  { key: "yes", label: "Publishes, not collected yet", color: "--dot-pending" },
+  { key: "data", label: "Menus collected", color: "--accent" },
+];
+const statusOf = (r) => (r.menus > 0 ? "data" : r.publishes_menu === "yes" ? "yes" : r.publishes_menu === "no" ? "no" : "unknown");
+
+function coverageMap(params) {
+  const placed = D.restaurants.filter((r) => r.lat != null && r.lon != null);
+  const hidden = new Set((params.get("hide") || "").split(",").filter(Boolean));
+  let view = VIEWS[params.get("view")] ? params.get("view") : "World";
+  const canvas = h("canvas", { class: "map", role: "img", tabindex: "0",
+    "aria-label": `Map of ${placed.length} restaurants by menu status. A table follows.` });
+  const wrap = h("div", { class: "mapwrap" }, canvas);
+  let pts = []; // [x, y, r] in CSS pixels, for hover
+
+  const counts = Object.fromEntries(STATUS.map((st) => [st.key, 0]));
+  for (const r of placed) counts[statusOf(r)]++;
+
+  const sync = () => {
+    const p = new URLSearchParams();
+    if (view !== "World") p.set("view", view);
+    if (hidden.size) p.set("hide", [...hidden].join(","));
+    setParams(p);
+  };
+
+  function draw() {
+    const css = getComputedStyle(document.documentElement);
+    const col = (v) => css.getPropertyValue(v).trim();
+    const W = wrap.clientWidth || 640, H = Math.round(Math.min(560, Math.max(260, W * 0.52)));
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = col("--map-sea"); ctx.fillRect(0, 0, W, H);
+
+    // fit the view box (sampled along its edges, since meridians curve)
+    const [w, s, e, n] = VIEWS[view];
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let i = 0; i <= 16; i++) {
+      for (const [lo, la] of [[w + ((e - w) * i) / 16, s], [w + ((e - w) * i) / 16, n], [w, s + ((n - s) * i) / 16], [e, s + ((n - s) * i) / 16]]) {
+        const [x, y] = equalEarth(lo, la);
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+    }
+    const pad = 12, k = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+    const ox = (W - k * (x1 - x0)) / 2 - k * x0, oy = (H - k * (y1 - y0)) / 2 + k * y1;
+    const P = (lo, la) => { const [x, y] = equalEarth(lo, la); return [ox + k * x, oy - k * y]; };
+
+    ctx.fillStyle = col("--map-land");
+    ctx.beginPath();
+    for (const ring of window.MENU_ATLAS_LAND || []) {
+      for (let i = 0; i < ring.length; i += 2) {
+        const [x, y] = P(ring[i], ring[i + 1]);
+        if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+      }
+      ctx.closePath();
+    }
+    ctx.fill("evenodd");
+
+    // dots: bigger when zoomed in, never below 2.5px
+    const zoom = view === "World" ? 1 : 1.6;
+    const ring = col("--map-sea");
+    pts = [];
+    for (const st of STATUS) {
+      if (hidden.has(st.key)) continue;
+      const c = col(st.color);
+      for (const r of placed) {
+        if (statusOf(r) !== st.key) continue;
+        const [x, y] = P(r.lon, r.lat);
+        if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
+        const rad = (st.key === "data" ? 4 : 3) * zoom;
+        ctx.globalAlpha = r.approx ? 0.55 : 1;
+        ctx.beginPath(); ctx.arc(x, y, rad, 0, 2 * Math.PI);
+        if (st.hollow) { ctx.strokeStyle = c; ctx.lineWidth = 1.5; ctx.stroke(); }
+        else { ctx.fillStyle = c; ctx.fill(); ctx.strokeStyle = ring; ctx.lineWidth = 1; ctx.stroke(); }
+        pts.push([x, y, rad, r]);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // hover: nearest dot within reach, topmost category wins ties
+  const nearest = (ev) => {
+    const b = canvas.getBoundingClientRect(), mx = ev.clientX - b.left, my = ev.clientY - b.top;
+    let best = null, bd = Infinity;
+    for (let i = pts.length - 1; i >= 0; i--) {
+      const [x, y, rad, r] = pts[i], d = Math.hypot(x - mx, y - my);
+      if (d <= Math.max(10, rad + 4) && d < bd) { best = r; bd = d; }
+    }
+    return best;
+  };
+  canvas.addEventListener("pointermove", (ev) => {
+    const r = nearest(ev);
+    canvas.style.cursor = r ? "pointer" : "default";
+    if (!r) return hideTip();
+    const st = STATUS.find((x) => x.key === statusOf(r));
+    showTip(ev, r.name, [r.city, r.country].filter(Boolean).join(", ") + " · " + st.label
+      + (r.menus ? ` (${r.menus} menu${r.menus > 1 ? "s" : ""})` : "") + (r.approx ? " · location approximate (city)" : ""));
+  });
+  canvas.addEventListener("pointerleave", hideTip);
+  canvas.addEventListener("click", (ev) => { const r = nearest(ev); if (r) location.hash = "#/restaurant/" + encodeURIComponent(r.slug); });
+
+  const viewButtons = h("div", { class: "seg", role: "group", "aria-label": "Zoom to" },
+    Object.keys(VIEWS).map((v) => h("button", { type: "button", "aria-pressed": String(v === view),
+      onclick: (e) => { view = v; for (const b of e.target.parentNode.children) b.setAttribute("aria-pressed", String(b === e.target)); sync(); draw(); } }, v)));
+  const legend = h("div", { class: "legend" }, [...STATUS].reverse().map((st) => h("button", {
+    type: "button", class: "key", "aria-pressed": String(!hidden.has(st.key)), title: "Show or hide",
+    onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); sync(); draw(); },
+  }, h("span", { class: "swatch" + (st.hollow ? " hollow" : ""), style: `--c:var(${st.color})` }), st.label, h("span", { class: "n" }, counts[st.key]))));
+
+  const unplaced = D.restaurants.length - placed.length;
+  const approx = placed.filter((r) => r.approx).length;
+  const notes = [approx ? `${approx} faded dots are placed at their city, not their address.` : null,
+    unplaced ? `${unplaced} restaurants have no location yet and aren't on the map.` : null].filter(Boolean);
+
+  if (window.ResizeObserver) new ResizeObserver(() => draw()).observe(wrap);
+  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", draw);
+  requestAnimationFrame(draw);
+  return h("section", { class: "card" }, h("div", { class: "maphead" }, viewButtons), wrap, legend,
+    notes.length ? h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" }, notes.join(" ")) : null);
+}
+
+function coverage(params) {
   const rows = D.coverage.map((c) => ({ ...c, rate: c.restaurants ? c.with_data / c.restaurants : 0 }));
+  const t = D.totals;
   return h("div", {},
     h("h1", {}, "Coverage"),
-    h("p", { class: "sub" }, "Which regions the data actually covers. Read every chart on this site against this table: a region with two restaurants says little."),
-    h("section", { class: "card" }, h("h2", {}, "Share of seed restaurants with menu data"),
-      barChart(rows.map((c) => [c.region, c.rate, `${c.with_data} of ${c.restaurants} restaurants`]), { max: 1 })),
-    h("section", { class: "card" }, table(rows, [
-      { key: "region", label: "Region" },
-      { key: "restaurants", label: "In seed list", num: true },
-      { key: "publishes_menu", label: "Publish a menu", num: true },
-      { key: "with_data", label: "With data", num: true },
-      { key: "rate", label: "Covered", num: true, render: (c) => pct(c.rate) },
-    ], { sort: "region", dir: "asc" }, () => {})));
+    h("p", { class: "sub" }, "Where the menus come from. Read every chart on this site against this map: a region with two restaurants says little."),
+    tiles([[t.restaurants, "restaurants in the list"], [D.restaurants.filter((r) => r.publishes_menu === "yes").length, "publish a menu"],
+      [t.restaurants_with_data, "with menus collected"], [pct(t.restaurants ? t.restaurants_with_data / t.restaurants : 0), "covered"]]),
+    coverageMap(params),
+    h("details", { class: "card" }, h("summary", {}, "Coverage by region, as a table"),
+      table(rows, [
+        { key: "region", label: "Region" },
+        { key: "restaurants", label: "In list", num: true },
+        { key: "publishes_menu", label: "Publish a menu", num: true },
+        { key: "with_data", label: "With menus", num: true },
+        { key: "rate", label: "Covered", num: true, render: (c) => pct(c.rate) },
+      ], { sort: "region", dir: "asc" }, () => {})));
 }
 
 function about() {

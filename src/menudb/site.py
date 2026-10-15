@@ -59,12 +59,17 @@ def preparations_from_db(session) -> dict[str, Counter]:
 
 
 def restaurant_details(csv_path: Path | None) -> dict[str, dict]:
-    """Public facts from the seed CSV: name, city, country, coordinates, website."""
+    """Public facts from the seed CSV: name, city, country, coordinates, website.
+
+    An optional `coord_precision` column marks city-level coordinates (`city`) so the
+    map can show them as approximate; blank or `exact` means a geocoded address.
+    """
     if csv_path is None or not csv_path.exists():
         return {}
     with csv_path.open() as f:
         return {r["slug"]: {"name": r["name"], "city": r["city"], "country": r["country"],
                             "lon": float(r["lon"]) if r.get("lon") else None,
+                            "approx": (r.get("coord_precision") or "").strip().lower() == "city",
                             "url": r["website"]} for r in csv.DictReader(f)}
 
 
@@ -105,6 +110,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         restaurant_list.append({
             "slug": slug, "name": det.get("name") or slug, "city": det.get("city"),
             "country": det.get("country"), "region": r.region, "lat": r.lat, "lon": det.get("lon"),
+            "approx": bool(det.get("approx")),
             "url": det.get("url"), "publishes_menu": r.publishes_menu,
             "menus": len(menus.get(slug, ())),
             "ingredients": sum(slug in u for u in users.values()),
