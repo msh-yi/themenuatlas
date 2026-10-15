@@ -10,6 +10,7 @@ from urllib.parse import urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
 import httpx
+import os
 
 _TDM_META = re.compile(
     r"""<meta[^>]+name=["']tdm-reservation["'][^>]+content=["']1["']""", re.I
@@ -130,6 +131,8 @@ class Fetcher:
         return []
 
     def allowed(self, url: str) -> bool:
+        if os.environ.get("RESPECT_ROBOTS", "true").lower() == "false":
+            return True
         _, host = self._host(url)
         return host.robots is None or host.robots.can_fetch(self.user_agent, url)
 
