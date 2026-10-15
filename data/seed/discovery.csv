@@ -18,15 +18,15 @@ abcv,menu_found,78,html,https://www.abcv.nyc/menus,1,,2026-10-15
 abuqir,menu_maybe,7,html,https://abuqirseafood.zoyaf.com/menu.html,1,,2026-10-15
 adam-albin,no_menu_found,1,,https://adamalbin.se/menu,,1 menu-like links,2026-10-15
 adam-s,menu_found,33,pdf,https://www.adamsrestaurant.co.uk/wp-content/uploads/2026/07/Chefs-Table-Tasting-Menu.pdf,1,,2026-10-15
-addiert,robots,0,,,,robots.txt disallows the home page,2026-10-15
-addison,failed,0,,,,FetchError: https://www.fairmont.com/san-diego/dining/addison/: HTTP 403,2026-10-15
+addiert,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
+addison,no_menu_found,2,,https://www.fairmont.com/en/hotels/san-diego/fairmont-grand-del-mar/dining.html,,1 menu-like links,2026-10-15
 adega,menu_found,12,pdf,https://www.adegarest.com/wp-content/uploads/2019/07/SUMMER26-3-1.pdf,1,,2026-10-15
 admiral,menu_maybe,8,html,https://www.admiral-weisenheim.de/speisekarte/,1,,2026-10-15
 agapes,no_menu_found,1,,https://www.agapes-toulouse.fr/,,0 menu-like links,2026-10-15
 agli-amici,menu_found,45,html,https://www.agliamici.it/en/menu/,1,,2026-10-15
 agli-amici-rovinj,no_menu_found,4,,https://www.maistra.com/experiences/olive-oil-tasting-maistra/,,1 menu-like links,2026-10-15
 aira,menu_found,28,html,https://aira.se/menu/,1,,2026-10-15
-akasaka-kikunoi,robots,0,,,,robots.txt disallows the home page,2026-10-15
+akasaka-kikunoi,failed,0,,,,FetchError: https://kikunoi.jp/english/store/akasaka/index.html: HTTP 404,2026-10-15
 akelare,menu_found,33,html,https://akelarre.net/en/menus/,1,,2026-10-15
 akme,no_menu_found,3,,https://www.akme.dk/menu,,1 menu-like links,2026-10-15
 akoko,failed,0,,,,FetchError: https://akoko.co.uk/: HTTP 403,2026-10-15
@@ -83,7 +83,7 @@ apostelstube,menu_maybe,11,pdf,https://www.hotelelephant.com/redakteure/user_upl
 aquavit-manhattan-midtown-ea,menu_found,41,pdf,http://www.aquavit.org/s/DR-Lunch-101526-fmrl.pdf,1,,2026-10-15
 arabelle-meirlaen,menu_maybe,8,html,https://www.arabelle.be/cuisine-intuitive/,1,,2026-10-15
 aramburu,no_menu_found,3,,https://www.arambururesto.com.ar/,,0 menu-like links,2026-10-15
-arbor,robots,0,,,,robots.txt disallows the home page,2026-10-15
+arbor,menu_found,13,pdf,https://www.arbor-hk.com/_files/ugd/3c7f99_5f0fd5ebb438492b85edc20430d3e006.pdf,1,,2026-10-15
 arbore-da-veira,menu_found,12,html,https://arboredaveira.com/,1,,2026-10-15
 arbore-sens,menu_found,13,html,https://restaurant-arbore-et-sens.fr/carte-menus/,1,,2026-10-15
 arc,menu_maybe,6,pdf,https://www.arcrestaurant.de/_files/ugd/e2af32_e7eec3c375e74b2b9dd94b24e0c0dde4.pdf,1,,2026-10-15
@@ -98,7 +98,7 @@ asador-alfonso,no_menu_found,0,,https://www.asadoralfonso.com/,,0 menu-like link
 asador-etxebarri,no_menu_found,0,,https://www.asadoretxebarri.com/,,0 menu-like links,2026-10-15
 assa,no_menu_found,0,,https://www.assarestaurant.com/menu/,,1 menu-like links,2026-10-15
 assaggi,no_menu_found,0,,https://assaggi.co.uk/,,0 menu-like links,2026-10-15
-astrance,robots,0,,,,robots.txt disallows the home page,2026-10-15
+astrance,no_menu_found,2,,https://www.astranceparis.fr/,,5 menu-like links,2026-10-15
 atelier-crenn,no_menu_found,4,,https://www.ateliercrenn.com/our-menu/,,1 menu-like links,2026-10-15
 atelier-moessmer-norbert-niederkofler,menu_maybe,10,pdf,https://ateliernorbertniederkofler.com/images/menu/AMNNK_menu_EN.pdf,1,,2026-10-15
 atelier-noun,menu_maybe,7,html,https://www.ateliernoun.be/nl/onsmenu,1,,2026-10-15
@@ -124,7 +124,7 @@ auberge-de-la-forge,menu_maybe,9,html,https://laubergedelaforge.com/,1,,2026-10-
 auberge-de-la-mine,menu_found,12,html,https://www.aubergedelamine.com/la-carte/,1,,2026-10-15
 auberge-de-la-roche,no_menu_found,2,,https://www.laubergedelaroche.com/,,0 menu-like links,2026-10-15
 auberge-de-montfleury,menu_maybe,5,pdf,https://auberge-de-montfleury.fr/media/original/menu-decouvert-pagina.pdf,1,,2026-10-15
-auberge-des-templiers,robots,0,,,,robots.txt disallows the home page,2026-10-15
+auberge-des-templiers,menu_maybe,7,pdf,https://www.lestempliers.com/media/original/menu-du-mois-de-la-gastronomie-002-.pdf,1,,2026-10-15
 auberge-du-pont,menu_found,16,pdf,https://auberge-du-pont.com/wp-content/uploads/2026/10/dici-et-dailleurs-octobre.pdf,1,,2026-10-15
 auberge-du-soleil,no_menu_found,0,,https://auberge.com,,0 menu-like links,2026-10-15
 auberge-du-vert-mont,no_menu_found,4,,https://www.vertmont.fr/,,0 menu-like links,2026-10-15
@@ -208,7 +208,7 @@ boreas,no_menu_found,3,,https://www.sabero.nl/nl/menukaart,,1 menu-like links,20
 borgo,menu_found,51,html,https://borgonyc.com/lunch,1,,2026-10-15
 borgo-san-jacopo,failed,0,,,,FetchError: https://www.lungarnocollection.com/borgo-san-jacopo/: HTTP 403,2026-10-15
 borgo-sant-anna,menu_found,40,html,https://www.borgosantanna.it/en-gb/menu,1,,2026-10-15
-borkonyha-winekitchen,robots,0,,,,robots.txt disallows the home page,2026-10-15
+borkonyha-winekitchen,no_menu_found,0,,https://borkonyha.hu/,,0 menu-like links,2026-10-15
 boskinac,menu_maybe,5,html,https://www.boskinac.com/menu-en,1,,2026-10-15
 bosq,menu_found,37,html,https://www.bosqaspen.com/menus,1,,2026-10-15
 botrini-s,no_menu_found,1,,https://botrinis.com/wp-content/uploads/2026/06/botrinis-athens_menu_summer_2026___.pdf,,1 menu-like links,2026-10-15
@@ -229,7 +229,7 @@ briketenia,no_menu_found,2,,https://www.briketenia.com/fr/,,0 menu-like links,20
 broadmoar,no_menu_found,1,,https://restaurant-broadmoar.com/,,0 menu-like links,2026-10-15
 brothers,no_menu_found,3,,https://www.brothers-munich.com/menue-weine/,,2 menu-like links,2026-10-15
 bruno,menu_maybe,7,html,https://www.restaurantbruno.com/menus,1,,2026-10-15
-brut,robots,0,,,,robots.txt disallows the home page,2026-10-15
+brut,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 brut172,menu_maybe,5,html,https://brut172.com/menu,1,,2026-10-15
 bulle-d-osier,no_menu_found,1,,https://closvauban.com/bulle-dosier/,,0 menu-like links,2026-10-15
 bulrush,menu_found,18,pdf,https://irp.cdn-website.com/29070f48/files/uploaded/sample+menu+for+website-e9b2c062.pdf,1,,2026-10-15
@@ -258,7 +258,7 @@ carelshaven,menu_maybe,10,pdf,https://mediabrandtstudio.storage.googleapis.com/w
 carino,menu_found,22,html,https://www.carinochicago.com/menu,1,,2026-10-15
 casa-arcas,robots,0,,,,robots.txt disallows the home page,2026-10-15
 casa-bernardi,menu_found,13,pdf,https://casabernardi.es/wp-content/uploads/2026/05/Pasta-lovers-Frances-postre.pdf,1,,2026-10-15
-casa-de-carli,robots,0,,,,robots.txt disallows the home page,2026-10-15
+casa-de-carli,menu_found,33,html,https://www.casadecarli.cz/en/our-menu/,1,,2026-10-15
 casa-enrique,failed,0,,,,FetchError: https://henrinyc.com/casa-enrique/: HTTP 404,2026-10-15
 casa-fofo,menu_found,15,html,https://www.casafofolondon.co.uk/,1,,2026-10-15
 casa-gerardo,no_menu_found,0,,https://restaurantecasagerardo.es/,,0 menu-like links,2026-10-15
@@ -289,7 +289,7 @@ chateau-d-adomenil,no_menu_found,0,,https://adomenil.com/fr/,,0 menu-like links,
 chateau-de-courcelles,no_menu_found,0,,https://www.chateau-de-courcelles.fr,,0 menu-like links,2026-10-15
 chateau-de-pray,no_menu_found,0,,https://www.chateaudepray.fr,,0 menu-like links,2026-10-15
 chateau-du-mont-joly,no_menu_found,1,,https://www.chateaumontjoly.com/fr/,,0 menu-like links,2026-10-15
-chateau-neercanne,robots,0,,,,robots.txt disallows the home page,2026-10-15
+chateau-neercanne,no_menu_found,0,,https://web.archive.org/web/20131005191411/http:/chateauhotels.nl/default.aspx?id=52&taal=en&sc=5,,2 menu-like links,2026-10-15
 chesa-stuva-colani,no_menu_found,0,,https://www.hotelchesacolani.com/,,0 menu-like links,2026-10-15
 cheval-blanc,no_menu_found,1,,https://www.restaurant-chevalblanc.fr/,,1 menu-like links,2026-10-15
 cheval-blanc-heemstede,menu_maybe,7,html,https://cheval-blanc.nl/menu/,1,,2026-10-15
@@ -351,7 +351,7 @@ da-gorini,menu_found,42,html,https://dagorini.it/en/tasting-menu/,1,,2026-10-15
 da-lucio,robots,0,,,,robots.txt disallows the home page,2026-10-15
 da-vinci,menu_maybe,5,html,https://www.restaurantdavinci.nl/menukaart,1,,2026-10-15
 da-vittorio,menu_found,18,pdf,https://www.davittorio.com/images/davittorio/ristorante/brusaporto/menu/Menu%20American%20Bar.pdf,1,,2026-10-15
-da-vittorio-st-moritz,robots,0,,,,robots.txt disallows the home page,2026-10-15
+da-vittorio-st-moritz,no_menu_found,1,,https://tschuggencollection.ch/en/hotel/carlton-hotel/restaurants,,7 menu-like links,2026-10-15
 dakar-nola,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 dal-pescatore,menu_found,13,html,https://www.dalpescatore.com/it/menu,1,,2026-10-15
 dalla-gioconda,menu_found,37,html,https://www.dallagioconda.it/en/menus-2-2-2/,1,,2026-10-15
@@ -376,7 +376,7 @@ de-grie,failed,0,,,,FetchError: http://www.sandton.eu/en/terschelling/eten-drink
 de-groene-lantaarn,no_menu_found,0,,https://degroenelantaarn.com/,,0 menu-like links,2026-10-15
 de-heer-kocken,no_menu_found,0,,https://www.deheerkocken.nl/,,0 menu-like links,2026-10-15
 de-heeren-van-harinxma,robots,0,,,,robots.txt disallows the home page,2026-10-15
-de-hoefslag,failed,0,,,,FetchError: http://www.hoefslag.nl/nl/index.php: HTTP 404,2026-10-15
+de-hoefslag,failed,0,,,,FetchError: http://www.hoefslag.nl/nl/index.php: HTTP 403,2026-10-15
 de-hooge-heerlijkheid,robots,0,,,,robots.txt disallows the home page,2026-10-15
 de-ja,menu_found,23,pdf,https://www.deja-restaurant.com/fichoplaweb/pdf/MenuPartitionFrançais(1).pdf,1,,2026-10-15
 de-jonkman,menu_maybe,5,html,https://dejonkman.be/nl/menu,1,,2026-10-15
@@ -396,7 +396,7 @@ de-lindenhof,menu_found,23,html,https://restaurantdelindenhof.nl/en/menu/,1,,202
 de-loohoeve,no_menu_found,1,,https://herbergdeloohoeve.nl/onzebistro/,,2 menu-like links,2026-10-15
 de-mijlpaal,menu_maybe,7,html,https://www.demijlpaal.org/nl/menu,1,,2026-10-15
 de-moerbei,failed,0,,,,FetchError: http://www.demoerbeiwarmond.nl/nl/index2.php: HTTP 404,2026-10-15
-de-molen,robots,0,,,,robots.txt disallows the home page,2026-10-15
+de-molen,no_menu_found,0,,https://www.mooiedomeinnaam.nl/aanbod/restaurantdemolen.nl,,0 menu-like links,2026-10-15
 de-nederlanden,menu_maybe,5,html,https://www.nederlanden.nl/menu/,1,,2026-10-15
 de-nieuwe-winkel,no_menu_found,0,,https://denieuwewinkel.com/menukaart/,,1 menu-like links,2026-10-15
 de-pastorie,menu_found,16,html,https://restaurantdepastorie.be/menu/,1,,2026-10-15
@@ -410,7 +410,7 @@ de-wanne,no_menu_found,0,,https://www.hoteldewiemsel.nl/nl/,,0 menu-like links,2
 de-witte-holevoet,robots,0,,,,robots.txt disallows the home page,2026-10-15
 de-woage,menu_maybe,8,pdf,https://restobardewoage.nl/wp-content/uploads/2026/01/Drankenkaart-Restobar-de-Woage.pdf,1,,2026-10-15
 de-zwaan,robots,0,,,,robots.txt disallows the home page,2026-10-15
-de-zwethheul,failed,0,,,,FetchError: http://www.zwethheul.nl/home/uk/uk: HTTP 404,2026-10-15
+de-zwethheul,failed,0,,,,FetchError: http://www.zwethheul.nl/home/uk/uk: HTTP 403,2026-10-15
 deanes,menu_found,44,pdf,https://www.michaeldeane.co.uk/resources/pdf/MrDeanes_evening_menu.pdf,1,,2026-10-15
 dede,failed,0,,,,FetchError: https://customshousebaltimore.com/dede-customs-house: HTTP 404,2026-10-15
 del-posto,robots,0,,,,robots.txt disallows the home page,2026-10-15
@@ -480,7 +480,7 @@ en-la-parra,menu_found,17,html,https://restaurantenlaparra.com/menus/,1,,2026-10
 en-pleine-nature,no_menu_found,1,,https://www.en-pleine-nature.com/,,0 menu-like links,2026-10-15
 encanto,no_menu_found,3,,https://www.encantojoseavillez.pt/,,0 menu-like links,2026-10-15
 endo-at-the-rotunda,no_menu_found,0,,https://www.endoatrotunda.com/omakase,,1 menu-like links,2026-10-15
-enfin,robots,0,,,,robots.txt disallows the home page,2026-10-15
+enfin,menu_maybe,5,pdf,https://www.enfin-barr.com/wp-content/uploads/2025/12/Carte-des-vins-OKay.pdf,1,,2026-10-15
 enigma,no_menu_found,0,,https://enigmaconcept.es/,,0 menu-like links,2026-10-15
 enigma-yorkville,menu_found,74,html,https://www.enigmayorkville.com/menu/,1,,2026-10-15
 enoteca-pinchiorri,menu_found,22,html,http://enotecapinchiorri.it/menu.php,1,,2026-10-15
@@ -590,7 +590,7 @@ gotham-bar-and-grill,no_menu_found,1,,https://www.gothambarandgrill.com/,,0 menu
 gourmetrestaurant-berlins-krone,no_menu_found,0,,https://www.kronelamm-schwarzwald.de/,,0 menu-like links,2026-10-15
 gourmetstube-einhorn,no_menu_found,0,,https://www.stafler.com/de/gourmet-hotel-suedtirol/gourmetstube-einhorn/philosophie-gourmet-einhorn.html,,0 menu-like links,2026-10-15
 gramercy-tavern,menu_found,42,html,https://www.gramercytavern.com/dining-room-menu/,1,,2026-10-15
-grand-cru,robots,0,,,,robots.txt disallows the home page,2026-10-15
+grand-cru,no_menu_found,2,,https://grandcru.ru/wp-content/uploads/menu/Основное%20кухня%2007.10.pdf,,2 menu-like links,2026-10-15
 granite,menu_found,23,html,https://granite.paris/,1,,2026-10-15
 graphite-by-peter-gast,robots,0,,,,robots.txt disallows the home page,2026-10-15
 gravetye-manor,menu_found,32,pdf,https://www.gravetyemanor.co.uk/media/z5pl10wv/gravetye-dinner-2026.pdf,1,,2026-10-15
@@ -647,7 +647,7 @@ hoeve-de-bies,no_menu_found,3,,https://cdn.prod.website-files.com/600c50686aae5f
 hof-ter-hulst,no_menu_found,4,,https://www.hofterhulst.be/nl/kaart,,2 menu-like links,2026-10-15
 hofke-van-bazel,menu_found,13,html,https://hofkevanbazel.be/a-la-carte/,1,,2026-10-15
 hofmann,no_menu_found,0,,https://www.hofmann-bcn.com/masters/master-beyond-food-experience/,,2 menu-like links,2026-10-15
-holbox,failed,0,,,,FetchError: https://www.holboxla.com: HTTP 429,2026-10-15
+holbox,menu_found,33,html,https://www.holboxla.com/menu.html,1,,2026-10-15
 hop-lee,failed,0,,,,FetchError: https://www.hopleekitchen.com/: HTTP 429,2026-10-15
 horto,no_menu_found,4,,https://hortorestaurant.com/it/esperienze/ora-etica,,3 menu-like links,2026-10-15
 horvath,menu_maybe,6,html,https://restaurant-horvath.de/dinner-beverages,1,,2026-10-15
@@ -716,7 +716,7 @@ jin,no_menu_found,0,,https://www.jin-paris.com/en,,0 menu-like links,2026-10-15
 jing-restaurant-and-bar-atpeninsula-beijing,failed,0,,,,FetchError: https://www.peninsula.com: HTTP 403,2026-10-15
 joann,no_menu_found,1,,https://restaurantjoann.nl/diner/,,1 menu-like links,2026-10-15
 joel-robuchon,robots,0,,,,robots.txt disallows the home page,2026-10-15
-joelia,robots,0,,,,robots.txt disallows the home page,2026-10-15
+joelia,menu_maybe,11,html,https://www.joelia.eu/menu/,1,,2026-10-15
 john-s-house,failed,0,,,,FetchError: http://www.johnshouse.co.uk/: HTTP 403,2026-10-15
 joia,menu_found,31,html,https://joia.it/en/menu,1,,2026-10-15
 jola,no_menu_found,1,,https://www.jola.wien/,,1 menu-like links,2026-10-15
@@ -739,7 +739,7 @@ kam-s-roast-goose,no_menu_found,3,,http://www.krg.com.hk/!en/food/food.html,,1 m
 kamo,menu_maybe,9,html,https://www.restaurant-kamo.be/lunch/,1,,2026-10-15
 kanazawa,robots,0,,,,robots.txt disallows the home page,2026-10-15
 kanda,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
-kanoyama,robots,0,,,,robots.txt disallows the home page,2026-10-15
+kanoyama,menu_found,31,html,https://kanoyama.com/menu,1,,2026-10-15
 kappo-sato,menu_maybe,5,html,https://kapposato.com/menu.html,1,,2026-10-15
 kasa-palma,no_menu_found,1,,https://kasapalma.com/menu/,,2 menu-like links,2026-10-15
 kasama,no_menu_found,0,,https://www.kasamachicago.com/menu,,1 menu-like links,2026-10-15
@@ -754,7 +754,7 @@ kei,no_menu_found,0,,https://restaurant-kei.fr/pages/degustations-et-menus,,1 me
 kerfield-arms,menu_found,29,pdf,https://www.thekerfieldarms.co.uk/s/Sunday-Menu-041026.pdf,1,,2026-10-15
 kesselhaus,menu_found,37,html,https://www.kesselhaus-os.de/en/menu/,1,,2026-10-15
 kettner-s-kamota,menu_found,46,pdf,https://kettnerskamota.de/wp-content/uploads/2026/01/Speisekarte_Kettners_Kamota.pdf,1,,2026-10-15
-khao-kang,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.khaokangnyc.com/"", waiting until ""networkidle""",2026-10-15
+khao-kang,robots,0,,,,robots.txt disallows the home page,2026-10-15
 kika,menu_found,49,html,https://kika.nz/wanaka-fine-dining-restaurant-menu/,1,,2026-10-15
 kikunoi-honten,menu_found,20,html,https://kikunoi.jp/cuisine/menu.html,1,,2026-10-15
 kin-khao,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
@@ -831,7 +831,7 @@ la-boria,no_menu_found,1,,https://www.la-boria.com,,0 menu-like links,2026-10-15
 la-boscana,menu_found,22,html,https://laboscana.net/en/menus/,1,,2026-10-15
 la-botica-de-matapozuelos,no_menu_found,1,,https://laboticadematapozuelos.com/,,0 menu-like links,2026-10-15
 la-brezza,no_menu_found,0,,https://tschuggencollection.ch/de/hotel/tschuggen-grand-hotel/restaurants,,0 menu-like links,2026-10-15
-la-chabotterie,robots,0,,,,robots.txt disallows the home page,2026-10-15
+la-chabotterie,menu_found,16,html,https://lachabotterie.com/fr/menus.html,1,,2026-10-15
 la-chapelle,no_menu_found,2,,https://campingloisirscerilly.com/,,0 menu-like links,2026-10-15
 la-chassagnette,robots,0,,,,robots.txt disallows the home page,2026-10-15
 la-chaumiere,no_menu_found,2,,https://www.lachaumiere-dole.fr/fr/,,0 menu-like links,2026-10-15
@@ -864,9 +864,9 @@ la-primula,no_menu_found,1,,https://www.ristorantelaprimula.it/hotel,,1 menu-lik
 la-provence,opted_out,18,html,https://www.laprovence.com/article/a-table/6505101/video-mathieu-loubet-un-menu-etoile-a-quatre-mains.html,,tdm-reservation,2026-10-15
 la-reserve-rimbaud,no_menu_found,1,,https://www.reserve-rimbaud.com/la-carte/,,1 menu-like links,2026-10-15
 la-revelia,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
-la-ribaudiere,robots,0,,,,robots.txt disallows the home page,2026-10-15
+la-ribaudiere,menu_found,25,html,https://laribaudiere.com/,1,,2026-10-15
 la-riva,no_menu_found,0,,https://lariva.ch/,,0 menu-like links,2026-10-15
-la-rive,robots,0,,,,robots.txt disallows the home page,2026-10-15
+la-rive,no_menu_found,1,,https://www.restaurantlarive.nl/horeca/lekker-eten-in-epe-voor-lunch-borrel-of-diner/,,1 menu-like links,2026-10-15
 la-rotonde-des-tresoms,menu_found,57,pdf,https://hapi.mmcreation.com/hapidam/15b01924-5aca-414d-8c56-8eb003d6523e/CARTE%20ATELIER%20PRINTEMPS%2026.pdf,1,,2026-10-15
 la-scene,menu_maybe,11,pdf,https://www.la-scene.paris/wp-content/uploads/2026/08/Carte-BISTROT-2026-09-1.pdf,1,,2026-10-15
 la-sirena,no_menu_found,0,,https://www.lasirenabv.com/menu,,1 menu-like links,2026-10-15
@@ -904,7 +904,7 @@ lamartine,no_menu_found,4,,https://www.lamartine-marin.com/fr/carte-et-menus.htm
 landhaus-bacher,no_menu_found,1,,https://www.landhaus-bacher.at/,,0 menu-like links,2026-10-15
 landhaus-feckl,menu_maybe,8,html,https://www.landhausfeckl.de/de/sternerestaurant-stuttgart/menuevorschlaege.html,1,,2026-10-15
 landhaus-scherrer,menu_found,31,html,https://landhausscherrer.de/speisekarte,1,,2026-10-15
-langouste,robots,0,,,,robots.txt disallows the home page,2026-10-15
+langouste,menu_found,36,pdf,https://langouste.rs/wp-content/uploads/LANGOUSTE-en-23.07.2026.pdf,1,,2026-10-15
 lanterna-verde,menu_found,17,pdf,https://www.lanternaverde.com/menu-lanterna-verde.pdf,1,,2026-10-15
 largo-do-paco,failed,0,,,,FetchError: http://www.largodopaco.com: HTTP 404,2026-10-15
 lars-amsterdam,menu_maybe,11,html,https://larsamsterdam.nl/,1,,2026-10-15
@@ -935,7 +935,7 @@ le-clocher-des-peres,robots,0,,,,robots.txt disallows the home page,2026-10-15
 le-clos-des-sens,no_menu_found,0,,https://closdessens.com/,,0 menu-like links,2026-10-15
 le-coq-aux-champs,menu_found,21,html,https://www.lecoqauxchamps.be/menu,1,,2026-10-15
 le-coquillage,no_menu_found,3,,https://www.maisons-de-bricourt.com/fr/page/le-coquillage,,0 menu-like links,2026-10-15
-le-cor-de-chasse,robots,0,,,,robots.txt disallows the home page,2026-10-15
+le-cor-de-chasse,menu_found,16,pdf,https://www.lecordechasse.be/media/images/upload/menu-prestige-280826.pdf,1,,2026-10-15
 le-corot,no_menu_found,1,,https://www.etangs-corot.com/,,0 menu-like links,2026-10-15
 le-coucou,menu_found,61,html,https://lecoucou.com/,1,,2026-10-15
 le-du,no_menu_found,0,,https://www.ledubkk.com/,,0 menu-like links,2026-10-15
@@ -963,7 +963,7 @@ le-neuvieme-art,menu_found,29,html,https://leneuviemeart.com/en/card-and-menus.h
 le-normandie,no_menu_found,3,,https://www.mandarinoriental.com/en/bangkok/chao-phraya-river/dine/anne-sophie-pic-at-le-normandie,,2 menu-like links,2026-10-15
 le-pavillon-des-boulevards,menu_found,21,html,https://lepavillondesboulevards.fr/la-carte,1,,2026-10-15
 le-pavillon-manhattan-midtown-ea,menu_found,70,html,https://www.lepavillonnyc.com/our-menu/dinner,1,,2026-10-15
-le-perolles,robots,0,,,,robots.txt disallows the home page,2026-10-15
+le-perolles,no_menu_found,0,,https://www.leperolles.ch/menu-perolles,,2 menu-like links,2026-10-15
 le-petit-leon,robots,0,,,,robots.txt disallows the home page,2026-10-15
 le-petit-nice,menu_found,28,html,https://www.passedat.fr/en/le-petit-nice/the-19-17-seaview-restaurant-marseille,1,,2026-10-15
 le-pily,no_menu_found,2,,https://www.restaurant-le-pily.com/,,1 menu-like links,2026-10-15
@@ -1020,7 +1020,7 @@ locanda-barbarossa,no_menu_found,0,,https://www.kraeuterhotel.ch/de/,,0 menu-lik
 locanda-del-pilone,no_menu_found,1,,https://www.locandadelpilone.com/,,0 menu-like links,2026-10-15
 locanda-locatelli,robots,0,,,,robots.txt disallows the home page,2026-10-15
 locanda-mammi,menu_maybe,11,html,https://www.locandamammi.it/menu/,1,,2026-10-15
-locanda-orico,robots,0,,,,robots.txt disallows the home page,2026-10-15
+locanda-orico,menu_maybe,8,html,https://www.locandaorico.ch/fr/menu-degustation/,1,,2026-10-15
 locanda-san-lorenzo,menu_found,53,html,https://www.locandasanlorenzo.it/en/menu-starred-restaurant-locanda-san-lorenzo/,1,,2026-10-15
 loch-bay,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 loco,no_menu_found,0,,https://www.loco.pt/menu-bebidas/,,1 menu-like links,2026-10-15
@@ -1035,7 +1035,7 @@ loumi,robots,0,,,,robots.txt disallows the home page,2026-10-15
 lucas-rive,failed,0,,,,FetchError: http://www.lucasrive.nl/: HTTP 403,2026-10-15
 luce,failed,0,,,,FetchError: http://www.intercontinentalsanfrancisco.com: HTTP 409,2026-10-15
 lucien,no_menu_found,0,,https://www.luciennyc.com/,,0 menu-like links,2026-10-15
-lueurs,robots,0,,,,robots.txt disallows the home page,2026-10-15
+lueurs,no_menu_found,2,,https://lepetitserrant.com/lueurs/,,1 menu-like links,2026-10-15
 lukas-kapeller,menu_maybe,11,html,https://www.lukas-kapeller.at/restaurant/menue/,1,,2026-10-15
 lukas-restaurant,no_menu_found,0,,https://www.lukas-restaurant.at/,,0 menu-like links,2026-10-15
 lulu-rouget,no_menu_found,2,,https://www.lulurouget.fr/fr/,,2 menu-like links,2026-10-15
@@ -1079,7 +1079,7 @@ marchal,no_menu_found,0,,https://www.marchal.dk/,,0 menu-like links,2026-10-15
 marcon,no_menu_found,2,,https://boutique.lesmaisonsmarcon.fr/saint-bonnet-le-froid/ecole-de-cuisine-stages-marcon/produits,,1 menu-like links,2026-10-15
 mareluna,failed,0,,,,FetchError: https://www.chateau-de-theoule.com/fr/espaces-gourmands/: HTTP 404,2026-10-15
 marguerite,menu_found,28,pdf,https://marguerite.com.sg/wp-content/uploads/2026/10/Marguerite-Signature-Menu.pdf,1,,2026-10-15
-mari,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://marinyc.com/"", waiting until ""networkidle""",2026-10-15
+mari,menu_found,15,pdf,https://marinyc.com/wp-content/uploads/2026/03/Beverage-Menu-03.12.26-Website.pdf,1,,2026-10-15
 marienhof,no_menu_found,0,,https://www.marienhof.nl,,0 menu-like links,2026-10-15
 marrees,no_menu_found,0,,https://www.restaurantmarrees.nl/menukaart/,,3 menu-like links,2026-10-15
 marsan,menu_found,25,pdf,https://hapi.mmcreation.com/hapidam/fc1c35a3-63bd-4a8f-b022-bdc0e723f978/FR%20-%2008.10%20-%20menu%20en%208%20services.pdf,1,,2026-10-15
@@ -1168,7 +1168,7 @@ njrden,menu_found,15,html,https://njorden.com/carte-cafe,1,,2026-10-15
 nm,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 nobelhart-schmutzig,no_menu_found,1,,https://nobelhartundschmutzig.com/,,0 menu-like links,2026-10-15
 noble,menu_maybe,8,pdf,https://www.noblegastrohouse.nl/s/NL-Aperitievenkaart.pdf,1,,2026-10-15
-nobuat-the-metropolitan,robots,0,,,,robots.txt disallows the home page,2026-10-15
+nobuat-the-metropolitan,no_menu_found,3,,https://noburestaurants.com/,,0 menu-like links,2026-10-15
 noda,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 noel,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 noor-hoogkerk,menu_found,19,html,https://noor.nl/en/menu/,1,,2026-10-15
@@ -1202,7 +1202,7 @@ ok-chicken-and-khao-soi,menu_found,36,pdf,https://okchickenandkhaosoi.com/s/Phot
 okdongsik-new-york,failed,0,,,,FetchError: https://www.handhospitality.com/okdongsik: HTTP 404,2026-10-15
 okeya-kyujiro,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 ola-martin-berasategui,menu_found,48,html,https://taykohotels.com/en/bilbao/gastronomia/menus-navidad-ola-restaurante/,1,,2026-10-15
-old-dutch,failed,0,,,,FetchError: http://www.olddutch.net: HTTP 403,2026-10-15
+old-dutch,robots,0,,,,robots.txt disallows the home page,2026-10-15
 olive-tree,no_menu_found,1,,https://olivetreebath.co.uk/restaurant-bar-menus/,,2 menu-like links,2026-10-15
 olivea-farm-to-table,no_menu_found,0,,https://www.oliveafarmtotable.com/,,0 menu-like links,2026-10-15
 olo,menu_found,21,html,https://olo-ravintola.fi/en/menu-olo/,1,,2026-10-15
@@ -1214,7 +1214,7 @@ ombellule,no_menu_found,1,,https://www.ombellule.fr/,,1 menu-like links,2026-10-
 omija,menu_found,12,html,https://www.omija.fr/menu-diner,1,,2026-10-15
 one,no_menu_found,0,,https://onehundredrestrooms.com/,,0 menu-like links,2026-10-15
 onice,no_menu_found,0,,https://www.restaurantonice.com/,,0 menu-like links,2026-10-15
-operakallaren,robots,0,,,,robots.txt disallows the home page,2026-10-15
+operakallaren,menu_maybe,5,html,https://operakallaren.se/,1,,2026-10-15
 opheem,menu_found,28,html,https://opheem.com/menu/,1,,2026-10-15
 ophelia,no_menu_found,0,,https://www.restaurant-ophelia.de,,0 menu-like links,2026-10-15
 opus-v,menu_found,26,html,https://info.engelhorn.com/en/gastronomy/opus-v/evening-menu/,1,,2026-10-15
@@ -1228,7 +1228,7 @@ osch-noir,no_menu_found,0,,https://www.oeschberghof.com/restaurants-bars/oesch-n
 osip,menu_found,18,pdf,https://osiprestaurant.com/wp-content/uploads/2026/08/Tasting-A6-2.pdf,1,,2026-10-15
 osteria-acquarol,no_menu_found,0,,https://www.acquarol.it/it/p/il-menu-2,,1 menu-like links,2026-10-15
 osteria-dell-enoteca,menu_found,12,pdf,https://www.osteriaenoteca.ch/wp-content/uploads/2026/04/Osteria-dellEnoteca-Losone-Menu-2026.pdf,1,,2026-10-15
-osteria-enoteca-cuntitt,robots,0,,,,robots.txt disallows the home page,2026-10-15
+osteria-enoteca-cuntitt,menu_found,26,html,https://cuntitt.ch/en_gb/menu/,1,,2026-10-15
 osteria-francescana,hand_recipe,,,,,,
 osteria-mozza,menu_found,63,html,https://www.osteriamozza.com/menus/,1,,2026-10-15
 otztaler-stube,menu_maybe,10,pdf,https://www.central-soelden.com/media/menue_oetztaler_stube.pdf,1,,2026-10-15
@@ -1236,14 +1236,14 @@ oud-sluis,robots,0,,,,robots.txt disallows the home page,2026-10-15
 oudt-leyden,menu_found,42,pdf,https://oudtleyden.nl/wp-content/uploads/2026/04/OUD_menukaart-2026-A3.pdf,1,,2026-10-15
 ox,menu_found,12,pdf,https://ox-restaurant.de/wp-content/uploads/2026/10/OX_Menue_10.10.26pdf-2.pdf,1,,2026-10-15
 ox-belfast,menu_found,28,html,https://oxbelfast.com/dinner-menu/,1,,2026-10-15
-ox-klee,robots,0,,,,robots.txt disallows the home page,2026-10-15
+ox-klee,menu_maybe,10,html,https://oxundklee.de/food-drinks-wein/,1,,2026-10-15
 ox-reykjavik,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 oz,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 pages,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 pajta,no_menu_found,0,,https://pajta.hu/,,0 menu-like links,2026-10-15
 palace,no_menu_found,0,,https://palacerestaurant.fi/en/menu,,1 menu-like links,2026-10-15
 palatial,no_menu_found,0,,https://palatial.pt/restaurante/,,0 menu-like links,2026-10-15
-pangium,robots,0,,,,robots.txt disallows the home page,2026-10-15
+pangium,menu_found,20,pdf,https://www.restaurantpangium.sg/s/Pangium_Tok-Panjang_Oct2026.pdf,1,,2026-10-15
 papilio,no_menu_found,3,,https://restaurant-papilio.cz/menu,,1 menu-like links,2026-10-15
 paprika-atx,no_menu_found,0,,https://paprikaatx.com/,,0 menu-like links,2026-10-15
 parachute,menu_found,25,pdf,https://www.parachute-hifi.com/s/Food-menu-sept-26Artboard-4-copy-3.pdf,1,,2026-10-15
@@ -1292,7 +1292,7 @@ pramerl-the-wolf,no_menu_found,0,,https://pramerlandthewolf.com/menuepreise/,,2 
 pre-de-chez-vous,menu_maybe,10,html,https://www.predechezvous.be/menu-carte/,1,,2026-10-15
 prism,robots,0,,,,robots.txt disallows the home page,2026-10-15
 protege,menu_found,44,pdf,https://www.protegepaloalto.com/wp-content/uploads/PROTEGE-LOUNGE-MENU.pdf,1,,2026-10-15
-providence,failed,0,,,,FetchError: https://providencela.com/: HTTP 403,2026-10-15
+providence,menu_found,33,html,https://providencela.com/menus/dinner/,1,,2026-10-15
 pru,no_menu_found,0,,https://www.prurestaurant.com/,,0 menu-like links,2026-10-15
 publiek,no_menu_found,1,,https://www.publiekgent.be/nl,,0 menu-like links,2026-10-15
 published-on-main,menu_found,50,html,https://publishedonmain.com/menu/,1,,2026-10-15
@@ -1312,13 +1312,13 @@ qui-plume-la-lune,no_menu_found,1,,http://quiplumelalune.fr/,,0 menu-like links,
 quimbaya,menu_maybe,6,html,https://quimbayarestaurant.com/menu/menu-sinfonia/,1,,2026-10-15
 quince,no_menu_found,1,,https://www.quincerestaurant.com/cuisine,,2 menu-like links,2026-10-15
 quinsou,menu_found,29,html,https://www.quinsourestaurant.fr/menus-carte/,1,,2026-10-15
-quintessence,robots,0,,,,robots.txt disallows the home page,2026-10-15
+quintessence,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 quintonil,hand_recipe,,,,,,
 quique-dacosta,no_menu_found,2,,https://quiquedacosta.es/,,0 menu-like links,2026-10-15
 racine,menu_maybe,7,pdf,https://www.racine.re/wp-content/uploads/2026/08/Racine_CarteDesVins_Definitive_2026_08-08-26.pdf,1,,2026-10-15
 racines,menu_maybe,9,html,https://www.racines-restaurant.fr/la-carte/menu-diner,1,,2026-10-15
 radis,no_menu_found,0,,https://restauranteradis.es,,0 menu-like links,2026-10-15
-raku,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""http://raku-grill.com/grill/"", waiting until ""networkidle""",2026-10-15
+raku,robots,0,,,,robots.txt disallows the home page,2026-10-15
 randazzo-s-clam-bar,menu_found,21,html,https://www.randazzosclambarnyc.com/menu,1,,2026-10-15
 rasa,menu_maybe,5,html,https://www.rasaindian.com/menus/,1,,2026-10-15
 rata,failed,0,,,,FetchError: https://www.ratadining.co.nz/: HTTP 404,2026-10-15
@@ -1387,7 +1387,7 @@ ryugin,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-1
 sabi-omakase-oslo,menu_maybe,5,html,https://www.omakaseoslo.no/,1,,2026-10-15
 sabi-omakase-stavanger,no_menu_found,1,,https://omakase.no/,,1 menu-like links,2026-10-15
 sabor,menu_maybe,9,pdf,https://www.saborrestaurants.co.uk/downloads/pdfs/La_Mesa_Set_Menu_PDF.pdf,1,,2026-10-15
-sadler,robots,0,,,,robots.txt disallows the home page,2026-10-15
+sadler,no_menu_found,4,,https://ristorantesadler.it/,,1 menu-like links,2026-10-15
 sahila,menu_found,24,html,https://sahila-restaurant.de/speisekarte/,1,,2026-10-15
 sailor,menu_found,48,html,https://www.sailor.nyc/accessible-menus/,1,,2026-10-15
 saison,no_menu_found,0,,https://saisonsf.com/,,0 menu-like links,2026-10-15
@@ -1401,7 +1401,7 @@ sankai-by-nagaya,no_menu_found,1,,https://sankai.com.tr/,,1 menu-like links,2026
 sattlerhof,no_menu_found,1,,https://sattlerhof.at/,,0 menu-like links,2026-10-15
 saur,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 savelberg,robots,0,,,,robots.txt disallows the home page,2026-10-15
-savva,robots,0,,,,robots.txt disallows the home page,2026-10-15
+savva,menu_found,15,html,https://savvarest.ru/menu,1,,2026-10-15
 sawito,menu_found,19,html,https://restaurant-sawito.com/speisekarte/,1,,2026-10-15
 sazenka,no_menu_found,2,,https://sazenka.com/food,,2 menu-like links,2026-10-15
 schanz,menu_maybe,7,html,https://www.schanz-restaurant.de/en/,1,,2026-10-15
@@ -1429,7 +1429,7 @@ sherwood,no_menu_found,0,,https://www.sherwoodqueenstown.nz/,,0 menu-like links,
 shin-sushi,menu_maybe,6,html,https://bincho-ramen-tarzana.weeblyte.com/menu,1,,2026-10-15
 shiraz,robots,0,,,,robots.txt disallows the home page,2026-10-15
 shmone,menu_maybe,5,html,https://www.shmonenyc.com,1,,2026-10-15
-shota-omakase,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://shotaomakase.com/"", waiting until ""networkidle""",2026-10-15
+shota-omakase,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 shoukouwa,no_menu_found,1,,https://www.shoukouwa.com.sg/menu,,4 menu-like links,2026-10-15
 shoushin,menu_maybe,11,pdf,https://www.shoushin.ca/shoushin2020/Shoushin-Menu.pdf,1,,2026-10-15
 sichuan-food,failed,0,,,,FetchError: http://www.sichuanfood.nl/amsterdam/sichuan.html: HTTP 404,2026-10-15
@@ -1451,7 +1451,7 @@ so-fox,no_menu_found,0,,https://www.sofoxatl.com/,,0 menu-like links,2026-10-15
 sofreh,menu_found,47,html,https://www.sofrehnyc.com/menu,1,,2026-10-15
 soigne-bussum,failed,0,,,,FetchError: http://www.restaurantsoigne.nl/index.html: HTTP 404,2026-10-15
 sol-ring-hof,failed,0,,,,FetchError: https://www.soelring-hof.de/: HTTP 403,2026-10-15
-sola-paris-5th-pantheon,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.restaurant-sola.com/"", waiting until ""networkidle""",2026-10-15
+sola-paris-5th-pantheon,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 solana,no_menu_found,0,,https://restaurantesolana.com/,,0 menu-like links,2026-10-15
 solena,no_menu_found,0,,https://solena-restaurant.com/menus/carte-menu-solena.pdf,,1 menu-like links,2026-10-15
 solla,menu_maybe,10,html,https://www.restaurantesolla.com/menu/,1,,2026-10-15
@@ -1461,7 +1461,7 @@ solstice-by-kenny-atkinson,no_menu_found,1,,https://www.solsticencl.com/,,1 menu
 sommerfeld,menu_maybe,7,html,https://www.sommerfeld-frankfurt.de/,1,,2026-10-15
 somni,no_menu_found,2,,https://www.somnirestaurant.com/,,0 menu-like links,2026-10-15
 sonne,menu_maybe,6,pdf,https://www.sonne-scheunenberg.ch/hubfs/Sonne%20Menu%20Oktober%202026.pdf?hsLang=de,1,,2026-10-15
-sonoy,robots,0,,,,robots.txt disallows the home page,2026-10-15
+sonoy,no_menu_found,0,,http://www.restaurantsonoy.nl/,,0 menu-like links,2026-10-15
 sons-daughters,no_menu_found,0,,https://www.sonsanddaughterssf.com/food,,1 menu-like links,2026-10-15
 sorn,failed,0,,,,FetchError: https://sornfinesouthern.com/: HTTP 403,2026-10-15
 sorrel-surrey-dorking,no_menu_found,0,,http://www.sorrelrestaurant.co.uk/,,0 menu-like links,2026-10-15
@@ -1501,7 +1501,7 @@ suan-thip,failed,0,,,,FetchError: https://www.suanthip.com/: HTTP 403,2026-10-15
 substance,menu_found,21,html,https://www.substance.paris,1,,2026-10-15
 substans,menu_found,33,html,https://restaurantsubstans.dk/menu-english/,1,,2026-10-15
 sud-777,failed,0,,,,FetchError: https://sud777.com.mx/en: HTTP 404,2026-10-15
-suhring,robots,0,,,,robots.txt disallows the home page,2026-10-15
+suhring,menu_found,23,pdf,https://restaurantsuhring.com/menu.pdf,1,,2026-10-15
 suinsom,no_menu_found,0,,https://www.valgardena.it/en/addresses/detail-gastronomy/base/company/selva-di-val-gardena/suinsom/C0DF941F76D911D18F2900A02427D15E/,,0 menu-like links,2026-10-15
 sukiyabashi-jiro,no_menu_found,3,,https://www.sushi-jiro.jp/menu,,1 menu-like links,2026-10-15
 sumibiyaki-arashi,no_menu_found,2,,https://sumibiyakiarashi.com/,,0 menu-like links,2026-10-15
@@ -1509,7 +1509,7 @@ sun-moon-studio,menu_found,26,html,https://www.sunmoonstudio.com/samplemenu,1,,2
 superiority-burger,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 sushi-amane,no_menu_found,1,,https://www.sushi-amane.com/,,0 menu-like links,2026-10-15
 sushi-anaba,no_menu_found,4,,https://www.sushianaba.com/menu,,1 menu-like links,2026-10-15
-sushi-azabu,failed,0,,,,FetchError: https://www.azabuglobal.com/new-york/: HTTP 403,2026-10-15
+sushi-azabu,no_menu_found,4,,https://brandmaker.io/,,0 menu-like links,2026-10-15
 sushi-inoue,failed,0,,,,FetchError: http://sushiinoue.com/: HTTP 403,2026-10-15
 sushi-masaki-saito,no_menu_found,0,,https://www.masakisaito.ca/menu/,,1 menu-like links,2026-10-15
 sushi-masuda,menu_maybe,8,html,https://www.sushimasuda.com/menu,1,,2026-10-15
@@ -1535,7 +1535,7 @@ t-stoveke,no_menu_found,0,,https://www.tstoveke.be/onze-kaart/,,1 menu-like link
 t-vlasbloemeken,no_menu_found,4,,https://www.vlasbloemeken.nl/_files/ugd/3e03f6_e10f53277bd34f07817717bcba82a865.pdf,,1 menu-like links,2026-10-15
 tabaiba,no_menu_found,0,,https://tabaibarestaurante.com,,0 menu-like links,2026-10-15
 table-bruno-verjus,no_menu_found,4,,https://table.paris/,,1 menu-like links,2026-10-15
-table-de-mary,robots,0,,,,robots.txt disallows the home page,2026-10-15
+table-de-mary,menu_maybe,8,pdf,https://latabledemary.ch/media/original/64c2794ba90a6/carte-automne-2026.pdf,1,,2026-10-15
 taco-mix-harlem,failed,0,,,,FetchError: https://www.tacomix.com/casa: HTTP 403,2026-10-15
 taian,menu_found,15,html,https://r.gnavi.co.jp/area/jp/japanesetrad/rs/,1,,2026-10-15
 tairroir,no_menu_found,1,,https://tairroir.com/lunch,,2 menu-like links,2026-10-15
@@ -1557,7 +1557,7 @@ terrapin-creek,menu_found,53,html,https://www.terrapincreekcafe.com/dinnermenu.h
 terrazza-bosquet,no_menu_found,0,,https://terrazzabosquet.exvitt.it/en/dining/index.html,,1 menu-like links,2026-10-15
 teruar-urla,no_menu_found,0,,https://www.teruarurla.com,,0 menu-like links,2026-10-15
 tetedoie,menu_found,15,html,https://tetedoie.fr/restaurant-gastronomique-tetedoie/,1,,2026-10-15
-texture,robots,0,,,,robots.txt disallows the home page,2026-10-15
+texture,menu_found,31,html,https://www.texturerestaurant.com/,1,,2026-10-15
 thai-diner,menu_found,67,html,https://www.thaidiner.com/home-1,1,,2026-10-15
 the-araki,no_menu_found,1,,https://the-araki.co.uk/,,0 menu-like links,2026-10-15
 the-bishop-s-buttery,failed,0,,,,FetchError: http://www.cashel-palace.ie: HTTP 500,2026-10-15
@@ -1611,7 +1611,7 @@ the-waterside-inn,menu_found,40,pdf,https://www.waterside-inn.co.uk/wp-content/u
 the-whitebrook,menu_found,13,html,https://www.thewhitebrook.co.uk/,1,,2026-10-15
 the-wolf-s-tailor,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 thierry-schwartz,menu_maybe,5,html,https://www.bistro-saveurs.fr/21-recettes-automnales-faciles-sur-plaque-cuisinez-sans-effort/,1,,2026-10-15
-thornton-s-fitzwilliam-hotel,robots,0,,,,robots.txt disallows the home page,2026-10-15
+thornton-s-fitzwilliam-hotel,failed,0,,,,FetchError: http://www.thorntonsrestaurant.com: HTTP 522,2026-10-15
 ti-trin-ned,menu_found,31,html,https://titrinned.dk/en/menuen/?wg-choose-original=false,1,,2026-10-15
 tian,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 tim-raue,no_menu_found,0,,https://tim-raue.com/,,0 menu-like links,2026-10-15
@@ -1639,7 +1639,7 @@ trishna,failed,0,,,,FetchError: https://www.trishnalondon.com/: HTTP 403,2026-10
 troisgros,menu_found,18,html,https://www.troisgros.fr/le-bois-sans-feuilles/les-menus-et-la-carte/,1,,2026-10-15
 troyka,no_menu_found,2,,https://troyka.de/vegetarisches-menue,,1 menu-like links,2026-10-15
 truube,menu_maybe,11,pdf,https://www.truube.ch/pdf/truube_menukarte.pdf,1,,2026-10-15
-tuju,robots,0,,,,robots.txt disallows the home page,2026-10-15
+tuju,no_menu_found,1,,https://www.tuju.com.br/,,0 menu-like links,2026-10-15
 tula,no_menu_found,0,,https://www.tularestaurante.com/,,0 menu-like links,2026-10-15
 tulus-lotrek,robots,0,,,,robots.txt disallows the home page,2026-10-15
 twins-garden,no_menu_found,0,,https://twinsgarden.ru/,,0 menu-like links,2026-10-15
@@ -1647,7 +1647,7 @@ txikito,menu_found,38,html,https://www.txikitonyc.com/dinner,1,,2026-10-15
 txispa,no_menu_found,0,,https://txispa.com/,,0 menu-like links,2026-10-15
 uliassi,robots,0,,,,robots.txt disallows the home page,2026-10-15
 ultravioletbypaul-pairet,robots,0,,,,robots.txt disallows the home page,2026-10-15
-umami,robots,0,,,,robots.txt disallows the home page,2026-10-15
+umami,menu_found,12,html,https://www.restaurant-umami.com,1,,2026-10-15
 umu,menu_found,18,html,https://www.umurestaurant.com/menus/kaiseki-menu,1,,2026-10-15
 un-max-de-gout,no_menu_found,0,,https://maxdegout.be/en/menu/menu-de-mars-semaine,,2 menu-like links,2026-10-15
 una-pizza-napoletana,failed,0,,,,FetchError: https://unapizza.com/: HTTP 403,2026-10-15
@@ -1698,12 +1698,12 @@ vrijmoed,menu_found,45,html,https://www.vrijmoed.be/en/menu,1,,2026-10-15
 vyn,no_menu_found,2,,https://vynrestaurant.se/food-winebar/,,1 menu-like links,2026-10-15
 wakuden-kodaiji,no_menu_found,2,,https://www.wakuden.jp/ryotei/itsutsu/,,1 menu-like links,2026-10-15
 waldhotel-sonnora,menu_found,16,pdf,https://hotel-sonnora.de/wp-content/uploads/2026/10/Sonnora_speisekarte_Okt_002_WEB.pdf,1,,2026-10-15
-waldschanke,failed,0,,,,FetchError: https://www.waldschaenke.at: HTTP 429,2026-10-15
+waldschanke,no_menu_found,1,,https://www.waldschaenke.at,,0 menu-like links,2026-10-15
 wallse,no_menu_found,0,,https://www.kurtgutenbrunner.com/,,0 menu-like links,2026-10-15
 walnut-tree,menu_found,23,pdf,https://hotelcms-production.imgix.net/houseofcaradog.com/wp-content/uploads/2026/01/The-Walnut-Spring.pdf?fm=pdf,1,,2026-10-15
 water-grill,menu_maybe,10,html,https://watergrill.com/,1,,2026-10-15
 wd-50,menu_found,23,html,https://www.wd-50.com/recipes/heavenly-smoked-salmon-pasta-salad-recipe/,1,,2026-10-15
-wein-sein,robots,0,,,,robots.txt disallows the home page,2026-10-15
+wein-sein,no_menu_found,0,,https://weinundsein.ch/,,0 menu-like links,2026-10-15
 werneckhof-sigi-schelling,menu_maybe,8,pdf,https://werneckhof-schelling.de/wp-content/uploads/2025/05/MenueBusinessLunch-2.pdf,1,,2026-10-15
 werners,menu_maybe,11,pdf,https://www.hotel-schloss-eberstein.de/wp-content/uploads/06-Menuekarte-16.09.-31.12-1.pdf,1,,2026-10-15
 white-rabbit,no_menu_found,1,,https://wrf.su/WR_MENU_BAR.pdf,,1 menu-like links,2026-10-15
@@ -1720,7 +1720,7 @@ wing,menu_found,18,html,https://wingrestaurant.hk/menu,1,,2026-10-15
 wing-lei,menu_found,71,pdf,https://cdn.wynnresorts.com/image/upload/v1781902951/visitwynn_pdfs_files/wing-lei-main-menu-new.pdf,1,,2026-10-15
 winteringham-fields,menu_found,26,html,https://www.winteringhamfields.co.uk/sample-menus,1,,2026-10-15
 wirtshaus-zur-sage,no_menu_found,4,,https://www.saegeflueh.ch/menu,,1 menu-like links,2026-10-15
-wisteria,failed,0,,,,FetchError: https://www.wisteria-restaurant.com/: HTTP 403,2026-10-15
+wisteria,menu_found,28,pdf,https://www.wisteria-restaurant.com/wp-content/uploads/2026/10/MenuAutunno26ING.pdf,1,,2026-10-15
 wolfslaar,no_menu_found,0,,https://www.wolfslaar.com/restaurant/,,0 menu-like links,2026-10-15
 wollerich,no_menu_found,0,,http://wollerich.nl/,,0 menu-like links,2026-10-15
 worgotter,no_menu_found,1,,https://www.xn--wrgtter-90ac.at/,,0 menu-like links,2026-10-15

@@ -1,0 +1,5 @@
+start: https://www.lestempliers.com/fr/
+steps:
+- follow:
+    href_matches: menu\-du\-mois\-de\-la\-gastronomie\-002\-\.pdf
+content: pdf

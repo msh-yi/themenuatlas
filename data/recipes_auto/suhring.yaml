@@ -1,0 +1,5 @@
+start: https://restaurantsuhring.com/menu
+steps:
+- follow:
+    href_matches: menu\.pdf
+content: pdf

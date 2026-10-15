@@ -1,0 +1,5 @@
+start: https://www.enfin-barr.com/
+steps:
+- follow:
+    href_matches: Carte\-des\-vins\-OKay\.pdf
+content: pdf

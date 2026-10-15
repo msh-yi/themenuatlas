@@ -1,0 +1,5 @@
+start: https://langouste.rs/meni/
+steps:
+- follow:
+    href_matches: LANGOUSTE\-en\-23\.07\.2026\.pdf
+content: pdf

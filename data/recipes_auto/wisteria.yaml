@@ -1,0 +1,5 @@
+start: https://www.wisteria-restaurant.com/menu/
+steps:
+- follow:
+    href_matches: MenuAutunno26ING\.pdf
+content: pdf

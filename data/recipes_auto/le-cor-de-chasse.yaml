@@ -1,0 +1,5 @@
+start: https://www.lecordechasse.be/fr/les-menus-348
+steps:
+- follow:
+    href_matches: menu\-prestige\-280826\.pdf
+content: pdf

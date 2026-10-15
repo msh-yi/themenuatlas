@@ -1,0 +1,6 @@
+start: https://marinyc.com/
+steps:
+- follow:
+    href_matches: Beverage\-Menu\-03\.12\.26\-Website\.pdf
+content: pdf
+render: js

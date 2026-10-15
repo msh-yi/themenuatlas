@@ -1,0 +1,5 @@
+start: https://www.restaurantpangium.sg/menu
+steps:
+- follow:
+    href_matches: Pangium_Tok\-Panjang_Oct2026\.pdf
+content: pdf
