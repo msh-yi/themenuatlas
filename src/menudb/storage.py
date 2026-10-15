@@ -18,8 +18,15 @@ def _client():
         region_name=s.aws_region,
         aws_access_key_id=s.aws_access_key_id,
         aws_secret_access_key=s.aws_secret_access_key,
-        # Neon requires path-style addressing and SigV4
-        config=Config(signature_version="s3v4", s3={"addressing_style": "path"}),
+        # Neon requires path-style addressing and SigV4. Short timeouts and few
+        # retries so an unreachable endpoint fails fast instead of hanging.
+        config=Config(
+            signature_version="s3v4",
+            s3={"addressing_style": "path"},
+            connect_timeout=10,
+            read_timeout=30,
+            retries={"max_attempts": 2, "mode": "standard"},
+        ),
     )
 
 
