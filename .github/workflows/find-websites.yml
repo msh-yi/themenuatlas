@@ -1,0 +1,72 @@
+# Manual: look up websites for restaurants in restaurants_full.csv that have none (Brave
+# Search API, about $5 per 1,000 queries; set the limit to control spend), run menu discovery
+# on the new sites, and commit the updated list, statuses and recipes to main.
+# Needs repo secrets BRAVE_SEARCH_API_KEY and the AWS_* bucket secrets.
+name: find-websites
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "max search queries this run (blank = all remaining)"
+        required: false
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --frozen --no-dev
+
+      # Search results are cached between runs so no query is paid for twice.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/lists
+          key: website-search-${{ github.run_id }}
+          restore-keys: website-search-
+
+      - name: Find websites
+        env:
+          LIMIT: ${{ inputs.limit }}
+        run: uv run python scripts/find_websites.py --cache .cache/lists ${LIMIT:+--limit "$LIMIT"}
+
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(uv run python -c 'import importlib.metadata as m; print(m.version("playwright"))')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - run: uv run playwright install --with-deps chromium
+
+      # Only restaurants with no discovery status yet, i.e. the new websites.
+      - run: uv run menudb discover --workers 16 --js --to-bucket
+
+      - name: Commit list, statuses and recipes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add data/seed/restaurants_full.csv data/seed/discovery.csv data/recipes_auto
+          git diff --cached --quiet && exit 0
+          git commit -m "find-websites: search for missing websites and discover their menus"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 5; done
+          exit 1
