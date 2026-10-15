@@ -547,6 +547,39 @@ def extract_io_schema():
     typer.echo(json.dumps(ExtractedMenu.model_json_schema(), indent=2))
 
 
+@app.command("extract-auto")
+def extract_auto(
+    slugs: list[str] = typer.Argument(None, help="only these restaurants"),
+    min_stars: int = typer.Option(0, help="only restaurants with at least this many Michelin stars (latest year)"),
+    rerun: bool = typer.Option(False, help="also re-extract processed/ items done by an older lexicon run"),
+    limit: int = typer.Option(None, help="stop after this many documents"),
+    dry_run: bool = typer.Option(False, help="extract and count, but write nothing"),
+    full_csv: Path = typer.Option(Path("data/seed/restaurants_full.csv")),
+):
+    """Extract pending/ menus with the rule-based lexicon extractor (no LLM, bucket only).
+
+    Writes extracted/ for `import --from-bucket`; prints counts only, never menu text.
+    """
+    import csv
+    import re
+
+    from menudb import handoff
+
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    rows = list(csv.DictReader(full_csv.open())) if full_csv.exists() else []
+    countries = {r["slug"]: r["country"] for r in rows}
+    wanted = set(slugs) if slugs else None
+    if min_stars:
+        def stars(lists: str) -> int:
+            found = [(int(y), int(n)) for y, n in re.findall(r"michelin:(\d{4}):(\d)", lists)]
+            latest = max((y for y, _ in found), default=None)
+            return max((n for y, n in found if y == latest), default=0)
+        starred = {r["slug"] for r in rows if stars(r.get("lists", "")) >= min_stars}
+        wanted = starred if wanted is None else wanted & starred
+    counts = handoff.extract_auto(wanted, countries, rerun=rerun, limit=limit, dry_run=dry_run)
+    typer.echo(", ".join(f"{k} {v}" for k, v in sorted(counts.items())) or "nothing to do")
+
+
 review_app = typer.Typer(no_args_is_help=True, help=(
     "Audit and fix ingredient matches. export/apply need Postgres (Actions); "
     "pull/push only need the bucket (sessions). See docs/EXTRACTION.md."))

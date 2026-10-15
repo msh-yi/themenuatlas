@@ -3,6 +3,8 @@
     pending/<slug>/<normalized_hash>.json    PendingItem, written by `pending`
     extracted/<slug>/<normalized_hash>.json  ExtractedMenu, written by `extract-io put`
     imported/<slug>/<normalized_hash>.json   moved there by `import --from-bucket`
+    processed/<slug>/<normalized_hash>.json  pending items `extract-auto` has done, kept so
+                                             it can re-run when the lexicon improves
 
 Keys use (slug, normalized_hash), the same identity as a menu row, so a document
 can be queued and extracted before `check` has created its menu; import waits
@@ -26,7 +28,7 @@ from menudb.normalize import content_hash, normalized_hash
 
 log = logging.getLogger(__name__)
 
-PENDING, EXTRACTED, IMPORTED = "pending/", "extracted/", "imported/"
+PENDING, EXTRACTED, IMPORTED, PROCESSED = "pending/", "extracted/", "imported/", "processed/"
 
 
 def key(prefix: str, slug: str, nhash: str) -> str:
@@ -69,7 +71,7 @@ def item_from_bytes(slug: str, label: str, url: str, data: bytes, ctype: str,
 
 def pending_from_db(session: Session, limit: int | None = None) -> Counter:
     """Queue every menu that has no extraction yet and isn't already in the bucket."""
-    known = _known((PENDING, EXTRACTED, IMPORTED))
+    known = _known((PENDING, EXTRACTED, IMPORTED, PROCESSED))
     rows = session.execute(
         select(Menu.id, Restaurant.slug, Source.label, Snapshot)
         .join(Restaurant, Menu.restaurant_id == Restaurant.id)
@@ -98,7 +100,7 @@ def pending_from_db(session: Session, limit: int | None = None) -> Counter:
 
 def queue_items(items: Iterable[PendingItem]) -> Counter:
     """Write items to pending/ unless already pending, extracted or imported."""
-    known = _known((PENDING, EXTRACTED, IMPORTED))
+    known = _known((PENDING, EXTRACTED, IMPORTED, PROCESSED))
     counts: Counter = Counter()
     for item in items:
         if (item.slug, item.normalized_hash) in known:
@@ -107,6 +109,55 @@ def queue_items(items: Iterable[PendingItem]) -> Counter:
         known.add((item.slug, item.normalized_hash))
         put_json(key(PENDING, item.slug, item.normalized_hash), item)
         counts["queued"] += 1
+    return counts
+
+
+# --- rule-based extraction ----------------------------------------------------
+
+def extract_auto(slugs: set[str] | None = None, countries: dict[str, str] | None = None,
+                 rerun: bool = False, limit: int | None = None, dry_run: bool = False) -> Counter:
+    """Run the lexicon extractor over pending/ (and processed/ with `rerun`).
+
+    Writes extracted/ and moves each pending item to processed/. A session's
+    extraction is never overwritten: rerun only replaces earlier lexicon output.
+    Items with no text layer (scans, images) stay pending for a session.
+    """
+    from menudb.extract import auto
+
+    countries = countries or {}
+    keys = storage.list_keys(PENDING) + (storage.list_keys(PROCESSED) if rerun else [])
+    counts: Counter = Counter()
+    for k in sorted(keys):
+        slug = k.split("/")[1]
+        if slugs is not None and slug not in slugs:
+            continue
+        if limit is not None and counts["extracted"] >= limit:
+            break
+        item = PendingItem.model_validate(get_json(k))
+        if not item.text:
+            counts["no_text_layer"] += 1
+            continue
+        out = key(EXTRACTED, item.slug, item.normalized_hash)
+        if k.startswith(PROCESSED):
+            done = next((p + out.removeprefix(EXTRACTED) for p in (EXTRACTED, IMPORTED)
+                         if storage.exists(p + out.removeprefix(EXTRACTED))), None)
+            if done and not get_json(done).get("extractor", "").startswith("lexicon"):
+                counts["kept_session_extraction"] += 1
+                continue
+        ex = auto.extract(item, country=countries.get(item.slug))
+        counts["extracted"] += 1
+        counts["menus" if ex.is_menu else "not_a_menu"] += 1
+        counts["courses"] += len(ex.courses)
+        comps = [c for co in ex.courses for c in co.components]
+        counts["components"] += len(comps)
+        counts["unnamed_components"] += sum(1 for c in comps if not c.name)
+        log.info("extracted slug=%s hash=%s is_menu=%s courses=%d",
+                 item.slug, item.normalized_hash[:12], ex.is_menu, len(ex.courses))
+        if dry_run:
+            continue
+        put_json(out, ex)
+        if k.startswith(PENDING):
+            storage.move(k, PROCESSED + k.removeprefix(PENDING))
     return counts
 
 

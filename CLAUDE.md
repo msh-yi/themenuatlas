@@ -13,7 +13,7 @@ Collects published fine-dining menus from restaurant websites and extracts ingre
 - **Never log menu text or secrets.** GitHub Actions logs are public. Log IDs, hashes and statuses only.
 - **Never commit `.env`, `.env.local` or `.neon`.**
 - **Scrape politely.** Respect robots.txt and TDM opt-outs, keep the honest User-Agent, and don't lower the per-host `min_interval`.
-- **No Anthropic API key.** Extraction happens in Claude Code sessions (see `docs/PLAN.md`), not through API calls.
+- **No Anthropic API key.** Extraction is the rule-based `extract-auto` script or a Claude Code session (see `docs/EXTRACTION.md`), never API calls.
 - **Use the right database URL.** Migrations use `DATABASE_URL_UNPOOLED`; app traffic uses the pooled `DATABASE_URL`.
 
 ## Running
@@ -30,6 +30,7 @@ uv run menudb probe [slug...]        # walk recipes with no database; --to-bucke
 uv run menudb export-site               # site/data/data.json for the static site in site/ (synthetic by default; never commit real data)
 uv run menudb discover --js --to-bucket   # find menus for data/seed/restaurants_full.csv; no database
 uv run python scripts/build_full_list.py --cache <dir> --fetch --geocode   # rebuild the full list
+uv run menudb extract-auto --min-stars 2   # rule-based extraction, no LLM: pending/ -> extracted/ (docs/EXTRACTION.md)
 uv run menudb extract-io list          # extraction in a session: list/get/put via the bucket (docs/EXTRACTION.md)
 uv run menudb review pull --out <dir>  # ingredient review in a session: pull queue, push decisions
 uv sync --group analysis && MENUDB_ANALYSIS_SOURCE=synthetic uv run jupyter nbconvert --to notebook --execute notebooks/01_pairings.ipynb --output /tmp/out.ipynb   # db | bucket | synthetic

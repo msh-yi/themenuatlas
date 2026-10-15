@@ -1,6 +1,35 @@
-# Extracting menus in a session
+# Extracting menus
 
-Extraction runs in a Claude Code session, not through the API. The session needs object storage only, no Postgres. See "Where work runs" in `docs/PLAN.md` for the full round trip.
+There are two extractors. Both write `ExtractedMenu` JSON to the bucket's `extracted/`, and `import --from-bucket` loads either.
+
+- **Rule-based (`menudb extract-auto`)**: a script with no LLM, so it costs no session tokens and needs no API key. This is the default for bulk work.
+- **In a Claude Code session (`menudb extract-io`)**: better on poetic, Japanese or oddly laid-out menus. Use it for documents the script handles badly, and for scans with no text layer.
+
+## Rule-based extraction
+
+```bash
+uv run menudb extract-auto --min-stars 2 --dry-run   # counts only, writes nothing
+uv run menudb extract-auto --min-stars 2             # or name slugs; no filter = all of pending/
+uv run menudb extract-auto --rerun                   # after a lexicon change: redo earlier script output
+uv run python scripts/eval_auto_extract.py build <scratch>/ref   # reference set from session extractions
+uv run python scripts/eval_auto_extract.py score <scratch>/ref   # aggregate scores only
+```
+
+- It needs object storage only. It writes `extracted/` and moves each item from `pending/` to `processed/`, which keeps the text so `--rerun` can redo it. Scans with no text layer stay in `pending/` for a session.
+- It never overwrites a session's extraction. `--rerun` only replaces output whose `extractor` starts with `lexicon`.
+- Code: `src/menudb/extract/auto.py`. Vocabulary: `data/lexicon/ingredients.txt` (canonical English name, category, optional parent, terms in 12 languages) and `data/lexicon/preparations.txt`. Bump `EXTRACTOR` when the rules change enough to re-run.
+- How it works:
+  - It detects the language from stop words and script.
+  - It drops boilerplate, wine pairings and drink sections, then joins continuation lines into dishes. A line ending in a comma, a line starting in lowercase, or a short title over its description all join the dish before. A divider (✳ or a price line) between every dish makes each block one dish.
+  - It matches ingredients longest-first, with plural folding and German/Dutch/Scandinavian compound splitting. Each preparation attaches to the nearest ingredient in its comma segment.
+  - Roles come from the segment (sauce words) and category (herbs and spices are seasoning, grains are base). The first segment is `main`.
+- Phrases it can't match become components with no `name`. Import sends them to `review_queue` as `open`. Adding the common ones to the lexicon is how coverage grows.
+- Known weak spots: poetic dish titles, Japanese/Chinese/Korean menus (the lexicon is thin there), and menu type and price on multi-menu pages. It is coarser than a session (`bluefin tuna belly` becomes `tuna`).
+- Scores on the 19-menu reference set (2026-10-15): lenient ingredient recall 0.79, strict 0.64, precision 0.80, is_menu 18/19. The lexicon was partly written with those menus in view, so expect lower numbers on unseen menus. The hand-labelled eval is still the real test.
+
+## Extracting in a session
+
+Extraction can run in a Claude Code session, not through the API. The session needs object storage only, no Postgres. See "Where work runs" in `docs/PLAN.md` for the full round trip.
 
 ## Steps
 
