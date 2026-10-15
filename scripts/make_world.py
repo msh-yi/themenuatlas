@@ -1,8 +1,8 @@
-"""Write site/land.js: Natural Earth 1:110m land outlines (public domain) as lon/lat rings
-for the Coverage map. Input is world-atlas's land-110m.json TopoJSON
-(https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json).
+"""Write site/world.js: Natural Earth 1:110m country outlines (public domain) as lon/lat
+rings for the Coverage map. Input is world-atlas's countries-110m.json TopoJSON
+(https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json).
 
-Run: uv run python -I scripts/make_land.py <path to land-110m.json>
+Run: uv run python -I scripts/make_world.py <path to countries-110m.json>
 """
 
 import json
@@ -57,19 +57,23 @@ def pieces(pts):
     return [clamp(pts), clamp([(lon + shift, lat) for lon, lat in pts])]
 
 
-rings = []
-for geom in topo["objects"]["land"]["geometries"]:
+SKIP = {"Antarctica", "Fr. S. Antarctic Lands"}  # no restaurants; rings run along the pole
+countries = []
+for geom in topo["objects"]["countries"]["geometries"]:
+    name = geom["properties"]["name"]
+    if name in SKIP or geom["type"] not in ("Polygon", "MultiPolygon"):
+        continue
     polys = geom["arcs"] if geom["type"] == "MultiPolygon" else [geom["arcs"]]
+    rings = []
     for poly in polys:
         for r in poly:
             pts = ring(r)
-            # Antarctica has no restaurants and its ring runs along the pole; leave it out
-            if len(pts) < 4 or max(lat for _, lat in pts) < -55:
-                continue
-            rings += [[round(v, 1) for p in piece for v in p] for piece in pieces(pts)]
+            if len(pts) >= 4:
+                rings += [[round(v, 1) for p in piece for v in p] for piece in pieces(pts)]
+    countries.append({"n": name, "r": rings})
 
-out = Path(__file__).parents[1] / "site/land.js"
-out.write_text("// Natural Earth 1:110m land (public domain), from scripts/make_land.py.\n"
-               "// Flat [lon, lat, lon, lat, ...] rings.\n"
-               f"window.MENU_ATLAS_LAND = {json.dumps(rings, separators=(',', ':'))};\n")
-print(f"wrote {out.name}: {len(rings)} rings, {out.stat().st_size} bytes")
+out = Path(__file__).parents[1] / "site/world.js"
+out.write_text("// Natural Earth 1:110m countries (public domain), from scripts/make_world.py.\n"
+               "// [{n: name, r: [[lon, lat, lon, lat, ...], ...]}]; holes are rings too (even-odd fill).\n"
+               f"window.MENU_ATLAS_WORLD = {json.dumps(countries, separators=(',', ':'), ensure_ascii=False)};\n")
+print(f"wrote {out.name}: {len(countries)} countries, {out.stat().st_size} bytes")

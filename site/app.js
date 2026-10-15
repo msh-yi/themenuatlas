@@ -377,121 +377,343 @@ const STATUS = [
 ];
 const statusOf = (r) => (r.menus > 0 ? "data" : r.publishes_menu === "yes" ? "yes" : r.publishes_menu === "no" ? "no" : "unknown");
 
-function coverageMap(params) {
-  const placed = D.restaurants.filter((r) => r.lat != null && r.lon != null);
-  const hidden = new Set((params.get("hide") || "").split(",").filter(Boolean));
-  let view = VIEWS[params.get("view")] ? params.get("view") : "World";
-  const canvas = h("canvas", { class: "map", role: "img", tabindex: "0",
-    "aria-label": `Map of ${placed.length} restaurants by menu status. A table follows.` });
-  const wrap = h("div", { class: "mapwrap" }, canvas);
-  let pts = []; // [x, y, r] in CSS pixels, for hover
+// Seed-list country names and ISO codes -> Natural Earth names. Anything else is
+// matched by name, then by which outline contains the restaurant.
+const COUNTRY_ALIASES = {
+  us: "United States of America", usa: "United States of America", "united states": "United States of America",
+  gb: "United Kingdom", uk: "United Kingdom", england: "United Kingdom", scotland: "United Kingdom", wales: "United Kingdom",
+  dk: "Denmark", se: "Sweden", no: "Norway", fi: "Finland", is: "Iceland", fr: "France", es: "Spain", it: "Italy",
+  de: "Germany", be: "Belgium", nl: "Netherlands", ch: "Switzerland", at: "Austria", pt: "Portugal", ie: "Ireland",
+  mx: "Mexico", pe: "Peru", br: "Brazil", ca: "Canada", jp: "Japan", kr: "South Korea", cn: "China", tw: "Taiwan",
+  th: "Thailand", in: "India", ae: "United Arab Emirates", au: "Australia", nz: "New Zealand",
+  "czech republic": "Czechia", "republic of korea": "South Korea", korea: "South Korea", "türkiye": "Turkey",
+  "north macedonia": "Macedonia", "bosnia and herzegovina": "Bosnia and Herz.", "dominican republic": "Dominican Rep.",
+};
+// Too small for 1:110m outlines; their dots still show, but no country is shaded for them.
+const NO_OUTLINE = new Set(["hong kong", "hk", "macau", "macao", "mo", "singapore", "sg", "monaco", "mc", "luxembourg city"]);
 
+function pointInRings(rings, x, y) {
+  let inside = false;
+  for (const r of rings) {
+    for (let i = 0, j = r.length - 2; i < r.length; j = i, i += 2) {
+      const xi = r[i], yi = r[i + 1], xj = r[j], yj = r[j + 1];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+  }
+  return inside;
+}
+
+let WORLD = null; // countries projected once: {name, rings, bbox:[x0,y0,x1,y1]}
+function world() {
+  if (WORLD) return WORLD;
+  WORLD = (window.MENU_ATLAS_WORLD || []).map((c) => {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    const rings = c.r.map((ring) => {
+      const out = new Float64Array(ring.length);
+      for (let i = 0; i < ring.length; i += 2) {
+        const [x, y] = equalEarth(ring[i], ring[i + 1]);
+        out[i] = x; out[i + 1] = y;
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+      return out;
+    });
+    return { name: c.n, rings, bbox: [x0, y0, x1, y1] };
+  });
+  return WORLD;
+}
+
+function countryOf(r, x, y, byName) {
+  const key = (r.country || "").trim().toLowerCase();
+  if (NO_OUTLINE.has(key) || NO_OUTLINE.has((r.city || "").trim().toLowerCase())) return null;
+  const named = byName.get((COUNTRY_ALIASES[key] || key).toLowerCase());
+  if (named) return named;
+  return world().find((c) => x >= c.bbox[0] && x <= c.bbox[2] && y >= c.bbox[1] && y <= c.bbox[3] && pointInRings(c.rings, x, y)) || null;
+}
+
+function coverageMap(params) {
+  const countries = world();
+  const byName = new Map(countries.map((c) => [c.name.toLowerCase(), c]));
+  const stats = new Map(); // country -> {total, yes, data}
+  const dots = [];
+  for (const r of D.restaurants) {
+    if (r.lat == null || r.lon == null) continue;
+    const [x, y] = equalEarth(r.lon, r.lat);
+    const st = statusOf(r), c = countryOf(r, x, y, byName);
+    dots.push({ r, x, y, st, c });
+    if (c) {
+      const s = stats.get(c) || stats.set(c, { total: 0, yes: 0, data: 0 }).get(c);
+      s.total++; if (r.publishes_menu === "yes") s.yes++; if (st === "data") s.data++;
+    }
+  }
+  const maxTotal = Math.max(1, ...[...stats.values()].map((s) => s.total));
+  const hidden = new Set((params.get("hide") || "").split(",").filter(Boolean));
+  let preset = VIEWS[params.get("view")] ? params.get("view") : "World";
+
+  const canvas = h("canvas", { class: "map", role: "img", tabindex: "0",
+    "aria-label": `Map of ${dots.length} restaurants by menu status. Use plus and minus to zoom and the arrow keys to move. A table by region follows.` });
+  const wrap = h("div", { class: "mapwrap" }, canvas);
   const counts = Object.fromEntries(STATUS.map((st) => [st.key, 0]));
-  for (const r of placed) counts[statusOf(r)]++;
+  for (const d of dots) counts[d.st]++;
+
+  // camera: screen = (ox + k*x, oy - k*y)
+  let W = 0, H = 0, k = 1, ox = 0, oy = 0, minK = 1, hover = null, hoverCountry = null, frame = 0, anim = 0;
+  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const sync = () => {
     const p = new URLSearchParams();
-    if (view !== "World") p.set("view", view);
+    if (preset && preset !== "World") p.set("view", preset);
     if (hidden.size) p.set("hide", [...hidden].join(","));
     setParams(p);
   };
 
-  function draw() {
-    const css = getComputedStyle(document.documentElement);
-    const col = (v) => css.getPropertyValue(v).trim();
-    const W = wrap.clientWidth || 640, H = Math.round(Math.min(560, Math.max(260, W * 0.52)));
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    canvas.style.width = W + "px"; canvas.style.height = H + "px";
-    const ctx = canvas.getContext("2d");
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = col("--map-sea"); ctx.fillRect(0, 0, W, H);
-
-    // fit the view box (sampled along its edges, since meridians curve)
-    const [w, s, e, n] = VIEWS[view];
+  function boxCamera(x0, y0, x1, y1, pad = 16) {
+    const kk = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+    return [kk, (W - kk * (x1 - x0)) / 2 - kk * x0, (H - kk * (y1 - y0)) / 2 + kk * y1];
+  }
+  function presetBox(name) {
+    const [w, s, e, n] = VIEWS[name];
     let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-    for (let i = 0; i <= 16; i++) {
+    for (let i = 0; i <= 16; i++) { // sample the edges, since meridians curve
       for (const [lo, la] of [[w + ((e - w) * i) / 16, s], [w + ((e - w) * i) / 16, n], [w, s + ((n - s) * i) / 16], [e, s + ((n - s) * i) / 16]]) {
         const [x, y] = equalEarth(lo, la);
         x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
       }
     }
-    const pad = 12, k = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
-    const ox = (W - k * (x1 - x0)) / 2 - k * x0, oy = (H - k * (y1 - y0)) / 2 + k * y1;
-    const P = (lo, la) => { const [x, y] = equalEarth(lo, la); return [ox + k * x, oy - k * y]; };
+    return [x0, y0, x1, y1];
+  }
+  function flyTo(target) {
+    cancelAnimationFrame(anim);
+    if (reduced) { [k, ox, oy] = target; return redraw(); }
+    const from = [k, ox, oy], t0 = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / 350), e = 1 - (1 - t) ** 3;
+      // interpolate scale in log space so zooms feel even
+      k = Math.exp(Math.log(from[0]) + (Math.log(target[0]) - Math.log(from[0])) * e);
+      ox = from[1] + (target[1] - from[1]) * e; oy = from[2] + (target[2] - from[2]) * e;
+      draw();
+      if (t < 1) anim = requestAnimationFrame(step);
+    };
+    anim = requestAnimationFrame(step);
+  }
+  function zoomAt(sx, sy, f) {
+    const k2 = Math.max(minK * 0.8, Math.min(minK * 60, k * f));
+    ox = sx + ((ox - sx) * k2) / k; oy = sy + ((oy - sy) * k2) / k; k = k2;
+    preset = null; setPressed(); redraw();
+  }
+  const redraw = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(draw); };
 
-    ctx.fillStyle = col("--map-land");
-    ctx.beginPath();
-    for (const ring of window.MENU_ATLAS_LAND || []) {
-      for (let i = 0; i < ring.length; i += 2) {
-        const [x, y] = P(ring[i], ring[i + 1]);
-        if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+  function resize() {
+    const w = wrap.clientWidth || 640, hh = Math.round(Math.min(600, Math.max(280, w * 0.55)));
+    const first = !W, oldW = W, oldH = H;
+    W = w; H = hh;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    minK = boxCamera(...presetBox("World"))[0];
+    if (first || preset) [k, ox, oy] = boxCamera(...presetBox(preset || "World"));
+    else { ox += (W - oldW) / 2; oy += (H - oldH) / 2; }
+    draw();
+  }
+
+  function draw() {
+    if (!W) return;
+    const css = getComputedStyle(document.documentElement);
+    const col = (v) => css.getPropertyValue(v).trim();
+    const ctx = canvas.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = col("--map-sea"); ctx.fillRect(0, 0, W, H);
+    const path = (c) => {
+      ctx.beginPath();
+      for (const r of c.rings) {
+        for (let i = 0; i < r.length; i += 2) {
+          const X = ox + k * r[i], Y = oy - k * r[i + 1];
+          if (i) ctx.lineTo(X, Y); else ctx.moveTo(X, Y);
+        }
+        ctx.closePath();
       }
-      ctx.closePath();
+    };
+    const visible = (c) => ox + k * c.bbox[2] >= 0 && ox + k * c.bbox[0] <= W && oy - k * c.bbox[1] >= 0 && oy - k * c.bbox[3] <= H;
+    const land = col("--map-land"), accent = col("--accent"), border = col("--map-sea");
+    const shadeMin = parseFloat(col("--map-shade-min")) || 0.1, shadeMax = parseFloat(col("--map-shade-max")) || 0.42;
+    for (const c of countries) {
+      if (!visible(c)) continue;
+      path(c);
+      ctx.fillStyle = land; ctx.fill("evenodd");
+      const s = stats.get(c);
+      if (s) { // shade by restaurants in the list, log scale
+        ctx.globalAlpha = shadeMin + ((shadeMax - shadeMin) * Math.log1p(s.total)) / Math.log1p(maxTotal);
+        ctx.fillStyle = accent; ctx.fill("evenodd"); ctx.globalAlpha = 1;
+      }
+      ctx.strokeStyle = border; ctx.lineWidth = 0.75; ctx.stroke();
     }
-    ctx.fill("evenodd");
-
-    // dots: bigger when zoomed in, never below 2.5px
-    const zoom = view === "World" ? 1 : 1.6;
-    const ring = col("--map-sea");
-    pts = [];
+    if (hoverCountry && visible(hoverCountry)) {
+      path(hoverCountry); ctx.strokeStyle = accent; ctx.lineWidth = 2; ctx.stroke();
+    }
+    const grow = Math.min(1.8, (k / minK) ** 0.35);
     for (const st of STATUS) {
       if (hidden.has(st.key)) continue;
       const c = col(st.color);
-      for (const r of placed) {
-        if (statusOf(r) !== st.key) continue;
-        const [x, y] = P(r.lon, r.lat);
-        if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
-        const rad = (st.key === "data" ? 4 : 3) * zoom;
-        ctx.globalAlpha = r.approx ? 0.55 : 1;
-        ctx.beginPath(); ctx.arc(x, y, rad, 0, 2 * Math.PI);
+      for (const d of dots) {
+        if (d.st !== st.key) continue;
+        const X = ox + k * d.x, Y = oy - k * d.y;
+        if (X < -10 || Y < -10 || X > W + 10 || Y > H + 10) continue;
+        const rad = (st.key === "data" ? 3.5 : 2.75) * grow;
+        ctx.globalAlpha = d.r.approx ? 0.55 : 1;
+        ctx.beginPath(); ctx.arc(X, Y, rad, 0, 2 * Math.PI);
         if (st.hollow) { ctx.strokeStyle = c; ctx.lineWidth = 1.5; ctx.stroke(); }
-        else { ctx.fillStyle = c; ctx.fill(); ctx.strokeStyle = ring; ctx.lineWidth = 1; ctx.stroke(); }
-        pts.push([x, y, rad, r]);
+        else { ctx.fillStyle = c; ctx.fill(); ctx.strokeStyle = border; ctx.lineWidth = 1; ctx.stroke(); }
       }
     }
     ctx.globalAlpha = 1;
+    if (hover) {
+      ctx.beginPath(); ctx.arc(ox + k * hover.x, oy - k * hover.y, 7 * grow, 0, 2 * Math.PI);
+      ctx.strokeStyle = col("--text"); ctx.lineWidth = 2; ctx.stroke();
+    }
   }
 
-  // hover: nearest dot within reach, topmost category wins ties
-  const nearest = (ev) => {
-    const b = canvas.getBoundingClientRect(), mx = ev.clientX - b.left, my = ev.clientY - b.top;
+  // --- what's under the pointer
+  const local = (ev) => { const b = canvas.getBoundingClientRect(); return [ev.clientX - b.left, ev.clientY - b.top]; };
+  function dotAt(sx, sy) {
+    const grow = Math.min(1.8, (k / minK) ** 0.35);
     let best = null, bd = Infinity;
-    for (let i = pts.length - 1; i >= 0; i--) {
-      const [x, y, rad, r] = pts[i], d = Math.hypot(x - mx, y - my);
-      if (d <= Math.max(10, rad + 4) && d < bd) { best = r; bd = d; }
+    for (const d of dots) {
+      if (hidden.has(d.st)) continue;
+      const dist = Math.hypot(ox + k * d.x - sx, oy - k * d.y - sy);
+      // ties go to the category drawn on top
+      const reach = Math.max(9, 5 * grow), rank = STATUS.findIndex((s) => s.key === d.st);
+      if (dist <= reach && dist - rank * 0.01 < bd) { best = d; bd = dist - rank * 0.01; }
     }
     return best;
-  };
-  canvas.addEventListener("pointermove", (ev) => {
-    const r = nearest(ev);
-    canvas.style.cursor = r ? "pointer" : "default";
-    if (!r) return hideTip();
-    const st = STATUS.find((x) => x.key === statusOf(r));
-    showTip(ev, r.name, [r.city, r.country].filter(Boolean).join(", ") + " · " + st.label
-      + (r.menus ? ` (${r.menus} menu${r.menus > 1 ? "s" : ""})` : "") + (r.approx ? " · location approximate (city)" : ""));
+  }
+  function countryAt(sx, sy) {
+    const x = (sx - ox) / k, y = (oy - sy) / k;
+    return countries.find((c) => x >= c.bbox[0] && x <= c.bbox[2] && y >= c.bbox[1] && y <= c.bbox[3] && pointInRings(c.rings, x, y)) || null;
+  }
+  function describe(ev, sx, sy) {
+    const d = dotAt(sx, sy), c = d ? null : countryAt(sx, sy);
+    if (d !== hover || c !== hoverCountry) { hover = d; hoverCountry = c; redraw(); }
+    canvas.style.cursor = d || c ? "pointer" : "grab";
+    if (d) {
+      const r = d.r, st = STATUS.find((x) => x.key === d.st);
+      showTip(ev, r.name, [r.city, r.country].filter(Boolean).join(", ") + " · " + st.label
+        + (r.menus ? ` (${r.menus} menu${r.menus > 1 ? "s" : ""})` : "") + (r.approx ? " · location approximate (city)" : ""));
+    } else if (c) {
+      const s = stats.get(c);
+      showTip(ev, c.name, s ? `${s.total} restaurant${s.total > 1 ? "s" : ""} · ${s.yes} publish a menu · ${s.data} with menus collected` : "No restaurants in the list");
+    } else hideTip();
+  }
+
+  // --- pan, zoom, pinch, click
+  const pointers = new Map();
+  let drag = null; // {x, y, moved, pinch}
+  canvas.addEventListener("pointerdown", (ev) => {
+    canvas.setPointerCapture(ev.pointerId);
+    pointers.set(ev.pointerId, local(ev));
+    cancelAnimationFrame(anim);
+    if (pointers.size === 1) drag = { start: local(ev), last: local(ev), moved: false };
+    else if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      drag = { pinch: Math.hypot(a[0] - b[0], a[1] - b[1]), moved: true };
+    }
   });
-  canvas.addEventListener("pointerleave", hideTip);
-  canvas.addEventListener("click", (ev) => { const r = nearest(ev); if (r) location.hash = "#/restaurant/" + encodeURIComponent(r.slug); });
+  canvas.addEventListener("pointermove", (ev) => {
+    const p = local(ev);
+    if (!pointers.has(ev.pointerId)) return describe(ev, ...p);
+    pointers.set(ev.pointerId, p);
+    if (pointers.size === 2 && drag?.pinch) {
+      const [a, b] = [...pointers.values()];
+      const dist = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, dist / drag.pinch);
+      drag.pinch = dist;
+    } else if (drag && !drag.pinch) {
+      if (!drag.moved && Math.hypot(p[0] - drag.start[0], p[1] - drag.start[1]) > 4) { drag.moved = true; hideTip(); canvas.style.cursor = "grabbing"; }
+      if (drag.moved) {
+        ox += p[0] - drag.last[0]; oy += p[1] - drag.last[1];
+        if (preset) { preset = null; setPressed(); }
+        redraw();
+      }
+      drag.last = p;
+    }
+  });
+  const release = (ev) => {
+    const wasClick = drag && !drag.moved && pointers.size === 1;
+    pointers.delete(ev.pointerId);
+    if (pointers.size === 0) {
+      if (wasClick && ev.type === "pointerup") {
+        const [sx, sy] = local(ev), d = dotAt(sx, sy);
+        if (d) location.hash = "#/restaurant/" + encodeURIComponent(d.r.slug);
+        else {
+          const c = countryAt(sx, sy);
+          if (c) zoomToCountry(c, (sx - ox) / k, (oy - sy) / k);
+        }
+      }
+      drag = null; canvas.style.cursor = "grab";
+    } else if (pointers.size === 1) {
+      const p = [...pointers.values()][0];
+      drag = { start: p, last: p, moved: true };
+    }
+  };
+  canvas.addEventListener("pointerup", release);
+  canvas.addEventListener("pointercancel", release);
+  canvas.addEventListener("pointerleave", () => { if (!pointers.size) { hideTip(); if (hover || hoverCountry) { hover = hoverCountry = null; redraw(); } } });
+  canvas.addEventListener("wheel", (ev) => {
+    ev.preventDefault();
+    const [sx, sy] = local(ev);
+    zoomAt(sx, sy, Math.exp(-ev.deltaY * (ev.deltaMode === 1 ? 0.05 : 0.0015)));
+    describe(ev, sx, sy);
+  }, { passive: false });
+  canvas.addEventListener("dblclick", (ev) => { ev.preventDefault(); zoomAt(...local(ev), 2); });
+  canvas.addEventListener("keydown", (ev) => {
+    const step = 60, moves = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] };
+    if (ev.key === "+" || ev.key === "=") zoomAt(W / 2, H / 2, 1.5);
+    else if (ev.key === "-" || ev.key === "_") zoomAt(W / 2, H / 2, 1 / 1.5);
+    else if (ev.key === "0") goPreset("World");
+    else if (moves[ev.key]) { ox += moves[ev.key][0]; oy += moves[ev.key][1]; preset = null; setPressed(); redraw(); }
+    else return;
+    ev.preventDefault();
+  });
+
+  // Zoom to the part of a country that was clicked (France, not France plus Guiana).
+  function zoomToCountry(c, x, y) {
+    const ring = c.rings.find((r) => pointInRings([r], x, y)) || c.rings[0];
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let i = 0; i < ring.length; i += 2) {
+      x0 = Math.min(x0, ring[i]); x1 = Math.max(x1, ring[i]); y0 = Math.min(y0, ring[i + 1]); y1 = Math.max(y1, ring[i + 1]);
+    }
+    const minSpan = 0.06; // don't zoom tighter than roughly a small country
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, hw = Math.max(minSpan, x1 - x0) / 2, hh = Math.max(minSpan, y1 - y0) / 2;
+    const target = boxCamera(cx - hw, cy - hh, cx + hw, cy + hh, 32);
+    target[0] = Math.min(target[0], minK * 60);
+    preset = null; setPressed(); flyTo(target);
+  }
+  function goPreset(name) { preset = name; setPressed(); sync(); flyTo(boxCamera(...presetBox(name))); }
 
   const viewButtons = h("div", { class: "seg", role: "group", "aria-label": "Zoom to" },
-    Object.keys(VIEWS).map((v) => h("button", { type: "button", "aria-pressed": String(v === view),
-      onclick: (e) => { view = v; for (const b of e.target.parentNode.children) b.setAttribute("aria-pressed", String(b === e.target)); sync(); draw(); } }, v)));
+    Object.keys(VIEWS).map((v) => h("button", { type: "button", "data-view": v, "aria-pressed": String(v === preset), onclick: () => goPreset(v) }, v)));
+  function setPressed() { for (const b of viewButtons.children) b.setAttribute("aria-pressed", String(b.dataset.view === preset)); }
+  const zoomButtons = h("div", { class: "zoom" },
+    h("button", { type: "button", "aria-label": "Zoom in", onclick: () => zoomAt(W / 2, H / 2, 1.6) }, "+"),
+    h("button", { type: "button", "aria-label": "Zoom out", onclick: () => zoomAt(W / 2, H / 2, 1 / 1.6) }, "−"),
+    h("button", { type: "button", "aria-label": "Show the whole world", onclick: () => goPreset("World") }, "⟲"));
+  wrap.append(zoomButtons);
+
   const legend = h("div", { class: "legend" }, [...STATUS].reverse().map((st) => h("button", {
     type: "button", class: "key", "aria-pressed": String(!hidden.has(st.key)), title: "Show or hide",
-    onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); sync(); draw(); },
-  }, h("span", { class: "swatch" + (st.hollow ? " hollow" : ""), style: `--c:var(${st.color})` }), st.label, h("span", { class: "n" }, counts[st.key]))));
+    onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); sync(); redraw(); },
+  }, h("span", { class: "swatch" + (st.hollow ? " hollow" : ""), style: `--c:var(${st.color})` }), st.label, h("span", { class: "n" }, counts[st.key]))),
+  h("span", { class: "shade" }, h("span", { class: "ramp" }), `Country shade: restaurants in the list (1 to ${maxTotal})`));
 
-  const unplaced = D.restaurants.length - placed.length;
-  const approx = placed.filter((r) => r.approx).length;
-  const notes = [approx ? `${approx} faded dots are placed at their city, not their address.` : null,
+  const unplaced = D.restaurants.length - dots.length;
+  const approx = dots.filter((d) => d.r.approx).length;
+  const notes = ["Scroll or pinch to zoom, drag to move. Click a country to zoom in, or a dot to open the restaurant.",
+    approx ? `${approx} faded dots are placed at their city, not their address.` : null,
     unplaced ? `${unplaced} restaurants have no location yet and aren't on the map.` : null].filter(Boolean);
 
-  if (window.ResizeObserver) new ResizeObserver(() => draw()).observe(wrap);
-  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", draw);
-  requestAnimationFrame(draw);
+  if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(wrap);
+  else requestAnimationFrame(resize);
+  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", redraw);
   return h("section", { class: "card" }, h("div", { class: "maphead" }, viewButtons), wrap, legend,
-    notes.length ? h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" }, notes.join(" ")) : null);
+    h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" }, notes.join(" ")));
 }
 
 function coverage(params) {

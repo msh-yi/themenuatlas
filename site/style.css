@@ -16,6 +16,8 @@
   --dot-unknown: #b4b3ad;
   --map-sea: #ffffff;
   --map-land: #e9e7e1;
+  --map-shade-min: .1;
+  --map-shade-max: .42;
   --radius: 8px;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -38,6 +40,8 @@
     --dot-unknown: #6b6a64;
     --map-sea: #222221;
     --map-land: #353532;
+    --map-shade-min: .18;
+    --map-shade-max: .62;
   }
 }
 :root[data-theme="dark"] {
@@ -46,6 +50,7 @@
   --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
   --accent: #3987e5; --accent-soft: #1f3550; --warn-bg: #3d3214; --warn-text: #f3dc9a;
   --dot-pending: #d95926; --dot-none: #8f8e86; --dot-unknown: #6b6a64; --map-sea: #222221; --map-land: #353532;
+  --map-shade-min: .18; --map-shade-max: .62;
 }
 
 * { box-sizing: border-box; }
@@ -133,8 +138,16 @@ svg .hit { fill: transparent; cursor: pointer; }
 }
 
 /* coverage map */
-.mapwrap { width: 100%; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
-.map { display: block; touch-action: manipulation; }
+.mapwrap { position: relative; width: 100%; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+.map { display: block; touch-action: none; cursor: grab; }
+.zoom { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; }
+.zoom button { width: 32px; height: 32px; font: inherit; font-size: 1.05rem; line-height: 1; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
+.zoom button:hover { background: var(--surface-2); }
+.zoom button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.legend .shade { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--text-2); padding: .2rem .4rem; }
+.legend .ramp { width: 44px; height: 10px; border-radius: 3px; border: 1px solid var(--border);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) calc(var(--map-shade-min) * 100%), var(--map-land)), color-mix(in srgb, var(--accent) calc(var(--map-shade-max) * 100%), var(--map-land))); }
 .maphead { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
 .seg { display: flex; flex-wrap: wrap; gap: .25rem; }
 .seg button, .legend .key { font: inherit; font-size: .85rem; color: var(--text-2); background: var(--surface-2);
