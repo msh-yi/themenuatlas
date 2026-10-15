@@ -1,0 +1,35 @@
+slug,name,city,country,lat,lon,website,publishes_menu,lists
+geranium,Geranium,Copenhagen,Denmark,55.70,12.57,https://www.geranium.dk/,true,michelin:2025:3
+maaemo,Maaemo,Oslo,Norway,59.91,10.76,https://maaemo.no/,true,michelin:2025:3
+frantzen,Frantzén,Stockholm,Sweden,59.33,18.06,https://restaurantfrantzen.com/,true,michelin:2025:3;w50b:2025:38
+alchemist,Alchemist,Copenhagen,Denmark,55.69,12.61,https://alchemist.dk/,true,michelin:2026:2;w50b:2025:5
+mirazur,Mirazur,Menton,France,43.79,7.53,https://www.mirazur.fr/,true,michelin:2025:3
+arpege,Arpège,Paris,France,48.86,2.32,https://www.alain-passard.com/,true,michelin:2025:3;w50b:2025:45
+septime,Septime,Paris,France,48.85,2.38,https://septime-charonne.fr/,true,michelin:2026:1;michelin-green:2026:1;w50b:2025:40
+disfrutar,Disfrutar,Barcelona,Spain,41.39,2.15,https://www.disfrutarbarcelona.com/,true,michelin:2025:3
+diverxo,DiverXO,Madrid,Spain,40.45,-3.69,https://diverxo.com/es,true,michelin:2025:3;w50b:2025:4
+asador-etxebarri,Asador Etxebarri,Axpe,Spain,43.12,-2.60,https://www.asadoretxebarri.com/,false,michelin:2026:1;w50b:2025:2
+osteria-francescana,Osteria Francescana,Modena,Italy,44.64,10.92,https://osteriafrancescana.it/,true,michelin:2025:3
+lido-84,Lido 84,Gardone Riviera,Italy,45.62,10.57,https://lido84.com/,true,michelin:2026:1;w50b:2025:16
+uliassi,Uliassi,Senigallia,Italy,43.72,13.22,https://uliassi.it/,true,michelin:2025:3;w50b:2025:43
+lenclume,L'Enclume,Cartmel,United Kingdom,54.20,-2.95,https://www.lenclume.co.uk/,true,michelin:2025:3
+core,Core by Clare Smyth,London,United Kingdom,51.51,-0.21,https://corebyclaresmyth.com/,true,michelin:2025:3
+the-ledbury,The Ledbury,London,United Kingdom,51.52,-0.20,https://www.theledbury.com/,true,michelin:2025:3
+le-bernardin,Le Bernardin,New York,United States,40.76,-73.98,https://www.le-bernardin.com/,true,michelin:2025:3;w50b:2025:90
+singlethread,SingleThread,Healdsburg,United States,38.61,-122.87,https://singlethreadfarms.com/,true,michelin:2025:3;w50b:2025:80
+atomix,Atomix,New York,United States,40.74,-73.98,https://www.atomixnyc.com/,true,michelin:2026:2;w50b:2025:12
+alinea,Alinea,Chicago,United States,41.91,-87.65,https://www.alinearestaurant.com/,false,michelin:2026:2
+central,Central,Lima,Peru,-12.15,-77.02,https://centralrestaurante.com.pe/,true,
+maido,Maido,Lima,Peru,-12.12,-77.03,https://maido.pe/,true,w50b:2025:1
+quintonil,Quintonil,Mexico City,Mexico,19.43,-99.19,https://quintonil.com/,true,michelin:2026:2;w50b:2025:3
+sezanne,Sézanne,Tokyo,Japan,35.68,139.76,https://sezanne.jp/,true,w50b:2025:7
+den,Den,Tokyo,Japan,35.67,139.71,https://www.jimbochoden.com/,false,michelin:2026:2;w50b:2025:53
+pujol,Pujol,Mexico City,Mexico,19.43,-99.20,https://pujol.com.mx/,true,michelin:2026:2;w50b:2025:60
+kitcho-arashiyama,Kyoto Kitcho Arashiyama,Kyoto,Japan,35.01,135.68,https://kitcho.com/,true,michelin:2026:3
+mingles,Mingles,Seoul,South Korea,37.52,127.05,https://www.restaurant-mingles.com/,true,michelin:2025:3;w50b:2025:29
+the-chairman,The Chairman,Hong Kong,Hong Kong,22.28,114.15,https://www.thechairmangroup.com/,true,michelin:2026:1;w50b:2025:19
+odette,Odette,Singapore,Singapore,1.29,103.85,https://odetterestaurant.com/,true,michelin:2025:3;w50b:2025:25
+gaggan,Gaggan,Bangkok,Thailand,13.74,100.55,https://gaggan.com/,true,michelin:2026:2;w50b:2025:6
+sorn,Sorn,Bangkok,Thailand,13.73,100.57,https://sornfinesouthern.com/,true,michelin:2025:3;w50b:2025:17
+attica,Attica,Melbourne,Australia,-37.88,145.00,https://attica.com.au/,true,
+brae,Brae,Birregurra,Australia,-38.34,143.78,https://braerestaurant.com/,true,
