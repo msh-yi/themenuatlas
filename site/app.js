@@ -156,7 +156,7 @@ function groupOptions(selected) {
   return [opt("", "All restaurants"),
     h("optgroup", { label: "Region" }, D.groups.region.map((g) => opt("region:" + g, g))),
     accoladeGroups().length ? h("optgroup", { label: "Accolade" }, accoladeGroups().map((g) => opt("accolade:" + g, g))) : null,
-    D.groups.season.some((g) => g !== "unknown") ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.filter((g) => g !== "unknown").map((g) => opt("season:" + g, cap(g)))) : null];
+    seasonsReady() && D.groups.season.some((g) => g !== "unknown") ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.filter((g) => g !== "unknown").map((g) => opt("season:" + g, cap(g)))) : null];
 }
 // accolade groups with enough menus for shares and pairings
 const accoladeGroups = () => Object.keys(D.groups.accolade_with_data || {});
@@ -196,6 +196,12 @@ function accoladeMatch(r, f) {
   if (f === "starred") return !!r.accolades?.stars;
   if (f === "none") return !(r.tiers || []).length;
   return (r.tiers || []).includes(f);
+}
+// Seasons only mean something once first-seen dates span most of a year; until then
+// "autumn" vs "spring" is just which hemisphere a restaurant is in.
+function seasonsReady() {
+  const r = D.seen_range;
+  return !r || (Date.parse(r[1]) - Date.parse(r[0])) / 864e5 >= 270;
 }
 const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
 // lowercase without accents, so "cepe" finds "cèpe"
@@ -288,6 +294,8 @@ function ingredient(_params, [name]) {
       h("section", { class: "card" }, h("h2", {}, "Share of menus by season"),
         seasons.every(([g]) => g === "Unknown")
           ? h("p", { class: "empty" }, "No menu dates in this build yet, so no seasons.")
+          : !seasonsReady()
+          ? h("p", { class: "empty" }, `Every menu so far was first seen between ${fmtDate(D.seen_range[0])} and ${fmtDate(D.seen_range[1])}, so seasons would only show which hemisphere a restaurant is in. They'll appear once the menus span most of a year.`)
           : barChart(seasons.filter(([g]) => g !== "Unknown"), { max: 1, note: "Southern Hemisphere dates shift six months; tropical restaurants are their own group." }))),
     h("div", { class: "grid2", style: "margin-top:1.25rem" },
       h("section", { class: "card" }, h("h2", {}, "Pairs with"),

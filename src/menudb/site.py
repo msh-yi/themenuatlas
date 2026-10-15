@@ -360,6 +360,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         if manifests and manifests.get(slug):
             restaurant_list[-1]["menu_list"] = manifests[slug]
 
+    dates = sorted({r.seen for r in rows if r.seen})
     groups = {
         "region": sorted({r.region for r in restaurants.values()}),
         "season": [s for s in SEASONS if any(r.season == s for r in rows)],
@@ -375,6 +376,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "generated_at": (now or datetime.now(timezone.utc)).isoformat(timespec="seconds"),
         "min_restaurants": min_restaurants,
         "has_menus": bool(manifests),
+        # when menus were first seen: seasons mean little until this spans the year
+        "seen_range": [dates[0].isoformat(), dates[-1].isoformat()] if dates else None,
         "totals": {
             "restaurants": len(restaurants),
             "restaurants_with_data": len(menus),
