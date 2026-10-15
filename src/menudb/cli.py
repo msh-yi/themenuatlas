@@ -676,7 +676,7 @@ def review_push(files: list[Path]):
         typer.echo(f"{key}: {len(decisions)} decisions")
 
 
-SITE_KEY = "site/data.json"  # private: real-data builds stay in the bucket until publishing is decided
+SITE_KEY = "site/"  # private: real-data builds stay in the bucket until publishing is decided
 
 
 @app.command()
@@ -694,7 +694,7 @@ def export_site(
     source: str = typer.Option("synthetic", help="synthetic | bucket | db"),
     out: Path = typer.Option(Path("site/data"), help="directory for data.json (gitignored)"),
     min_restaurants: int = typer.Option(2, help="drop pairs seen at fewer restaurants"),
-    to_bucket: bool = typer.Option(False, help=f"also store it privately in the bucket as {SITE_KEY}"),
+    to_bucket: bool = typer.Option(False, help=f"also store it privately in the bucket under {SITE_KEY}"),
     menus: bool = typer.Option(False, help="include each restaurant's menus (courses -> ingredients); private builds only"),
 ):
     """Write aggregated JSON for the static site: no course text, derived data only."""
@@ -709,12 +709,15 @@ def export_site(
                       min_group=2 if source == "synthetic" else site.MIN_GROUP,
                       lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"),
                       manifests=manifests if menus else None)
-    path = site.write(data, out)
+    paths = site.write(data, out)
     if to_bucket:
         from menudb import storage
 
-        storage.put_bytes(SITE_KEY, path.read_bytes(), "application/json")
-    _summary("menudb export-site", {"source": source, **data["totals"], "bytes": path.stat().st_size})
+        for p in paths:
+            storage.put_bytes(SITE_KEY + p.relative_to(out).as_posix(), p.read_bytes(), "application/json")
+    _summary("menudb export-site", {"source": source, **data["totals"], "files": len(paths),
+                                    "first_load_bytes": paths[0].stat().st_size,
+                                    "bytes": sum(p.stat().st_size for p in paths)})
     if source != "synthetic":
         typer.echo("real data: keep it out of the repo and don't publish it (docs/PLAN.md, Website)")
 

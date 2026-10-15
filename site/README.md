@@ -1,6 +1,6 @@
 # Menu Atlas (static site)
 
-A static page that loads `data/data.json` and does search, filtering and charts in the browser. No build step and no dependencies.
+A static page that loads `data/data.json` and does search, filtering and charts in the browser. `export-site` splits the data so the first load stays light: `data.json` (lists, map, charts; compacted), `pairs.json` (loaded by the pairing and ingredient pages) and, with `--menus`, `menus/NN.json` (64 shards, loaded when a restaurant page opens; `NN` is FNV-1a of the slug, mod 64, the same in `site.py` and `app.js`). No build step and no dependencies.
 
 ```bash
 uv run menudb export-site                  # synthetic fixture -> site/data/data.json

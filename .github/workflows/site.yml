@@ -1,7 +1,7 @@
 # Two builds of the static site in site/:
 # - synthetic: from the invented fixture, uploaded as a workflow artifact (safe to share).
 # - real: after each check run (or by hand), from Postgres, stored only in the private
-#   bucket as site/data.json. Nothing here deploys to GitHub Pages: publishing real data
+#   bucket under site/ (data.json, pairs.json, menus/NN.json). Nothing here deploys to GitHub Pages: publishing real data
 #   is public and can't be taken back, so it waits on Marcus (docs/PLAN.md, "Website").
 name: site
 

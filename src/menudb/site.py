@@ -23,7 +23,8 @@ from pathlib import Path
 
 from menudb import analysis as a
 
-SCHEMA = 1
+SCHEMA = 2  # 2: split into data.json, pairs.json and menus/NN.json (see write())
+MENU_SHARDS = 64
 SEASONS = ["spring", "summer", "autumn", "winter", "tropical", "unknown"]
 # Accolade groups, most selective first. A restaurant can be in several.
 ACCOLADES = ["3 stars", "2 stars", "1 star", "World's 50 Best", "NYT America 50", "NYT NYC 100"]
@@ -440,8 +441,59 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
     raise ValueError(f"unknown source {source!r}")
 
 
-def write(data: dict, out_dir: Path) -> Path:
-    out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / "data.json"
-    path.write_text(json.dumps(data, separators=(",", ":"), ensure_ascii=False))
-    return path
+def shard(slug: str) -> str:
+    """Menu shard for a restaurant: FNV-1a 32-bit of the slug's UTF-8 bytes, mod 64.
+    site/app.js computes the same to find a restaurant's file."""
+    h = 0x811C9DC5
+    for b in slug.encode():
+        h = ((h ^ b) * 0x01000193) & 0xFFFFFFFF
+    return f"{h % MENU_SHARDS:02d}"
+
+
+# Restaurant fields left out when they hold their default; the site fills them back in.
+_DEFAULTS = {"approx": False, "blocked": False, "menus": 0, "ingredients": 0, "accolades": {},
+             "tiers": [], "publishes_menu": "unknown", "url": None, "city": None, "country": None,
+             "lat": None, "lon": None}
+
+
+def split(data: dict) -> dict[str, object]:
+    """The bundle as files, relative path -> JSON value, so a first page load stays light:
+
+    data.json        everything the list views, map and charts need, compacted: restaurant
+                     fields at their default are dropped and each ingredient's restaurants
+                     are indexes into `restaurants`
+    pairs.json       pairs and pairs_by_accolade, loaded by the pairing and ingredient views
+    menus/NN.json    {slug: menu_list} for restaurants in shard NN (only with --menus),
+                     loaded when a restaurant page opens
+    """
+    core = {k: v for k, v in data.items() if k not in ("pairs", "pairs_by_accolade")}
+    core["layout"] = "split"
+    index = {r["slug"]: i for i, r in enumerate(data["restaurants"])}
+    shards: dict[str, dict] = {f"{i:02d}": {} for i in range(MENU_SHARDS)} if data.get("has_menus") else {}
+    restaurants = []
+    for r in data["restaurants"]:
+        r = dict(r)
+        menus = r.pop("menu_list", None)
+        if menus:
+            shards[shard(r["slug"])][r["slug"]] = menus
+        restaurants.append({k: v for k, v in r.items()
+                            if k not in _DEFAULTS or (v != _DEFAULTS[k] and v != "")})
+    core["restaurants"] = restaurants
+    core["ingredients"] = [{**i, "restaurants": [index[s] for s in i["restaurants"] if s in index]}
+                           for i in data["ingredients"]]
+    files: dict[str, object] = {"data.json": core,
+                                "pairs.json": {"pairs": data["pairs"],
+                                               "pairs_by_accolade": data.get("pairs_by_accolade", {})}}
+    files |= {f"menus/{k}.json": v for k, v in shards.items()}
+    return files
+
+
+def write(data: dict, out_dir: Path) -> list[Path]:
+    """Write split(data) under out_dir; returns the paths, data.json first."""
+    paths = []
+    for rel, value in split(data).items():
+        path = out_dir / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, separators=(",", ":"), ensure_ascii=False))
+        paths.append(path)
+    return paths

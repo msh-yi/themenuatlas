@@ -8,6 +8,45 @@ let D = null; // the loaded bundle
 const byName = new Map();
 const byRestaurant = new Map();
 
+// --- split data files (export-site writes data.json, pairs.json, menus/NN.json) -----
+
+const loaded = {};
+function fetchJSON(rel) {
+  return (loaded[rel] ||= fetch(new URL(rel, new URL(DATA_URL, location.href)), { cache: "no-cache" })
+    .then((res) => { if (!res.ok) throw new Error(res.status + " " + res.statusText); return res.json(); }));
+}
+// Same as site.shard() in Python: FNV-1a 32-bit of the slug's UTF-8 bytes, mod 64.
+function shard(slug) {
+  let x = 0x811c9dc5;
+  for (const b of new TextEncoder().encode(slug)) { x ^= b; x = Math.imul(x, 0x01000193) >>> 0; }
+  return String(x % 64).padStart(2, "0");
+}
+async function ensurePairs() {
+  if (D.pairs) return;
+  try { Object.assign(D, await fetchJSON("pairs.json")); }
+  catch (err) { D.pairs = []; D.pairs_by_accolade = {}; D.pairsError = String(err); }
+}
+async function ensureMenus(slug) {
+  const r = byRestaurant.get(slug);
+  if (!r || !D.has_menus || r.menu_list !== undefined || !r.menus) return;
+  try {
+    for (const [k, v] of Object.entries(await fetchJSON(`menus/${shard(slug)}.json`))) {
+      const x = byRestaurant.get(k); if (x) x.menu_list = v;
+    }
+  } catch { /* the page still shows the ingredient list */ }
+  if (r.menu_list === undefined) r.menu_list = [];
+}
+// Fill back the fields export-site drops at their default, and turn restaurant indexes into slugs.
+const R_DEFAULTS = { approx: false, blocked: false, menus: 0, ingredients: 0, publishes_menu: "unknown",
+  url: null, city: null, country: null, lat: null, lon: null };
+function expand(D) {
+  for (const r of D.restaurants) {
+    for (const [k, v] of Object.entries(R_DEFAULTS)) if (!(k in r)) r[k] = v;
+    r.accolades ||= {}; r.tiers ||= [];
+  }
+  for (const i of D.ingredients) if (typeof i.restaurants[0] === "number") i.restaurants = i.restaurants.map((n) => D.restaurants[n].slug);
+}
+
 // --- tiny DOM helpers ---------------------------------------------------------
 
 function h(tag, attrs, ...kids) {
@@ -33,7 +72,8 @@ function s(tag, attrs, ...kids) {
   return el;
 }
 
-const pct = (x) => (x == null ? "–" : (x * 100 >= 10 || x === 0 ? Math.round(x * 100) : (x * 100).toFixed(1)) + "%");
+// 2 significant digits below 10%, so small supports (0.04%) don't all read as 0.0%
+const pct = (x) => (x == null ? "–" : (x * 100 >= 10 || x === 0 ? Math.round(x * 100) : x * 100 >= 1 ? (x * 100).toFixed(1) : Number((x * 100).toPrecision(2)).toString()) + "%");
 const num = (x, d = 2) => (x == null ? "–" : Number(x).toFixed(d));
 const ingLink = (name) => h("a", { href: "#/ingredient/" + encodeURIComponent(name) }, name);
 // Only https://en.wikipedia.org links from the data file are rendered.
@@ -79,10 +119,21 @@ function setParams(params) {
   try { history.replaceState(null, "", hash); } catch { /* sandboxed frames may refuse; state just isn't linkable */ }
 }
 
-function route() {
+let routing = 0;
+async function route() {
   hideTip();
   const { parts, params } = parseHash();
   const view = parts[0] || "ingredients";
+  const ticket = ++routing;
+  const needs = view === "pairings" || view === "ingredient" ? ensurePairs()
+    : view === "restaurant" && parts[1] ? ensureMenus(parts[1]) : null;
+  if (needs) {
+    const app = document.getElementById("app");
+    const timer = setTimeout(() => { if (ticket === routing) app.replaceChildren(h("p", { class: "muted" }, "Loading…")); }, 150);
+    await needs;
+    clearTimeout(timer);
+    if (ticket !== routing) return;
+  }
   for (const a of document.querySelectorAll("[data-nav]")) {
     const on = a.dataset.nav === view || (view === "ingredient" && a.dataset.nav === "ingredients")
       || (view === "restaurant" && a.dataset.nav === "restaurants");
@@ -364,6 +415,7 @@ function pairings(params) {
   minSel.addEventListener("change", live);
   accSel.addEventListener("change", () => { minSel.value = String(defaultMin()); live(); });
   out.append(h("h1", {}, "Pairings"),
+    ...(D.pairsError ? [h("p", { class: "banner" }, `The pairings file didn't load (${D.pairsError}). Reload the page to try again.`)] : []),
     h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent.`),
     h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel),
       accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null),
@@ -394,7 +446,10 @@ function scatter(all) {
   svg.append(s("text", { x: 4, y: m.t + 4 }, "lift"));
   for (const r of [...rows].sort((a, b) => a.restaurants - b.restaurants)) {
     const cx = X(r.support), cy = Y(r.lift);
-    const dot = s("circle", { class: "dot", cx, cy, r: 4 + Math.min(4, r.restaurants - 1) });
+    // smaller dots when there are many, so dense regions stay readable
+    const dense = rows.length > 150;
+    const dot = s("circle", { class: "dot", cx, cy, r: dense ? 2.2 + Math.min(3, Math.log2(r.restaurants)) : 4 + Math.min(4, r.restaurants - 1),
+      style: dense ? "stroke-width:1" : null });
     const hit = s("circle", { class: "hit", cx, cy, r: 12, tabindex: "0", role: "link", "aria-label": `${r.a} and ${r.b}` });
     const label = `${r.a} + ${r.b} · ${pct(r.support)} support · ${r.restaurants} restaurants`;
     hoverable(hit, num(r.lift, 1) + "× lift", label);
@@ -989,6 +1044,7 @@ async function boot() {
       return;
     }
   }
+  expand(D);
   for (const i of D.ingredients) byName.set(i.name, i);
   for (const r of D.restaurants) byRestaurant.set(r.slug, r);
   if (D.source === "synthetic") {

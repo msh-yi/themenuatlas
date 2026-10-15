@@ -40,11 +40,11 @@ def test_planted_patterns_survive():
 
 def test_no_course_text_or_course_grouping(tmp_path):
     d = build()
-    path = site.write(d, tmp_path)
-    text = path.read_text()
+    paths = site.write(d, tmp_path)
+    text = "".join(p.read_text() for p in paths)
     # the fixture's raw_text is "synthetic"; course text and positions never leave
     assert "raw_text" not in text and '"position"' not in text and '"courses":[' not in text
-    assert json.loads(text)["totals"] == d["totals"]
+    assert json.loads(paths[0].read_text())["totals"] == d["totals"]
 
 
 def test_city_level_coordinates_are_flagged(tmp_path):
@@ -135,3 +135,25 @@ def test_menus_only_when_asked():
             for name, preps in c["i"]:
                 assert name in names and isinstance(preps, list)
     assert "raw_text" not in json.dumps(d)
+
+
+def test_split_files_round_trip(tmp_path):
+    rows, restaurants, details, preps, manifests = site.load("synthetic", ROOT)
+    d = site.build(rows, restaurants, source="synthetic", details=details, preparations=preps,
+                   manifests=manifests, min_group=2)
+    paths = site.write(d, tmp_path)
+    assert paths[0].name == "data.json" and len(paths) == 2 + site.MENU_SHARDS
+    core = json.loads(paths[0].read_text())
+    assert "pairs" not in core and core["layout"] == "split"
+    assert not any("menu_list" in r for r in core["restaurants"])
+    slugs = [r["slug"] for r in core["restaurants"]]
+    uni = next(i for i in core["ingredients"] if i["name"] == "uni")
+    assert [slugs[i] for i in uni["restaurants"]] == ["syn-japan-a", "syn-japan-b"]
+    no_menu = next(r for r in core["restaurants"] if r["slug"] == "syn-no-menu")
+    assert "menus" not in no_menu and "approx" not in no_menu  # defaults dropped
+    pairs = json.loads((tmp_path / "pairs.json").read_text())
+    assert pairs["pairs"] == d["pairs"] and pairs["pairs_by_accolade"] == d["pairs_by_accolade"]
+    shard = json.loads((tmp_path / f"menus/{site.shard('syn-japan-a')}.json").read_text())
+    full = {r["slug"]: r for r in d["restaurants"]}
+    assert shard["syn-japan-a"] == full["syn-japan-a"]["menu_list"]
+    assert site.shard("syn-japan-a") == "62" and site.shard("jordnær") == "39"  # same as site/app.js
