@@ -1,5 +1,4 @@
 import contextlib
-import csv
 import logging
 import os
 import uuid
@@ -35,45 +34,12 @@ def seed(
     where lists looks like "michelin:2026:3;w50b:2026:12".
     """
     from menudb.db import get_session
-    from menudb.db.models import ListMembership, Restaurant, Source
-    from menudb.recipes import load_recipes
+    from menudb.seed import seed as seed_db
 
-    with get_session() as session, csv_path.open() as f:
-        for row in csv.DictReader(f):
-            r = session.scalar(select(Restaurant).where(Restaurant.slug == row["slug"]))
-            if r is None:
-                r = Restaurant(slug=row["slug"])
-                session.add(r)
-            r.name, r.city, r.country = row["name"], row["city"] or None, row["country"] or None
-            r.lat = float(row["lat"]) if row["lat"] else None
-            r.lon = float(row["lon"]) if row["lon"] else None
-            r.website = row["website"] or None
-            r.publishes_menu = row.get("publishes_menu") or "unknown"
-            session.flush()
-
-            for entry in filter(None, (row.get("lists") or "").split(";")):
-                list_name, year, value = entry.split(":")
-                m = session.scalar(select(ListMembership).where(
-                    ListMembership.restaurant_id == r.id,
-                    ListMembership.list_name == list_name, ListMembership.year == int(year)))
-                if m is None:
-                    session.add(ListMembership(restaurant_id=r.id, list_name=list_name,
-                                               year=int(year), value=value))
-                else:
-                    m.value = value
-
-            recipe_file = recipes_dir / f"{r.slug}.yaml"
-            if recipe_file.exists():
-                for label, parsed in load_recipes(recipe_file).items():
-                    recipe = parsed.model_dump(mode="json")
-                    src = session.scalar(select(Source).where(
-                        Source.restaurant_id == r.id, Source.label == label))
-                    if src is None:
-                        session.add(Source(restaurant_id=r.id, label=label, recipe=recipe, validators={}))
-                    elif src.recipe != recipe:
-                        src.recipe, src.consecutive_failures, src.last_error = recipe, 0, None
+    with get_session() as session:
+        counts = seed_db(session, csv_path, recipes_dir)
         session.commit()
-    typer.echo("seeded")
+    typer.echo(f"seeded {counts['restaurants']} restaurants, {counts['sources']} sources")
 
 
 @app.command()
