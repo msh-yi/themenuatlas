@@ -22,7 +22,7 @@ from urllib.parse import urlencode
 from sqlalchemy.orm import Session
 
 from menudb.db.models import Source
-from menudb.fetch.http import Fetcher, RobotsDisallowed
+from menudb.fetch.http import FetchError, Fetcher, RobotsDisallowed
 from menudb.normalize import content_hash
 from menudb.pipeline import _record_document
 from menudb.recipes import Recipe, resolve
@@ -30,12 +30,24 @@ from menudb.recipes import Recipe, resolve
 log = logging.getLogger(__name__)
 
 WAYBACK = "https://web.archive.org"
-WAYBACK_INTERVAL = 1.0  # seconds between requests to web.archive.org
+# Seconds between requests to web.archive.org. At 1s the archive refused connections
+# after about 70 requests (first Actions run, 2026-10-15); 5s keeps to ~12 a minute.
+WAYBACK_INTERVAL = 5.0
 _REPLAY = re.compile(r"^https?://web\.archive\.org/web/(\d{14})(?:[a-z]{2}_)?/(.+)$")
 
 
 class Skipped(Exception):
     pass
+
+
+class WaybackUnavailable(Exception):
+    """The archive is refusing us (429 or refused connections): stop the whole run."""
+
+
+def _refused(e: Exception) -> bool:
+    msg = str(e)
+    return isinstance(e, FetchError) and any(
+        s in msg for s in ("HTTP 429", "ConnectError", "ConnectTimeout"))
 
 
 @dataclass
@@ -133,7 +145,16 @@ def backfill_source(session: Session, source: Source, wb: Fetcher, live: Fetcher
         log.info("source=%s skipped: %s", source.id, type(e).__name__)
         return counts
 
-    caps = captures(wb, recipe.start, since=since)[-max_captures:]
+    try:
+        caps = captures(wb, recipe.start, since=since)[-max_captures:]
+    except Exception as e:
+        # RobotsDisallowed here is web.archive.org's own robots.txt (or its being
+        # unreachable, which the Fetcher treats as disallow-all): nothing else will work.
+        if _refused(e) or isinstance(e, RobotsDisallowed):
+            raise WaybackUnavailable(type(e).__name__) from e
+        counts["failed"] += 1
+        log.info("source=%s cdx failed: %s", source.id, type(e).__name__)
+        return counts
     seen_raw: set[str] = set()
     for cap in caps:
         counts["captures"] += 1
@@ -154,6 +175,9 @@ def backfill_source(session: Session, source: Source, wb: Fetcher, live: Fetcher
             counts["skipped"] += 1
             log.info("source=%s ts=%s skipped", source.id, cap.timestamp)
         except Exception as e:  # archived page missing, recipe didn't match back then, ...
+            if _refused(e):
+                session.commit()
+                raise WaybackUnavailable(type(e).__name__) from e
             counts["failed"] += 1
             log.info("source=%s ts=%s failed: %s", source.id, cap.timestamp, type(e).__name__)
         session.commit()

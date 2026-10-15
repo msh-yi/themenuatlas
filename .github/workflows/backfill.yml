@@ -44,5 +44,7 @@ jobs:
           MAX_CAPTURES: ${{ inputs.max_captures }}
         # $SLUGS is unquoted on purpose: one argument per slug
         run: uv run menudb backfill $SLUGS ${SINCE:+--since "$SINCE"} --max-captures "${MAX_CAPTURES:-24}"
-      # Queue the new historical menus for extraction in a session
-      - run: uv run menudb pending --to-bucket
+      # Queue the new historical menus for extraction in a session, even if backfill failed
+      # part-way: whatever it recorded is committed.
+      - if: ${{ !cancelled() }}
+        run: uv run menudb pending --to-bucket

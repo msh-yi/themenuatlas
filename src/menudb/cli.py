@@ -299,7 +299,7 @@ def backfill(
     from menudb.db import get_session
     from menudb.db.models import Restaurant, Source
     from menudb.fetch.http import Fetcher
-    from menudb.wayback import WAYBACK_INTERVAL, backfill_source
+    from menudb.wayback import WAYBACK_INTERVAL, WaybackUnavailable, backfill_source
 
     s = get_settings()
     totals: dict[str, int] = {}
@@ -309,7 +309,14 @@ def backfill(
         if slugs:
             q = q.where(Restaurant.slug.in_(slugs))
         for source in session.scalars(q).all():
-            counts = backfill_source(session, source, wb, live, since=since, max_captures=max_captures)
+            try:
+                counts = backfill_source(session, source, wb, live, since=since,
+                                         max_captures=max_captures)
+            except WaybackUnavailable as e:
+                # Menus recorded so far are committed; rerun later to continue.
+                typer.echo(f"web.archive.org refused requests ({e}) at source {source.id}; stopping")
+                totals["stopped_at_source"] = source.id
+                break
             for k, v in counts.items():
                 totals[k] = totals.get(k, 0) + v
     _summary("menudb backfill", totals)

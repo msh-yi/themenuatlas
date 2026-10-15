@@ -100,3 +100,36 @@ def test_backfill_respects_live_robots(session, fixture_text):
     wb, live = mock_web(fixture_text, robots="User-agent: *\nDisallow: /", calls=calls)
     assert wayback.backfill_source(s, src, wb, live) == {"skipped": 1}
     assert not any("web.archive.org" in c for c in calls)
+
+
+@pytest.mark.db
+def test_refused_archive_stops_the_run(session, fixture_text):
+    s, src = session
+
+    def handler(request):
+        if request.url.host == "r.example":
+            return httpx.Response(404)
+        raise httpx.ConnectError("refused")
+
+    transport = httpx.MockTransport(handler)
+    wb = Fetcher("t", min_interval=0, transport=transport, sleep=lambda s: None)
+    live = Fetcher("t", min_interval=0, transport=transport, sleep=lambda s: None)
+    with pytest.raises(wayback.WaybackUnavailable):
+        wayback.backfill_source(s, src, wb, live)
+
+
+@pytest.mark.db
+def test_cdx_error_fails_only_that_source(session, fixture_text):
+    s, src = session
+
+    def handler(request):
+        if request.url.host == "r.example":
+            return httpx.Response(404)
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        return httpx.Response(400)
+
+    transport = httpx.MockTransport(handler)
+    wb = Fetcher("t", min_interval=0, transport=transport, sleep=lambda s: None)
+    live = Fetcher("t", min_interval=0, transport=transport, sleep=lambda s: None)
+    assert wayback.backfill_source(s, src, wb, live) == {"failed": 1}
