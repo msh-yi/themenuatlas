@@ -39,15 +39,21 @@ LINKED = {"ok", "manual"}
 # Qualifiers tried when a name is a disambiguation page, in order.
 QUALIFIERS = ["food", "fish", "fruit", "vegetable", "plant", "herb", "spice", "mushroom",
               "seaweed", "cheese", "meat", "shellfish", "dish", "sauce", "ingredient"]
-FOODLIKE = re.compile(
-    r"\b(food|foods|dish|dishes|cuisine|culinary|cooking|edible|ingredient|species|genus|"
-    r"subspecies|cultivar|variety|plant|plants|tree|shrub|herb|spice|fruit|berry|berries|"
-    r"vegetable|nut|seed|grain|cereal|legume|bean|root|tuber|flower|mushroom|fungus|fungi|"
-    r"seaweed|alga|algae|kelp|fish|fishes|flatfish|seafood|shellfish|mollusc|mollusk|crustacean|bivalve|bird|mammal|"
-    r"meat|offal|cut|egg|eggs|milk|dairy|cheese|butter|cream|yogurt|oil|vinegar|sauce|"
-    r"condiment|paste|broth|stock|sugar|syrup|sweetener|honey|chocolate|cocoa|coffee|tea|"
-    r"wine|beverage|drink|liqueur|spirit|bread|pastry|dessert|confection|noodle|pasta|rice|"
-    r"citrus|pepper|chili|onion|garlic)\b", re.I)
+# Words in a short description that read as food or an organism. Stems match as
+# prefixes ("mollusc" matches "molluscs"); WHOLE words must match exactly ("tea", not "team").
+STEMS = ("food", "dish", "cuisine", "culinar", "cook", "edible", "ingredient", "species", "genus",
+         "subspecies", "cultivar", "variet", "plant", "tree", "shrub", "herb", "spice", "fruit",
+         "berr", "vegetable", "seed", "grain", "cereal", "legume", "bean", "tuber", "flower",
+         "mushroom", "fung", "seaweed", "alga", "kelp", "fish", "flatfish", "seafood", "shellfish",
+         "mollus", "crustacean", "bivalve", "bird", "mammal", "meat", "offal", "dairy", "chees",
+         "butter", "cream", "yogh", "yogurt", "vinegar", "sauce", "condiment", "broth", "stew",
+         "soup", "sugar", "syrup", "sweetener", "honey", "chocolate", "cocoa", "coffee", "beverage",
+         "drink", "liqueur", "wine", "bread", "pastr", "dessert", "confection", "noodle", "pasta",
+         "citrus", "chili", "chilli", "onion", "garlic", "cabbage", "squash", "pumpkin", "ginger",
+         "appetizer", "appetiser", "snack", "fermented", "cured", "dumpling", "pickle", "salad")
+WHOLE = ("nut", "nuts", "root", "roots", "egg", "eggs", "milk", "oil", "tea", "rice", "fat",
+         "salt", "pepper", "cut", "spirit")
+FOODLIKE = re.compile(r"\b(?:(?:" + "|".join(STEMS) + r")|(?:" + "|".join(WHOLE) + r")\b)", re.I)
 
 
 @dataclass
@@ -176,11 +182,14 @@ def resolve(names: Iterable[str], client: Client) -> dict[str, Link]:
 
 def update(names: Iterable[str], client: Client, path: Path = CSV_PATH, retry: bool = False) -> dict:
     links = load(path)
+    for link in links.values():  # rescore stored descriptions, so a better word list applies at once
+        if link.status in ("ok", "check") and link.title:
+            link.status = "ok" if _foodlike(link.description) else "check"
     todo = [n for n in {n.strip() for n in names if n and n.strip()}
             if n not in links or (retry and links[n].status in RETRY)]
     if todo:
         links |= resolve(todo, client)
-        save(links, path)
+    save(links, path)
     counts: dict[str, int] = {"looked_up": len(todo), "requests": client.requests}
     for link in links.values():
         counts[link.status] = counts.get(link.status, 0) + 1

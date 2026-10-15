@@ -17,3 +17,5 @@ Rerunning only looks up names that aren't in the file yet. `--retry` also redoes
 uv run menudb wiki-links --source bucket                  # names from the bucket's extractions
 uv run menudb wiki-links --source synthetic --names-file <lexicon.txt>
 ```
+
+**As of 2026-10-15:** all 428 names in `data/lexicon/ingredients.txt` were looked up and checked by hand: 424 link to an article and 4 generic buckets have no link (`none`). The other ~830 rows come from names in the bucket's extractions; many of those are extraction noise (phrases, untranslated words) and stay `missing`, `check` or `ambiguous` until the extraction output improves.
