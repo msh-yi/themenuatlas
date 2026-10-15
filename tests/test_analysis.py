@@ -74,14 +74,17 @@ def test_load_db(pg_url):
             c = Course(menu_id=menu.id, position=1, raw_text="private")
             s.add(c)
             s.flush()
-            s.add_all([Component(course_id=c.id, raw_term="Marron", ingredient_id=ing.id),
+            s.add_all([Component(course_id=c.id, raw_term="Marron", ingredient_id=ing.id,
+                                     preparations=["grilled"]),
                        Component(course_id=c.id, raw_term="Finger Lime", suggested_name=None)])
             s.flush()
             rows, restaurants = a.load_db(s)
             mine = [x for x in rows if x.restaurant == "an-test"]
             assert {x.ingredient for x in mine} == {"marron", "finger lime"}
-            assert mine[0].region == "Australia" and mine[0].season == "spring"
+            assert mine[0].region == "Australia & NZ" and mine[0].season == "spring"
             assert restaurants["an-test"].publishes_menu == "yes"
+            from menudb import site  # the site export reads preparations the same way
+            assert site.preparations_from_db(s)["marron"]["grilled"] >= 1
         finally:
             s.rollback()
     engine.dispose()

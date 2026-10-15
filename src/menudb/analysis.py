@@ -22,13 +22,25 @@ from pathlib import Path
 
 from menudb.seasons import season
 
-# Regions from the seed plan, by ISO country code.
+# Regions by ISO country code. The first slice's regions, widened on 2026-10-15 for the
+# full restaurant list (Germany, Benelux, Canada and others no longer fall into "Other").
 REGIONS = {
     "DK": "Nordic", "NO": "Nordic", "SE": "Nordic", "FI": "Nordic", "IS": "Nordic",
-    "FR": "France", "ES": "Spain", "IT": "Italy", "GB": "UK", "US": "US",
-    "MX": "Mexico/Peru", "PE": "Mexico/Peru", "JP": "Japan",
-    "KR": "East Asia", "HK": "East Asia", "CN": "East Asia", "TW": "East Asia",
-    "SG": "Southeast Asia", "TH": "Southeast Asia", "AU": "Australia",
+    "FR": "France", "MC": "France", "ES": "Spain", "PT": "Portugal", "IT": "Italy",
+    "GB": "UK & Ireland", "IE": "UK & Ireland",
+    "DE": "Central Europe", "AT": "Central Europe", "CH": "Central Europe", "PL": "Central Europe",
+    "CZ": "Central Europe", "HU": "Central Europe", "SI": "Central Europe", "SK": "Central Europe",
+    "HR": "Central Europe", "BE": "Benelux", "NL": "Benelux", "LU": "Benelux",
+    "US": "US", "CA": "Canada",
+    "MX": "Latin America", "PE": "Latin America", "BR": "Latin America", "AR": "Latin America",
+    "CL": "Latin America", "CO": "Latin America", "UY": "Latin America",
+    "JP": "Japan",
+    "KR": "East Asia", "HK": "East Asia", "MO": "East Asia", "CN": "East Asia", "TW": "East Asia",
+    "SG": "Southeast Asia", "TH": "Southeast Asia", "VN": "Southeast Asia", "MY": "Southeast Asia",
+    "ID": "Southeast Asia", "PH": "Southeast Asia",
+    "AE": "Middle East", "QA": "Middle East", "SA": "Middle East", "LB": "Middle East",
+    "IL": "Middle East", "TR": "Middle East",
+    "AU": "Australia & NZ", "NZ": "Australia & NZ",
 }
 
 

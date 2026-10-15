@@ -377,11 +377,13 @@ const VIEWS = {
 const STATUS = [
   // drawn in this order, so the categories that matter most end up on top
   { key: "unknown", label: "Not checked yet", color: "--dot-unknown", hollow: true },
-  { key: "no", label: "Doesn't publish a menu", color: "--dot-none", hollow: true },
+  { key: "no", label: "No menu on its site", color: "--dot-none", hollow: true },
+  { key: "blocked", label: "Site opts out of crawling", color: "--dot-blocked", hollow: true },
   { key: "yes", label: "Publishes, not collected yet", color: "--dot-pending" },
   { key: "data", label: "Menus collected", color: "--accent" },
 ];
-const statusOf = (r) => (r.menus > 0 ? "data" : r.publishes_menu === "yes" ? "yes" : r.publishes_menu === "no" ? "no" : "unknown");
+const statusOf = (r) => (r.menus > 0 ? "data" : r.blocked ? "blocked" : r.publishes_menu === "yes" ? "yes"
+  : r.publishes_menu === "no" ? "no" : "unknown");
 
 // Seed-list country names and ISO codes -> Natural Earth names. Anything else is
 // matched by name, then by which outline contains the restaurant.

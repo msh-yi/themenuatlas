@@ -72,3 +72,17 @@ def test_full_list_joins_the_map_without_menus(tmp_path):
     assert r["new-one"]["menus"] == 0 and r["new-one"]["approx"] is True and r["new-one"]["lon"] == 44.8
     assert r["syn-uk"]["menus"] == 2  # already in the analysis set: unchanged
     assert d["totals"]["restaurants"] == 10
+
+
+def test_discovery_fills_in_publishing_and_blocking(tmp_path):
+    from menudb import analysis as a
+
+    disc = tmp_path / "discovery.csv"
+    disc.write_text("slug,status,score,kind,menu_url,stored,note,checked\n"
+                    "x,menu_found,9,html,,,,\ny,robots,0,,,,,\nz,menu_maybe,3,,,,,\n")
+    restaurants = {s: a.Restaurant(s, "Other", 1.0, "unknown") for s in "xyz"}
+    details: dict = {}
+    site.apply_discovery(restaurants, details, disc)
+    assert restaurants["x"].publishes_menu == "yes"
+    assert restaurants["z"].publishes_menu == "unknown"  # unclear stays unknown
+    assert details == {"y": {"blocked": True}}

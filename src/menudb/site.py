@@ -100,6 +100,33 @@ def add_full_list(restaurants: dict[str, a.Restaurant], details: dict[str, dict]
                 _PUBLISHES.get((r.get("publishes_menu") or "").strip().lower(), "unknown"))
 
 
+# data/seed/discovery.csv status -> what it says about publishing a menu
+DISCOVERY = {"menu_found": "yes", "hand_recipe": "yes", "no_menu_found": "no",
+             "robots": "blocked", "opted_out": "blocked"}
+
+
+def apply_discovery(restaurants: dict[str, a.Restaurant], details: dict[str, dict],
+                    discovery_csv: Path) -> None:
+    """Fill in publishes_menu from menu discovery where the seed lists don't say.
+
+    `blocked` (robots.txt or a TDM opt-out) is kept apart from "doesn't publish": the
+    menu may exist, but we don't fetch it. Unclear results (menu_maybe, failed) stay unknown.
+    """
+    from dataclasses import replace
+
+    if not discovery_csv.exists():
+        return
+    with discovery_csv.open() as f:
+        for row in csv.DictReader(f):
+            r, found = restaurants.get(row["slug"]), DISCOVERY.get(row.get("status", ""))
+            if r is None or found is None:
+                continue
+            if found == "blocked":
+                details.setdefault(r.slug, {})["blocked"] = True
+            elif r.publishes_menu == "unknown":
+                restaurants[r.slug] = replace(r, publishes_menu=found)
+
+
 def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
     """ingredient -> group -> share."""
     out: dict[str, dict[str, float]] = defaultdict(dict)
@@ -142,6 +169,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
             "slug": slug, "name": det.get("name") or slug, "city": det.get("city"),
             "country": det.get("country"), "region": r.region, "lat": r.lat, "lon": det.get("lon"),
             "approx": bool(det.get("approx")),
+            "blocked": bool(det.get("blocked")),
             "url": det.get("url"), "publishes_menu": r.publishes_menu,
             "menus": len(menus.get(slug, ())),
             "ingredients": sum(slug in u for u in users.values()),
@@ -194,6 +222,7 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
                  for k in storage.list_keys(prefix)]
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
+        apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
         return a.rows_from_extracted(menus, restaurants), restaurants, details, preparations_from_extracted(menus)
     if source == "db":
         from menudb.db import get_session
@@ -203,6 +232,7 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
             preps = preparations_from_db(session)
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
+        apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
         return rows, restaurants, details, preps
     raise ValueError(f"unknown source {source!r}")
 

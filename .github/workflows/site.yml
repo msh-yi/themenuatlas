@@ -1,19 +1,31 @@
-# Builds the static site in site/ from the synthetic fixture and uploads it as a
-# workflow artifact. It does not deploy to GitHub Pages and never reads real data:
-# publishing is public and can't be taken back (docs/PLAN.md, "Website").
+# Two builds of the static site in site/:
+# - synthetic: from the invented fixture, uploaded as a workflow artifact (safe to share).
+# - real: after each check run (or by hand), from Postgres, stored only in the private
+#   bucket as site/data.json. Nothing here deploys to GitHub Pages: publishing real data
+#   is public and can't be taken back, so it waits on Marcus (docs/PLAN.md, "Website").
 name: site
 
 on:
   push:
     branches: [main]
     paths: [site/**, src/menudb/site.py, src/menudb/analysis.py, tests/fixtures/synthetic_menus.json, .github/workflows/site.yml]
+  workflow_run:
+    workflows: [check]
+    types: [completed]
   workflow_dispatch:
+    inputs:
+      source:
+        description: synthetic (artifact) or db (private bucket only)
+        type: choice
+        options: [synthetic, db]
+        default: synthetic
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  synthetic:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.source == 'synthetic')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -27,3 +39,20 @@ jobs:
           name: site-synthetic
           path: site/
           retention-days: 14
+
+  real:
+    if: (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || (github.event_name == 'workflow_dispatch' && inputs.source == 'db')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --no-dev
+      # Counts only in the log; the JSON goes to the private bucket, never to an artifact.
+      - run: uv run menudb export-site --source db --out "$RUNNER_TEMP/site" --to-bucket
