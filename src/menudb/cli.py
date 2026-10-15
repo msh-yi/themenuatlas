@@ -676,6 +676,67 @@ def review_push(files: list[Path]):
         typer.echo(f"{key}: {len(decisions)} decisions")
 
 
+@review_app.command("build")
+def review_build(
+    out: Path = typer.Option(..., help="local directory outside the repo (items hold menu phrases)"),
+    min_restaurants: int = typer.Option(2, help="lexicon candidates seen at fewer restaurants are left out"),
+    lexicon: Path = typer.Option(Path("data/lexicon/ingredients.txt")),
+):
+    """Items to approve, merge or reject: auto-created ingredients and lexicon candidates.
+
+    Reads review/queue.json, review/lexicon_candidates.json and review/lexicon_rejected.json
+    from the bucket; no database. Writes items.json and ingredients.json (the lexicon's
+    canonical names and categories, for merge targets)."""
+    import json
+    from collections import Counter
+
+    from menudb import review, storage
+    from menudb.lexicon_edit import LexiconFile
+
+    def bucket_json(k: str) -> list:
+        return json.loads(storage.get_raw(k)) if storage.exists(k) else []
+
+    items = review.build_items(bucket_json(review.QUEUE_KEY), bucket_json(review.CANDIDATES_KEY),
+                               lexicon, rejected=bucket_json(review.REJECTED_KEY),
+                               min_restaurants=min_restaurants)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "items.json").write_text(json.dumps(items, ensure_ascii=False))
+    names = sorted(LexiconFile.read(lexicon).canonicals().items(), key=lambda kv: kv[0])
+    (out / "ingredients.json").write_text(json.dumps([{"name": n, "category": c} for n, c in names],
+                                                     ensure_ascii=False))
+    _summary("menudb review build", Counter(i["kind"] for i in items))
+
+
+@review_app.command("decide")
+def review_decide(
+    files: list[Path] = typer.Argument(..., help="JSON lists of choices (kind, term, language, action, canonical...)"),
+    lexicon: Path = typer.Option(Path("data/lexicon/ingredients.txt")),
+    push: bool = typer.Option(True, help="upload alias decisions and rejected phrases to the bucket"),
+):
+    """Apply approve / merge / reject choices: edit the lexicon file (commit it), queue
+    alias decisions in review/decisions/ for check.yml, and remember rejected phrases.
+    Then run `menudb extract-auto --rerun` so the extractor uses the new terms."""
+    import json
+    from datetime import datetime, timezone
+
+    from menudb import review, storage
+
+    choices = [c for f in files for c in review.Choices.validate_json(f.read_text())]
+    counts, decisions, rejected = review.decide(choices, lexicon)
+    if push:
+        if decisions:
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+            storage.put_bytes(f"{review.DECISIONS}{stamp}-review-page.json",
+                              review.Decisions.dump_json(decisions), "application/json")
+        if rejected:
+            k = review.REJECTED_KEY
+            old = json.loads(storage.get_raw(k)) if storage.exists(k) else []
+            storage.put_bytes(k, json.dumps(old + rejected, ensure_ascii=False).encode(),
+                              "application/json")
+    counts["alias_decisions"] = len(decisions)
+    _summary("menudb review decide", counts)
+
+
 SITE_KEY = "site/"  # private: real-data builds stay in the bucket until publishing is decided
 
 

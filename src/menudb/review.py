@@ -9,6 +9,7 @@ Logs carry counts and statuses only.
 
 import json
 import logging
+import re
 from collections import Counter
 from typing import Literal
 
@@ -170,3 +171,170 @@ def apply_from_bucket(session: Session) -> Counter:
         storage.move(k, APPLIED + k.removeprefix(DECISIONS))
         counts["files"] += 1
     return counts
+
+
+# --- review page: auto-created ingredients and lexicon candidates ---------------
+#
+# `review build` (bucket only) turns review/queue.json and review/lexicon_candidates.json
+# into one list of items for a person to approve, merge or reject (a private artifact
+# page or a JSON file). `review decide` applies their choices: lexicon edits to
+# data/lexicon/ingredients.txt (committed by the session), alias decisions to
+# review/decisions/ (applied by check.yml), rejected phrases to review/lexicon_rejected.json
+# so they aren't offered again. Then `extract-auto --rerun` uses the new lexicon.
+
+REJECTED_KEY = "review/lexicon_rejected.json"
+_CJK_RE = re.compile(r"[぀-ヿ㐀-鿿가-힯]")
+CANDIDATES_KEY = "review/lexicon_candidates.json"
+
+
+class Choice(BaseModel):
+    """One reviewed item. approve: a real ingredient, under `canonical` (new or existing);
+    merge: another name for the existing ingredient `canonical`; reject: not an ingredient."""
+    kind: Literal["ingredient", "candidate"]
+    term: str = Field(max_length=200)
+    language: str | None = "und"
+    action: Literal["approve", "merge", "reject"]
+    canonical: str | None = Field(None, max_length=120)
+    category: str | None = Field(None, max_length=40)
+    parent: str | None = Field(None, max_length=120)
+
+
+Choices = TypeAdapter(list[Choice])
+
+
+def item_id(kind: str, term: str, language: str | None) -> str:
+    from menudb.extract.auto import fold
+
+    return f"{kind[0]}:{language or 'und'}:{fold(term.strip())}"
+
+
+def _lang(language: str | None) -> str:
+    """Lexicon language for a review language ("und" and unknowns count as English)."""
+    return language if language and len(language) == 2 and language.isalpha() else "en"
+
+
+def _suggest(kind: str, term: str, current: str | None, names: dict[str, str],
+             terms: dict[str, str]) -> dict:
+    """A cheap, rule-based starting point; the person decides."""
+    import difflib
+
+    from menudb.extract.auto import fold
+
+    words = term.split()
+    if kind == "candidate" and (len(words) > 3 or any(ch.isdigit() for ch in term)
+                                or (len(words) > 1 and all(w[:1].isupper() for w in words))):
+        return {"action": "reject"}
+    f = fold(current or term)
+    if f in names:
+        return {"action": "merge", "canonical": names[f]}
+    close = difflib.get_close_matches(f, list(terms), n=1, cutoff=0.88)
+    if close:
+        return {"action": "merge", "canonical": terms[close[0]]}
+    if kind == "ingredient" and current:
+        return {"action": "approve", "canonical": current}
+    return {}
+
+
+def build_items(queue: list[dict], candidates: list[dict], lexicon_path, *,
+                rejected: list[dict] | None = None, min_restaurants: int = 2) -> list[dict]:
+    """Items still needing a decision, most widely used first.
+
+    Ingredients: review_queue rows whose current match isn't a lexicon ingredient (the
+    lexicon is already curated). Candidates: unmatched phrases seen at `min_restaurants`
+    or more restaurants that the lexicon doesn't know yet and nobody rejected."""
+    from menudb.extract.auto import fold
+    from menudb.lexicon_edit import LexiconFile
+
+    lex = LexiconFile.read(lexicon_path)
+    canon = lex.canonicals()
+    names = {fold(n): n for n in canon}
+    terms = dict(names)  # every known term (stemmed tokens) -> its canonical
+    for key, cands in lex.parsed().words.items():
+        for _, e in cands:
+            terms.setdefault(" ".join(key), e.name)
+    gone = {item_id("candidate", r["phrase"], r.get("language")) for r in rejected or []}
+
+    items = []
+    for r in queue:
+        if r["status"] not in ("auto", "open"):
+            continue
+        current = r.get("current") or r.get("suggested_name")
+        if (current and current in canon) or lex.lookup(r["raw_term"], _lang(r["language"])):
+            continue  # curated already, or the lexicon decides this term on re-extraction
+        items.append({"id": item_id("ingredient", r["raw_term"], r["language"]), "kind": "ingredient",
+                      "term": r["raw_term"], "language": r["language"], "current": current,
+                      "count": r.get("occurrences") or 0,
+                      "suggest": _suggest("ingredient", r["raw_term"], current, names, terms)})
+    for r in candidates:
+        if r.get("restaurants", 0) < min_restaurants:
+            continue
+        iid = item_id("candidate", r["phrase"], r.get("language"))
+        if iid in gone or lex.lookup(r["phrase"], _lang(r.get("language"))):
+            continue
+        items.append({"id": iid, "kind": "candidate", "term": r["phrase"],
+                      "language": r.get("language"), "current": None, "count": r["restaurants"],
+                      "suggest": _suggest("candidate", r["phrase"], None, names, terms)})
+    import hashlib
+
+    seen, out = set(), []
+    for it in sorted(items, key=lambda i: (i["kind"] != "ingredient", -i["count"], i["term"].lower())):
+        if it["id"] not in seen:
+            seen.add(it["id"])
+            it["key"] = hashlib.sha1(it["id"].encode()).hexdigest()[:16]  # a path-safe id for the page
+            out.append(it)
+    return out
+
+
+def decide(choices: list[Choice], lexicon_path) -> tuple[Counter, list[Decision], list[dict]]:
+    """Apply choices to the lexicon file. Returns counts, the alias decisions for
+    review/decisions/, and the newly rejected candidate phrases."""
+    from menudb.lexicon_edit import CATEGORIES, LexiconFile, valid_name
+
+    lex = LexiconFile.read(lexicon_path)
+    counts: Counter = Counter()
+    decisions: list[Decision] = []
+    rejected: list[dict] = []
+    for c in choices:
+        lang = _lang(c.language)
+        if c.action == "reject":
+            if c.kind == "ingredient":
+                decisions.append(Decision(raw_term=c.term, language=c.language or "und", action="ignore"))
+            else:
+                rejected.append({"phrase": c.term, "language": c.language})
+            counts["rejected"] += 1
+            continue
+        canonical = _norm(c.canonical or c.term)
+        if not (valid_name(canonical) and valid_name(c.term)) or (c.parent and not valid_name(c.parent)):
+            counts["skipped_bad_name"] += 1
+            continue
+        canon = lex.canonicals()
+        if canonical not in canon and len(alias_of := lex.lookup(canonical, "en")) == 1:
+            canonical = alias_of.pop()  # "rum" is already a name for spirits: use that
+            counts["redirected_to_existing"] += 1
+        term = c.term.strip().lower()
+        known = lex.lookup(term, lang)
+        if c.kind == "ingredient":
+            decisions.append(Decision(raw_term=c.term, language=c.language or "und", action="map",
+                                      canonical=canonical, parent=c.parent,
+                                      category=c.category if c.category in CATEGORIES else None))
+        counts["approved" if c.action == "approve" else "merged"] += 1
+        if canonical in known:
+            counts["lexicon_already"] += 1
+            continue
+        if known:
+            counts["lexicon_conflict"] += 1  # the term already means something else; DB only
+            continue
+        if len(term.replace(" ", "")) < 3 and not _CJK_RE.search(term):
+            counts["lexicon_too_short"] += 1  # "mu" would match everywhere; DB only
+            continue
+        if canonical not in canon:
+            if c.action == "merge":
+                counts["merge_target_added"] += 1
+            category = c.category if c.category in CATEGORIES else "other"
+            parent = _norm(c.parent) if c.parent and _norm(c.parent) in canon else None
+            lex.add_entry(canonical, category, lang, term, parent=parent)
+            counts["lexicon_new_ingredient"] += 1
+        elif lex.add_term(canonical, lang, term):
+            counts["lexicon_new_term"] += 1
+    lex.write()
+    return counts, decisions, rejected

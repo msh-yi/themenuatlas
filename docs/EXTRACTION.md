@@ -89,3 +89,25 @@ Each decision has `raw_term` and `language` (as in the queue), and an `action`:
 Optional on `map` and `accept`: `parent` (e.g. `porcini` under `mushroom`), `category` (vegetable, fruit, seafood, fish, meat, dairy, herb, spice, grain, nut, fungus, other), `is_composite` (dashi, XO sauce).
 
 With Postgres (local or Actions), `menudb review export` prints the queue and `menudb review apply <file>` applies a local file.
+
+### Review page: new ingredients and lexicon candidates
+
+Two kinds of term wait for a person: ingredients that import auto-created from session extractions (not in the lexicon), and phrases `extract-auto` couldn't match (`review/lexicon_candidates.json`, seen at 2+ restaurants). Both go through one list, in a session, with no database:
+
+```bash
+uv run menudb review build --out <scratch>        # items.json + ingredients.json; skips terms the lexicon knows or that were rejected
+# decide each item on the private review page, or write <scratch>/choices.json by hand
+uv run menudb review decide <scratch>/choices.json  # edits data/lexicon/ingredients.txt; queues alias decisions; remembers rejects
+git commit data/lexicon/ingredients.txt             # the lexicon is in the repo
+uv run menudb extract-auto --rerun                 # re-extract with the new terms; check.yml imports them
+```
+
+A choice is `{kind, term, language, action, canonical, category, parent}` with `action`:
+
+- `approve`: a real ingredient, under `canonical` (new, or existing). A new one goes to the end of its `## category` section.
+- `merge`: another name for the existing ingredient `canonical`; the term joins that line in its language.
+- `reject`: not an ingredient. Candidates go to `review/lexicon_rejected.json` (bucket, private: they are menu phrases) and aren't offered again; auto-created ingredients become `ignore` decisions.
+
+For auto-created ingredients, `decide` also uploads `map`/`ignore` decisions to `review/decisions/`, which `check.yml` applies. A canonical that is already another ingredient's term ("rum" is a name for spirits) is redirected to that ingredient; a term that already means something else, or is shorter than 3 letters, changes the database only, never the lexicon.
+
+The review page is a private artifact (https://claude.ai/artifact/Gxtfy43RK33shFVPoX1NAx). It loads `items.json`/`ingredients.json` published with it and saves each choice in its database collection `decisions` (doc id = the item's `key`). To apply: `ArtifactData list decisions` with `out_dir`, turn the documents into a choices file, run `review decide`, commit, rerun, rebuild and republish the page's data files. Claude made the first pass on 2026-10-15 (1,954 items: 146 approved, 187 merged, 1,621 rejected, most from aggregator pages wrongly assigned to restaurants); the page shows those as applied, and choices there override them.

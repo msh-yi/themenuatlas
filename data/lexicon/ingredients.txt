@@ -24,32 +24,32 @@ borlotti bean > bean = en: borlotti, cranberry bean | it: borlotti
 white bean > bean = en: cannellini, coco bean | fr: coco de paimpol, lingot, haricot blanc | it: cannellini | es: alubia blanca, judión, judiones
 runner bean > bean = en: runner beans
 beetroot = en: beet, beets, golden beet, candy beet | fr: betterave | es: remolacha, betabel | it: barbabietola, rapa rossa | de: rote bete, rote beete, rande, randen | nl: biet, rode biet | pt: beterraba | da: rødbede | sv: rödbeta | no: rødbete | ja: ビーツ
-bell pepper = en: sweet pepper, capsicum, red pepper, pepperonata | fr: poivron | es: pimiento, pimientos | it: peperone, peperoni | de: paprika, spitzpaprika | nl: paprika | pt: pimento | da: peberfrugt | it: friggitelli | en: friggitelli
+bell pepper = en: sweet pepper, capsicum, red pepper, pepperonata, jimmy nardello pepper | fr: poivron | es: pimiento, pimientos | it: peperone, peperoni, frigitelli, jimmy nardello | de: paprika, spitzpaprika | nl: paprika | pt: pimento | da: peberfrugt | it: friggitelli | en: friggitelli
 padrón pepper > bell pepper = en: padron pepper, padron, padrón | es: pimiento de padrón, piquillo, pimiento del piquillo
 broccoli = fr: brocoli | es: brócoli, brecol | it: broccoli, broccolo | de: brokkoli | nl: broccoli | da: broccoli
 broccolini > broccoli = en: tenderstem broccoli, sprouting broccoli, purple sprouting broccoli, tenderstem
 cime di rapa = en: broccoli rabe, rapini | it: cime di rapa, friarielli
 brussels sprout = en: brussel sprout, brussels sprouts, sprouts | fr: chou de bruxelles, choux de bruxelles | de: rosenkohl | nl: spruitjes | it: cavolini di bruxelles
-cabbage = en: savoy cabbage, hispi cabbage, sweetheart cabbage, pointed cabbage, hispi, savoy | fr: chou, chou vert, chou pointu | es: col, repollo, berza | it: cavolo, verza, cavolo verza | de: kohl, spitzkohl, wirsing, weißkohl, weisskohl | nl: kool, spitskool | pt: couve | da: kål, spidskål | sv: kål | ja: キャベツ
+cabbage = en: savoy cabbage, hispi cabbage, sweetheart cabbage, pointed cabbage, hispi, savoy | fr: chou, chou vert, chou pointu | es: col, repollo, berza | it: cavolo, verza, cavolo verza | de: kohl, spitzkohl, wirsing, weißkohl, weisskohl, spitzkraut | nl: kool, spitskool | pt: couve | da: kål, spidskål | sv: kål | ja: キャベツ
 red cabbage > cabbage = fr: chou rouge | es: lombarda | it: cavolo rosso | de: rotkohl, blaukraut, rotkraut | nl: rode kool | da: rødkål
 napa cabbage > cabbage = en: chinese cabbage, wombok | ja: 白菜 | ko: 배추
 kale = en: cavolo nero, black kale, curly kale | fr: chou kale | it: cavolo nero | de: grünkohl | nl: boerenkool | da: grønkål
 sauerkraut = fr: choucroute | de: sauerkraut | it: crauti
 kimchi = ko: 김치 | ja: キムチ
 kohlrabi = fr: chou-rave | it: cavolo rapa | de: kohlrabi | nl: koolrabi | da: kålrabi
-cauliflower = fr: chou-fleur, chou fleur | es: coliflor | it: cavolfiore | de: blumenkohl | nl: bloemkool | pt: couve-flor | da: blomkål | sv: blomkål
+cauliflower = fr: chou-fleur, chou fleur | es: coliflor | it: cavolfiore | de: blumenkohl, karfiol | nl: bloemkool | pt: couve-flor | da: blomkål | sv: blomkål
 romanesco > cauliflower = it: broccolo romanesco
 carrot = en: heritage carrot | fr: carotte | es: zanahoria | it: carota, carote | de: karotte, möhre, mohrrübe, rüebli | nl: wortel, peen | pt: cenoura | da: gulerod, gulerødder | sv: morot, morötter | ja: 人参, にんじん
 celeriac = en: celery root | fr: céleri-rave, celeri rave, céleri rave | es: apionabo | it: sedano rapa | de: knollensellerie, sellerie | nl: knolselderij | da: knoldselleri, selleri | sv: rotselleri
 celery = fr: céleri, céleri branche | es: apio | it: sedano | de: staudensellerie, stangensellerie | nl: selderij, bleekselderij | pt: aipo
 chard = en: swiss chard, rainbow chard | fr: blette, blettes, bette | es: acelga | it: bietola, bietole, erbette | de: mangold | nl: snijbiet | da: bladbede
-chicory = en: endive, belgian endive, radicchio, treviso, tardivo, puntarelle, castelfranco | fr: endive, chicorée, trévise | es: endivia, achicoria | it: cicoria, radicchio, indivia, puntarelle | de: chicorée, endivie, radicchio | nl: witlof, andijvie | da: julesalat
-corn = en: sweetcorn, sweet corn, maize, corn on the cob, elote | fr: maïs | es: maíz, elote, choclo | it: mais, granoturco | de: mais | nl: maïs | pt: milho
+chicory = en: endive, belgian endive, radicchio, treviso, tardivo, puntarelle, castelfranco | fr: endive, chicorée, trévise, chicons | es: endivia, achicoria | it: cicoria, radicchio, indivia, puntarelle | de: chicorée, endivie, radicchio | nl: witlof, andijvie | da: julesalat
+corn = en: sweetcorn, sweet corn, maize, corn on the cob, elote, popcorn | fr: maïs | es: maíz, elote, choclo | it: mais, granoturco | de: mais | nl: maïs | pt: milho | da: majs
 courgette = en: zucchini | fr: courgette | es: calabacín, calabacin, calabacita | it: zucchina, zucchine, zucchino | de: zucchini | nl: courgette | da: squash
 courgette flower = en: zucchini flower, zucchini blossom, squash blossom, courgette flowers | fr: fleur de courgette | es: flor de calabaza, flor de calabacín | it: fiore di zucca, fiori di zucca, fiori di zucchina | de: zucchiniblüte
 cucumber = en: cucumbers | fr: concombre | es: pepino | it: cetriolo, cetrioli | de: gurke, salatgurke | nl: komkommer | pt: pepino | da: agurk | sv: gurka | ja: きゅうり, 胡瓜
 pickle > cucumber = en: gherkin, cornichon | fr: cornichon | de: essiggurke | nl: augurk
-fennel = en: florence fennel, fennel bulb | fr: fenouil | es: hinojo | it: finocchio | de: fenchel | nl: venkel | pt: funcho | da: fennikel | sv: fänkål
+fennel = en: florence fennel, fennel bulb | fr: fenouil | es: hinojo | it: finocchio, finocchi | de: fenchel | nl: venkel | pt: funcho | da: fennikel | sv: fänkål
 garlic = fr: ail | es: ajo | it: aglio | de: knoblauch | nl: knoflook | pt: alho | da: hvidløg | sv: vitlök | ja: にんにく | ko: 마늘
 black garlic > garlic = fr: ail noir | es: ajo negro | it: aglio nero | de: schwarzer knoblauch
 wild garlic = en: ramson, ramsons, bear's garlic, ramps, ramp, wild leek | fr: ail des ours | es: ajo de oso | it: aglio orsino | de: bärlauch, barlauch | nl: daslook | da: ramsløg | sv: ramslök
@@ -61,12 +61,12 @@ shallot = en: banana shallot, echalion | fr: échalote, echalote | es: chalota, 
 lettuce = en: little gem, gem lettuce, romaine, cos, butterhead | fr: laitue, sucrine, romaine | es: lechuga, cogollo, cogollos | it: lattuga, lattughino | de: salat, kopfsalat, lattich | nl: sla | da: salat, hjertesalat | sv: sallad | nl: kropsla, ijsbergsla
 salad leaves = en: salad, leaves, mesclun, mixed leaves, garden leaves | fr: salade, jeunes pousses, mesclun | it: insalata, misticanza | es: ensalada, brotes | de: blattsalat, salate
 rocket = en: arugula, wild rocket | fr: roquette | es: rúcula, rucula | it: rucola, rughetta | de: rucola, rauke | en: rucola
-watercress = en: cress | fr: cresson | es: berro, berros | it: crescione | de: brunnenkresse, kresse | nl: waterkers | da: brøndkarse, karse
+watercress = en: cress, peppercress | fr: cresson, cressonnette | es: berro, berros | it: crescione | de: brunnenkresse, kresse | nl: waterkers | da: brøndkarse, karse
 spinach = fr: épinard, épinards, epinard | es: espinaca, espinacas | it: spinacio, spinaci | de: spinat, blattspinat | nl: spinazie | pt: espinafre | da: spinat | sv: spenat | ja: ほうれん草
-new zealand spinach > spinach
+new zealand spinach > spinach = fr: tétragone
 sorrel = en: wood sorrel, red-veined sorrel | fr: oseille, oxalis | es: acedera | it: acetosa, acetosella | de: sauerampfer | nl: zuring | da: syre, skovsyre | sv: syra
-mushroom = en: mushrooms, wild mushroom, wild mushrooms, fungi | fr: champignon, champignons, champignon de paris | es: seta, setas, champiñón, hongo, hongos | it: fungo, funghi | de: pilz, pilze, champignon, waldpilze | nl: paddenstoel, champignon | pt: cogumelo, cogumelos | da: svamp, svampe, champignon | sv: svamp | ja: きのこ, 茸
-porcini > mushroom = en: cep, ceps, penny bun, boletus | fr: cèpe, cèpes, cepe, bolet | es: boletus, hongo calabaza | it: porcino, porcini | de: steinpilz, steinpilze | nl: eekhoorntjesbrood | da: karljohan, karl johan | sv: karljohanssvamp | pl: borowik
+mushroom = en: mushrooms, wild mushroom, wild mushrooms, fungi, neungi mushroom, duxelles | fr: champignon, champignons, champignon de paris | es: seta, setas, champiñón, hongo, hongos | it: fungo, funghi | de: pilz, pilze, champignon, waldpilze | nl: paddenstoel, champignon | pt: cogumelo, cogumelos | da: svamp, svampe, champignon | sv: svamp | ja: きのこ, 茸
+porcini > mushroom = en: cep, ceps, penny bun, boletus, cepes | fr: cèpe, cèpes, cepe, bolet | es: boletus, hongo calabaza | it: porcino, porcini | de: steinpilz, steinpilze, steinpilzessenz | nl: eekhoorntjesbrood | da: karljohan, karl johan | sv: karljohanssvamp | pl: borowik
 chanterelle > mushroom = en: girolle, girolles, chanterelles, golden chanterelle | fr: girolle, chanterelle | es: rebozuelo, cantarela | it: finferli, finferlo, gallinaccio, gallinacci | de: pfifferling, pfifferlinge, eierschwammerl | nl: cantharel | da: kantarel | sv: kantarell | nl: cantharel, cantharellen | da: kantareller
 morel > mushroom = en: morels | fr: morille, morilles | es: colmenilla, colmenillas, morilla | it: spugnola, spugnole, morchella | de: morchel, morcheln | nl: morielje | da: morkel
 trompette > mushroom = en: black trumpet, horn of plenty, trompette de la mort, trompettes | fr: trompette de la mort | de: herbsttrompete, totentrompete
@@ -78,7 +78,7 @@ enoki > mushroom = ja: えのき
 oyster mushroom > mushroom = en: pleurotus | fr: pleurote | it: pleurotus | de: austernpilz, austernseitling
 king oyster mushroom > mushroom = en: king trumpet, eryngii | de: kräuterseitling | ja: エリンギ
 nameko > mushroom = ja: なめこ
-truffle = en: truffles | fr: truffe, truffes | es: trufa | it: tartufo, tartufi | de: trüffel, truffel | nl: truffel | pt: trufa | da: trøffel | sv: tryffel | ja: トリュフ
+truffle = en: truffles | fr: truffe, truffes | es: trufa | it: tartufo, tartufi | de: trüffel, truffel | nl: truffel, truffelsaus, truffeljus, truffelmayonaise | pt: trufa | da: trøffel | sv: tryffel | ja: トリュフ
 black truffle > truffle = en: perigord truffle, périgord truffle, winter truffle, summer truffle, burgundy truffle | fr: truffe noire, truffe melanosporum, tuber melanosporum, truffe d'été, truffe de bourgogne | es: trufa negra | it: tartufo nero | de: schwarzer trüffel, perigord-trüffel
 white truffle > truffle = en: alba truffle | fr: truffe blanche | it: tartufo bianco, tartufo bianco d'alba | de: weißer trüffel, weisser trüffel, alba-trüffel
 huitlacoche = en: cuitlacoche, corn smut
@@ -90,11 +90,11 @@ chickpea = en: garbanzo | fr: pois chiche | es: garbanzo | it: cece, ceci | de: 
 lentil = fr: lentille, lentilles | es: lenteja | it: lenticchia, lenticchie | de: linse, linsen | nl: linzen
 potato = en: potatoes, new potato, jersey royal, jersey royals, ratte, pink fir apple, charlotte potato | fr: pomme de terre, pommes de terre, pomme ratte, ratte | es: patata, patatas, papa | it: patata, patate | de: kartoffel, kartoffeln, erdapfel, erdäpfel | nl: aardappel | pt: batata | da: kartoffel | sv: potatis | ja: じゃがいも | en: fries, chips | nl: frietjes, friet | fr: parmentier, frites
 sweet potato = fr: patate douce | es: boniato, batata, camote | it: patata dolce | de: süßkartoffel, süsskartoffel | ja: さつまいも
-pumpkin = en: squash, winter squash, butternut, butternut squash, delica, kabocha, crown prince, onion squash, hokkaido | fr: potiron, courge, potimarron, butternut, citrouille | es: calabaza | it: zucca | de: kürbis, hokkaido-kürbis | nl: pompoen | pt: abóbora | da: græskar | sv: pumpa | ja: かぼちゃ, 南瓜
+pumpkin = en: squash, winter squash, butternut, butternut squash, delica, kabocha, crown prince, onion squash, hokkaido, koginut squash, delicata | fr: potiron, courge, potimarron, butternut, citrouille | es: calabaza | it: zucca | de: kürbis, hokkaido-kürbis | nl: pompoen | pt: abóbora | da: græskar | sv: pumpa | ja: かぼちゃ, 南瓜
 radish = en: radishes, breakfast radish, french breakfast radish, daikon, mooli, black radish | fr: radis, radis noir | es: rábano, rabanito, rabanitos | it: ravanello, ravanelli, rafano bianco | de: radieschen, rettich | nl: radijs | da: radise, radiser | sv: rädisa | ja: 大根, だいこん | ko: 무
-salsify = en: scorzonera, black salsify | fr: salsifis | es: salsifí | it: scorzonera | de: schwarzwurzel | nl: schorseneer
+salsify = en: scorzonera, black salsify | fr: salsifis | es: salsifí | it: scorzonera | de: schwarzwurzel | nl: schorseneer, schorseneren
 samphire = en: sea asparagus, marsh samphire, rock samphire, glasswort | fr: salicorne, criste marine | es: salicornia | it: salicornia | de: queller | nl: zeekraal | da: salturt
-sea vegetables = en: sea herbs, coastal herbs, sea aster, sea purslane, sea beet, oyster leaf, sea kale | fr: plantes du littoral | de: meeresgemüse
+sea vegetables = en: sea herbs, coastal herbs, sea aster, sea purslane, sea beet, oyster leaf, sea kale | fr: plantes du littoral | de: meeresgemüse | nl: lamsoor, oesterblad
 tomato = en: tomatoes, heritage tomato, heirloom tomato, cherry tomato | fr: tomate, tomates | es: tomate, jitomate | it: pomodoro, pomodori, pomodorino, pomodorini, datterino, datterini, pachino | de: tomate, tomaten | nl: tomaat, tomaten | pt: tomate | da: tomat | sv: tomat | ja: トマト | da: tomater
 tomatillo = es: tomate verde
 turnip = en: baby turnip, swede, rutabaga | fr: navet, navets, rutabaga | es: nabo | it: rapa, rape | de: rübe, mairübe, steckrübe | nl: raap, koolraap | da: majroe, kålroe | ja: 蕪, かぶ
@@ -104,52 +104,75 @@ lotus root = ja: 蓮根, れんこん
 bamboo shoot = ja: 筍, たけのこ
 burdock = ja: 牛蒡, ごぼう
 heart of palm = en: palm heart | es: palmito | pt: palmito
-seaweed = en: sea weed, algae, seaweeds | fr: algue, algues | es: alga, algas | it: alga, alghe | de: alge, algen, seetang | nl: zeewier | da: tang | sv: alger | ja: 海藻
+seaweed = en: sea weed, algae, seaweeds, codium, hijiki | fr: algue, algues | es: alga, algas | it: alga, alghe | de: alge, algen, seetang | nl: zeewier | da: tang | sv: alger | ja: 海藻
 kombu > seaweed = en: konbu, kelp | ja: 昆布
-nori > seaweed = ja: 海苔, のり
+nori > seaweed = ja: 海苔, のり | en: gim bugak
 wakame > seaweed = ja: わかめ
 dulse > seaweed = en: dillisk
 sea lettuce > seaweed = fr: laitue de mer
-olive = en: olives, black olive, green olive, kalamata, taggiasca | fr: olive, olives | es: aceituna, aceitunas, oliva | it: oliva, olive, taggiasche | de: olive, oliven | nl: olijf | pt: azeitona | da: oliven
+olive = en: olives, black olive, green olive, kalamata, taggiasca, arbequina | fr: olive, olives, olives noires | es: aceituna, aceitunas, oliva | it: oliva, olive, taggiasche | de: olive, oliven | nl: olijf, olijven | pt: azeitona | da: oliven
 caper = en: capers, caperberry | fr: câpre, câpres, capre | es: alcaparra, alcaparras, alcaparrón | it: cappero, capperi | de: kaper, kapern | nl: kappertjes | da: kapers
-chili = en: chilli, chile, chillies, chilies, jalapeño, jalapeno, habanero, chipotle, ancho, guajillo, pasilla, scotch bonnet, espelette, piment d'espelette, gochugaru | fr: piment, piment d'espelette | es: chile, chiles, guindilla, ají, aji | it: peperoncino | de: chili, chilischote | nl: peper | pt: malagueta | ja: 唐辛子 | ko: 고추
-garden vegetables = en: vegetables, vegetable, crudités, crudites | fr: légume, légumes, legumes, potager | es: verdura, verduras, hortalizas | it: verdura, verdure, ortaggi | de: gemüse | nl: groente, groenten | pt: legumes | da: grøntsager | sv: grönsaker | ja: 野菜
+chili = en: chilli, chile, chillies, chilies, jalapeño, jalapeno, habanero, chipotle, ancho, guajillo, pasilla, scotch bonnet, espelette, piment d'espelette, gochugaru, habanada | fr: piment, piment d'espelette | es: chile, chiles, guindilla, ají, aji | it: peperoncino | de: chili, chilischote | nl: peper | pt: malagueta | ja: 唐辛子 | ko: 고추
+garden vegetables = en: vegetables, vegetable, crudités, crudites, soused vegetables | fr: légume, légumes, legumes, potager | es: verdura, verduras, hortalizas | it: verdura, verdure, ortaggi | de: gemüse | nl: groente, groenten | pt: legumes | da: grøntsager | sv: grönsaker | ja: 野菜
 
 bok choy > cabbage = en: pak choi, pak choy, bok choi
 myoga > ginger = ja: 茗荷, みょうが
 kumquat = fr: kumquat | ja: 金柑
 physalis = en: cape gooseberry, ground cherry
 jellyfish = ja: 海月, クラゲ
-tapioca = en: tapioca pearls
+tapioca = en: tapioca pearls | de: tapioka
 wormwood = en: absinthe, mugwort | fr: absinthe, armoise
 chrysanthemum = en: kiku, shungiku | ja: 菊
 plankton = en: phytoplankton | es: plancton
-shellfish = en: crustaceans, crustacean, seafood | fr: coquillages, crustacés, fruits de mer | it: crostacei, frutti di mare | es: mariscos | de: krustentiere, meeresfrüchte | nl: schaaldieren
+shellfish = en: crustaceans, crustacean, seafood | fr: coquillages, crustacés, fruits de mer | it: crostacei, frutti di mare, molluschi | es: mariscos | de: krustentiere, meeresfrüchte | nl: schaaldieren, schelpdieren
 poultry = fr: volaille | it: pollame | de: geflügel | nl: gevogelte
 
 parsley root = en: hamburg parsley | de: petersilienwurzel | nl: peterseliewortel
 dandelion = fr: pissenlit | it: tarassaco, dente di leone | de: löwenzahn
 purslane = fr: pourpier | es: verdolaga | it: portulaca, porcellana | de: portulak
 piparra > chili = es: piparra, piparras, guindilla vasca
+aji dulce > bell pepper
+brassica leaf = en: brassica leaves
+celtuce
+bracken fern = en: gosari
+pearl onion > onion
+pattypan squash = fr: pâtissons
+ratatouille
+mustard greens = en: red frill mustard
+mibuna = ja: mibuna greens
+edamame
+escarole = it: scarola
+shishito pepper > bell pepper = en: shishito
+tatsoi
+agretti
+bean sprout = zh: beansprouts | nl: sojascheuten
+caponata
+chayote
+collard greens
+ice plant = de: eiskraut
+gourd
+jicama = zh: sengkuang
+lupin bean > bean = it: lupini
 
 ## fungus
 yeast = fr: levure | es: levadura | it: lievito | de: hefe | nl: gist
 koji = ja: 麹, こうじ
+shimeji
 
 ## fruit
-apple = en: apples, bramley | fr: pomme, pommes | es: manzana | it: mela, mele | de: apfel, äpfel | nl: appel | pt: maçã | da: æble, æbler | sv: äpple | ja: りんご, 林檎 | en: granny smith, pink lady, braeburn
-pear = en: pears, williams pear, conference pear | fr: poire, poires | es: pera | it: pera, pere | de: birne, birnen | nl: peer | pt: pera | da: pære | sv: päron | ja: 洋梨, 梨
+apple = en: apples, bramley, pomme | fr: pomme, pommes | es: manzana | it: mela, mele | de: apfel, äpfel | nl: appel | pt: maçã | da: æble, æbler | sv: äpple | ja: りんご, 林檎 | en: granny smith, pink lady, braeburn
+pear = en: pears, williams pear, conference pear, poire williams | fr: poire, poires | es: pera | it: pera, pere | de: birne, birnen | nl: peer | pt: pera | da: pære | sv: päron | ja: 洋梨, 梨
 quince = fr: coing | es: membrillo | it: mela cotogna, cotogna | de: quitte | nl: kweepeer | da: kvæde
 apricot = fr: abricot | es: albaricoque, damasco | it: albicocca, albicocche | de: aprikose, marille | nl: abrikoos | pt: alperce, damasco | da: abrikos
-peach = en: white peach, peaches | fr: pêche, peche, pêche de vigne | es: melocotón, durazno | it: pesca, pesche | de: pfirsich | nl: perzik | pt: pêssego | da: fersken | ja: 桃
+peach = en: white peach, peaches, peschiole | fr: pêche, peche, pêche de vigne | es: melocotón, durazno | it: pesca, pesche | de: pfirsich | nl: perzik | pt: pêssego | da: fersken | ja: 桃
 nectarine = fr: nectarine | it: pesca noce | de: nektarine
-plum = en: plums, damson, greengage, mirabelle | fr: prune, prunes, mirabelle, reine-claude, quetsche | es: ciruela | it: prugna, susina, susine | de: pflaume, zwetschge, zwetschke, mirabelle | nl: pruim | da: blomme | ja: 梅
+plum = en: plums, damson, greengage, mirabelle | fr: prune, prunes, mirabelle, reine-claude, quetsche | es: ciruela | it: prugna, susina, susine, pluots | de: pflaume, zwetschge, zwetschke, mirabelle | nl: pruim | da: blomme | ja: 梅
 umeboshi > plum = ja: 梅干し
 cherry = en: cherries, morello, sour cherry, amarena | fr: cerise, cerises, griotte, griottes | es: cereza, cerezas, guinda | it: ciliegia, ciliegie, amarena, amarene, visciola | de: kirsche, kirschen, sauerkirsche | nl: kers, kersen | pt: cereja | da: kirsebær | sv: körsbär | ja: さくらんぼ
 strawberry = en: strawberries, wild strawberry, alpine strawberry | fr: fraise, fraises, fraise des bois | es: fresa, fresas, fresón, fresitas | it: fragola, fragole, fragoline | de: erdbeere, erdbeeren, walderdbeere | nl: aardbei | pt: morango | da: jordbær | sv: jordgubbe, smultron | ja: 苺, いちご
 raspberry = en: raspberries | fr: framboise, framboises | es: frambuesa | it: lampone, lamponi | de: himbeere, himbeeren | nl: framboos | pt: framboesa | da: hindbær | sv: hallon
 blackberry = en: blackberries, bramble | fr: mûre, mûres, mure | es: mora, moras, zarzamora | it: mora, more | de: brombeere | nl: braam | da: brombær | sv: björnbär
-blueberry = en: blueberries, bilberry, bilberries, huckleberry | fr: myrtille, myrtilles, bleuet | es: arándano, arándanos, arandano | it: mirtillo, mirtilli | de: heidelbeere, blaubeere | nl: bosbes, blauwe bes | da: blåbær | sv: blåbär
+blueberry = en: blueberries, bilberry, bilberries, huckleberry, wild scottish bilberry | fr: myrtille, myrtilles, bleuet | es: arándano, arándanos, arandano | it: mirtillo, mirtilli | de: heidelbeere, blaubeere | nl: bosbes, blauwe bes | da: blåbær | sv: blåbär
 lingonberry = en: cowberry | sv: lingon | da: tyttebær | de: preiselbeere | fi: puolukka
 cranberry = fr: canneberge, airelle | de: cranberry
 blackcurrant = en: black currant, cassis | fr: cassis | es: grosella negra | it: ribes nero | de: schwarze johannisbeere | nl: zwarte bes | da: solbær | sv: svarta vinbär
@@ -158,18 +181,18 @@ gooseberry = fr: groseille à maquereau | de: stachelbeere | nl: kruisbes | da: 
 elderberry = en: elderberries | fr: baie de sureau | de: holunderbeere, holunderbeeren
 sea buckthorn = fr: argousier | de: sanddorn | da: havtorn | sv: havtorn
 rhubarb = en: forced rhubarb | fr: rhubarbe | es: ruibarbo | it: rabarbaro | de: rhabarber | nl: rabarber | da: rabarber | sv: rabarber
-grape = en: grapes, muscat grape | fr: raisin, raisins | es: uva, uvas | it: uva | de: traube, trauben, weintraube | nl: druif | pt: uva | da: vindrue
-raisin = en: sultana, sultanas, currant | fr: raisin sec, raisins secs | es: pasa, pasas | it: uvetta, uva passa | de: rosine, rosinen
+grape = en: grapes, muscat grape, muscadine | fr: raisin, raisins | es: uva, uvas | it: uva | de: traube, trauben, weintraube | nl: druif | pt: uva | da: vindrue
+raisin = en: sultana, sultanas, currant | fr: raisin sec, raisins secs | es: pasa, pasas | it: uvetta, uva passa | de: rosine, rosinen | nl: rozijnen
 fig = en: figs | fr: figue, figues | es: higo, higos, breva | it: fico, fichi | de: feige, feigen | nl: vijg | pt: figo | da: figen
-fig leaf = en: fig leaves | fr: feuille de figuier | it: foglia di fico | de: feigenblatt
+fig leaf = en: fig leaves | fr: feuille de figuier | it: foglia di fico | de: feigenblatt | nl: vijgenblad
 date = en: dates, medjool | fr: datte | es: dátil | it: dattero | de: dattel
-melon = en: cantaloupe, charentais | fr: melon | es: melón | it: melone | de: melone | nl: meloen
+melon = en: cantaloupe, charentais, honeydew | fr: melon | es: melón | it: melone | de: melone | nl: meloen
 watermelon = fr: pastèque | es: sandía | it: anguria, cocomero | de: wassermelone
 lemon = en: lemons, amalfi lemon, meyer lemon | fr: citron, citrons | es: limón | it: limone, limoni | de: zitrone | nl: citroen | pt: limão | da: citron | sv: citron | ja: レモン
 lime = en: limes, finger lime | fr: citron vert | es: lima | it: lime | de: limette | nl: limoen
 makrut lime > lime = en: kaffir lime, combava | fr: combava
 orange = en: blood orange, seville orange, oranges | fr: orange, orange sanguine | es: naranja | it: arancia, arance, arancia rossa | de: orange, blutorange | nl: sinaasappel | pt: laranja | da: appelsin
-mandarin = en: clementine, tangerine, satsuma | fr: mandarine, clémentine | es: mandarina | it: mandarino, clementina | de: mandarine | ja: みかん
+mandarin = en: clementine, tangerine, satsuma | fr: mandarine, clémentine | es: mandarina | it: mandarino, clementina | de: mandarine | ja: みかん | nl: mandarijn, mikan
 grapefruit = en: pomelo | fr: pamplemousse | es: pomelo | it: pompelmo | de: grapefruit, pampelmuse
 bergamot = fr: bergamote | it: bergamotto | de: bergamotte
 yuzu = ja: 柚子, ゆず
@@ -177,11 +200,11 @@ sudachi = ja: すだち
 calamansi = en: calamondin | en: kalamansi
 citrus = en: citrus fruit, citrus fruits | fr: agrumes | es: cítricos | it: agrumi | de: zitrusfrüchte | ja: 柑橘
 passion fruit = en: passionfruit | fr: fruit de la passion, maracuja | es: maracuyá, fruta de la pasión | it: frutto della passione | de: passionsfrucht, maracuja | nl: passievrucht
-mango = fr: mangue | es: mango | it: mango | de: mango
+mango = fr: mangue | es: mango | it: mango | de: mango | zh: mangoes
 pineapple = fr: ananas | es: piña | it: ananas | de: ananas
 banana = fr: banane | es: plátano, banana | it: banana | de: banane | nl: banaan | en: plantain
-coconut = fr: noix de coco, coco | es: coco | it: cocco | de: kokos, kokosnuss | ja: ココナッツ
-lychee = en: litchi | fr: litchi
+coconut = fr: noix de coco, coco | es: coco | it: cocco | de: kokos, kokosnuss | ja: ココナッツ | nl: kokos
+lychee = en: litchi | fr: litchi | de: litschi
 pomegranate = fr: grenade | es: granada | it: melograno | de: granatapfel
 persimmon = en: kaki, sharon fruit | fr: kaki | it: cachi | de: kaki | ja: 柿
 kiwi = en: kiwifruit
@@ -194,33 +217,45 @@ cloudberry = sv: hjortron | da: multebær | no: multe | fi: lakka
 chestnut = en: chestnuts, marron | fr: châtaigne, châtaignes, marron, marrons | es: castaña | it: castagna, castagne, marroni | de: kastanie, kastanien, marone, maroni | nl: kastanje | pt: castanha | da: kastanje | ja: 栗
 
 berry = en: berries, wild berries | fr: baies, fruits rouges, petits fruits rouges | it: frutti di bosco, frutti rossi | de: beeren, waldbeeren | nl: bessen | da: bær | sv: bär
-marmalade > orange = fr: marmelade | de: marmelade
+marmalade > orange = fr: marmelade | de: marmelade | en: fruit marmalade
+orchard fruit = fr: fruits du verger
+jam
+prune = fr: pruneaux | en: agen prunes
+red berries = es: frutos rojos
+loganberry
+barberry = en: barberries
+citron = fr: cédrat | nl: sukade
+lulo
+nashi pear > pear = de: nashi
+sloe = de: schlehe
 
 ## nut
-almond = en: almonds, marcona | fr: amande, amandes | es: almendra, almendras | it: mandorla, mandorle | de: mandel, mandeln | nl: amandel | pt: amêndoa | da: mandel | sv: mandel
+almond = en: almonds, marcona, amandes | fr: amande, amandes | es: almendra, almendras | it: mandorla, mandorle | de: mandel, mandeln | nl: amandel | pt: amêndoa | da: mandel | sv: mandel
 green almond > almond = fr: amande fraîche, amande verte | it: mandorla verde
 hazelnut = en: hazelnuts, cobnut, filbert | fr: noisette, noisettes | es: avellana, avellanas | it: nocciola, nocciole | de: haselnuss, haselnüsse | nl: hazelnoot | pt: avelã | da: hasselnød | sv: hasselnöt
-walnut = en: walnuts, green walnut | fr: noix, cerneaux | es: nuez, nueces | it: noce, noci | de: walnuss, walnüsse | nl: walnoot | pt: noz | da: valnød
-pecan = en: pecans | fr: noix de pécan
+walnut = en: walnuts, green walnut | fr: noix, cerneaux | es: nuez, nueces | it: noce, noci | de: walnuss, walnüsse | nl: walnoot, walnoten | pt: noz | da: valnød
+pecan = en: pecans | fr: noix de pécan | nl: pecannoot
 pistachio = en: pistachios | fr: pistache | es: pistacho | it: pistacchio, pistacchi | de: pistazie, pistazien | nl: pistache
-pine nut = en: pine nuts, pinenut | fr: pignon, pignons de pin | es: piñón, piñones | it: pinolo, pinoli | de: pinienkern, pinienkerne
+pine nut = en: pine nuts, pinenut | fr: pignon, pignons de pin | es: piñón, piñones | it: pinolo, pinoli | de: pinienkern, pinienkerne | nl: pijnboompitten
 peanut = en: peanuts, groundnut | fr: cacahuète, arachide | es: cacahuete, cacahuate, maní | it: arachide, arachidi | de: erdnuss | nl: pinda, pindas
 cashew = en: cashews | fr: noix de cajou | de: cashew, cashewkerne
 macadamia = en: macadamia nut
 sesame = en: sesame seed, sesame seeds, black sesame, tahini | fr: sésame | es: sésamo | it: sesamo | de: sesam | ja: 胡麻, ごま
-sunflower seed = en: sunflower seeds | fr: graine de tournesol | de: sonnenblumenkerne
-pumpkin seed = en: pumpkin seeds, pepitas, pepita | fr: graine de courge | es: pipas de calabaza | de: kürbiskerne
-buckwheat = en: kasha | fr: sarrasin, blé noir | es: trigo sarraceno, alforfón | it: grano saraceno | de: buchweizen | nl: boekweit | da: boghvede | ja: 蕎麦
+sunflower seed = en: sunflower seeds, sunflower | fr: graine de tournesol | de: sonnenblumenkerne
+pumpkin seed = en: pumpkin seeds, pepitas, pepita | fr: graine de courge | es: pipas de calabaza | de: kürbiskerne, kürbiskern
+buckwheat = en: kasha | fr: sarrasin, blé noir, sarrazin | es: trigo sarraceno, alforfón | it: grano saraceno | de: buchweizen | nl: boekweit | da: boghvede | ja: 蕎麦
 flax seed = en: linseed
+chia seed = en: chia seeds
+nut = de: nüsse | nl: noten
 
 ## grain
-rice = en: arborio, carnaroli, koshihikari, sushi rice | fr: riz | es: arroz | it: riso | de: reis | nl: rijst | pt: arroz | da: ris | sv: ris | ja: 米, ご飯, ごはん, 飯 | ko: 밥, 쌀
+rice = en: arborio, carnaroli, koshihikari, sushi rice | fr: riz | es: arroz | it: riso | de: reis, jasminreis | nl: rijst | pt: arroz | da: ris | sv: ris | ja: 米, ご飯, ごはん, 飯 | ko: 밥, 쌀
 wild rice > rice
 risotto > rice = it: risotto
-barley = en: pearl barley | fr: orge | es: cebada | it: orzo | de: gerste, graupen | nl: gerst | da: byg | sv: korn
+barley = en: pearl barley | fr: orge | es: cebada | it: orzo | de: gerste, graupen | nl: gerst, parelgort | da: byg | sv: korn
 oat = en: oats, oatmeal | fr: avoine | es: avena | it: avena | de: hafer | nl: haver | da: havre
-spelt = fr: épeautre | es: espelta | it: farro | de: dinkel
-wheat = fr: blé, froment | es: trigo | it: grano, frumento | de: weizen
+spelt = fr: épeautre | es: espelta | it: farro | de: dinkel | en: farro
+wheat = fr: blé, froment | es: trigo | it: grano, frumento, kamut | de: weizen
 rye = fr: seigle | es: centeno | it: segale | de: roggen | nl: rogge | da: rug | sv: råg
 polenta = en: grits, cornmeal | it: polenta
 masa = es: masa de maíz
@@ -237,17 +272,25 @@ pastry = en: tart, tartlet, tartelette, pie, puff pastry, filo, phyllo, choux, g
 blini > pastry = en: blinis, pancake, crêpe, crepe, crepes | fr: blini, crêpe, crêpes | de: pfannkuchen, palatschinken
 malt = en: malted barley | fr: malt | de: malz
 cereal = en: cereals | fr: céréales | de: getreide, körner
+bracken starch
+breadcrumb = en: breadcrumbs
+amaranth
+hemp = fr: chanvre
+flour
+kataifi
+rice noodle = zh: bihun
+sago
 
 ## herb
-basil = en: thai basil, purple basil | fr: basilic | es: albahaca | it: basilico | de: basilikum | nl: basilicum | pt: manjericão | da: basilikum | ja: バジル
+basil = en: thai basil, purple basil | fr: basilic, basilic pourpre | es: albahaca | it: basilico | de: basilikum | nl: basilicum | pt: manjericão | da: basilikum | ja: バジル
 parsley = en: flat-leaf parsley | fr: persil | es: perejil | it: prezzemolo | de: petersilie | nl: peterselie | pt: salsa | da: persille | sv: persilja
 coriander = en: cilantro, coriander seed | fr: coriandre | es: cilantro, culantro | it: coriandolo | de: koriander | nl: koriander | pt: coentros
 dill = fr: aneth | es: eneldo | it: aneto | de: dill | nl: dille | da: dild | sv: dill
 chive = en: chives, garlic chive | fr: ciboulette, cive | es: cebollino | it: erba cipollina | de: schnittlauch | nl: bieslook | da: purløg | sv: gräslök
 tarragon = fr: estragon | es: estragón | it: dragoncello | de: estragon | nl: dragon
 chervil = fr: cerfeuil | es: perifollo | it: cerfoglio | de: kerbel | da: kørvel
-mint = en: peppermint, spearmint | fr: menthe | es: menta, hierbabuena | it: menta, mentuccia | de: minze, pfefferminze | nl: munt | pt: hortelã | da: mynte | sv: mynta
-thyme = en: lemon thyme, wild thyme | fr: thym, serpolet | es: tomillo | it: timo | de: thymian | nl: tijm | da: timian
+mint = en: peppermint, spearmint | fr: menthe, menthe poivrée | es: menta, hierbabuena | it: menta, mentuccia | de: minze, pfefferminze | nl: munt | pt: hortelã | da: mynte | sv: mynta
+thyme = en: lemon thyme, wild thyme | fr: thym, serpolet, thym citron | es: tomillo | it: timo | de: thymian | nl: tijm | da: timian
 rosemary = fr: romarin | es: romero | it: rosmarino | de: rosmarin | nl: rozemarijn | da: rosmarin
 sage = fr: sauge | es: salvia | it: salvia | de: salbei | nl: salie | da: salvie
 bay leaf = en: bay leaves, laurel | fr: laurier | es: laurel | it: alloro, lauro | de: lorbeer | da: laurbær
@@ -255,26 +298,26 @@ oregano = en: marjoram | fr: origan, marjolaine | es: orégano, mejorana | it: o
 lovage = fr: livèche | de: liebstöckel, maggikraut | it: levistico | da: løvstikke
 lemon verbena = en: verbena | fr: verveine | es: hierba luisa | it: verbena, cedrina, erba luigia | de: zitronenverbene, verbene
 lemon balm = en: melissa | fr: mélisse | es: melisa, toronjil | it: melissa | de: melisse, zitronenmelisse
-lemongrass = en: lemon grass | fr: citronnelle | es: hierba limón | it: citronella | de: zitronengras
-shiso = en: perilla, red shiso, green shiso | ja: 紫蘇, しそ, 大葉 | ko: 깻잎
+lemongrass = en: lemon grass | fr: citronnelle | es: hierba limón | it: citronella | de: zitronengras | nl: citroengras
+shiso = en: perilla, red shiso, green shiso | ja: 紫蘇, しそ, 大葉 | ko: 깻잎 | fr: shiso pourpre
 hyssop = en: anise hyssop | fr: hysope | de: ysop
 savory = fr: sarriette | de: bohnenkraut | it: santoreggia
 woodruff = en: sweet woodruff | fr: aspérule | de: waldmeister
 meadowsweet = fr: reine-des-prés, reine des prés | de: mädesüß
 yarrow = fr: achillée | de: schafgarbe | da: røllike
 nasturtium = en: nasturtiums | fr: capucine, capucines | de: kapuzinerkresse | it: nasturzio
-wood sorrel > sorrel = en: oxalis
-herbs = en: herb, fresh herbs, garden herbs, wild herbs, fines herbes | fr: herbes, fines herbes, herbes fraîches | es: hierbas, hierbas aromáticas | it: erbe, erbe aromatiche | de: kräuter, wildkräuter | nl: kruiden | pt: ervas | da: urter, krydderurter | sv: örter
-edible flowers = en: flower, flowers, blossom, blossoms, petals | fr: fleur, fleurs | es: flor, flores | it: fiore, fiori | de: blüte, blüten | nl: bloemen | da: blomster | sv: blommor
+wood sorrel > sorrel = en: oxalis | de: sauerklee
+herbs = en: herb, fresh herbs, garden herbs, wild herbs, fines herbes | fr: herbes, fines herbes, herbes fraîches, herbes fines | es: hierbas, hierbas aromáticas | it: erbe, erbe aromatiche | de: kräuter, wildkräuter | nl: kruiden | pt: ervas | da: urter, krydderurter | sv: örter
+edible flowers = en: flower, flowers, blossom, blossoms, petals, peony | fr: fleur, fleurs | es: flor, flores | it: fiore, fiori | de: blüte, blüten | nl: bloemen | da: blomster | sv: blommor
 elderflower = en: elder flower, elderflowers | fr: fleur de sureau, sureau | es: flor de saúco | it: fiori di sambuco, sambuco | de: holunderblüte, holunder | nl: vlierbloesem | da: hyldeblomst | sv: fläder
-rose = en: rose petal, rose petals, rosehip, rose hip | fr: rose, églantine | es: rosa | it: rosa | de: rose, hagebutte | da: rose, hyben | sv: nypon
-rose water > rose = fr: eau de rose
+rose = en: rose petal, rose petals, rosehip, rose hip, wild rose | fr: rose, églantine | es: rosa | it: rosa | de: rose, hagebutte | da: rose, hyben | sv: nypon | nl: rozenbottel
+rose water > rose = fr: eau de rose | en: rosewater
 orange blossom = en: orange flower water, orange blossom water | fr: fleur d'oranger | es: azahar | it: fiori d'arancio | de: orangenblüte
 cherry blossom = en: sakura | ja: 桜
 chamomile = en: camomile | fr: camomille | it: camomilla | de: kamille
 lavender = fr: lavande | es: lavanda | it: lavanda | de: lavendel
 violet = fr: violette | de: veilchen
-marigold = en: calendula | fr: souci | de: tagetes | en: tagetes
+marigold = en: calendula | fr: souci, tagette | de: tagetes | en: tagetes
 hay = fr: foin | it: fieno | de: heu | da: hø
 pine = en: pine needle, pine needles, spruce, spruce tip, spruce tips, fir, douglas fir, juniper branch | fr: pin, sapin, épicéa, bourgeon de sapin | it: pino, abete | de: fichte, fichtensprossen, tanne, kiefer | da: gran, granskud | sv: gran
 fig leaf oil > fig leaf
@@ -282,10 +325,28 @@ sea herbs > sea vegetables
 mitsuba = ja: 三つ葉
 sansho = en: sansho pepper | ja: 山椒
 kinome > sansho = ja: 木の芽
+blackcurrant leaf = en: blackcurrant leaves
+calamint
+herbes de provence
+honeysuckle
+magnolia
+soapwort = fr: saponaire
+gremolata
+huacatay
+microgreens
+nettle = en: nettles
+agastache
+torch ginger = zh: bunga kantan
+chermoula
+laksa leaf = zh: daun kesum
+kaffir lime leaf = nl: limoenblad
+pandan
+rue
+tansy = fr: tanaisie
 
 ## spice
 salt = en: sea salt, fleur de sel, maldon | fr: sel, fleur de sel | es: sal | it: sale | de: salz | nl: zout | pt: sal | da: salt | sv: salt | ja: 塩
-black pepper = en: pepper, peppercorn, peppercorns, green peppercorn, pink peppercorn, long pepper, tellicherry | fr: poivre, poivre noir, baies roses | es: pimienta | it: pepe | de: pfeffer | nl: peper | pt: pimenta | da: peber | sv: peppar
+black pepper = en: pepper, peppercorn, peppercorns, green peppercorn, pink peppercorn, long pepper, tellicherry, cambodian long pepper | fr: poivre, poivre noir, baies roses | es: pimienta | it: pepe | de: pfeffer | nl: peper, pepersaus | pt: pimenta | da: peber | sv: peppar
 sichuan pepper > black pepper = en: szechuan pepper, timut, timut pepper | fr: poivre de sichuan, poivre timut
 saffron = fr: safran | es: azafrán | it: zafferano | de: safran | nl: saffraan | pt: açafrão
 vanilla = en: vanilla pod | fr: vanille | es: vainilla | it: vaniglia | de: vanille | nl: vanille | da: vanilje | sv: vanilj
@@ -294,8 +355,8 @@ nutmeg = en: mace | fr: muscade, noix de muscade | es: nuez moscada | it: noce m
 clove = en: cloves | fr: clou de girofle | es: clavo | it: chiodi di garofano | de: nelke, gewürznelke
 star anise = fr: anis étoilé, badiane | it: anice stellato | de: sternanis
 anise = en: aniseed | fr: anis | it: anice | de: anis
-cardamom = fr: cardamome | es: cardamomo | it: cardamomo | de: kardamom
-cumin = fr: cumin | es: comino | it: cumino | de: kreuzkümmel
+cardamom = fr: cardamome | es: cardamomo | it: cardamomo | de: kardamom | en: cardamon | nl: kardemom
+cumin = fr: cumin | es: comino | it: cumino | de: kreuzkümmel | nl: komijn
 caraway = fr: carvi | de: kümmel | da: kommen
 fennel seed > fennel = fr: graines de fenouil | it: semi di finocchio | de: fenchelsamen
 juniper = en: juniper berry, juniper berries | fr: genièvre | es: enebro | it: ginepro | de: wacholder | da: enebær | sv: enbär
@@ -304,33 +365,40 @@ galangal = fr: galanga
 turmeric = fr: curcuma | es: cúrcuma | it: curcuma | de: kurkuma
 horseradish = fr: raifort | es: rábano picante | it: rafano, cren, kren | de: meerrettich, kren | nl: mierikswortel | da: peberrod | sv: pepparrot
 wasabi = ja: 山葵, わさび
-mustard = en: dijon, dijon mustard, mustard seed, wholegrain mustard, mustard leaf | fr: moutarde | es: mostaza | it: senape, mostarda | de: senf | nl: mosterd | da: sennep | sv: senap
-curry = en: curry powder, garam masala, green curry, red curry, madras | fr: curry | de: curry
+mustard = en: dijon, dijon mustard, mustard seed, wholegrain mustard, mustard leaf, karashi | fr: moutarde | es: mostaza | it: senape, mostarda | de: senf, senfsaat | nl: mosterd | da: sennep | sv: senap
+curry = en: curry powder, garam masala, green curry, red curry, madras | fr: curry, curry de madras, curry vert | de: curry | nl: kerrie
 paprika = en: smoked paprika, pimentón | es: pimentón | fr: paprika
 sumac = fr: sumac
 za'atar = en: zaatar
 liquorice = en: licorice | fr: réglisse | es: regaliz | it: liquirizia | de: lakritz, süßholz | da: lakrids | sv: lakrits
 tonka bean = en: tonka | fr: fève tonka, fève de tonka | de: tonkabohne
 coffee = en: espresso | fr: café | es: café | it: caffè, caffe | de: kaffee | nl: koffie | da: kaffe | sv: kaffe | ja: コーヒー
-tea = en: black tea, green tea, earl grey, oolong, hojicha, genmaicha | fr: thé | es: té | it: tè | de: tee | ja: 茶, お茶, ほうじ茶
-matcha > tea = ja: 抹茶
+tea = en: black tea, green tea, earl grey, oolong, hojicha, genmaicha, sobacha | fr: thé | es: té | it: tè | de: tee | ja: 茶, お茶, ほうじ茶 | nl: thee
+matcha > tea = ja: 抹茶 | en: macha
 cocoa = en: cacao, cacao nib, cocoa nib, cocoa nibs, cacao nibs | fr: cacao, grué de cacao | es: cacao | it: cacao | de: kakao | ja: カカオ
-chocolate = en: dark chocolate, milk chocolate, white chocolate, gianduja | fr: chocolat, chocolat noir, gianduja | es: chocolate | it: cioccolato, gianduia | de: schokolade | nl: chocolade | pt: chocolate | da: chokolade | sv: choklad | ja: チョコレート | en: ganache | fr: ganache
+chocolate = en: dark chocolate, milk chocolate, white chocolate, gianduja | fr: chocolat, chocolat noir, gianduja, chocolat obscur, dulcey, valrhona | es: chocolate | it: cioccolato, gianduia | de: schokolade | nl: chocolade | pt: chocolate | da: chokolade | sv: choklad | ja: チョコレート | en: ganache | fr: ganache
+grains of selim = en: selim pepper
+spice = en: spices
+dukkah
+aji amarillo > chili
+five spice
+ras el hanout = nl: ras hanout | en: ras hanout
+sambal
 
 ## other
-olive oil = en: extra virgin olive oil, evoo | fr: huile d'olive | es: aceite de oliva | it: olio d'oliva, olio extravergine, olio evo | de: olivenöl | nl: olijfolie
-vinegar = en: cider vinegar, wine vinegar, sherry vinegar, rice vinegar | fr: vinaigre | es: vinagre | it: aceto | de: essig | nl: azijn | da: eddike | ja: 酢
+olive oil = en: extra virgin olive oil, evoo | fr: huile d'olive | es: aceite de oliva | it: olio d'oliva, olio extravergine, olio evo, olio | de: olivenöl | nl: olijfolie
+vinegar = en: cider vinegar, wine vinegar, sherry vinegar, rice vinegar, stout vinegar | fr: vinaigre, vinaigre de cidre | es: vinagre | it: aceto | de: essig | nl: azijn | da: eddike | ja: 酢
 balsamic vinegar > vinegar = en: balsamic, aceto balsamico | it: aceto balsamico, balsamico | fr: vinaigre balsamique
 verjuice = en: verjus | fr: verjus
-honey = en: honeycomb | fr: miel | es: miel | it: miele | de: honig | nl: honing | pt: mel | da: honning | sv: honung | ja: 蜂蜜, はちみつ
+honey = en: honeycomb, chestnut honey | fr: miel | es: miel | it: miele | de: honig | nl: honing | pt: mel | da: honning | sv: honung | ja: 蜂蜜, はちみつ
 sugar = en: brown sugar, muscovado, demerara | fr: sucre, cassonade | es: azúcar | it: zucchero | de: zucker | nl: suiker | da: sukker
 kokuto > sugar = ja: 黒糖
 maple syrup = en: maple | fr: sirop d'érable, érable | de: ahornsirup
 birch sap = en: birch syrup, birch | fr: sève de bouleau | de: birkensaft, birke | da: birkesaft, birk | sv: björksav
-caramel = en: butterscotch, dulce de leche, toffee | fr: caramel | es: caramelo, dulce de leche, cajeta | it: caramello, mou | de: karamell
+caramel = en: butterscotch, dulce de leche, toffee | fr: caramel | es: caramelo, dulce de leche, cajeta | it: caramello, mou | de: karamell | nl: karamel, karamelsaus
 molasses = en: treacle
-soy sauce = en: soy, shoyu, tamari | fr: sauce soja | es: salsa de soja | it: salsa di soia | de: sojasauce | ja: 醤油, しょうゆ | ko: 간장 | en: soya | fr: soja | de: soja
-miso = en: white miso, red miso | ja: 味噌, みそ
+soy sauce = en: soy, shoyu, tamari | fr: sauce soja | es: salsa de soja | it: salsa di soia | de: sojasauce | ja: 醤油, しょうゆ | ko: 간장 | en: soya | fr: soja | de: soja | nl: sojasaus
+miso = en: white miso, red miso, saikyo miso | ja: 味噌, みそ
 doenjang > miso = ko: 된장
 gochujang = ko: 고추장
 dashi = ja: 出汁, だし
@@ -338,26 +406,26 @@ mirin = ja: みりん
 sake = en: saké | ja: 酒, 日本酒
 sake lees = en: sake kasu | ja: 酒粕
 ponzu = ja: ポン酢
-yuzu kosho > yuzu = ja: 柚子胡椒
+yuzu kosho > yuzu = ja: 柚子胡椒 | de: yuzukoshō
 fish sauce = en: nam pla, garum, colatura, colatura di alici | it: colatura, colatura di alici
 xo sauce = en: xo
 tofu = en: bean curd | ja: 豆腐
 yuba > tofu = ja: 湯葉
-egg = en: eggs, hen egg, hen's egg, duck egg, quail egg, quail eggs, egg yolk, yolk, egg white | fr: œuf, oeuf, œufs, oeufs, jaune d'œuf, jaune d'oeuf | es: huevo, huevos, yema | it: uovo, uova, tuorlo | de: ei, eier, eigelb | nl: ei, eieren, eidooier | pt: ovo, gema | da: æg, æggeblomme | sv: ägg | ja: 卵, 玉子 | ko: 계란
-wine = en: red wine, white wine, sherry, madeira, port, marsala, vin jaune, vin de paille, champagne | fr: vin, vin rouge, vin blanc, vin jaune, porto | es: vino, jerez, vino tinto | it: vino, marsala, vin santo | de: wein, rotwein, weißwein | da: vin | en: chardonnay, riesling, sauternes
+egg = en: eggs, hen egg, hen's egg, duck egg, quail egg, quail eggs, egg yolk, yolk, egg white | fr: œuf, oeuf, œufs, oeufs, jaune d'œuf, jaune d'oeuf | es: huevo, huevos, yema | it: uovo, uova, tuorlo | de: ei, eier, eigelb, wachtelei | nl: ei, eieren, eidooier | pt: ovo, gema | da: æg, æggeblomme | sv: ägg | ja: 卵, 玉子 | ko: 계란
+wine = en: red wine, white wine, sherry, madeira, port, marsala, vin jaune, vin de paille, champagne, prosecco | fr: vin, vin rouge, vin blanc, vin jaune, porto | es: vino, jerez, vino tinto, amontillado | it: vino, marsala, vin santo | de: wein, rotwein, weißwein | da: vin | en: chardonnay, riesling, sauternes
 beer = en: ale, stout, lager | fr: bière | es: cerveza | it: birra | de: bier | da: øl
 cider = fr: cidre | es: sidra | de: apfelwein, cidre
-spirits = en: whisky, whiskey, gin, rum, brandy, cognac, armagnac, calvados, eau de vie, kirsch, grappa, mezcal, tequila, chartreuse, vermouth, amaretto, limoncello, sake, shochu, aquavit, akvavit | fr: eau-de-vie | de: schnaps, obstbrand | it: grappa, liquore | en: vodka, sauternes, champagner, liqueur, grand marnier | en: noilly prat
+spirits = en: whisky, whiskey, gin, rum, brandy, cognac, armagnac, calvados, eau de vie, kirsch, grappa, mezcal, tequila, chartreuse, vermouth, amaretto, limoncello, sake, shochu, aquavit, akvavit, somerset cider brandy, aperol, bourbon, pernod, rhum | fr: eau-de-vie, whisky breton, rhum | de: schnaps, obstbrand, wermut | it: grappa, liquore, nocino | en: vodka, sauternes, champagner, liqueur, grand marnier | en: noilly prat
 mole = es: mole, mole negro, mole poblano
 pesto = it: pesto
 dashi stock > dashi
 stock = en: broth, consommé, consomme, bouillon, stock, fumet, dashi broth | fr: bouillon, consommé, fumet | es: caldo, consomé | it: brodo | de: brühe, fond, consommé | nl: bouillon | da: bouillon, fond | sv: buljong | ja: 吸い物, 椀
-jus = en: gravy, jus | fr: jus | de: jus, sauce
+jus = en: gravy, jus, beef jus | fr: jus | de: jus, sauce | nl: kalfsjus
 
 vadouvan > curry
 hoisin = en: hoisin sauce
 kombucha
-hibiscus = fr: hibiscus | es: jamaica, flor de jamaica
+hibiscus = fr: hibiscus | es: jamaica, flor de jamaica | de: hibiskus
 jasmine = en: jasmine tea | fr: jasmin | de: jasmin
 meringue = fr: meringue | es: merengue | it: meringa | de: baiser, meringe | en: pavlova
 nougat = fr: nougat | it: torrone
@@ -373,21 +441,59 @@ hummus > chickpea = en: houmous
 tzatziki > yoghurt
 fenugreek = fr: fenugrec | de: bockshornklee | it: fieno greco
 poppy seed = en: poppy seeds, poppy | fr: pavot | de: mohn | it: papavero | nl: maanzaad | da: birkes, valmue
+courchamps sauce
+garbure
+gazpacho = en: green gazpacho
+gumbo
+pontack sauce
+barigoule = en: sauce barigoule
+sikhye
+sticky toffee pudding
+tare = en: yakitori sauce
+zuppa inglese
+cheesecake
+bavarois
+ajo blanco
+beeswax = it: cera d’api
+campari
+bee pollen = en: pollen
+speculoos
+sriracha
+tiramisu
+toum
+agave
+ajvar
+amazake
+apple syrup = nl: appelstroop
+carob
+frangipane
+marshmallow = fr: guimauve
+palm sugar = zh: gula melaka
+marzipan > almond
+mead
+nuoc cham
+piccalilli
+remoulade
+sanbaizu
+sugarcane = en: sugarcane juice
+tabasco
+tempeh
+worcestershire sauce = en: worcestershire
 
 ## dairy
 butter = en: brown butter, beurre noisette, cultured butter | fr: beurre, beurre noisette | es: mantequilla | it: burro | de: butter, nussbutter | nl: boter | pt: manteiga | da: smør | sv: smör | ja: バター
 beurre blanc > butter = fr: beurre blanc
-cream = en: double cream, crème fraîche, creme fraiche, crème, creme, sour cream, clotted cream, chantilly, whipped cream, crema | fr: crème, crème fraîche, chantilly, crème crue | es: nata, crema | it: panna, crema | de: sahne, rahm, schmand, sauerrahm, crème fraîche | nl: room, slagroom | pt: natas | da: fløde, creme fraiche | sv: grädde | ja: クリーム
+cream = en: double cream, crème fraîche, creme fraiche, crème, creme, sour cream, clotted cream, chantilly, whipped cream, crema, panna, smetana | fr: crème, crème fraîche, chantilly, crème crue | es: nata, crema | it: panna, crema | de: sahne, rahm, schmand, sauerrahm, crème fraîche | nl: room, slagroom | pt: natas | da: fløde, creme fraiche | sv: grädde | ja: クリーム
 milk = en: whole milk, goat's milk, sheep's milk, buttermilk | fr: lait, lait ribot | es: leche | it: latte | de: milch, buttermilch | nl: melk, karnemelk | pt: leite | da: mælk, kærnemælk | sv: mjölk | ja: 牛乳 | en: whey | fr: petit-lait | de: molke
-yoghurt = en: yogurt, labneh, skyr | fr: yaourt, yogourt | es: yogur | it: yogurt | de: joghurt | nl: yoghurt | da: yoghurt, skyr | sv: yoghurt
-cheese = en: fresh cheese, aged cheese, curd, curds, cheese curd | fr: fromage, fromages, caillé, caillebotte | es: queso, quesos | it: formaggio, formaggi | de: käse, quark, topfen | nl: kaas | pt: queijo | da: ost | sv: ost | ja: チーズ | en: cheddar, comté
+yoghurt = en: yogurt, labneh, skyr, sheep’s milk yoghurt | fr: yaourt, yogourt | es: yogur | it: yogurt | de: joghurt | nl: yoghurt, hangop | da: yoghurt, skyr | sv: yoghurt
+cheese = en: fresh cheese, aged cheese, curd, curds, cheese curd, corra linn, doddington, tunworth cheese | fr: fromage, fromages, caillé, caillebotte | es: queso, quesos | it: formaggio, formaggi, cacio | de: käse, quark, topfen | nl: kaas | pt: queijo | da: ost | sv: ost | ja: チーズ | en: cheddar, comté
 parmesan > cheese = en: parmigiano, parmigiano reggiano, parmigiano-reggiano, grana padano | fr: parmesan | it: parmigiano, parmigiano reggiano, grana | nl: parmezaan | en: parmigiano reggiano
 pecorino > cheese = it: pecorino, pecorino romano
 ricotta > cheese = it: ricotta
 burrata > cheese = it: burrata, stracciatella | en: stracciatella
 mozzarella > cheese = en: buffalo mozzarella | it: mozzarella, mozzarella di bufala, fior di latte
 goat cheese > cheese = en: goat's cheese, goats cheese, chèvre, chevre | fr: chèvre, fromage de chèvre | es: queso de cabra | it: caprino, formaggio di capra | de: ziegenkäse | nl: geitenkaas
-blue cheese > cheese = en: stilton, roquefort, gorgonzola, stichelton | fr: roquefort, bleu | it: gorgonzola | de: blauschimmelkäse
+blue cheese > cheese = en: stilton, roquefort, gorgonzola, stichelton, bleu di capra | fr: roquefort, bleu | it: gorgonzola | de: blauschimmelkäse
 comté > cheese = en: comte, gruyère, gruyere, beaufort, emmental | fr: comté, gruyère, beaufort
 brillat-savarin > cheese = en: brie, camembert, tunworth, baron bigod | fr: brie, camembert
 mascarpone > cheese = it: mascarpone
@@ -398,37 +504,59 @@ belper knolle > cheese
 époisses > cheese = en: epoisses
 taleggio > cheese = it: taleggio
 robiola > cheese = it: robiola
+brescianella > cheese = en: brescianella all’acquavite
+ice cream = fr: glace | da: vaniljeis
+vacherin > cheese
+fourme d'ambert > cheese
+graukäse > cheese
+tomme > cheese
+cantal > cheese
+gouda > cheese
+idiazabal > cheese
+caciocavallo > cheese
+ghee > butter
+manchego > cheese
+milleens > cheese
+mimolette > cheese
+quark
+raclette > cheese
+scamorza > cheese
 
 ## seafood
 oyster = en: oysters, rock oyster, native oyster, gillardeau | fr: huître, huîtres, huitre, huitres | es: ostra, ostras | it: ostrica, ostriche | de: auster, austern | nl: oester | pt: ostra | da: østers | sv: ostron | ja: 牡蠣, かき
 mussel = en: mussels | fr: moule, moules | es: mejillón, mejillones | it: cozza, cozze | de: miesmuschel, muscheln | nl: mossel | pt: mexilhão | da: musling, blåmusling
-clam = en: clams, razor clam, razor clams, cockle, cockles, palourde, surf clam, geoduck | fr: palourde, palourdes, coque, coques, couteau, couteaux | es: almeja, almejas, berberecho, navaja, navajas | it: vongola, vongole, cannolicchi | de: venusmuschel, herzmuschel, schwertmuschel | ja: 蛤, はまぐり, 浅蜊, 帆立貝
+clam = en: clams, razor clam, razor clams, cockle, cockles, palourde, surf clam, geoduck, hokkigai | fr: palourde, palourdes, coque, coques, couteau, couteaux | es: almeja, almejas, berberecho, navaja, navajas | it: vongola, vongole, cannolicchi | de: venusmuschel, herzmuschel, schwertmuschel | ja: 蛤, はまぐり, 浅蜊, 帆立貝, torigai | nl: kokkels
 scallop = en: scallops, king scallop, hand-dived scallop | fr: coquille saint-jacques, saint-jacques, saint jacques, noix de saint-jacques | es: vieira, vieiras | it: capasanta, capesante, cappasanta | de: jakobsmuschel, jakobsmuscheln | nl: sint-jakobsschelp, coquilles | pt: vieira | da: kammusling | sv: pilgrimsmussla | ja: 帆立, ほたて, ホタテ | en: conpoy, dried scallop
-abalone = fr: ormeau | es: oreja de mar | ja: 鮑, あわび
+abalone = fr: ormeau | es: oreja de mar | ja: 鮑, あわび | en: paua
 sea urchin = en: uni, urchin | fr: oursin, oursins | es: erizo, erizo de mar | it: riccio di mare, ricci di mare, riccio | de: seeigel | ja: 雲丹, うに, ウニ
 lobster = en: blue lobster, native lobster, rock lobster, spiny lobster, langouste | fr: homard, homard bleu, langouste | es: bogavante, langosta | it: astice, aragosta | de: hummer, languste | nl: kreeft | pt: lavagante, lagosta | da: hummer | sv: hummer | ja: 伊勢海老, オマール
-langoustine = en: langoustines, scampi, dublin bay prawn, norway lobster | fr: langoustine, langoustines | es: cigala, cigalas | it: scampo, scampi | de: kaisergranat, langustine | nl: langoustine | da: jomfruhummer | sv: havskräfta
-prawn = en: prawns, shrimp, shrimps, carabinero, red prawn, brown shrimp, gamba, botan ebi, amaebi | fr: crevette, crevettes, gambas | es: gamba, gambas, langostino, langostinos, carabinero, carabineros, quisquilla, camarón | it: gambero, gamberi, gambero rosso, mazzancolla, mazzancolle | de: garnele, garnelen, krabben, nordseekrabben | nl: garnaal, garnalen | pt: camarão, gamba | da: reje, rejer | sv: räkor | ja: 海老, えび, 車海老, 甘海老 | en: langostino, gambero rosso
+langoustine = en: langoustines, scampi, dublin bay prawn, norway lobster | fr: langoustine, langoustines | es: cigala, cigalas | it: scampo, scampi | de: kaisergranat, langustine | nl: langoustine, langoustinesaus | da: jomfruhummer | sv: havskräfta
+prawn = en: prawns, shrimp, shrimps, carabinero, red prawn, brown shrimp, gamba, botan ebi, amaebi, bay shrimp | fr: crevette, crevettes, gambas | es: gamba, gambas, langostino, langostinos, carabinero, carabineros, quisquilla, camarón | it: gambero, gamberi, gambero rosso, mazzancolla, mazzancolle | de: garnele, garnelen, krabben, nordseekrabben | nl: garnaal, garnalen | pt: camarão, gamba | da: reje, rejer | sv: räkor | ja: 海老, えび, 車海老, 甘海老 | en: langostino, gambero rosso
 crab = en: crabs, king crab, spider crab, snow crab, brown crab, blue crab, soft shell crab, dungeness crab | fr: crabe, tourteau, araignée de mer, étrille | es: cangrejo, centollo, buey de mar, txangurro | it: granchio, granceola | de: krabbe, königskrabbe, taschenkrebs | nl: krab | da: krabbe | sv: krabba | ja: 蟹, かに, ズワイガニ, 毛蟹 | ko: 게
 crayfish = en: crawfish, signal crayfish | fr: écrevisse, écrevisses | es: cangrejo de río | it: gambero di fiume | de: flusskrebs, krebs | sv: kräftor | da: krebs
 squid = en: calamari, calamaro | fr: calmar, calamar, encornet, chipiron, chipirons | es: calamar, calamares, chipirón, chipirones | it: calamaro, calamari, totano | de: kalmar, tintenfisch | nl: inktvis | ja: 烏賊, いか, イカ
 cuttlefish = en: sepia | fr: seiche, sépia | es: sepia, choco | it: seppia, seppie | de: sepia
-octopus = fr: poulpe, pieuvre | es: pulpo | it: polpo, polipo, moscardino | de: oktopus, krake, pulpo | pt: polvo | ja: 蛸, たこ, タコ
+octopus = fr: poulpe, pieuvre | es: pulpo | it: polpo, polipo, moscardino | de: oktopus, krake, pulpo | pt: polvo | ja: 蛸, たこ, タコ | da: blæksprutte
 caviar = en: oscietra, ossetra, beluga, kaluga, baerii | fr: caviar | es: caviar | it: caviale | de: kaviar | ja: キャビア | nl: kaviaar
-fish roe = en: roe, trout roe, salmon roe, ikura, tarama, bottarga, cod roe, herring roe, mentaiko | fr: œufs de truite, œufs de saumon, poutargue, boutargue | es: huevas, hueva, mojama | it: bottarga, uova di trota, uova di salmone | de: forellenkaviar, rogen | da: rogn, stenbiderrogn | sv: löjrom, rom | ja: いくら, イクラ, 明太子, からすみ, 数の子
+fish roe = en: roe, trout roe, salmon roe, ikura, tarama, bottarga, cod roe, herring roe, mentaiko, tobiko | fr: œufs de truite, œufs de saumon, poutargue, boutargue | es: huevas, hueva, mojama | it: bottarga, uova di trota, uova di salmone | de: forellenkaviar, rogen | da: rogn, stenbiderrogn | sv: löjrom, rom | ja: いくら, イクラ, 明太子, からすみ, 数の子
 sea cucumber = ja: 海鼠, なまこ
 snail = en: escargot, escargots, snails | fr: escargot, escargots | es: caracol, caracoles | it: lumache | de: schnecke, weinbergschnecken
 frog = en: frog's legs, frogs legs | fr: grenouille, cuisses de grenouille | de: froschschenkel
 whelk = fr: bulot, bulots
-razor clam > clam = fr: couteau | es: navaja
+razor clam > clam = fr: couteau | es: navaja | nl: scheermes
+bouillabaisse
+squid ink = en: ink
+shrimp paste = zh: belachan
+mantis shrimp = it: canocchie
+goose barnacle = es: percebe
 
 ## fish
 fish = en: catch of the day, white fish | fr: poisson | es: pescado | it: pesce | de: fisch | nl: vis | pt: peixe | da: fisk | sv: fisk | ja: 魚
 anchovy = en: anchovies, boquerones | fr: anchois | es: anchoa, anchoas, boquerón, boquerones | it: acciuga, acciughe, alici, alice | de: sardelle | nl: ansjovis | pt: anchova | da: ansjos
 sardine = en: sardines, pilchard | fr: sardine, sardines | es: sardina | it: sardina, sarde, sardella | de: sardine | pt: sardinha | ja: 鰯, いわし
-mackerel = en: horse mackerel, spanish mackerel | fr: maquereau | es: caballa, jurel, chicharro | it: sgombro, suro | de: makrele | nl: makreel | pt: cavala | da: makrel | sv: makrill | ja: 鯖, さば, 鯵, あじ, 鰆
+mackerel = en: horse mackerel, spanish mackerel | fr: maquereau | es: caballa, jurel, chicharro | it: sgombro, suro | de: makrele | nl: makreel | pt: cavala | da: makrel | sv: makrill | ja: 鯖, さば, 鯵, あじ, 鰆 | zh: ikan kembung
 herring = en: herrings | fr: hareng | es: arenque | it: aringa | de: hering, matjes | nl: haring | da: sild | sv: sill, strömming
-tuna = en: bluefin, otoro, chutoro, toro, akami, albacore, bonito, katsuobushi | fr: thon, thon rouge | es: atún, atun, ventresca, bonito, ventresca de atún | it: tonno, ventresca | de: thunfisch | nl: tonijn | pt: atum | da: tun | ja: 鮪, まぐろ, マグロ, 本鮪, トロ, 大トロ, 中トロ, 鰹, かつお, 鰹節
+tuna = en: bluefin, otoro, chutoro, toro, akami, albacore, bonito, katsuobushi, bluefin tuna, cornish bluefin otoro | fr: thon, thon rouge | es: atún, atun, ventresca, bonito, ventresca de atún | it: tonno, ventresca | de: thunfisch | nl: tonijn, tonijnmayonaise | pt: atum | da: tun | ja: 鮪, まぐろ, マグロ, 本鮪, トロ, 大トロ, 中トロ, 鰹, かつお, 鰹節
 salmon = en: wild salmon, smoked salmon | fr: saumon | es: salmón | it: salmone | de: lachs | nl: zalm | pt: salmão | da: laks | sv: lax | ja: 鮭, サーモン
 trout = en: sea trout, rainbow trout, steelhead, brown trout, arctic char | fr: truite, omble, omble chevalier | es: trucha | it: trota, salmerino | de: forelle, saibling, seesaibling | nl: forel | da: ørred, fjeldørred | sv: öring, röding, regnbåge
 eel = en: smoked eel, unagi, anago, elver | fr: anguille | es: anguila, angula, angulas | it: anguilla, capitone | de: aal, räucheraal | nl: paling | pt: enguia | da: ål | sv: ål | ja: 鰻, うなぎ, 穴子, あなご
@@ -439,13 +567,13 @@ turbot = fr: turbot | es: rodaballo | it: rombo, rombo chiodato | de: steinbutt 
 brill = fr: barbue | es: rémol | it: rombo liscio | de: glattbutt, kleist
 sole = en: dover sole, lemon sole, sole meunière | fr: sole | es: lenguado | it: sogliola | de: seezunge | nl: tong | da: tunge, søtunge | sv: sjötunga
 halibut = fr: flétan | es: fletán, halibut | it: halibut, ippoglosso | de: heilbutt | nl: heilbot | da: helleflynder | sv: hälleflundra
-plaice = en: flounder, fluke | fr: plie, carrelet | de: scholle, flunder | da: rødspætte | ja: 鰈, かれい, 平目, ひらめ, 鮃
+plaice = en: flounder, fluke | fr: plie, carrelet | de: scholle, flunder | da: rødspætte | ja: 鰈, かれい, 平目, ひらめ, 鮃 | nl: schol
 skate = en: skate wing | fr: raie | es: raya | it: razza | de: rochen
 sea bass = en: seabass, bass, branzino, striped bass, black bass | fr: bar, loup, loup de mer | es: lubina, róbalo | it: branzino, spigola | de: wolfsbarsch, loup de mer | nl: zeebaars | pt: robalo | ja: 鱸, すずき
 sea bream = en: bream, dorade, gilthead bream, porgy, pagre | fr: daurade, dorade, pageot, pagre | es: dorada, besugo, pargo | it: orata, dentice, pagro, sarago | de: dorade, brasse | ja: 鯛, たい, 真鯛, 甘鯛
 red mullet = en: rouget, mullet, grey mullet | fr: rouget, rouget barbet, mulet | es: salmonete, mújol | it: triglia, triglie, muggine, cefalo | de: rotbarbe, meerbarbe, rotbarbe | ja: ボラ
 john dory = en: st pierre, saint pierre, dory | fr: saint-pierre, saint pierre | es: pez de san pedro, gallo de san pedro | it: san pietro, pesce san pietro | de: petersfisch | ja: 的鯛
-red snapper = en: snapper
+red snapper = en: snapper, golden eye snapper
 grouper = fr: mérou | es: mero | it: cernia | de: zackenbarsch
 yellowtail = en: hamachi, kingfish, amberjack, yellowtail kingfish, buri | fr: sériole | es: pez limón, seriola | it: ricciola | de: gelbschwanzmakrele | ja: 鰤, ぶり, はまち, 間八, かんぱち, 縞鯵, しまあじ | en: hiramasa
 striped jack > yellowtail = en: shima aji
@@ -459,18 +587,24 @@ mullet roe > fish roe = ja: からすみ
 sweetfish = en: ayu | ja: 鮎, あゆ
 pufferfish = en: fugu | ja: 河豚, ふぐ
 conger eel > eel = fr: congre | es: congrio | ja: 鱧, はも
+saury = en: pacific saury
+pollock
+surimi
+corvina
+marlin
+rockfish
 
 ## meat
-beef = en: wagyu, wagyū, kobe, steak, ribeye, rib eye, sirloin, fillet of beef, beef fillet, tenderloin, short rib, short ribs, oxtail, brisket, ox cheek, bavette, onglet, entrecôte, chateaubriand, tartare de boeuf, tri-tip, galician beef, dexter | fr: bœuf, boeuf, wagyu, entrecôte, côte de bœuf, filet de bœuf, joue de bœuf, queue de bœuf, onglet, paleron | es: buey, ternera, vaca, chuleta, solomillo, rabo de toro, carrillera, chuletón | it: manzo, bue, fassona, scottona, filetto di manzo, guancia, guanciale di manzo, coda di bue | de: rind, rindfleisch, ochse, ochsenschwanz, ochsenbacke, rinderfilet, entrecôte, tafelspitz, wagyu | nl: rund, rundvlees | pt: vaca, novilho | da: okse, oksekød | sv: oxfilé, nötkött | ja: 牛, 和牛, 牛肉 | ko: 소고기, 한우 | ko: hanwoo
-veal = en: veal cheek, veal fillet | fr: veau, tête de veau | es: ternera lechal, ternera blanca | it: vitello, vitella | de: kalb, kalbfleisch, kalbsrücken | nl: kalf, kalfsvlees | da: kalv | sv: kalv | nl: kalfswang, kalfszwezerik
+beef = en: wagyu, wagyū, kobe, steak, ribeye, rib eye, sirloin, fillet of beef, beef fillet, tenderloin, short rib, short ribs, oxtail, brisket, ox cheek, bavette, onglet, entrecôte, chateaubriand, tartare de boeuf, tri-tip, galician beef, dexter, angus chuck, cecina | fr: bœuf, boeuf, wagyu, entrecôte, côte de bœuf, filet de bœuf, joue de bœuf, queue de bœuf, onglet, paleron | es: buey, ternera, vaca, chuleta, solomillo, rabo de toro, carrillera, chuletón | it: manzo, bue, fassona, scottona, filetto di manzo, guancia, guanciale di manzo, coda di bue | de: rind, rindfleisch, ochse, ochsenschwanz, ochsenbacke, rinderfilet, entrecôte, tafelspitz, wagyu | nl: rund, rundvlees, ossenhaas, ossenstaart | pt: vaca, novilho | da: okse, oksekød | sv: oxfilé, nötkött | ja: 牛, 和牛, 牛肉 | ko: 소고기, 한우 | ko: hanwoo
+veal = en: veal cheek, veal fillet | fr: veau, tête de veau | es: ternera lechal, ternera blanca | it: vitello, vitella | de: kalb, kalbfleisch, kalbsrücken, kalbskopf, kalbsbäckchen | nl: kalf, kalfsvlees, kalfshaas | da: kalv | sv: kalv | nl: kalfswang, kalfszwezerik
 sweetbread = en: sweetbreads, lamb sweetbreads, veal sweetbreads | fr: ris de veau, ris d'agneau, ris | es: mollejas, molleja | it: animella, animelle | de: bries, kalbsbries | nl: zwezerik | da: brissel
 lamb = en: hogget, mutton, lamb rack, lamb shoulder | fr: agneau, agneau de lait, mouton | es: cordero, lechal, cordero lechal | it: agnello, abbacchio | de: lamm, lammrücken, lammschulter | nl: lam, lamsvlees | pt: borrego, cordeiro | da: lam, lammekød | sv: lamm
 goat = en: goat meat | fr: chevreau, cabri | es: cabrito | it: capretto | de: zicklein, kitz
-pork = en: pig, suckling pig, pork belly, pork jowl, pork chop, iberico, ibérico, pluma, presa, secreto, mangalitza, mangalica, pigs trotter, trotter, pork cheek, pig's head | fr: porc, cochon, cochon de lait, porcelet, pied de cochon, échine, poitrine de porc, joue de porc | es: cerdo, cochinillo, ibérico, iberico, presa ibérica, secreto ibérico, carrillada, papada, torrezno | it: maiale, maialino, maialino da latte, suino, cinta senese, porchetta | de: schwein, schweinebauch, spanferkel, schweinefleisch, schweinebacke | nl: varken, varkensvlees, speenvarken | pt: porco, leitão | da: gris, svinekød, flæsk | sv: gris, fläsk | ja: 豚, 豚肉 | ko: 돼지
-ham = en: jamón, jamon, prosciutto, culatello, coppa, lardo, bresaola, speck, cured ham, iberico ham, pata negra | fr: jambon, jambon de bayonne, jambon cru | es: jamón, jamon, jamón ibérico, paleta, cecina | it: prosciutto, prosciutto crudo, culatello, coppa, lardo, bresaola, speck, mortadella, guanciale | de: schinken, speck | nl: ham | pt: presunto | da: skinke | sv: skinka
+pork = en: pig, suckling pig, pork belly, pork jowl, pork chop, iberico, ibérico, pluma, presa, secreto, mangalitza, mangalica, pigs trotter, trotter, pork cheek, pig's head, crackling | fr: porc, cochon, cochon de lait, porcelet, pied de cochon, échine, poitrine de porc, joue de porc | es: cerdo, cochinillo, ibérico, iberico, presa ibérica, secreto ibérico, carrillada, papada, torrezno | it: maiale, maialino, maialino da latte, suino, cinta senese, porchetta | de: schwein, schweinebauch, spanferkel, schweinefleisch, schweinebacke | nl: varken, varkensvlees, speenvarken | pt: porco, leitão | da: gris, svinekød, flæsk | sv: gris, fläsk | ja: 豚, 豚肉 | ko: 돼지
+ham = en: jamón, jamon, prosciutto, culatello, coppa, lardo, bresaola, speck, cured ham, iberico ham, pata negra, culatello di zibello, iberian ham | fr: jambon, jambon de bayonne, jambon cru | es: jamón, jamon, jamón ibérico, paleta, cecina | it: prosciutto, prosciutto crudo, culatello, coppa, lardo, bresaola, speck, mortadella, guanciale | de: schinken, speck | nl: ham, parmaham | pt: presunto | da: skinke | sv: skinka
 bacon = en: pancetta, lardons, lardon | fr: lard, lardons, poitrine fumée | es: panceta, tocino, beicon | it: pancetta, guanciale | de: speck, bauchspeck | nl: spek | en: guanciale
 sausage = en: chorizo, morcilla, black pudding, boudin, nduja, 'nduja, salami, sobrasada, andouille, chistorra, merguez | fr: saucisse, saucisson, boudin, boudin noir, andouillette, chorizo | es: chorizo, morcilla, sobrasada, butifarra, salchichón, longaniza | it: salsiccia, salame, salumi, nduja, cotechino, zampone | de: wurst, blutwurst, bratwurst, salami | nl: worst | pt: chouriço, alheira | da: pølse | sv: korv
-chicken = en: poulet, poularde, chicken thigh, chicken wing, chicken wings, bresse chicken, capon, hen, spring chicken, poussin | fr: poulet, poularde, volaille, poulet de bresse, chapon, poussin, coquelet | es: pollo, gallina, capón, pularda | it: pollo, gallina, cappone, galletto | de: huhn, hähnchen, hühnchen, poularde, stubenküken, hendl | nl: kip | pt: frango, galinha | da: kylling | sv: kyckling | ja: 鶏, 鶏肉, 地鶏 | ko: 닭
+chicken = en: poulet, poularde, chicken thigh, chicken wing, chicken wings, bresse chicken, capon, hen, spring chicken, poussin | fr: poulet, poularde, volaille, poulet de bresse, chapon, poussin, coquelet | es: pollo, gallina, capón, pularda | it: pollo, gallina, cappone, galletto | de: huhn, hähnchen, hühnchen, poularde, stubenküken, hendl | nl: kip, kippendij | pt: frango, galinha | da: kylling | sv: kyckling | ja: 鶏, 鶏肉, 地鶏 | ko: 닭
 duck = en: duckling, mallard, wild duck, magret, challans duck, aylesbury duck, peking duck | fr: canard, caneton, canette, magret, colvert | es: pato, magret | it: anatra, germano | de: ente, entenbrust | nl: eend | pt: pato | da: andebryst, andelår | sv: anka | ja: 鴨, 合鴨
 foie gras = en: duck liver, goose liver | fr: foie gras, foie gras de canard | es: foie gras, foie | it: fegato grasso, foie gras | de: gänseleber, entenleber, stopfleber, foie gras | nl: ganzenlever | ja: フォアグラ | nl: eendenlever, ganzenlever
 goose = fr: oie | es: ganso, oca | it: oca | de: gans | da: gås | sv: gås
@@ -478,9 +612,15 @@ pigeon = en: squab, wood pigeon | fr: pigeon, pigeonneau, palombe | es: pichón,
 quail = fr: caille | es: codorniz | it: quaglia | de: wachtel | nl: kwartel | da: vagtel
 guinea fowl = fr: pintade | es: pintada, gallina de guinea | it: faraona | de: perlhuhn
 game bird = en: grouse, partridge, pheasant, woodcock, snipe, mallard, teal, ptarmigan | fr: perdreau, perdrix, faisan, bécasse, grouse, gibier à plume | es: perdiz, faisán, becada, sorda | it: pernice, fagiano, beccaccia | de: rebhuhn, fasan, schnepfe, wildgeflügel | da: agerhøne, fasan | sv: rapphöna, fasan, ripa
-venison = en: deer, roe deer, red deer, fallow deer, sika, elk, moose, reindeer | fr: chevreuil, cerf, biche, daim, gibier | es: venado, ciervo, corzo | it: cervo, capriolo, daino, selvaggina | de: reh, hirsch, rehrücken, hirschkalb, wild, damwild | nl: hert, ree, wild | da: hjort, rådyr, dådyr, vildt | sv: hjort, rådjur, älg, ren, renkött | fi: poro
+venison = en: deer, roe deer, red deer, fallow deer, sika, elk, moose, reindeer | fr: chevreuil, cerf, biche, daim, gibier | es: venado, ciervo, corzo | it: cervo, capriolo, daino, selvaggina | de: reh, hirsch, rehrücken, hirschkalb, wild, damwild | nl: hert, ree, wild | da: hjort, rådyr, dådyr, vildt, krondyr | sv: hjort, rådjur, älg, ren, renkött | fi: poro
 hare = fr: lièvre | es: liebre | it: lepre | de: hase | da: hare
 rabbit = fr: lapin, lapereau | es: conejo | it: coniglio | de: kaninchen | nl: konijn | da: kanin
 wild boar = en: boar | fr: sanglier | es: jabalí | it: cinghiale | de: wildschwein
 offal = en: tripe, kidney, kidneys, liver, heart, tongue, oxtongue, ox tongue, bone marrow, marrow, cockscomb, trotters, blood | fr: abats, tripes, rognon, rognons, foie, cœur, langue, moelle, crête de coq, sang | es: callos, riñones, hígado, lengua, tuétano, sangre | it: trippa, rognone, fegato, cuore, lingua, midollo, frattaglie | de: kutteln, nieren, leber, herz, zunge, mark, knochenmark, blut | da: lever, hjerte, tunge | sv: lever, märg
 chicken liver > offal = fr: foie de volaille | it: fegatini
+beef tenderloin > beef = en: filet mignon
+ham fat > ham
+turkey = fr: dinde
+pastrami > beef
+tendon
+chinese sausage > pork = zh: lap cheong
