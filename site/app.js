@@ -36,6 +36,9 @@ function s(tag, attrs, ...kids) {
 const pct = (x) => (x == null ? "–" : (x * 100 >= 10 || x === 0 ? Math.round(x * 100) : (x * 100).toFixed(1)) + "%");
 const num = (x, d = 2) => (x == null ? "–" : Number(x).toFixed(d));
 const ingLink = (name) => h("a", { href: "#/ingredient/" + encodeURIComponent(name) }, name);
+// Only https://en.wikipedia.org links from the data file are rendered.
+const wikiLink = (url, text, label) => (/^https:\/\/en\.wikipedia\.org\/wiki\//.test(url)
+  ? h("a", { href: url, rel: "noopener", target: "_blank", "aria-label": label || null }, text) : null);
 const restName = (slug) => (byRestaurant.get(slug) || { name: slug }).name;
 
 // --- tooltip ------------------------------------------------------------------
@@ -176,6 +179,8 @@ function ingredients(params) {
         { key: "gshare", label: group ? "Share in group" : "Share of menus", render: (r) => shareBar(r.gshare, max) },
         { key: "n", label: "Restaurants", num: true },
         { key: "prep", label: "Top preparation", render: (r) => r.prep || h("span", { class: "muted" }, "–") },
+        { key: "wikipedia", label: "Wikipedia", nosort: true,
+          render: (r) => r.wikipedia ? wikiLink(r.wikipedia, "↗", `${r.name} on Wikipedia`) : h("span", { class: "muted" }, "–") },
       ], state, (sort, dir) => { state.sort = sort; state.dir = dir; live(); }));
   };
   search.addEventListener("input", live);
@@ -203,7 +208,8 @@ function ingredient(_params, [name]) {
   return h("div", {},
     h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/" }, "← Ingredients")),
     h("h1", {}, cap(name)),
-    h("p", { class: "sub" }, `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`),
+    h("p", { class: "sub" }, `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`,
+      ing.wikipedia ? h("span", {}, " · ", wikiLink(ing.wikipedia, "Read about it on Wikipedia ↗")) : null),
     tiles([[pct(ing.share), "share of menus"], [ing.restaurants.length, "restaurants"], [pairs.length, "pairings"],
       [ing.preparations[0]?.[0] || "–", "most common preparation"]]),
     h("div", { class: "grid2" },

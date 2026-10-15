@@ -662,9 +662,30 @@ def export_site(
 
     root = Path(__file__).resolve().parents[2]
     rows, restaurants, details, preps = site.load(source, root)
+    from menudb import wiki
+
     data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
-                      min_restaurants=min_restaurants)
+                      min_restaurants=min_restaurants, wikipedia=wiki.urls())
     path = site.write(data, out)
     _summary("menudb export-site", {"source": source, **data["totals"], "bytes": path.stat().st_size})
     if source != "synthetic":
         typer.echo("real data: keep it out of the repo and don't publish it (docs/PLAN.md, Website)")
+
+
+@app.command("wiki-links")
+def wiki_links(
+    source: str = typer.Option("bucket", help="where ingredient names come from: synthetic | bucket | db"),
+    names_file: list[Path] = typer.Option(None, help="extra names, one per line (e.g. a lexicon)"),
+    retry: bool = typer.Option(False, help="also redo check, ambiguous and missing rows"),
+):
+    """Look up Wikipedia articles for ingredients into data/ingredients/wikipedia.csv."""
+    from menudb import site, wiki
+
+    root = Path(__file__).resolve().parents[2]
+    rows, *_ = site.load(source, root)
+    names = {r.ingredient for r in rows}
+    for f in names_file or []:
+        names |= {line.strip().lower() for line in f.read_text().splitlines()
+                  if line.strip() and not line.startswith("#")}
+    client = wiki.Client(get_settings().user_agent)
+    _summary("menudb wiki-links", {"names": len(names), **wiki.update(names, client, retry=retry)})

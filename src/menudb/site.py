@@ -110,8 +110,11 @@ def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
 
 def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: str,
           details: dict[str, dict] | None = None, preparations: dict[str, Counter] | None = None,
-          min_restaurants: int = 2, now: datetime | None = None) -> dict:
+          min_restaurants: int = 2, now: datetime | None = None,
+          wikipedia: dict[str, str] | None = None) -> dict:
+    """`wikipedia` maps ingredient name -> article URL (see wiki.py)."""
     details = details or {}
+    wikipedia = wikipedia or {}
     preparations = preparations or {}
     overall = a.ingredient_frequency(rows)
     by_region, by_season = _share_by(rows, "region"), _share_by(rows, "season")
@@ -129,6 +132,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "by_region": by_region.get(d["ingredient"], {}),
         "by_season": by_season.get(d["ingredient"], {}),
         "preparations": preparations.get(d["ingredient"], Counter()).most_common(8),
+        "wikipedia": wikipedia.get(d["ingredient"]),
     } for d in overall]
 
     restaurant_list = []
