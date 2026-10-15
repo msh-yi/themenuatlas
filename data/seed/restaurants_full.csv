@@ -1,20 +1,20 @@
 slug,name,city,country,lat,lon,website,publishes_menu,lists,list_sources,website_source,coord_precision
 812otto-e-mezzo-bombana,81⁄2Otto e Mezzo Bombana,The Landmark Alexandra,HK,22.2815,114.159,http://www.ottoemezzobombana.com/,,michelin:2026:3;michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,wikidata,exact
-a-casa-do-porco,A Casa do Porco,São Paulo,,-23.5507,-46.6334,,,w50b:2025:83,theworlds50best.com,,city
+a-casa-do-porco,A Casa do Porco,São Paulo,,-23.5507,-46.6334,https://economictimes.indiatimes.com/,,w50b:2025:83,theworlds50best.com,search,city
 abac,ABaC,Barcelona – Sarrià-Sant Gervasi,ES,41.4108,2.1363,http://www.abacbarcelona.com/en/restaurant,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,wikidata,exact
 addison,Addison,San Diego,US,32.9415,-117.199,https://www.fairmont.com/san-diego/dining/addison/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in California@1374116755,osm,exact
 akelare,Akelaŕe,San Sebastián,ES,43.3078,-2.0432,http://www.akelarre.net/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,wikidata,exact
-al-gatto-verde,Al Gatto Verde,Modena,IT,44.6096,10.9807,,,michelin:2026:1;w50b:2025:92,wikipedia:List of Michelin-starred restaurants in Italy@1377735762;theworlds50best.com,,exact
+al-gatto-verde,Al Gatto Verde,Modena,IT,44.6096,10.9807,https://reportergourmet.com/,,michelin:2026:1;w50b:2025:92,wikipedia:List of Michelin-starred restaurants in Italy@1377735762;theworlds50best.com,search,exact
 alain-ducasse-at-the-dorchester,Alain Ducasse at The Dorchester,Westminster,GB,51.5072,-0.1525,https://www.alainducasse-dorchester.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,wikidata,exact
 alcalde,Alcalde,Jalisco–Guadalajara,MX,20.6794,-103.3898,https://alcalde.com.mx/,,michelin:2026:1;w50b:2025:51,wikipedia:List of Michelin-starred restaurants in Mexico@1379992607;theworlds50best.com,wikidata,exact
 alchemist,Alchemist,Copenhagen,DK,55.69,12.61,https://alchemist.dk/,true,michelin:2026:2;w50b:2025:5,wikipedia:List of Michelin-starred restaurants in Denmark@1359685069;theworlds50best.com,seed,exact
-alleno-parisau-pavillon-ledoyen,Alléno Parisau Pavillon Ledoyen,Paris – 8th Élysée,FR,48.8589,2.32,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,,city
-am-par-alexandre-mazzia,AM par Alexandre Mazzia,Bouches-du-Rhône – Marseille,FR,43.5424,5.0343,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in France@1348771427,,city
+alleno-parisau-pavillon-ledoyen,Alléno Parisau Pavillon Ledoyen,Paris – 8th Élysée,FR,48.8589,2.32,https://frenchglimpses.wordpress.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,search,city
+am-par-alexandre-mazzia,AM par Alexandre Mazzia,Bouches-du-Rhône – Marseille,FR,43.5424,5.0343,https://reportergourmet.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in France@1348771427,search,city
 amador,Amador,Vienna – Döbling,AT,48.2539,16.3586,https://www.restaurant-amador.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,osm,exact
 amber,Amber,"The Landmark, Mandarin Oriental",HK,22.2812,114.158,http://www.mandarinoriental.com/landmark/dining/amber/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,wikidata,exact
-amisfield,Amisfield,Queenstown,NZ,-44.9866,168.8158,,,michelin:2026:1;w50b:2025:99,wikipedia:List of Michelin-starred restaurants in New Zealand@1362938517;theworlds50best.com,,exact
+amisfield,Amisfield,Queenstown,NZ,-44.9866,168.8158,https://economictimes.indiatimes.com/,,michelin:2026:1;w50b:2025:99,wikipedia:List of Michelin-starred restaurants in New Zealand@1362938517;theworlds50best.com,search,exact
 aponiente,Aponiente,El Puerto de Santa María,ES,36.6031,-6.2164,https://www.aponiente.com/,,michelin:2026:3;w50b:2025:84,wikipedia:List of Michelin-starred restaurants in Spain@1367812983;theworlds50best.com,osm,exact
-arca,Arca,Tulum,,20.4296,-87.6529,,,w50b:2025:67,theworlds50best.com,,city
+arca,Arca,Tulum,,20.4296,-87.6529,https://economictimes.indiatimes.com/,,w50b:2025:67,theworlds50best.com,search,city
 arpege,Arpège,Paris,FR,48.86,2.32,https://www.alain-passard.com/,true,michelin:2026:3;w50b:2025:45,wikipedia:List of Michelin-starred restaurants in Paris@1375922015;theworlds50best.com,seed,exact
 arzak,Arzak,San Sebastián,ES,43.3211,-1.9492,http://www.arzak.info/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,wikidata,exact
 asador-etxebarri,Asador Etxebarri,Axpe,,43.12,-2.60,https://www.asadoretxebarri.com/,false,w50b:2025:2,theworlds50best.com,seed,exact
@@ -24,7 +24,7 @@ atelier-moessmer-norbert-niederkofler,Atelier Moessmer Norbert Niederkofler,Brun
 atomix,Atomix,New York,US,40.74,-73.98,https://www.atomixnyc.com/,true,michelin:2025:2;w50b:2025:12,wikipedia:List of Michelin-starred restaurants in New York City@1376715996;theworlds50best.com,seed,exact
 atrio,Atrio,Cáceres,ES,39.4731,-6.3714,http://www.restauranteatrio.com,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
 auberge-du-vieux-puits,Auberge du Vieux Puits,Aude – Fontjoncouse,FR,43.0486,2.7886,https://www.aubergeduvieuxpuits.fr/fr/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in France@1348771427,osm,exact
-azabu-yukimura,Azabu Yukimura,Tokyo – Minato,JP,35.6573,139.7329,,,michelin:2020:3;michelin:2010:3,wikipedia:List of Michelin-starred restaurants in Tokyo@1361981522,,exact
+azabu-yukimura,Azabu Yukimura,Tokyo – Minato,JP,35.6573,139.7329,https://elitetraveler.com/,,michelin:2020:3;michelin:2010:3,wikipedia:List of Michelin-starred restaurants in Tokyo@1361981522,search,exact
 azurmendi,Azurmendi,Larrabetzu,ES,43.2597,-2.8117,https://www.azurmendi.biz/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
 bareiss,Bareiss,Baiersbronn,DE,48.5208,8.3268,https://www.bareiss.com,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
 belcanto,Belcanto,Lisbon,PT,38.71,-9.1414,https://belcanto.pt/,,michelin:2026:2;w50b:2025:42,wikipedia:List of Michelin-starred restaurants in Portugal@1379738728;theworlds50best.com,w50b,exact
@@ -35,17 +35,17 @@ bozar-restaurant,Bozar Restaurant,Brussels,BE,50.8442,4.3578,https://bozarrestau
 burnt-ends,Burnt Ends,Central Region - Tanglin,SG,1.3044,103.8091,https://burntends.com.sg/,,michelin:2026:1;w50b:2025:93,wikipedia:List of Michelin-starred restaurants in Singapore@1379530352;theworlds50best.com,osm,exact
 ca-cento-sento,Ca Cento/Sento,Kobe,JP,34.6932,135.1944,,,michelin:2016:3,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,,city
 californios,Californios,San Francisco – Mission District,US,37.7714,-122.413,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in California@1374116755,,exact
-caprice,Caprice,Four Seasons,HK,22.2863,114.157,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,,exact
+caprice,Caprice,Four Seasons,HK,22.2863,114.157,https://www.sassymamahk.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,search,exact
 casa-marcial,Casa Marcial,Arriondas,ES,43.4184,-5.1931,https://www.casamarcial.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
 casa-perbellini-12-apostoli,Casa Perbellini 12 Apostoli,Verona,IT,45.4427,10.9961,https://www.casaperbellini.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
 celele,Celele,Cartagena,CO,10.4224,-75.5446,https://celelerestaurante.com/,,w50b:2025:48,theworlds50best.com,w50b,exact
 cenador-de-amos,Cenador de Amós,Villaverde de Pontones,ES,43.4125,-3.6991,https://www.cenadordeamos.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
-cesar,César,Manhattan – Hudson Square,US,40.758,-73.9855,,,michelin:2025:2;w50b:2025:98,wikipedia:List of Michelin-starred restaurants in New York City@1376715996;theworlds50best.com,,city
+cesar,César,Manhattan – Hudson Square,US,40.758,-73.9855,https://www.snapchat.com/,,michelin:2025:2;w50b:2025:98,wikipedia:List of Michelin-starred restaurants in New York City@1376715996;theworlds50best.com,search,city
 chef-tam-s-seasons,Chef Tam's Seasons,Wynn Palace,HK,22.3492,114.1858,,,michelin:2026:2;w50b:2025:72,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612;theworlds50best.com,,country
 chihana,Chihana,Kyoto,JP,35.0116,135.7681,https://www.kyotochihana.com/,,michelin:2016:3,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,wikidata-name,city
 christopher-coutanceau,Christopher Coutanceau,Charente-Maritime – La Rochelle,FR,46.1553,-1.16,https://christophercoutanceau.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in France@1348771427,osm,exact
 cocina-hermanos-torres,Cocina Hermanos Torres,Barcelona – Les Corts,ES,41.3865,2.1401,https://cocinahermanostorres.com/ca/,,michelin:2026:3;w50b:2025:78,wikipedia:List of Michelin-starred restaurants in Spain@1367812983;theworlds50best.com,wikidata,exact
-coda,Coda,Bangkok,TH,13.7525,100.4935,,,michelin:2026:1;w50b:2025:79,wikipedia:List of Michelin-starred restaurants in Thailand@1340482452;theworlds50best.com,,city
+coda,Coda,Bangkok,TH,13.7525,100.4935,https://elitetraveler.com/,,michelin:2026:1;w50b:2025:79,wikipedia:List of Michelin-starred restaurants in Thailand@1340482452;theworlds50best.com,search,city
 coi,Coi,North Beach,US,37.7981,-122.4035,,,michelin:2018:3,wikipedia:List of Michelin-starred restaurants in California@1374116755,,exact
 core,CORE by Clare Smyth,London,GB,51.51,-0.21,https://corebyclaresmyth.com/,true,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,seed,exact
 da-vittorio,Da Vittorio,Brusaporto,IT,45.6772,9.7703,https://www.davittorio.com/ristoranti/da-vittorio.html,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
@@ -59,14 +59,14 @@ el-celler-de-can-roca,El Celler de Can Roca,Girona,ES,41.9934,2.8083,https://cel
 el-chato,El Chato,Bogotá,CO,4.6479,-74.0571,https://elchato.co/,,w50b:2025:54,theworlds50best.com,osm,exact
 eleven-madison-park,Eleven Madison Park,Manhattan – Midtown South,US,40.7417,-73.9872,http://www.elevenmadisonpark.com,,michelin:2025:3,wikipedia:List of Michelin-starred restaurants in New York City@1376715996,wikidata,exact
 elkano,Elkano,Getaria,ES,43.303,-2.205,https://www.restauranteelkano.com/,,michelin:2026:1;w50b:2025:24,wikipedia:List of Michelin-starred restaurants in Spain@1367812983;theworlds50best.com,w50b,exact
-enclos,Enclos,Sonoma,US,38.2915,-122.4559,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in California@1374116755,,exact
+enclos,Enclos,Sonoma,US,38.2915,-122.4559,https://www.sonomanews.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in California@1374116755,search,exact
 enigma,Enigma,Barcelona – Eixample,ES,41.3767,2.1541,https://enigmaconcept.es/,,michelin:2026:2;w50b:2025:34,wikipedia:List of Michelin-starred restaurants in Spain@1367812983;theworlds50best.com,w50b,exact
 enoteca-pinchiorri,Enoteca Pinchiorri,Florence,IT,43.77,11.2622,http://enotecapinchiorri.it/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,wikidata,exact
-enrico-bartolini-al-mudec,Enrico Bartolini al Mudec,Milan – Municipio 6,IT,45.4517,9.1614,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,,exact
-epicure,Épicure,Paris – 8th Élysée,FR,48.8717,2.3148,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,,exact
-es-senz,ES:SENZ,Upper Bavaria – Grassau,DE,48.2406,11.9699,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,,city
+enrico-bartolini-al-mudec,Enrico Bartolini al Mudec,Milan – Municipio 6,IT,45.4517,9.1614,https://ifdm.design/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,search,exact
+epicure,Épicure,Paris – 8th Élysée,FR,48.8717,2.3148,https://spearswms.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,search,exact
+es-senz,ES:SENZ,Upper Bavaria – Grassau,DE,48.2406,11.9699,https://foodle.pro/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,search,city
 esaki,Esaki,Tokyo – Shibuya,JP,36.4979,138.6338,https://en.esaki-yatsugatake.com/,,michelin:2010:3,wikipedia:List of Michelin-starred restaurants in Tokyo@1361981522,wikidata-name,exact
-evvai,Evvai,São Paulo,BR,-23.5671,-46.679,,,michelin:2026:3;w50b:2025:95,wikipedia:List of Michelin-starred restaurants in Brazil@1349042537;theworlds50best.com,,exact
+evvai,Evvai,São Paulo,BR,-23.5671,-46.679,https://evendo.com/,,michelin:2026:3;w50b:2025:95,wikipedia:List of Michelin-starred restaurants in Brazil@1349042537;theworlds50best.com,search,exact
 flocons-de-sel,Flocons de Sel,Haute-Savoie – Megève,FR,45.8303,6.597,,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in France@1348771427,,exact
 florilege,Florilège,Tokyo – Minato,JP,35.6769,139.7639,https://www.aoyama-florilege.jp/,,michelin:2026:2;w50b:2025:36,wikipedia:List of Michelin-starred restaurants in Tokyo@1361981522;theworlds50best.com,w50b,city
 forum-restaurant,Forum Restaurant,Sino Plaza,HK,22.2813,114.182,http://www.forumrestaurant1977.com/,,michelin:2026:3,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,wikidata,exact

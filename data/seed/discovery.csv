@@ -6,6 +6,7 @@ slug,status,score,kind,menu_url,stored,note,checked
 33-the-homend,menu_found,25,html,https://www.33thehomendledbury.co.uk/about,1,,2026-10-15
 7132-silver,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""http://www.7132.com/"", waiting until ""networkidle""",2026-10-15
 812otto-e-mezzo-bombana,no_menu_found,2,,https://www.ottoemezzobombana.com/,,1 menu-like links,2026-10-15
+a-casa-do-porco,menu_maybe,5,html,https://economictimes.indiatimes.com/news/new-updates/navratri-2026-day-6-colour-maa-katyayani-puja-vidhi-bhog-fasting-foods-mantra-and-wishes-to-share-on-whatsapp/articleshow/134968654.cms,1,,2026-10-15
 a-cozinha,no_menu_found,1,,https://restauranteacozinha.pt/,,0 menu-like links,2026-10-15
 a-wong,menu_found,84,html,https://www.awong.co.uk/menu/,1,,2026-10-15
 aan-de-poel,menu_found,27,html,https://aandepoel.nl/menu-and-wines/,1,,2026-10-15
@@ -31,6 +32,7 @@ akelare,menu_found,33,html,https://akelarre.net/en/menus/,1,,2026-10-15
 akme,no_menu_found,3,,https://www.akme.dk/menu,,1 menu-like links,2026-10-15
 akoko,menu_maybe,7,html,https://akoko.co.uk/,1,,2026-10-15
 akrame,no_menu_found,1,,https://www.akrame.com/,,0 menu-like links,2026-10-15
+al-gatto-verde,menu_found,19,html,https://reportergourmet.com/en/news/10665-where-to-eat-the-6-best-burgers-according-to-michelin-when-fast-food-becomes-haute-cuisine,1,,2026-10-15
 al-madrigale,menu_found,22,pdf,https://almadrigale.it/wp-content/uploads/2026/03/ENG-Al-Madrigale-Menu-Marzo-2026.pdf,1,,2026-10-15
 al-sorriso,menu_found,14,html,https://www.alsorriso.com/it/menu/,1,,2026-10-15
 alain-ducasse-at-the-dorchester,menu_found,18,pdf,https://www.alainducasse-dorchester.com/wp-content/uploads/2026/07/Alain-Ducasse-at-The-Dorchester-Harmonie-Menu-2.pdf,1,,2026-10-15
@@ -46,6 +48,7 @@ alinea,no_menu_found,0,,https://www.alinearestaurant.com/,,0 menu-like links,202
 alkimia,menu_maybe,5,html,https://alkimia.cat,1,,2026-10-15
 all-oro,menu_found,34,html,https://www.ristorantealloro.it/menu/?lang=en,1,,2026-10-15
 alla-prima,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
+alleno-parisau-pavillon-ledoyen,failed,0,,,,FetchError: https://frenchglimpses.wordpress.com/: HTTP 403,2026-10-15
 alliance,menu_maybe,5,pdf,https://www.restaurant-alliance.fr/media/original/6729eecaf370c/alliance_re-servation-de-groupe.pdf,1,,2026-10-15
 allium,menu_maybe,11,html,https://www.restaurant-allium.fr/fr/menu-restaurant-allium.html,1,,2026-10-15
 alma,menu_found,35,pdf,https://cdn.prod.website-files.com/68371d8df5075bf762b0958b/68ff852f3fe8ce6306f57fd4_OUT25_ALMA_EMENTA_PRINCIPAL_DEGUSTACAO_EN.pdf,1,,2026-10-15
@@ -58,6 +61,7 @@ alpenroyal-gourmet-restaurant,no_menu_found,0,,https://www.valgardena.it/en/addr
 alt-wyk,menu_maybe,9,html,https://www.alt-wyk.de/menue,1,,2026-10-15
 alte-schule,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 alte-uberfahrt,menu_maybe,10,pdf,https://www.alte-ueberfahrt.de/wp-content/uploads/2021/06/neue-speisekarte-januar-2026-mit-1-3zg-dessert-1.pdf,1,,2026-10-15
+am-par-alexandre-mazzia,menu_found,19,html,https://reportergourmet.com/en/news/10665-where-to-eat-the-6-best-burgers-according-to-michelin-when-fast-food-becomes-haute-cuisine,1,,2026-10-15
 amador,menu_maybe,7,html,https://restaurant-amador.com/menue/,1,,2026-10-15
 amarone,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.restaurantamarone.nl/"", waiting until ""networkidle""",2026-10-15
 amaya,menu_found,38,html,https://www.amaya.biz/menu/,1,,2026-10-15
@@ -65,6 +69,7 @@ amber,no_menu_found,4,,https://www.mandarinoriental.com/en/hong-kong/the-landmar
 ambivium,menu_found,34,html,https://www.restauranteambivium.com/en/menu-degustacion-eng/,1,,2026-10-15
 ambroisie,menu_found,21,html,https://www.ambroisie-paris.com/,1,,2026-10-15
 amicis,menu_found,23,pdf,https://www.restaurant-amicis.fr/media/original/691611102a37a/menu_bistrot_amicis_fr.pdf,1,,2026-10-15
+amisfield,menu_maybe,5,html,https://economictimes.indiatimes.com/news/new-updates/navratri-2026-day-6-colour-maa-katyayani-puja-vidhi-bhog-fasting-foods-mantra-and-wishes-to-share-on-whatsapp/articleshow/134968654.cms,1,,2026-10-15
 ando,menu_found,32,pdf,https://www.andohk.com/s/_Dinner-Menu-1.pdf,1,,2026-10-15
 andrea-aprea,menu_found,41,pdf,https://www.andreaaprea.com/site/wp-content/uploads/2026/06/Per-sito-pranzo-e-cena-bistrot.pdf,1,,2026-10-15
 angler,menu_found,36,html,https://anglerrestaurants.com/menu/dinner,1,,2026-10-15
@@ -87,6 +92,7 @@ arbor,menu_found,13,pdf,https://www.arbor-hk.com/_files/ugd/3c7f99_5f0fd5ebb4384
 arbore-da-veira,menu_found,12,html,https://arboredaveira.com/,1,,2026-10-15
 arbore-sens,menu_found,13,html,https://restaurant-arbore-et-sens.fr/carte-menus/,1,,2026-10-15
 arc,menu_maybe,6,pdf,https://www.arcrestaurant.de/_files/ugd/e2af32_e7eec3c375e74b2b9dd94b24e0c0dde4.pdf,1,,2026-10-15
+arca,menu_maybe,5,html,https://economictimes.indiatimes.com/news/new-updates/navratri-2026-day-6-colour-maa-katyayani-puja-vidhi-bhog-fasting-foods-mantra-and-wishes-to-share-on-whatsapp/articleshow/134968654.cms,1,,2026-10-15
 aro,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 arpege,hand_recipe,,,,,,
 arrea,no_menu_found,2,,https://arrea.eus/,,0 menu-like links,2026-10-15
@@ -144,6 +150,7 @@ aux-pesked,menu_found,14,html,https://www.auxpesked.com/les-menus/,1,,2026-10-15
 aux-terrasses,no_menu_found,1,,https://www.aux-terrasses.com/fr/,,0 menu-like links,2026-10-15
 avant-garde-van-groeninge,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""http://www.restaurantavantgarde.nl/"", waiting until ""networkidle""",2026-10-15
 avery,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
+azabu-yukimura,menu_maybe,8,html,https://elitetraveler.com/food-and-drink/food/plaza-athenee-la-grande-table-fine-dining,1,,2026-10-15
 azurmendi,failed,0,,,,"Error: Page.goto: net::ERR_CERT_DATE_INVALID at https://www.azurmendi.biz/ Call log: - navigating to ""https://www.azurmendi.biz/"", waiting until ""networkidle""",2026-10-15
 baba,no_menu_found,1,,https://baba.wroclaw.pl/wp-content/uploads/2026/09/BABA-JEDZENIE-PL-09.2026-1.pdf,,1 menu-like links,2026-10-15
 babel,no_menu_found,1,,https://babel-budapest.hu/,,1 menu-like links,2026-10-15
@@ -252,6 +259,7 @@ can-jubany,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call 
 candlenut,failed,0,,,,"Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.candlenut.com.sg/ Call log: - navigating to ""http://www.candlenut.com.sg/"", waiting until ""networkidle""",2026-10-15
 cap-aureo,menu_found,73,pdf,https://res.cloudinary.com/maistra/image/upload/v1789975689/Pdf%20and%20doc/New%20Website%20v2/Restaurants/Cap%20Aureo/21.09.26/Maistra_GPHR_Cap_Aureo_hrana_web_GB_2026_asxtzr.pdf,1,,2026-10-15
 capriccio,menu_found,14,html,https://ristorantecapriccio.it/menu/,1,,2026-10-15
+caprice,bot_blocked,0,,,,cloudflare: https://www.sassymamahk.com/: HTTP 403,2026-10-15
 caracol,no_menu_found,1,,https://caracolgourmet.it/,,0 menu-like links,2026-10-15
 carcasse,menu_found,13,html,https://www.carcasse.be/en-gb/menu,1,,2026-10-15
 carelshaven,menu_maybe,10,pdf,https://mediabrandtstudio.storage.googleapis.com/wp-content/uploadsvanberkel/sites/6/2026/10/01055509/Menukaart-Carelshaven-oktober-2026-website.pdf,1,,2026-10-15
@@ -281,6 +289,7 @@ cenador-de-amos,no_menu_found,0,,https://cenadordeamos.com/,,0 menu-like links,2
 centauro,menu_found,21,html,https://centaurorestaurant.com/menu-degustacion-en/?lang=en,1,,2026-10-15
 centpourcent,no_menu_found,0,,https://www.centpourcent.be/nl/de-kaart/,,3 menu-like links,2026-10-15
 central-park,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.centralparkvoorburg.com/"", waiting until ""networkidle""",2026-10-15
+cesar,no_menu_found,3,,https://www.snapchat.com/local/united-states/texas/houston/late-night-food,,1 menu-like links,2026-10-15
 chambers,menu_found,29,html,https://www.chambers.nyc/menu-dropdown,1,,2026-10-15
 chapeau,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""http://www.restaurantchapeau.nl/"", waiting until ""networkidle""",2026-10-15
 chapter-one-dublin,menu_found,23,html,https://chapteronerestaurant.com/lunch-menu/,1,,2026-10-15
@@ -320,6 +329,7 @@ cob,no_menu_found,3,,https://cob.si/,,0 menu-like links,2026-10-15
 cocina-de-autor-los-cabos,menu_maybe,9,pdf,https://assets.milestoneinternet.com/grand-velas-parent/los-cabos/website-assets/pdf/gvlc-de-gv-bebidas-todo-incluido-2.pdf,1,,2026-10-15
 cocina-hermanos-torres,failed,0,,,,Error: Page.content: Unable to retrieve content because the page is navigating and changing the content.,2026-10-15
 cocinandos,menu_found,21,html,https://www.cocinandos.com/menus/,1,,2026-10-15
+coda,menu_maybe,8,html,https://elitetraveler.com/food-and-drink/food/plaza-athenee-la-grande-table-fine-dining,1,,2026-10-15
 codium,no_menu_found,3,,https://restaurantcodium.nl/menu/,,1 menu-like links,2026-10-15
 comice,no_menu_found,4,,https://comice.paris/,,0 menu-like links,2026-10-15
 comme-chez-soi,menu_found,17,pdf,https://www.commechezsoi.be/_files/ugd/dd8c4c_001196ca42f449a19c1d48e0e781499e.pdf,1,,2026-10-15
@@ -479,19 +489,23 @@ emporium,menu_found,23,pdf,https://www.emporiumhotel.com/assets/uploads/menu-cas
 en-la-parra,menu_found,17,html,https://restaurantenlaparra.com/menus/,1,,2026-10-15
 en-pleine-nature,no_menu_found,1,,https://www.en-pleine-nature.com/,,0 menu-like links,2026-10-15
 encanto,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.encantojoseavillez.pt/"", waiting until ""networkidle""",2026-10-15
+enclos,opted_out,31,html,https://www.sonomanews.com/2026/08/31/favorite-restaurants-for-middle-eastern-food-in-sonoma-county/,,tdm-reservation,2026-10-15
 endo-at-the-rotunda,no_menu_found,0,,https://www.endoatrotunda.com/omakase,,1 menu-like links,2026-10-15
 enfin,menu_maybe,5,pdf,https://www.enfin-barr.com/wp-content/uploads/2025/12/Carte-des-vins-OKay.pdf,1,,2026-10-15
 enigma,no_menu_found,0,,https://enigmaconcept.es/,,0 menu-like links,2026-10-15
 enigma-yorkville,menu_found,74,html,https://www.enigmayorkville.com/menu/,1,,2026-10-15
 enoteca-pinchiorri,menu_found,22,html,http://enotecapinchiorri.it/menu.php,1,,2026-10-15
+enrico-bartolini-al-mudec,bot_blocked,0,,,,cloudflare: https://ifdm.design/: HTTP 403,2026-10-15
 ente,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 entree,no_menu_found,1,,https://www.entree-restaurant.cz/menu,,1 menu-like links,2026-10-15
 epicentre,no_menu_found,0,,https://restaurant-epicentre.com/,,0 menu-like links,2026-10-15
+epicure,menu_found,27,html,https://spearswms.com/luxury/luna-omakase-the-citys-most-rewarding-dining-adventure/,1,,2026-10-15
 epilogo,no_menu_found,0,,https://www.salonesepilogo.com/,,0 menu-like links,2026-10-15
 epur,failed,0,,,,"Error: Page.goto: net::ERR_CERT_DATE_INVALID at http://www.epur.pt/ Call log: - navigating to ""http://www.epur.pt/"", waiting until ""networkidle""",2026-10-15
 equilibrio,no_menu_found,4,,https://equilibrioristorante.com/teste/food-wine/,,1 menu-like links,2026-10-15
 erbprinz,no_menu_found,0,,https://www.erbprinz.de/de,,0 menu-like links,2026-10-15
 ergo,menu_found,37,html,https://www.restaurantergo.se/menu,1,,2026-10-15
+es-senz,bot_blocked,0,,,,cloudflare: https://foodle.pro/: HTTP 403,2026-10-15
 esaki,no_menu_found,0,,https://en.esaki-yatsugatake.com/,,0 menu-like links,2026-10-15
 escondidinho,no_menu_found,2,,https://escondidinho.pt/,,0 menu-like links,2026-10-15
 espadon,failed,0,,,,"Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://fr.ritzparis.com/ Call log: - navigating to ""https://fr.ritzparis.com/"", waiting until ""networkidle""",2026-10-15
@@ -508,6 +522,7 @@ etude,no_menu_found,1,,https://etude-aix.fr/en,,1 menu-like links,2026-10-15
 etxebarri,no_menu_found,0,,https://www.asadoretxebarri.com/,,0 menu-like links,2026-10-15
 europea,no_menu_found,0,,https://jeromeferrer.ca/le-comptoir-cuisine/,,1 menu-like links,2026-10-15
 ever,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
+evvai,no_menu_found,0,,https://evendo.com/,,0 menu-like links,2026-10-15
 eyval,no_menu_found,0,,,,home page has almost no text without JavaScript,2026-10-15
 facil,menu_found,12,pdf,https://www.facil.de/site/assets/files/53841/2_menu.pdf,1,,2026-10-15
 fagn,menu_found,17,html,https://fagn.no/2024/05/30/saturday-lunch-at-fagn-bistro/,1,,2026-10-15
