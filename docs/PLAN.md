@@ -28,7 +28,7 @@ This first slice proves the hard parts on about 30 restaurants before any web ap
 | Extraction | In Claude Code sessions (subscription), not the API. No `ANTHROPIC_API_KEY`. |
 | Where work runs | Cloud sessions have no Postgres access; they exchange work with Actions through the `snapshots` bucket (`pending/`, `extracted/`). |
 | Repo | Code will be public. Data stays private (Neon) and never goes in the repo. |
-| Scope now | Pipeline and analysis notebook. No web app yet. |
+| Scope now | Pipeline and analysis notebook, plus a static site (revised 2026-10-15, see "Website"). |
 
 ## Legal / content stance (not legal advice; get a review before public launch)
 
@@ -56,6 +56,15 @@ Cloud Claude Code sessions only allow HTTPS out, through a proxy. Object storage
 | **Local machine** | Occasional manual work: migrations, ad-hoc queries, `smoke`. | Yes |
 
 Extracted data reaches Postgres on the next Actions run (scheduled, or a manual `workflow_dispatch`). Raw menus and extraction output stay in the private bucket and never enter the repo. Neon's SQL-over-HTTPS API is the fallback if this round trip becomes a problem, at the cost of a second database code path.
+
+## Website (started 2026-10-15)
+
+Marcus revised "no web app yet" on 2026-10-15: start a front-end now, as a GitHub Pages site.
+
+- **Static, client-side.** `site/` is plain HTML, CSS and JS with no build step. It loads one `data/data.json` and does search, filters (region, hemisphere-adjusted season, minimum restaurants) and charts in the browser. See `site/README.md`.
+- **`menudb export-site --source synthetic|bucket|db`** (`src/menudb/site.py`) writes that JSON from the same `analysis.py` statistics as the notebook: ingredient shares overall, by region and by season; preparations per ingredient; pairs with lift/PMI seen at 2+ restaurants; coverage; restaurant name, city, region and website link. No course text and no per-course grouping, which would rebuild dishes.
+- **`.github/workflows/site.yml`** builds the site from the synthetic fixture and uploads it as a workflow artifact. It does not deploy to Pages and never reads real data. `site/data/` is gitignored.
+- **Not yet decided: publishing real data.** A Pages site is public and can't be taken back once crawled or archived. Real data would expose which seed restaurants publish menus, the full ingredient and preparation list for each one, and region/season shares that, with one or two restaurants per region, are close to that restaurant's own menu. The legal stance above asks for a review before public launch. Turning on Pages with real data waits on Marcus.
 
 ## Data model (see `src/menudb/db/models.py`)
 
@@ -148,6 +157,7 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 5. ✅ `wayback.py` / `menudb backfill` (Actions `backfill.yml`, manual). Monthly distinct captures of each recipe's start page, replayed through `id_` URLs at about 1 request per second; the restaurant's current robots.txt and TDM still apply; `render: js` sources are skipped. web.archive.org resets connections from cloud sessions, so it has only run in tests so far.
 6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, `check`, `review apply`, `import --from-bucket`, `pending --to-bucket`, `review export`). Still to do: the repo secrets.
 7. ✅ Notebook `notebooks/01_pairings.ipynb` with the statistics in `src/menudb/analysis.py`: coverage, restaurant-weighted ingredient frequency (overall, by region, by season), and course-level pair lift/PMI with a minimum-restaurants threshold. Reads Postgres, the bucket's `extracted/` (no database), or a synthetic fixture (`scripts/make_synthetic_menus.py`); it has run on the synthetic data and, with `MENUDB_ANALYSIS_SOURCE=bucket`, on the first 20 extractions (too few restaurants yet for pairings to mean much).
+8. 🟡 Static site in `site/` (see "Website"): `menudb export-site` plus `site.yml`, which builds from synthetic data and doesn't deploy. Next: Marcus decides whether and when real data goes public on Pages.
 
 ## Verification
 

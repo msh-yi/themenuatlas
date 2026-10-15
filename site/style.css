@@ -1,0 +1,122 @@
+:root {
+  color-scheme: light;
+  --bg: #fcfcfb;
+  --surface: #ffffff;
+  --surface-2: #f3f2ef;
+  --border: #e2e0db;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --muted: #7a7974;
+  --accent: #2a78d6;
+  --accent-soft: #dbe8f8;
+  --warn-bg: #fff4d6;
+  --warn-text: #5c4300;
+  --radius: 8px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #1a1a19;
+    --surface: #222221;
+    --surface-2: #2b2b29;
+    --border: #3a3a37;
+    --text: #f0efec;
+    --text-2: #c3c2b7;
+    --muted: #9a998f;
+    --accent: #3987e5;
+    --accent-soft: #1f3550;
+    --warn-bg: #3d3214;
+    --warn-text: #f3dc9a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1a1a19; --surface: #222221; --surface-2: #2b2b29; --border: #3a3a37;
+  --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
+  --accent: #3987e5; --accent-soft: #1f3550; --warn-bg: #3d3214; --warn-text: #f3dc9a;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.45; font-size: 15px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
+h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
+.muted { color: var(--muted); }
+.sub { color: var(--text-2); margin: 0 0 1.25rem; }
+
+.top { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center;
+  padding: .9rem 16px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.brand { font-weight: 700; color: var(--text); font-size: 1.1rem; }
+.top nav { display: flex; flex-wrap: wrap; gap: .25rem; }
+.top nav a { color: var(--text-2); padding: .3rem .6rem; border-radius: 6px; }
+.top nav a.on { background: var(--accent-soft); color: var(--text); text-decoration: none; }
+
+.banner { background: var(--warn-bg); color: var(--warn-text); padding: .55rem 16px; font-size: .9rem; }
+main { max-width: 1080px; margin: 0 auto; padding: 1.5rem 16px 3rem; outline: none; }
+.foot { max-width: 1080px; margin: 0 auto; padding: 1rem 16px 2rem; color: var(--muted);
+  font-size: .85rem; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; margin-bottom: 1.5rem; }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .8rem 1rem; }
+.tile .v { font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .k { color: var(--text-2); font-size: .85rem; }
+
+.filters { display: flex; flex-wrap: wrap; gap: .5rem .75rem; align-items: end; margin-bottom: 1rem; }
+.filters label { display: flex; flex-direction: column; gap: .2rem; font-size: .8rem; color: var(--text-2); }
+input, select { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: .4rem .55rem; min-width: 0; }
+input[type="search"] { width: 16rem; max-width: 100%; }
+input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.25rem; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+.grid2 > .card { margin-bottom: 0; }
+.stack > * + * { margin-top: 1.25rem; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+th { color: var(--text-2); font-weight: 600; font-size: .8rem; white-space: nowrap; }
+th button { all: unset; cursor: pointer; }
+th button:focus-visible { outline: 2px solid var(--accent); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: var(--surface-2); }
+
+/* inline share bar in tables */
+.sbar { display: flex; align-items: center; gap: .5rem; min-width: 140px; }
+.sbar .track { flex: 1; height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.sbar .fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.sbar .val { width: 3.2rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--text-2); }
+
+/* horizontal bar chart */
+.bars { display: grid; grid-template-columns: max-content 1fr max-content; gap: .45rem .6rem; align-items: center; }
+.bars .lab { font-size: .88rem; color: var(--text-2); }
+.bars .track { height: 14px; background: var(--surface-2); border-radius: 0 4px 4px 0; position: relative; }
+.bars .fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bars .val { font-size: .85rem; font-variant-numeric: tabular-nums; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: .15rem .6rem; font-size: .85rem; }
+.chip .n { color: var(--muted); margin-left: .3rem; }
+
+svg text { fill: var(--text-2); font-size: 11px; }
+svg .grid { stroke: var(--border); stroke-width: 1; }
+svg .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+svg .dot.hl { fill: var(--text); }
+svg .hit { fill: transparent; cursor: pointer; }
+
+.tip { position: fixed; pointer-events: none; z-index: 10; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px; padding: .4rem .6rem; font-size: .85rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12); max-width: 260px; }
+.tip strong { display: block; font-variant-numeric: tabular-nums; }
+.empty { color: var(--muted); padding: 1rem 0; }
+.prose { max-width: 680px; }
+.prose li { margin-bottom: .35rem; }
+
+@media (max-width: 560px) {
+  h1 { font-size: 1.35rem; }
+  input[type="search"] { width: 100%; }
+  .filters label { flex: 1 1 140px; }
+}

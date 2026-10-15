@@ -1,0 +1,29 @@
+# Builds the static site in site/ from the synthetic fixture and uploads it as a
+# workflow artifact. It does not deploy to GitHub Pages and never reads real data:
+# publishing is public and can't be taken back (docs/PLAN.md, "Website").
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths: [site/**, src/menudb/site.py, src/menudb/analysis.py, tests/fixtures/synthetic_menus.json, .github/workflows/site.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --no-dev
+      - run: uv run menudb export-site --source synthetic --out site/data
+      - run: node --check site/app.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-synthetic
+          path: site/
+          retention-days: 14

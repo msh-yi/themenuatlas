@@ -456,3 +456,22 @@ def review_push(files: list[Path]):
         key = f"{review.DECISIONS}{stamp}-{f.stem}.json"
         storage.put_bytes(key, review.Decisions.dump_json(decisions), "application/json")
         typer.echo(f"{key}: {len(decisions)} decisions")
+
+
+@app.command("export-site")
+def export_site(
+    source: str = typer.Option("synthetic", help="synthetic | bucket | db"),
+    out: Path = typer.Option(Path("site/data"), help="directory for data.json (gitignored)"),
+    min_restaurants: int = typer.Option(2, help="drop pairs seen at fewer restaurants"),
+):
+    """Write aggregated JSON for the static site: no course text, derived data only."""
+    from menudb import site
+
+    root = Path(__file__).resolve().parents[2]
+    rows, restaurants, details, preps = site.load(source, root)
+    data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
+                      min_restaurants=min_restaurants)
+    path = site.write(data, out)
+    _summary("menudb export-site", {"source": source, **data["totals"], "bytes": path.stat().st_size})
+    if source != "synthetic":
+        typer.echo("real data: keep it out of the repo and don't publish it (docs/PLAN.md, Website)")

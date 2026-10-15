@@ -9,3 +9,5 @@ data/raw/
 .neon
 .env.local
 node_modules/
+# built by `menudb export-site`; real data never goes in the repo
+site/data/

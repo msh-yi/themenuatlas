@@ -2,56 +2,83 @@
  "restaurants": [
   {
    "slug": "syn-nordic-a",
+   "name": "Synthetic Nordic A",
+   "city": "Copenhagen",
    "country": "DK",
    "lat": 55.7,
+   "lon": 12.6,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-nordic-b",
+   "name": "Synthetic Nordic B",
+   "city": "Stockholm",
    "country": "SE",
    "lat": 59.3,
+   "lon": 18.1,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-france",
+   "name": "Synthetic France",
+   "city": "Paris",
    "country": "FR",
    "lat": 48.9,
+   "lon": 2.35,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-uk",
+   "name": "Synthetic UK",
+   "city": "London",
    "country": "GB",
    "lat": 51.5,
+   "lon": -0.13,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-japan-a",
+   "name": "Synthetic Japan A",
+   "city": "Tokyo",
    "country": "JP",
    "lat": 35.7,
+   "lon": 139.7,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-japan-b",
+   "name": "Synthetic Japan B",
+   "city": "Kyoto",
    "country": "JP",
    "lat": 35.0,
+   "lon": 135.8,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-australia",
+   "name": "Synthetic Australia",
+   "city": "Melbourne",
    "country": "AU",
    "lat": -37.8,
+   "lon": 145.0,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-peru",
+   "name": "Synthetic Peru",
+   "city": "Lima",
    "country": "PE",
    "lat": -12.1,
+   "lon": -77.0,
    "publishes_menu": "yes"
   },
   {
    "slug": "syn-no-menu",
+   "name": "Synthetic No Menu",
+   "city": "New York",
    "country": "US",
    "lat": 40.7,
+   "lon": -74.0,
    "publishes_menu": "no"
   }
  ],
@@ -72,7 +99,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -84,13 +114,17 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       }
      ]
     },
@@ -103,7 +137,9 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "leek",
@@ -115,7 +151,9 @@
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       },
       {
        "raw_term": "sea buckthorn",
@@ -134,7 +172,9 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "barley",
@@ -146,7 +186,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       }
      ]
     },
@@ -165,7 +207,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -178,7 +222,9 @@
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "rhubarb",
@@ -203,7 +249,9 @@
        "raw_term": "plum",
        "name": "plum",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "pickled"
+       ]
       }
      ]
     },
@@ -222,7 +270,10 @@
        "raw_term": "duck",
        "name": "duck",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dry-aged",
+        "roasted"
+       ]
       }
      ]
     }
@@ -244,25 +295,34 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       }
      ]
     },
@@ -275,25 +335,33 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       }
      ]
     },
@@ -306,7 +374,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "egg yolk",
@@ -325,13 +395,17 @@
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -391,13 +465,18 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "rhubarb",
@@ -422,7 +501,9 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "barley",
@@ -491,7 +572,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -532,7 +615,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -544,13 +630,17 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       }
      ]
     },
@@ -569,7 +659,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -601,7 +693,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       },
       {
        "raw_term": "shallot",
@@ -648,13 +742,18 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "rhubarb",
@@ -679,25 +778,34 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "duck",
        "name": "duck",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dry-aged",
+        "roasted"
+       ]
       },
       {
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       }
      ]
     },
@@ -710,7 +818,9 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "chicken",
@@ -722,7 +832,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -735,7 +847,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "sorrel",
@@ -773,13 +887,18 @@
        "raw_term": "duck",
        "name": "duck",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dry-aged",
+        "roasted"
+       ]
       },
       {
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       }
      ]
     },
@@ -820,25 +939,34 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -851,19 +979,25 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       },
       {
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       },
       {
        "raw_term": "venison",
@@ -901,7 +1035,9 @@
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "oyster",
@@ -967,7 +1103,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "egg yolk",
@@ -979,7 +1118,9 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "venison",
@@ -998,13 +1139,17 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "rhubarb",
@@ -1016,7 +1161,9 @@
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       }
      ]
     },
@@ -1029,7 +1176,9 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "hazelnut",
@@ -1041,7 +1190,9 @@
        "raw_term": "plum",
        "name": "plum",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "pickled"
+       ]
       }
      ]
     },
@@ -1054,7 +1205,9 @@
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       },
       {
        "raw_term": "pear",
@@ -1098,7 +1251,9 @@
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       }
      ]
     },
@@ -1111,7 +1266,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "chicken",
@@ -1139,25 +1296,34 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "plum",
        "name": "plum",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "pickled"
+       ]
       }
      ]
     },
@@ -1170,7 +1336,9 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "dill",
@@ -1182,7 +1350,9 @@
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       },
       {
        "raw_term": "venison",
@@ -1207,7 +1377,9 @@
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       }
      ]
     },
@@ -1220,7 +1392,9 @@
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "pear",
@@ -1258,7 +1432,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "venison",
@@ -1286,19 +1462,26 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       },
       {
        "raw_term": "rhubarb",
@@ -1317,13 +1500,17 @@
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       },
       {
        "raw_term": "rice",
        "name": "rice",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "steamed"
+       ]
       },
       {
        "raw_term": "sorrel",
@@ -1348,19 +1535,25 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       }
      ]
     },
@@ -1392,7 +1585,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "oyster",
@@ -1411,7 +1606,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "fennel",
@@ -1458,19 +1655,26 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "shallot",
@@ -1495,7 +1699,9 @@
        "raw_term": "rice",
        "name": "rice",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "steamed"
+       ]
       },
       {
        "raw_term": "turbot",
@@ -1605,13 +1811,18 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "leek",
@@ -1642,13 +1853,17 @@
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "rice",
        "name": "rice",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "steamed"
+       ]
       },
       {
        "raw_term": "uni",
@@ -1667,13 +1882,17 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "oyster",
@@ -1698,7 +1917,9 @@
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       }
      ]
     },
@@ -1736,7 +1957,10 @@
        "raw_term": "duck",
        "name": "duck",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dry-aged",
+        "roasted"
+       ]
       }
      ]
     },
@@ -1777,7 +2001,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -1789,7 +2016,9 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "turbot",
@@ -1820,7 +2049,9 @@
        "raw_term": "rice",
        "name": "rice",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "steamed"
+       ]
       },
       {
        "raw_term": "uni",
@@ -1858,7 +2089,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "dill",
@@ -1902,7 +2135,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     }
@@ -1924,7 +2159,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -1936,13 +2174,17 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       },
       {
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       }
      ]
     },
@@ -1955,7 +2197,9 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "fennel",
@@ -1967,13 +2211,17 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       },
       {
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       }
      ]
     },
@@ -1986,7 +2234,9 @@
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       },
       {
        "raw_term": "sorrel",
@@ -2005,7 +2255,9 @@
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "shallot",
@@ -2043,7 +2295,9 @@
        "raw_term": "celeriac",
        "name": "celeriac",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "salt-baked"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -2071,7 +2325,10 @@
        "raw_term": "beetroot",
        "name": "beetroot",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "roasted",
+        "pickled"
+       ]
       },
       {
        "raw_term": "cucumber",
@@ -2089,7 +2346,9 @@
        "raw_term": "horseradish",
        "name": "horseradish",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grated"
+       ]
       }
      ]
     },
@@ -2102,7 +2361,9 @@
        "raw_term": "brown butter",
        "name": "brown butter",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "emulsified"
+       ]
       },
       {
        "raw_term": "egg yolk",
@@ -2114,7 +2375,9 @@
        "raw_term": "scallop",
        "name": "scallop",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "seared"
+       ]
       },
       {
        "raw_term": "shallot",
@@ -2139,7 +2402,9 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "egg yolk",
@@ -2221,7 +2486,9 @@
        "raw_term": "mushroom",
        "name": "mushroom",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "fermented"
+       ]
       }
      ]
     }
@@ -2243,13 +2510,17 @@
        "raw_term": "lamb",
        "name": "lamb",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "smoked"
+       ]
       },
       {
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     },
@@ -2268,7 +2539,9 @@
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       }
      ]
     },
@@ -2287,7 +2560,9 @@
        "raw_term": "kelp",
        "name": "kelp",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "dashi"
+       ]
       }
      ]
     },
@@ -2300,7 +2575,9 @@
        "raw_term": "plum",
        "name": "plum",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "pickled"
+       ]
       },
       {
        "raw_term": "sorrel",
@@ -2328,13 +2605,17 @@
        "raw_term": "asparagus",
        "name": "asparagus",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "grilled"
+       ]
       },
       {
        "raw_term": "rye",
        "name": "rye",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "toasted"
+       ]
       },
       {
        "raw_term": "sea buckthorn",
@@ -2416,7 +2697,9 @@
        "raw_term": "potato",
        "name": "potato",
        "role": "main",
-       "preparations": []
+       "preparations": [
+        "confit"
+       ]
       }
      ]
     }

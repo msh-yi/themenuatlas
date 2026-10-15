@@ -1,0 +1,47 @@
+"""menudb export-site: aggregated JSON for the static site, built from the synthetic fixture."""
+
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+from menudb import site
+
+ROOT = Path(__file__).parents[1]
+
+
+def build():
+    rows, restaurants, details, preps = site.load("synthetic", ROOT)
+    return site.build(rows, restaurants, source="synthetic", details=details, preparations=preps,
+                      now=datetime(2026, 10, 15, tzinfo=timezone.utc))
+
+
+def test_bundle_shape_and_totals():
+    d = build()
+    assert d["schema"] == site.SCHEMA and d["source"] == "synthetic"
+    assert d["totals"]["restaurants"] == 9 and d["totals"]["restaurants_with_data"] == 8
+    assert d["totals"]["menus"] == 16
+    assert {"Japan", "Nordic", "US"} <= set(d["groups"]["region"])
+    names = {i["name"] for i in d["ingredients"]}
+    assert all(p["a"] in names and p["b"] in names for p in d["pairs"])
+    assert all(p["restaurants"] >= d["min_restaurants"] for p in d["pairs"])
+
+
+def test_planted_patterns_survive():
+    d = build()
+    ing = {i["name"]: i for i in d["ingredients"]}
+    assert set(ing["uni"]["by_region"]) == {"Japan"}
+    assert ing["uni"]["restaurants"] == ["syn-japan-a", "syn-japan-b"]
+    assert list(ing["beetroot"]["preparations"][0]) == ["roasted", 7]
+    top = {(p["a"], p["b"]) for p in d["pairs"][:3]}
+    assert top == {("rice", "uni"), ("brown butter", "scallop"), ("beetroot", "horseradish")}
+    r = {x["slug"]: x for x in d["restaurants"]}
+    assert r["syn-no-menu"]["menus"] == 0 and r["syn-japan-a"]["name"] == "Synthetic Japan A"
+
+
+def test_no_course_text_or_course_grouping(tmp_path):
+    d = build()
+    path = site.write(d, tmp_path)
+    text = path.read_text()
+    # the fixture's raw_text is "synthetic"; course text and positions never leave
+    assert "raw_text" not in text and '"position"' not in text and '"courses":[' not in text
+    assert json.loads(text)["totals"] == d["totals"]
