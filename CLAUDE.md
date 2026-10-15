@@ -27,6 +27,7 @@ uv run menudb seed               # data/seed/restaurants.csv + data/recipes/<slu
 uv run menudb check --limit 5
 uv run menudb backfill [slug...]     # Wayback history; needs Postgres and web.archive.org (Actions/local)
 uv run menudb probe [slug...]        # walk recipes with no database; --to-bucket stores raw files
+uv run menudb extract-io list          # extraction in a session: list/get/put via the bucket (docs/EXTRACTION.md)
 uv run playwright install --with-deps chromium   # only when a recipe uses render: js
 ```
 

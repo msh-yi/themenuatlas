@@ -97,12 +97,12 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 4. **Failures** (recipe drift, HTTP errors, robots.txt) increment `consecutive_failures`, and the run summary lists the failing sources.
 5. **Cadence adapts:** unchanged → interval ×1.5 (max 30 days); changed → interval ÷2 (min 3 days).
 
-**Extraction** (to build). Runs in a cloud session, not through the API, with the bucket as the handoff (see "Where work runs").
+**Extraction** (built 2026-10-15; conventions in `docs/EXTRACTION.md`). Runs in a cloud session, not through the API, with the bucket as the handoff (see "Where work runs"). Objects are keyed `<prefix>/<slug>/<normalized_hash>.json`, the same identity as a menu row, so a document can be queued and extracted before `check` has recorded it.
 
-- `menudb pending --to-bucket` (in Actions) writes one object per unextracted menu to `pending/<menu_id>.json`: id, language, text, or the snapshot key of the PDF/image.
-- The session reads `pending/`, and Claude produces JSON matching a pydantic `Menu` schema: courses, then components with raw term, suggested canonical English name, role and preparations, plus menu type, language and stated dates. It writes the result to `extracted/<menu_id>.json` and deletes the `pending/` object. A small `menudb extract-io` helper does the bucket reads and writes; it needs no database.
-- `menudb import --from-bucket` (in Actions) validates each `extracted/` object, writes courses and components, stamps `extraction_version` and the extractor name, then moves the object to `imported/`. `menudb import <json>` stays available for local use.
-- `ingredients.py` matches terms against aliases. Unmatched terms go to `review_queue`, and `menudb review` maps them.
+- `menudb pending --to-bucket` (in Actions) writes one `PendingItem` per unextracted menu to `pending/`: slug, menu id, kind, URL, storage key, and the text (or none for image-only documents). `--from-recipes` walks the recipes instead and needs no database, for use before `check` has run.
+- The session runs `menudb extract-io list/get/put`. Claude writes JSON matching the pydantic `ExtractedMenu` schema (`src/menudb/extract/schema.py`): courses, then components with raw term, canonical English name, role and preparations, plus menu type, language, price and stated period. `put` validates it, writes `extracted/`, and deletes the `pending/` object. No database needed.
+- `menudb import --from-bucket` (in Actions, after `check`) validates each `extracted/` object, replaces the menu's courses and components, stamps `extraction_version` and the extractor name, then moves the object to `imported/`. An extraction whose menu row doesn't exist yet stays in `extracted/` until it does. `menudb import <json>` stays available for local use.
+- `ingredients.py` matches terms against aliases, then canonical names. A new suggested name becomes an ingredient at once (with an alias for the raw term) and is logged in `review_queue` as `auto` for audit; terms with no suggestion wait as `open`. A `menudb review` command for mapping and auditing is still to build.
 - **Automating later:** a scheduled Claude Code routine (`/schedule`), or `claude-code-action` with a subscription token.
 
 **`menudb backfill [slug...]`** (built; runs in Actions `backfill.yml`)
@@ -111,10 +111,10 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 - Stores the results as `origin=wayback` snapshots.
 - Rate-limited to about 1 request per second.
 
-**GitHub Actions** (to build): `.github/workflows/check.yml`
+**GitHub Actions**: `.github/workflows/check.yml`
 
 - Triggers: daily cron plus `workflow_dispatch`.
-- Steps: uv, Playwright Chromium (cached), `menudb import --from-bucket`, `menudb check`, `menudb pending --to-bucket`.
+- Steps: uv, Playwright Chromium (cached), `menudb seed`, `menudb check`, `menudb import --from-bucket`, `menudb pending --to-bucket`. Import runs after check so extractions made before their menu row existed can match.
 - Secrets: `DATABASE_URL`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ENDPOINT_URL_S3`, `AWS_REGION`. Bulk-set them with `gh secret set -f <file>`.
 - Scheduled workflows on public repos are disabled after 60 days without repo activity.
 
@@ -143,10 +143,10 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 1. ✅ Scaffold: uv project, config, Alembic schema (applied to Neon), storage, CLI (`seed`, `check`, `smoke`), tests.
 2. ✅ Fetcher (robots/TDM/rate limit/conditional GET), normalization, recipe runner, `check` pipeline. 19 tests pass.
 3. ✅ Seed CSV committed (34 restaurants). Recipes for 15 restaurants (20 sources) in `data/recipes/`, with coverage notes in `data/recipes/README.md`. `menudb probe` walks recipes without a database; on 2026-10-15 all sources resolved and their raw documents were stored in the bucket from a cloud session.
-   ⏭ **Next:** add the Actions secrets and run `check.yml` once by hand (`seed`, then `check`). Then extraction (step 4).
-4. Extraction in sessions via the bucket handoff (`pending --to-bucket` / `extract-io` / `import --from-bucket` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
+   ⏭ **Next:** add the Actions secrets and run `check.yml` once by hand. That records the menus, imports the 20 extractions already in `extracted/`, and queues anything new.
+4. 🟡 Extraction via the bucket handoff: `pending` / `extract-io` / `import` built and tested offline. On 2026-10-15 a cloud session queued the 20 documents the recipes fetch (`pending --from-recipes`) and extracted all 20 into `extracted/`: 14 menus with dishes (213 courses, 766 components), 6 marked not-a-menu (landing pages without dishes, Brae's harvest list). A trial import into embedded Postgres matched every component. Still to do: `menudb review`, and the 5-menu hand-labeled evaluation (target ≥0.85 ingredient recall).
 5. ✅ `wayback.py` / `menudb backfill` (Actions `backfill.yml`, manual). Monthly distinct captures of each recipe's start page, replayed through `id_` URLs at about 1 request per second; the restaurant's current robots.txt and TDM still apply; `render: js` sources are skipped. web.archive.org resets connections from cloud sessions, so it has only run in tests so far.
-6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, then `check`). Still to do: the repo secrets, and the `import --from-bucket` / `pending --to-bucket` steps once those commands exist.
+6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, `check`, `import --from-bucket`, `pending --to-bucket`). Still to do: the repo secrets.
 7. Notebook.
 
 ## Verification
