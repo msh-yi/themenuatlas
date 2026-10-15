@@ -39,3 +39,23 @@ uv run menudb extract-io schema                       # the JSON schema
 ## Import
 
 `menudb import --from-bucket` (Actions) matches each component to an ingredient: an alias of the raw term first, then a canonical name equal to `name`. A new `name` becomes a new ingredient at once, and the term goes to `review_queue` with status `auto` so a human can audit it later. Terms with no `name` wait as `open`.
+
+## Review
+
+Review goes through the bucket the same way. `check.yml` runs `review apply --from-bucket` before import and `review export --to-bucket` at the end.
+
+```bash
+uv run menudb review pull --out <scratch>     # review/queue.json: term, language, status, suggested and current match
+# write <scratch>/decisions.json: a JSON list of decisions
+uv run menudb review push <scratch>/decisions.json   # validates, uploads to review/decisions/
+```
+
+Each decision has `raw_term` and `language` (as in the queue), and an `action`:
+
+- `map` with `canonical`: point the term at that ingredient (created if new). Past components are relinked; an auto-created ingredient left unused is removed.
+- `accept`: confirm the current match.
+- `ignore`: not an ingredient; unlink it.
+
+Optional on `map` and `accept`: `parent` (e.g. `porcini` under `mushroom`), `category` (vegetable, fruit, seafood, fish, meat, dairy, herb, spice, grain, nut, fungus, other), `is_composite` (dashi, XO sauce).
+
+With Postgres (local or Actions), `menudb review export` prints the queue and `menudb review apply <file>` applies a local file.

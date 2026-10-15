@@ -385,3 +385,74 @@ def extract_io_schema():
     from menudb.extract.schema import ExtractedMenu
 
     typer.echo(json.dumps(ExtractedMenu.model_json_schema(), indent=2))
+
+
+review_app = typer.Typer(no_args_is_help=True, help=(
+    "Audit and fix ingredient matches. export/apply need Postgres (Actions); "
+    "pull/push only need the bucket (sessions). See docs/EXTRACTION.md."))
+app.add_typer(review_app, name="review")
+
+
+@review_app.command("export")
+def review_export(to_bucket: bool = typer.Option(False, help="write review/queue.json to the bucket")):
+    """Export the review queue with each term's current match."""
+    import json
+
+    from menudb import review
+    from menudb.db import get_session
+
+    with get_session() as session:
+        if to_bucket:
+            _summary("menudb review export", review.export_to_bucket(session))
+        else:
+            typer.echo(json.dumps(review.export_queue(session), ensure_ascii=False, indent=1))
+
+
+@review_app.command("apply")
+def review_apply(
+    files: list[Path] = typer.Argument(None, help="local decision files (JSON lists)"),
+    from_bucket: bool = typer.Option(False, help="apply review/decisions/ from the bucket"),
+):
+    """Apply map / accept / ignore decisions to aliases, ingredients and components."""
+    from collections import Counter
+
+    from menudb import review
+    from menudb.db import get_session
+
+    if not files and not from_bucket:
+        typer.echo("pass decision files or --from-bucket")
+        raise typer.Exit(2)
+    with get_session() as session:
+        if from_bucket:
+            counts = review.apply_from_bucket(session)
+        else:
+            counts = Counter()
+            for f in files:
+                counts.update(review.apply_all(session, review.Decisions.validate_json(f.read_text())))
+            session.commit()
+    _summary("menudb review apply", counts)
+
+
+@review_app.command("pull")
+def review_pull(out: Path = typer.Option(..., help="local directory outside the repo")):
+    """Download review/queue.json. No database needed."""
+    from menudb import review, storage
+
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "queue.json").write_bytes(storage.get_raw(review.QUEUE_KEY))
+    typer.echo(str(out / "queue.json"))
+
+
+@review_app.command("push")
+def review_push(files: list[Path]):
+    """Validate decision files and upload them to review/decisions/. No database needed."""
+    from datetime import datetime, timezone
+
+    from menudb import review, storage
+
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+    for f in files:
+        decisions = review.Decisions.validate_json(f.read_text())
+        key = f"{review.DECISIONS}{stamp}-{f.stem}.json"
+        storage.put_bytes(key, review.Decisions.dump_json(decisions), "application/json")
+        typer.echo(f"{key}: {len(decisions)} decisions")

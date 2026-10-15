@@ -54,9 +54,16 @@ jobs:
           LIMIT: ${{ inputs.limit }}
         run: uv run menudb check ${LIMIT:+--limit "$LIMIT"}
 
+      # Applies ingredient review decisions a session left in review/decisions/,
+      # before import so new extractions use the corrected aliases.
+      - run: uv run menudb review apply --from-bucket
+
       # Loads extractions that sessions wrote to extracted/ in the bucket. Runs after
       # check, so documents queued before their menu row existed can now be matched.
       - run: uv run menudb import --from-bucket
 
       # Queues menus that still need extraction in pending/ for the next session.
       - run: uv run menudb pending --to-bucket
+
+      # Refreshes review/queue.json for the next review in a session.
+      - run: uv run menudb review export --to-bucket
