@@ -9,12 +9,10 @@ for `render: js` recipes.
 
 | Status | Restaurants |
 |---|---|
-| Recipe (17 sources) | arpege (PDF), atomix (image), brae, central, core, disfrutar (PDF), geranium, le-bernardin (JS, 4 menus), lenclume (2 menus), mirazur, osteria-francescana, quintonil, the-ledbury (JS) |
+| Recipe (18 sources) | arpege (PDF), atomix (image), brae, central, core, disfrutar (PDF), geranium, kitcho-arashiyama (Japanese), le-bernardin (JS, 4 menus), lenclume (2 menus), mirazur, osteria-francescana, quintonil, the-ledbury (JS) |
 | No dish-level menu on the site | alchemist, attica, diverxo, frantzen, gaggan, maaemo, maido, odette, septime (carte blanche only), singlethread |
 | Menu behind a JS download button | mingles |
 | Not expected to publish (`publishes_menu=false`) | alinea, asador-etxebarri, den |
 | Unreachable from cloud sessions (proxy) | sezanne, uliassi: retry from Actions |
 | Refused our User-Agent from a cloud session | pujol (429), sorn (403), the-chairman (403): recheck once from Actions; if they still refuse, record as opted out |
-| Website in the seed CSV looks wrong | kitcho-arashiyama (kitcho.com is the group portal; Kyoto Kitcho is kyoto-kitcho.com, no menu page found), lido-84 (lido84.com is a parked domain) |
-
-Known gap: atomix's image is the small default Squarespace rendition (about 25 KB), which may be too small to read.
+| Website in the seed CSV looks wrong | lido-84 (lido84.com is a parked domain) |

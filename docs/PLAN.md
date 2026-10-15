@@ -141,7 +141,7 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 
 1. ✅ Scaffold: uv project, config, Alembic schema (applied to Neon), storage, CLI (`seed`, `check`, `smoke`), tests.
 2. ✅ Fetcher (robots/TDM/rate limit/conditional GET), normalization, recipe runner, `check` pipeline. 19 tests pass.
-3. ✅ Seed CSV committed (34 restaurants). Recipes for 13 restaurants (17 sources) in `data/recipes/`, with coverage notes in `data/recipes/README.md`. `menudb probe` walks recipes without a database; on 2026-10-15 all 17 sources resolved and their raw documents were stored in the bucket from a cloud session.
+3. ✅ Seed CSV committed (34 restaurants). Recipes for 14 restaurants (18 sources) in `data/recipes/`, with coverage notes in `data/recipes/README.md`. `menudb probe` walks recipes without a database; on 2026-10-15 all sources resolved and their raw documents were stored in the bucket from a cloud session.
    ⏭ **Next:** add the Actions secrets and run `check.yml` once by hand (`seed`, then `check`). Then extraction (step 4).
 4. Extraction in sessions via the bucket handoff (`pending --to-bucket` / `extract-io` / `import --from-bucket` / `review`), plus a 5-menu hand-labeled evaluation. Target ≥0.85 ingredient recall.
 5. `wayback.py` backfill for all 30.
