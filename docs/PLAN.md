@@ -119,7 +119,7 @@ For the first 30 restaurants, recipes are written by hand in sessions. An automa
 
 ## Seed set (~30, in `data/seed/restaurants.csv`)
 
-**Sources.** Draft from the official Michelin 3-star list and World's 50 Best. Verify each list status against the official source, and don't scrape the guide sites.
+**Sources.** Draft from the official Michelin 3-star list and World's 50 Best. Verify each list status against the official source. One-off, low-volume fetches of the 50 Best list pages are fine (their robots.txt allows it). guide.michelin.com serves a bot challenge, so don't try to get past it: use Wikipedia's Michelin lists, then check by hand.
 
 **Chosen for spread, not prestige:**
 
