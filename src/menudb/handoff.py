@@ -247,7 +247,8 @@ def record_from_item(session: Session, restaurant_id: int, item: PendingItem,
     return menu
 
 
-def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None) -> str:
+def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None,
+                matcher: ingredients.Matcher | None = None) -> str:
     """Write one extraction into Postgres. Returns imported | waiting | unknown_restaurant.
 
     Re-importing replaces the menu's courses, so it is safe to repeat.
@@ -271,16 +272,16 @@ def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None
     menu.language, menu.price, menu.currency = ex.language, ex.price, ex.currency
     menu.extraction_version, menu.extraction_model, menu.extracted_at = (
         ex.extraction_version, ex.extractor, now)
+    matcher = matcher or ingredients.Matcher(session)
     for c in ex.courses if ex.is_menu else []:
         course = Course(menu_id=menu.id, position=c.position, raw_text=c.raw_text, kind=c.kind)
         session.add(course)
-        session.flush()
         for comp in c.components:
-            session.add(Component(
-                course_id=course.id, raw_term=comp.raw_term, suggested_name=comp.name,
+            course.components.append(Component(
+                raw_term=comp.raw_term, suggested_name=comp.name,
                 role=comp.role, preparations=comp.preparations,
-                ingredient_id=ingredients.match(session, comp.raw_term, comp.name, ex.language,
-                                                context=f"menu {menu.id} course {c.position}"),
+                ingredient_id=matcher.match(comp.raw_term, comp.name, ex.language,
+                                            context=f"menu {menu.id} course {c.position}"),
             ))
     session.flush()
     log.info("imported menu=%s slug=%s courses=%d", menu.id, ex.slug, len(ex.courses))
@@ -289,6 +290,7 @@ def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None
 
 def import_from_bucket(session: Session) -> Counter:
     counts: Counter = Counter()
+    matcher = ingredients.Matcher(session)
     for k in storage.list_keys(EXTRACTED):
         try:
             ex = ExtractedMenu.model_validate(get_json(k))
@@ -298,10 +300,11 @@ def import_from_bucket(session: Session) -> Counter:
             continue
         try:
             with session.begin_nested():
-                outcome = import_menu(session, ex)
+                outcome = import_menu(session, ex, matcher=matcher)
         except Exception as e:
             log.warning("failed %s: %s", k, type(e).__name__)
             counts["failed"] += 1
+            matcher = ingredients.Matcher(session)  # the rollback may have undone cached rows
             continue
         if outcome == "imported":
             session.commit()
