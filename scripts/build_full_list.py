@@ -397,6 +397,7 @@ def main():
     ap.add_argument("--geocode", action="store_true", help="look up missing websites in OpenStreetMap")
     ap.add_argument("--min-stars", type=int, default=1, help="geocode only restaurants with this many stars")
     ap.add_argument("--nyt", type=Path, default=Path("data/seed/lists/nyt_america_2026.txt"))
+    ap.add_argument("--nyt-nyc", type=Path, default=Path("data/seed/lists/nyt_nyc_100.txt"))
     ap.add_argument("--seed", type=Path, default=Path("data/seed/restaurants.csv"))
     ap.add_argument("--out", type=Path, default=Path("data/seed/restaurants_full.csv"))
     args = ap.parse_args()
@@ -459,6 +460,16 @@ def main():
         r = add(name, "", "US", ["nyt:2026:america50"], ["nyt-google-maps-list"])
         r["stars"] = max(r["stars"], 2)
         r["nyt"] = True
+
+    # NYT NYC 100: "name | year:rank;..." lines; restaurants without a rank are left out.
+    for line in args.nyt_nyc.read_text().splitlines():
+        if not line or line.startswith("#"):
+            continue
+        name, _, ranks = (x.strip() for x in line.partition("|"))
+        lists = [f"nytnyc:{yr}" for yr in ranks.split(";") if yr]
+        if lists:
+            r = add(name, "New York", "US", lists, ["nyt-nyc-google-maps-list"])
+            r["stars"] = max(r["stars"], 2)
 
     for r in rows.values():
         if r["slug"] in known:

@@ -1,0 +1,5 @@
+start: https://www.claudnyc.com/food/
+steps:
+- follow:
+    href_matches: jgDJmFyQmS63QRZiVpsG_Claud%20WEBSITE%20Menu%2010_14_26\.pdf
+content: pdf

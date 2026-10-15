@@ -1,0 +1,5 @@
+start: https://www.barneygreengrass.com/
+steps:
+- follow:
+    href_matches: 4_2026_BGR_Menu\.pdf
+content: pdf

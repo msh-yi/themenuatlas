@@ -147,7 +147,7 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 
 - **Michelin:** Wikipedia's "List of Michelin-starred restaurants in ..." pages (80 pages; each row keeps the page revision and the guide year that page shows, since some pages lag the guide).
 - **World's 50 Best** 1-100 (2025), from theworlds50best.com list pages.
-- **NYT** "50 Best Restaurants in America" 2026: names from NYT's own shared Google Maps list (`data/seed/lists/nyt_america_2026.txt`). nytimes.com is not scraped (its robots.txt prohibits automated extraction). The NYC 100 is not included.
+- **NYT** "50 Best Restaurants in America" 2026: names from NYT's own shared Google Maps list (`data/seed/lists/nyt_america_2026.txt`). **NYC 100**: names and yearly ranks from a reader-kept shared Maps list (`data/seed/lists/nyt_nyc_100.txt`, 137 places, 91 ranked in 2026; the rest of the list didn't load without signing in). Unranked places are left out; lists entries look like `nytnyc:2026:2`. nytimes.com is not scraped (its robots.txt prohibits automated extraction).
 
 Websites and coordinates come from the seed CSV, Wikidata (by article, then one query matching name and country), and OpenStreetMap Nominatim (1 request per second, per its usage policy). `coord_precision` is `exact`, `city` (city center, no exact match) or `country` (last resort). Extra columns `list_sources`, `website_source` and `coord_precision` are ignored by `seed`.
 

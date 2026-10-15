@@ -1,0 +1,5 @@
+start: https://www.goldendinerny.com/menu
+steps:
+- follow:
+    href_matches: goldendiner_menu_food_bl\.pdf
+content: pdf
