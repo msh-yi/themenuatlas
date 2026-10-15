@@ -147,7 +147,7 @@ CSV columns: `slug,name,city,country,lat,lon,website,publishes_menu,lists`. `lis
 4. 🟡 Extraction via the bucket handoff: `pending` / `extract-io` / `import` built and tested offline. On 2026-10-15 a cloud session queued the 20 documents the recipes fetch (`pending --from-recipes`) and extracted all 20 into `extracted/`: 14 menus with dishes (213 courses, 766 components), 6 marked not-a-menu (landing pages without dishes, Brae's harvest list). A trial import into embedded Postgres matched every component. Still to do: `menudb review`, and the 5-menu hand-labeled evaluation (target ≥0.85 ingredient recall).
 5. ✅ `wayback.py` / `menudb backfill` (Actions `backfill.yml`, manual). Monthly distinct captures of each recipe's start page, replayed through `id_` URLs at about 1 request per second; the restaurant's current robots.txt and TDM still apply; `render: js` sources are skipped. web.archive.org resets connections from cloud sessions, so it has only run in tests so far.
 6. GitHub Actions: `.github/workflows/check.yml` exists (daily cron and `workflow_dispatch`: `seed`, `check`, `import --from-bucket`, `pending --to-bucket`). Still to do: the repo secrets.
-7. Notebook.
+7. ✅ Notebook `notebooks/01_pairings.ipynb` with the statistics in `src/menudb/analysis.py`: coverage, restaurant-weighted ingredient frequency (overall, by region, by season), and course-level pair lift/PMI with a minimum-restaurants threshold. Reads Postgres, the bucket's `extracted/` (no database), or a synthetic fixture (`scripts/make_synthetic_menus.py`); it has only run on the synthetic data so far.
 
 ## Verification
 

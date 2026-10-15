@@ -1,0 +1,2426 @@
+{
+ "restaurants": [
+  {
+   "slug": "syn-nordic-a",
+   "country": "DK",
+   "lat": 55.7,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-nordic-b",
+   "country": "SE",
+   "lat": 59.3,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-france",
+   "country": "FR",
+   "lat": 48.9,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-uk",
+   "country": "GB",
+   "lat": 51.5,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-japan-a",
+   "country": "JP",
+   "lat": 35.7,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-japan-b",
+   "country": "JP",
+   "lat": 35.0,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-australia",
+   "country": "AU",
+   "lat": -37.8,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-peru",
+   "country": "PE",
+   "lat": -12.1,
+   "publishes_menu": "yes"
+  },
+  {
+   "slug": "syn-no-menu",
+   "country": "US",
+   "lat": 40.7,
+   "publishes_menu": "no"
+  }
+ ],
+ "menus": [
+  {
+   "slug": "syn-nordic-a",
+   "normalized_hash": "syn-nordic-a-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sea buckthorn",
+       "name": "sea buckthorn",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "plum",
+       "name": "plum",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "duck",
+       "name": "duck",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-nordic-a",
+   "normalized_hash": "syn-nordic-a-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-nordic-b",
+   "normalized_hash": "syn-nordic-b-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sea buckthorn",
+       "name": "sea buckthorn",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-nordic-b",
+   "normalized_hash": "syn-nordic-b-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-france",
+   "normalized_hash": "syn-france-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sea buckthorn",
+       "name": "sea buckthorn",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "duck",
+       "name": "duck",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "duck",
+       "name": "duck",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-france",
+   "normalized_hash": "syn-france-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-uk",
+   "normalized_hash": "syn-uk-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "plum",
+       "name": "plum",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "turbot",
+       "name": "turbot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-uk",
+   "normalized_hash": "syn-uk-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "plum",
+       "name": "plum",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-japan-a",
+   "normalized_hash": "syn-japan-a-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rice",
+       "name": "rice",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "uni",
+       "name": "uni",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "fennel",
+       "name": "fennel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-japan-a",
+   "normalized_hash": "syn-japan-a-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rice",
+       "name": "rice",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "turbot",
+       "name": "turbot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "uni",
+       "name": "uni",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sea buckthorn",
+       "name": "sea buckthorn",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-japan-b",
+   "normalized_hash": "syn-japan-b-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "apple",
+       "name": "apple",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rice",
+       "name": "rice",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "uni",
+       "name": "uni",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "chicken",
+       "name": "chicken",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "duck",
+       "name": "duck",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-japan-b",
+   "normalized_hash": "syn-japan-b-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "turbot",
+       "name": "turbot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rice",
+       "name": "rice",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "uni",
+       "name": "uni",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "fennel",
+       "name": "fennel",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-australia",
+   "normalized_hash": "syn-australia-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "fennel",
+       "name": "fennel",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "celeriac",
+       "name": "celeriac",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-australia",
+   "normalized_hash": "syn-australia-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "beetroot",
+       "name": "beetroot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "horseradish",
+       "name": "horseradish",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "brown butter",
+       "name": "brown butter",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "scallop",
+       "name": "scallop",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "apple",
+       "name": "apple",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "egg yolk",
+       "name": "egg yolk",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "pear",
+       "name": "pear",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "dill",
+       "name": "dill",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "fennel",
+       "name": "fennel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 6,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "apple",
+       "name": "apple",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "hazelnut",
+       "name": "hazelnut",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 7,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "mushroom",
+       "name": "mushroom",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-peru",
+   "normalized_hash": "syn-peru-0",
+   "extractor": "synthetic",
+   "first_seen": "2026-04-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "lamb",
+       "name": "lamb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "rhubarb",
+       "name": "rhubarb",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "cucumber",
+       "name": "cucumber",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "kelp",
+       "name": "kelp",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "plum",
+       "name": "plum",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sorrel",
+       "name": "sorrel",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "syn-peru",
+   "normalized_hash": "syn-peru-1",
+   "extractor": "synthetic",
+   "first_seen": "2026-10-15",
+   "language": "en",
+   "courses": [
+    {
+     "position": 1,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "asparagus",
+       "name": "asparagus",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "rye",
+       "name": "rye",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "sea buckthorn",
+       "name": "sea buckthorn",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "turbot",
+       "name": "turbot",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "barley",
+       "name": "barley",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "oyster",
+       "name": "oyster",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "shallot",
+       "name": "shallot",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "venison",
+       "name": "venison",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "raw_text": "synthetic",
+     "kind": "course",
+     "components": [
+      {
+       "raw_term": "leek",
+       "name": "leek",
+       "role": "main",
+       "preparations": []
+      },
+      {
+       "raw_term": "potato",
+       "name": "potato",
+       "role": "main",
+       "preparations": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

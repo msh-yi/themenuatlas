@@ -30,6 +30,13 @@ requires = ["uv_build>=0.11.23,<0.12.0"]
 build-backend = "uv_build"
 
 [dependency-groups]
+analysis = [
+    "ipykernel>=7.4.0",
+    "matplotlib>=3.11.2",
+    "nbconvert>=7.17.2",
+    "nbformat>=5.11.1",
+    "pandas>=3.0.6",
+]
 dev = [
     "pgserver>=0.1.4",
     "pytest>=9.1.1",

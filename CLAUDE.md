@@ -28,6 +28,7 @@ uv run menudb check --limit 5
 uv run menudb backfill [slug...]     # Wayback history; needs Postgres and web.archive.org (Actions/local)
 uv run menudb probe [slug...]        # walk recipes with no database; --to-bucket stores raw files
 uv run menudb extract-io list          # extraction in a session: list/get/put via the bucket (docs/EXTRACTION.md)
+uv sync --group analysis && MENUDB_ANALYSIS_SOURCE=synthetic uv run jupyter nbconvert --to notebook --execute notebooks/01_pairings.ipynb --output /tmp/out.ipynb   # db | bucket | synthetic
 uv run playwright install --with-deps chromium   # only when a recipe uses render: js
 ```
 
@@ -37,6 +38,7 @@ uv run playwright install --with-deps chromium   # only when a recipe uses rende
   - locally, they're in `.env.local` (from `neon env pull`);
   - in cloud sessions, they're set as environment variables.
 - `CONTACT_URL` is optional.
+- Commit `notebooks/` with outputs cleared; results from real data stay private.
 - `CHROMIUM_PATH` is optional. In cloud sessions, set it to `/opt/pw-browsers/chromium` for `render: js` recipes.
 
 Cloud sessions install dependencies through the SessionStart hook (`scripts/session-start.sh`).
