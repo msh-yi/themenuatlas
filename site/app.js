@@ -73,7 +73,7 @@ function setParams(params) {
   const { parts } = parseHash();
   const q = params.toString();
   const hash = "#/" + parts.map(encodeURIComponent).join("/") + (q ? "?" + q : "");
-  history.replaceState(null, "", hash);
+  try { history.replaceState(null, "", hash); } catch { /* sandboxed frames may refuse; state just isn't linkable */ }
 }
 
 function route() {
