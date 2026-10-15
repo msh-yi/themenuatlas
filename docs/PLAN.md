@@ -42,6 +42,8 @@ This first slice proves the hard parts on about 30 restaurants before any web ap
   - an honest User-Agent with a contact URL
 
   Opted-out sites are recorded and skipped.
+
+  **Changed 2026-10-15 (Marcus):** robots.txt is ignored where `RESPECT_ROBOTS=false` is set (`discover-retry.yml`, `recheck.yml`), at most about once a month per site, with the honest User-Agent and per-host pacing. TDM opt-outs are still honoured. Bot protection (Cloudflare challenges, CAPTCHAs and the like) is labelled `bot_blocked` and not circumvented.
 - **Opt-out path.** Plan a takedown/opt-out process for restaurants before launch.
 - **Public logs.** Actions logs are public, so log IDs, hashes and statuses only. Never log menu text or secrets.
 
