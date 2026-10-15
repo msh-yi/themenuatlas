@@ -7,7 +7,8 @@
     render: static        # or js
     content: html_main    # or pdf | image
 
-Each step maps the current set of page URLs to a new set. Whatever URLs remain
+A third step type, `regex: {pattern, template, pick}`, pulls URLs out of JSON or
+script bodies. Each step maps the current set of page URLs to a new set. Whatever URLs remain
 after the last step are the menu documents to fetch and hash.
 """
 
@@ -38,6 +39,14 @@ class SelectSpec(BaseModel):
     pick: Literal["first", "last", "all"] = "first"
 
 
+class RegexSpec(BaseModel):
+    """For URLs that only appear in JSON or script bodies. `template` is formatted
+    with the match: {0} is the whole match, {1}... the groups."""
+    pattern: str
+    template: str = "{0}"
+    pick: Literal["first", "last", "all"] = "all"
+
+
 class FollowStep(BaseModel):
     follow: FollowSpec
 
@@ -46,9 +55,13 @@ class SelectStep(BaseModel):
     select: SelectSpec
 
 
+class RegexStep(BaseModel):
+    regex: RegexSpec
+
+
 class Recipe(BaseModel):
     start: str
-    steps: list[FollowStep | SelectStep] = Field(default_factory=list)
+    steps: list[FollowStep | SelectStep | RegexStep] = Field(default_factory=list)
     render: Literal["static", "js"] = "static"
     content: Literal["html_main", "pdf", "image"] = "html_main"
 
@@ -72,20 +85,30 @@ def _follow(base: str, html: str, spec: FollowSpec) -> list[str]:
     return []
 
 
+def _pick(values: list[str], pick: str) -> list[str]:
+    values = list(dict.fromkeys(values))  # de-duplicate, keep order
+    if pick == "first":
+        return values[:1]
+    if pick == "last":
+        return values[-1:]
+    return values
+
+
 def _select(base: str, html: str, spec: SelectSpec) -> list[str]:
     values = [
         absolute(base, v)
         for node in HTMLParser(html).css(spec.css)
         if (v := node.attributes.get(spec.attr))
     ]
-    values = list(dict.fromkeys(values))  # de-duplicate, keep order
-    if not values:
-        return []
-    if spec.pick == "first":
-        return values[:1]
-    if spec.pick == "last":
-        return values[-1:]
-    return values
+    return _pick(values, spec.pick)
+
+
+def _regex(base: str, body: str, spec: RegexSpec) -> list[str]:
+    values = [
+        absolute(base, spec.template.format(m.group(0), *m.groups()))
+        for m in re.finditer(spec.pattern, body)
+    ]
+    return _pick(values, spec.pick)
 
 
 def resolve(recipe: Recipe, get_html: GetHtml) -> list[str]:
@@ -97,8 +120,10 @@ def resolve(recipe: Recipe, get_html: GetHtml) -> list[str]:
             final_url, html = get_html(url)
             if isinstance(step, FollowStep):
                 next_urls += _follow(final_url, html, step.follow)
-            else:
+            elif isinstance(step, SelectStep):
                 next_urls += _select(final_url, html, step.select)
+            else:
+                next_urls += _regex(final_url, html, step.regex)
         if not next_urls:
             raise RecipeError(f"step {i} matched nothing")
         urls = list(dict.fromkeys(next_urls))

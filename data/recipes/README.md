@@ -9,10 +9,10 @@ for `render: js` recipes.
 
 | Status | Restaurants |
 |---|---|
-| Recipe (18 sources) | arpege (PDF), atomix (image), brae, central, core, disfrutar (PDF), geranium, kitcho-arashiyama (Japanese), le-bernardin (JS, 4 menus), lenclume (2 menus), mirazur, osteria-francescana, quintonil, the-ledbury (JS) |
-| No dish-level menu on the site | alchemist, attica, diverxo, frantzen, gaggan, maaemo, maido, odette, septime (carte blanche only), singlethread |
-| Menu behind a JS download button | mingles |
+| Recipe (20 sources) | arpege (PDF), atomix (image), brae, central, core, disfrutar (PDF), geranium, kitcho-arashiyama (Japanese), le-bernardin (JS, 4 menus), lenclume (2 menus), mingles (PDFs listed in JSON), mirazur, osteria-francescana, quintonil, the-ledbury (JS) |
+| No dish-level menu on the site (rechecked rendered pages and their network requests) | alchemist, attica, diverxo, gaggan, maaemo, maido, odette, septime (carte blanche only), singlethread |
+| Bot challenge (reCAPTCHA) for headless browsers; not worked around | frantzen |
 | Not expected to publish (`publishes_menu=false`) | alinea, asador-etxebarri, den |
 | Unreachable from cloud sessions (proxy) | sezanne, uliassi: retry from Actions |
 | Refused our User-Agent from a cloud session | pujol (429), sorn (403), the-chairman (403): recheck once from Actions; if they still refuse, record as opted out |
-| Website in the seed CSV looks wrong | lido-84 (lido84.com is a parked domain) |
+| Closed | lido-84: website corrected to ristorantelido84.com, which says "Lido 84 is currently closed" (third-party sources say the last service was March 2026). Candidate for Wayback history only, or replacement. |

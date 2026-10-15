@@ -1,0 +1,11 @@
+# The menu page's "Download Menu" buttons read PDF names from this JSON file list
+lunch:
+  start: https://www.restaurant-mingles.com/api/upload-file
+  steps:
+    - regex: {pattern: '"filePath":"([0-9a-f]+\.pdf)","code":"Lunch_en"', template: "/uploads/files/{1}", pick: first}
+  content: pdf
+dinner:
+  start: https://www.restaurant-mingles.com/api/upload-file
+  steps:
+    - regex: {pattern: '"filePath":"([0-9a-f]+\.pdf)","code":"Dinner_en"', template: "/uploads/files/{1}", pick: first}
+  content: pdf

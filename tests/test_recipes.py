@@ -37,3 +37,14 @@ def test_drift_raises(fixture_text):
     })
     with pytest.raises(RecipeError):
         resolve(recipe, pages(fixture_text))
+
+
+def test_regex_step_reads_urls_from_json():
+    body = '{"data":[{"filePath":"aa.pdf","code":"Lunch_en"},{"filePath":"bb.pdf","code":"Dinner_en"}]}'
+    recipe = Recipe.model_validate({
+        "start": "https://r.example/api/files",
+        "steps": [{"regex": {"pattern": r'"filePath":"([0-9a-z]+\.pdf)","code":"Dinner_en"',
+                             "template": "/uploads/{1}"}}],
+        "content": "pdf",
+    })
+    assert resolve(recipe, lambda u: (u, body)) == ["https://r.example/uploads/bb.pdf"]
