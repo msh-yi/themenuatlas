@@ -187,14 +187,16 @@ def main():
 
     client = httpx.Client(timeout=30)
     taken = {host_of(r["website"]) for r in rows if r["website"]}
-    (args.cache / "search").mkdir(parents=True, exist_ok=True)
+    # One cache per provider, so a Brave run re-searches what LangSearch got wrong.
+    cache_dir = args.cache / ("search" if lang_key else "brave")
+    cache_dir.mkdir(parents=True, exist_ok=True)
     queried = found = errors = 0
     for r in rows:
         if r["website"]:
             continue
-        path = args.cache / "search" / f"{r['slug']}.json"
-        if r["website_source"] == "search_rejected" and not path.exists():
-            continue  # searched before; its results are gone, don't pay twice
+        path = cache_dir / f"{r['slug']}.json"
+        if lang_key and r["website_source"] == "search_rejected" and not path.exists():
+            continue  # searched with LangSearch before; its results are gone, don't pay twice
         if path.exists():
             results = json.loads(path.read_text())
         else:
