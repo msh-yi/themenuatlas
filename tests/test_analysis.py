@@ -34,6 +34,23 @@ def test_pairs_need_several_restaurants():
     assert pairs[0]["lift"] == pytest.approx(1.0)
 
 
+def test_score_prefers_common_pairs_over_rare_extreme_lift():
+    rows = []
+    # eel+mitsuba: two restaurants, once each, among many other courses -> huge raw lift
+    for r in ("r1", "r2"):
+        rows += [row(r, "m", 1, "eel"), row(r, "m", 1, "mitsuba")]
+    # tomato+basil: ten restaurants, every time
+    for i in range(10):
+        rows += [row(f"t{i}", "m", 1, "tomato"), row(f"t{i}", "m", 1, "basil")]
+    for r in [f"t{i}" for i in range(10)] + ["r1", "r2"]:
+        rows += [row(r, "m", c, f"filler{c}") for c in range(2, 12)]
+    pairs = {(p["a"], p["b"]): p for p in a.pair_stats(rows)}
+    rare, common = pairs[("eel", "mitsuba")], pairs[("basil", "tomato")]
+    assert rare["lift"] > common["lift"]
+    assert common["score"] > rare["score"] > 1
+    assert -1 <= rare["npmi"] <= 1 and common["npmi"] > 0
+
+
 def test_synthetic_planted_patterns():
     rows, restaurants = a.load_synthetic(FIXTURE)
     top = {(p["a"], p["b"]) for p in a.pair_stats(rows)[:3]}

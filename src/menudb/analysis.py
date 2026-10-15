@@ -190,13 +190,24 @@ def ingredient_frequency(rows: list[Row], by: str | None = None) -> list[dict]:
     return sorted(out, key=lambda d: (d["group"], -d["share"], d["ingredient"]))
 
 
-def pair_stats(rows: list[Row], min_restaurants: int = 2) -> list[dict]:
+# Pseudo-count for the shrunk lift, in restaurants (see pair_stats).
+PAIR_PRIOR = 0.5
+
+
+def pair_stats(rows: list[Row], min_restaurants: int = 2, prior: float = PAIR_PRIOR) -> list[dict]:
     """Course-level co-occurrence of ingredient pairs, scored by lift and PMI.
 
     Each course is a basket. Each restaurant weighs 1, split evenly over all its
     courses (across its distinct menus), so P(x) is the restaurant-weighted share of
     courses containing x. Pairs seen at fewer than `min_restaurants` restaurants are
     dropped: one chef's signature dish is not a pairing pattern.
+
+    Raw lift explodes for rare ingredients: two restaurants that each put conger eel
+    with mitsuba once give a lift near 1,000. `score` shrinks it toward 1 by adding
+    `prior` restaurants' worth of weight to both the observed and the expected
+    co-occurrence, (observed + prior) / (expected + prior), so a pair needs to be both
+    strong and common to rank high. `npmi` is PMI normalized to [-1, 1]. Results are
+    sorted by `score`.
     """
     courses: dict[tuple[str, str, int], set[str]] = defaultdict(set)
     for r in rows:
@@ -225,9 +236,13 @@ def pair_stats(rows: list[Row], min_restaurants: int = 2) -> list[dict]:
             continue
         p_ab, p_a, p_b = w / total, single[a] / total, single[b] / total
         lift = p_ab / (p_a * p_b)
-        out.append({"a": a, "b": b, "support": p_ab, "lift": lift, "pmi": math.log2(lift),
+        expected = p_a * p_b * total  # in restaurants, like w
+        pmi = math.log2(lift)
+        out.append({"a": a, "b": b, "support": p_ab, "lift": lift, "pmi": pmi,
+                    "npmi": pmi / -math.log2(p_ab) if p_ab < 1 else 1.0,
+                    "score": (w + prior) / (expected + prior),
                     "restaurants": len(pair_rest[(a, b)])})
-    return sorted(out, key=lambda d: (-d["lift"], -d["support"], d["a"], d["b"]))
+    return sorted(out, key=lambda d: (-d["score"], -d["support"], d["a"], d["b"]))
 
 
 def coverage(restaurants: dict[str, Restaurant], rows: list[Row]) -> list[dict]:
