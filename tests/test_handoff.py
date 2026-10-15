@@ -233,3 +233,32 @@ def test_stats_counts(session, bucket):
     c = row_counts(session)
     assert c["restaurants"] == c["menus"] == c["menus_extracted"] == c["sources_check"] == 1
     assert c["courses"] == 1 and c["components"] == 2 and c["ingredients"] == 2
+
+
+@pytest.mark.db
+def test_exclude_flags_quarantines_and_undoes(session, bucket):
+    from menudb.exclude import exclude
+
+    menu = make_menu(session, bucket)
+    session.get(Restaurant, menu.restaurant_id).website = "https://wrong.example/"
+    session.commit()
+    handoff.pending_from_db(session)
+    rejected = [{"slug": "r", "website": "https://wrong.example/"}]
+
+    dry = exclude(session, rejected, "search_rejected")
+    assert dry["menus"] == 1 and dry["bucket_pending"] == 1 and "applied" not in dry
+    assert menu.excluded_reason is None
+
+    exclude(session, rejected, "search_rejected", apply=True)
+    session.refresh(menu)
+    assert menu.excluded_reason == "search_rejected"
+    assert session.get(Restaurant, menu.restaurant_id).website is None
+    assert handoff.storage.list_keys(handoff.PENDING) == []
+    assert len(handoff.storage.list_keys("quarantine/pending/r/")) == 1
+    assert handoff.pending_from_db(session) == {}  # excluded menus are not re-queued
+
+    exclude(session, rejected, "search_rejected", apply=True, undo=True)
+    session.refresh(menu)
+    assert menu.excluded_reason is None
+    assert session.get(Restaurant, menu.restaurant_id).website == "https://wrong.example/"
+    assert len(handoff.storage.list_keys(handoff.PENDING)) == 1

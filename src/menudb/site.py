@@ -147,6 +147,7 @@ def manifests_from_db(session) -> dict[str, list[dict]]:
         .join(Course, Course.menu_id == Menu.id)
         .join(Component, Component.course_id == Course.id)
         .outerjoin(Ingredient, Ingredient.id == Component.ingredient_id)
+        .where(Menu.excluded_reason.is_(None))
         .order_by(Restaurant.slug, Menu.id, Course.position, Component.id)
     )
     menus: dict[tuple[str, str], dict] = {}
@@ -178,6 +179,7 @@ def preparations_from_db(session) -> dict[str, Counter]:
         .join(Course, Course.menu_id == Menu.id)
         .join(Component, Component.course_id == Course.id)
         .outerjoin(Ingredient, Ingredient.id == Component.ingredient_id)
+        .where(Menu.excluded_reason.is_(None))
     )
     return preparations_from_extracted(
         {"slug": slug, "courses": [{"components": [{"raw_term": name, "preparations": preps}]}]}

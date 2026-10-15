@@ -18,13 +18,15 @@ import os
 import re
 import sys
 import time
+from collections import Counter
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
 
 import httpx
 
 sys.path.insert(0, str(Path(__file__).parent))
-from build_full_list import norm_name, slugify  # noqa: E402
+from build_full_list import norm_name  # noqa: E402
 
 BRAVE = "https://api.search.brave.com/res/v1/web/search"
 LANGSEARCH = "https://api.langsearch.com/v1/web-search"
@@ -34,21 +36,108 @@ NOT_OFFICIAL = re.compile(
     r"tablecheck|tabelog|gurunavi|retty|dianping|meituan|openrice|zomato|timeout|eater\.com|"
     r"infatuation|nytimes|wikipedia|wikidata|foursquare|ubereats|deliveroo|doordash|grubhub|"
     r"booking\.com|expedia|hotels\.com|agoda|trip\.com|gaultmillau|falstaff|restaurantguru|"
-    r"menupix|sluurpy|wanderlog|lafourchette|cntraveler|forbes|condenast|guide\.|reddit|pinterest)"
+    r"menupix|sluurpy|wanderlog|lafourchette|cntraveler|forbes|condenast|guide\.|reddit|pinterest|"
+    r"evendo|elitetraveler|foodle|usarestaurants|delectable|wikirank|reportergourmet|finedininglovers|"
+    r"myartguides|scoop\.com|restaurantji|economictimes|livejapan|leadingrestaurants|wikiwand|"
+    r"news|magazine|journal|times|post\.|guardian|telegraph|travel|tourism|visit|blog|review|"
+    r"directory|listing|menu(s)?\.(com|info)|yellowpages|pagesjaunes|happycow|gayot|bonappetit|"
+    r"robbreport|cntraveller|lonelyplanet|fodors|frommers|culinarybackstreets|gastronomia|"
+    r"amazon|ebay|apple\.com|wix\.com|twitch|threads\.net|weibo|xiaohongshu|naver\.com|"
+    r"kakao|line\.me|hotpepper|ikyu|tablelog|chope|eatigo|quandoo|bookatable|dish\.co)"
 )
 
 
-def pick(name: str, results: list[dict]) -> str:
-    words = {w for w in norm_name(name).split("-") if len(w) >= 3}
+# Words too common in restaurant names to show a domain is this restaurant's own.
+GENERIC = set("""restaurant restaurants ristorante restaurante trattoria osteria brasserie bistro
+bistrot taverna cafe caffe kitchen table house room bar grill dining food foods sushi ramen club
+chez maison casa hotel wine wines and the les des del della dal tea garden steak steakhouse
+pizza pizzeria bakery noodle noodles cuisine cucina wok fish market""".split())
+# Hosting, blog and social platforms, where a name match on the subdomain proves nothing.
+PLATFORM = re.compile(r"(?i)(wordpress\.com|blogspot\.|medium\.com|substack\.com|tumblr\.com|"
+                      r"wixsite\.com|weebly\.com|squarespace\.com|github\.io|snapchat\.com|"
+                      r"linktr\.ee|business\.site|sites\.google\.com)")
+
+
+def domain_label(host: str) -> str:
+    """The registrable name of a host, letters and digits only: www.le-bernardin.com -> lebernardin,
+    noma.dk -> noma, foo.co.uk -> foo."""
+    parts = host.lower().split(":")[0].removeprefix("www.").split(".")
+    if len(parts) >= 3 and len(parts[-2]) <= 3:  # co.uk, com.au, ne.jp
+        parts = parts[:-1]
+    return re.sub(r"[^a-z0-9]", "", parts[-2] if len(parts) >= 2 else parts[0])
+
+
+def official(name: str, city: str, url: str) -> bool:
+    """Whether url plausibly is the restaurant's own site: not a directory, news, guide or
+    hosting domain, and the domain itself carries the restaurant's name. A page title is not
+    enough, since articles and directories name the restaurant in theirs."""
+    host = urlsplit(url).netloc.lower()
+    if not host or NOT_OFFICIAL.search(host) or PLATFORM.search(host):
+        return False
+    label = domain_label(host)
+    city_words = {w for w in norm_name(city).split("-") if len(w) >= 3}
+    words = [w for w in norm_name(name).split("-") if w and w not in GENERIC and w not in city_words]
+    compact = "".join(words)
+    core = label  # the domain without generic and city words: alinearestaurant -> alinea
+    for w in sorted(GENERIC | city_words, key=len, reverse=True):
+        core = core.replace(w, "")
+    if len(core) < 3 or not compact:
+        return False
+    # The name makes up most of the domain, or the domain is part of the name, or one
+    # distinctive name word makes up most of the domain (tinyurbankitchen is not Urban
+    # Gastronomy's, jimbochoden is not checked as Den's).
+    def most(part: str) -> bool:
+        return len(part) >= 4 and part in core and 3 * len(part) >= 2 * len(core)
+    return most(compact) or (len(core) >= 5 and core in compact) or any(most(w) for w in words)
+
+
+def pick(name: str, city: str, results: list[dict]) -> str:
+    """The first result whose domain is the restaurant's own (see official) and is a homepage
+    or a shallow page of it, as a root URL."""
     for res in results:
         url = res.get("url", "")
-        host = urlsplit(url).netloc.lower()
-        if not host or NOT_OFFICIAL.search(host):
-            continue
-        hay = slugify(host + " " + res.get("title", ""))
-        if not words or any(w in hay for w in words):
+        if official(name, city, url) and urlsplit(url).path.strip("/").count("/") <= 1:
             return f"{urlsplit(url).scheme}://{urlsplit(url).netloc}/"
     return ""
+
+
+def host_of(url: str) -> str:
+    return urlsplit(url).netloc.lower().removeprefix("www.")
+
+
+def revalidate(rows: list[dict], rejected_path: Path, status_path: Path, recipes_dir: Path) -> list[str]:
+    """Drop search-sourced websites that fail `official` or share a host with another
+    restaurant. Each one is recorded in rejected_path (so `menudb exclude` can flag its menus),
+    its website cleared with website_source=search_rejected, and its discovery status and
+    auto recipe removed. Returns the rejected slugs."""
+    hosts = Counter(host_of(r["website"]) for r in rows if r["website"])
+    rejected = []
+    for r in rows:
+        if r["website_source"] != "search":
+            continue
+        reason = ("not_official" if not official(r["name"], r["city"], r["website"])
+                  else "shared_host" if hosts[host_of(r["website"])] > 1 else "")
+        if reason:
+            rejected.append({"slug": r["slug"], "website": r["website"], "reason": reason,
+                             "rejected": date.today().isoformat()})
+            r["website"], r["website_source"] = "", "search_rejected"
+    if not rejected:
+        return []
+    old = list(csv.DictReader(rejected_path.open())) if rejected_path.exists() else []
+    with rejected_path.open("w", newline="") as f:
+        w = csv.DictWriter(f, ["slug", "website", "reason", "rejected"])
+        w.writeheader()
+        w.writerows(old + rejected)
+    slugs = {x["slug"] for x in rejected}
+    if status_path.exists():
+        status = list(csv.DictReader(status_path.open()))
+        with status_path.open("w", newline="") as f:
+            w = csv.DictWriter(f, list(status[0].keys()))
+            w.writeheader()
+            w.writerows(x for x in status if x["slug"] not in slugs)
+    for slug in slugs:
+        (recipes_dir / f"{slug}.yaml").unlink(missing_ok=True)
+    return sorted(slugs)
 
 
 def main():
@@ -56,7 +145,26 @@ def main():
     ap.add_argument("--cache", type=Path, required=True)
     ap.add_argument("--csv", type=Path, default=Path("data/seed/restaurants_full.csv"))
     ap.add_argument("--limit", type=int, default=None, help="max new queries this run (cost control)")
+    ap.add_argument("--rejected", type=Path, default=Path("data/seed/rejected_websites.csv"))
+    ap.add_argument("--status", type=Path, default=Path("data/seed/discovery.csv"))
+    ap.add_argument("--recipes-dir", type=Path, default=Path("data/recipes_auto"))
+    ap.add_argument("--revalidate-only", action="store_true",
+                    help="only re-check existing search-sourced websites; no searches, no key needed")
     args = ap.parse_args()
+    rows = list(csv.DictReader(args.csv.open()))
+    fields = list(rows[0].keys())
+
+    def write_rows():
+        with args.csv.open("w", newline="") as f:
+            w = csv.DictWriter(f, fields)
+            w.writeheader()
+            w.writerows(rows)
+
+    dropped = revalidate(rows, args.rejected, args.status, args.recipes_dir)
+    print(f"{len(dropped)} search-sourced websites rejected", file=sys.stderr)
+    if args.revalidate_only:
+        write_rows()
+        return
     lang_keys = [k for k in (os.environ.get("LANGSEARCH_API_KEY"), os.environ.get("LANGSEARCH_API_KEY_2")) if k]
     brave_key = os.environ.get("BRAVE_SEARCH_API_KEY")
     if not (lang_keys or brave_key):
@@ -93,15 +201,16 @@ def main():
                     for r in resp.json().get("web", {}).get("results", [])]
         raise RuntimeError(f"search provider: HTTP {resp.status_code}")
 
-    rows = list(csv.DictReader(args.csv.open()))
-    fields = list(rows[0].keys())
     client = httpx.Client(timeout=30)
+    taken = {host_of(r["website"]) for r in rows if r["website"]}
     (args.cache / "search").mkdir(parents=True, exist_ok=True)
     queried = found = errors = 0
     for r in rows:
         if r["website"]:
             continue
         path = args.cache / "search" / f"{r['slug']}.json"
+        if r["website_source"] == "search_rejected" and not path.exists():
+            continue  # searched before; its results are gone, don't pay twice
         if path.exists():
             results = json.loads(path.read_text())
         else:
@@ -120,13 +229,11 @@ def main():
                 continue
             path.write_text(json.dumps(results))
             time.sleep(1.1)  # both free plans allow 1 query per second
-        if site := pick(r["name"], results):
+        if (site := pick(r["name"], r["city"], results)) and host_of(site) not in taken:
             r["website"], r["website_source"] = site, "search"
+            taken.add(host_of(site))
             found += 1
-    with args.csv.open("w", newline="") as f:
-        w = csv.DictWriter(f, fields)
-        w.writeheader()
-        w.writerows(rows)
+    write_rows()
     print(f"{queried} new queries ({errors} errors), {found} websites found", file=sys.stderr)
     if queried and errors == queried:
         sys.exit("every search failed")

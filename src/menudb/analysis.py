@@ -145,7 +145,8 @@ def load_db(session) -> tuple[list[Row], dict[str, Restaurant]]:
         .join(Course, Course.menu_id == Menu.id)
         .join(Component, Component.course_id == Course.id)
         .outerjoin(Ingredient, Ingredient.id == Component.ingredient_id)
-        .where(or_(Menu.menu_type.is_(None), Menu.menu_type != "not_a_menu"))
+        .where(or_(Menu.menu_type.is_(None), Menu.menu_type != "not_a_menu"),
+               Menu.excluded_reason.is_(None))
     )
     rows = {Row(slug, restaurants[slug].region, restaurants[slug].lat, str(menu_id),
                 first_seen.date() if first_seen else None, pos, name.strip())

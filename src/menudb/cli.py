@@ -689,6 +689,27 @@ def stats():
         _summary("menudb stats", row_counts(session))
 
 
+@app.command()
+def exclude(
+    file: Path = typer.Option(Path("data/seed/rejected_websites.csv"), help="slug,website,reason,... rows"),
+    reason: str = typer.Option("search_rejected", help="stored in menu.excluded_reason"),
+    apply: bool = typer.Option(False, help="make the change; without it, only print counts"),
+    undo: bool = typer.Option(False, help="clear the flag, restore websites and bucket items"),
+):
+    """Flag menus of restaurants whose website was wrongly matched, and quarantine their bucket
+    items. Prints counts first; nothing changes without --apply. Reversible with --undo."""
+    import csv
+
+    from menudb.db import get_session
+    from menudb.exclude import exclude as run_exclude
+
+    rows = list(csv.DictReader(file.open()))
+    with get_session() as session:
+        counts = run_exclude(session, rows, reason, apply=apply, undo=undo)
+    _summary(f"menudb exclude ({'undo' if undo else 'exclude'}, {'applied' if apply else 'dry run'})",
+             counts)
+
+
 @app.command("export-site")
 def export_site(
     source: str = typer.Option("synthetic", help="synthetic | bucket | db"),

@@ -82,7 +82,7 @@ def pending_from_db(session: Session, limit: int | None = None) -> Counter:
         .join(Restaurant, Menu.restaurant_id == Restaurant.id)
         .join(Snapshot, Menu.first_snapshot_id == Snapshot.id)
         .join(Source, Snapshot.source_id == Source.id)
-        .where(Menu.extraction_version.is_(None))
+        .where(Menu.extraction_version.is_(None), Menu.excluded_reason.is_(None))
         .order_by(Menu.id)
     ).all()
     counts: Counter = Counter()

@@ -1,0 +1,53 @@
+# Manual: flag the menus of restaurants whose website search matched a wrong site
+# (data/seed/rejected_websites.csv, written by scripts/find_websites.py). The first run of
+# each job prints counts only; nothing changes unless "apply" is ticked. "undo" reverses it:
+# clears the flag, restores the websites and moves bucket items back out of quarantine/.
+name: exclude
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "make the change (unticked = print counts only)"
+        type: boolean
+        default: false
+      undo:
+        description: "undo an earlier exclusion"
+        type: boolean
+        default: false
+
+concurrency:
+  group: check
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  exclude:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --frozen --no-dev
+
+      - run: uv run alembic upgrade head
+
+      - name: Counts before
+        run: uv run menudb exclude ${{ inputs.undo && '--undo' || '' }}
+
+      - name: Apply
+        if: inputs.apply
+        run: uv run menudb exclude --apply ${{ inputs.undo && '--undo' || '' }}
+
+      - run: uv run menudb stats

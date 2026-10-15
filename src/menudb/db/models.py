@@ -118,6 +118,10 @@ class Menu(Base):
     extraction_version: Mapped[int | None] = mapped_column(Integer)
     extraction_model: Mapped[str | None] = mapped_column(String(60))
     extracted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Set by `menudb exclude` (e.g. "search_rejected": the menu came from a website wrongly
+    # matched to this restaurant). Excluded menus stay in the database but are left out of
+    # analysis, the site, review and the extraction queue; clearing it undoes the exclusion.
+    excluded_reason: Mapped[str | None] = mapped_column(String(40))
 
     restaurant: Mapped[Restaurant] = relationship(back_populates="menus")
     courses: Mapped[list["Course"]] = relationship(
