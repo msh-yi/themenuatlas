@@ -1,0 +1,5 @@
+start: https://www.restaurantjacques.be/
+steps:
+- follow:
+    href_matches: Carte\-FR\-20260629\.pdf
+content: pdf

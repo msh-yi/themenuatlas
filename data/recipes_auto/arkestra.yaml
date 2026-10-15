@@ -1,0 +1,5 @@
+start: https://arkestra.com.tr/
+steps:
+- follow:
+    href_matches: a\-la\-carte\.pdf
+content: pdf

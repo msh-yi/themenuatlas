@@ -1,0 +1,5 @@
+start: https://www.atelier-fischer.at/
+steps:
+- follow:
+    href_matches: 5da1b8_2f853c49037c4ab0a9e9d5ca3b32ab2d\.pdf
+content: pdf

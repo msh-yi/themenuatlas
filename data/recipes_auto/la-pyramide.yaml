@@ -1,0 +1,5 @@
+start: https://www.lapyramide.com/fr/carte-et-menu.html
+steps:
+- follow:
+    href_matches: menu\-du\-marche\-site\-9\-26\.pdf
+content: pdf

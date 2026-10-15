@@ -1,0 +1,5 @@
+start: https://www.confusion-restaurant.com/en/menu/
+steps:
+- follow:
+    href_matches: menu\-confusion\-2026\-en\.pdf
+content: pdf

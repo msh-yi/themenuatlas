@@ -1,0 +1,6 @@
+start: https://64goodgestreet.co.uk/menus
+steps:
+- follow:
+    href_matches: 64GS\ Food\ Menu\.12\.10\.26\.pdf
+content: pdf
+render: js

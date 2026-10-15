@@ -1,0 +1,5 @@
+start: https://www.casadechadaboanova.pt/
+steps:
+- follow:
+    href_matches: MENU\-CCBN\-PT\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.brustoderkeule.de/de/menue/
+steps:
+- follow:
+    href_matches: Menuvorlage\-SepOkt2026\.pdf
+content: pdf

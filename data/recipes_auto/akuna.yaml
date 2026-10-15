@@ -1,0 +1,5 @@
+start: https://akunarestaurant.com/menu/
+steps:
+- follow:
+    href_matches: AKUNA\-MENU\-ENG\-VIET\-7\.9\.pdf\.pdf
+content: pdf

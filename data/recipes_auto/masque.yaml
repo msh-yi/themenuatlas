@@ -1,0 +1,5 @@
+start: https://www.masquerestaurant.com/food
+steps:
+- follow:
+    href_matches: Masque\-mix\-food\-menu\-Feb\-2025\.pdf
+content: pdf

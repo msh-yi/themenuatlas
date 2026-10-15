@@ -1,0 +1,5 @@
+start: https://www.saintpeter.com.au/menu
+steps:
+- follow:
+    href_matches: Sample\-Menu\-Summer\-10C\.pdf
+content: pdf

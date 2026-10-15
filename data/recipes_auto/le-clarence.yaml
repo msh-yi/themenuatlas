@@ -1,0 +1,5 @@
+start: https://www.le-clarence.paris/la-table/
+steps:
+- follow:
+    href_matches: site_Le_Clarence_Carte_Oct26_FR\.pdf
+content: pdf

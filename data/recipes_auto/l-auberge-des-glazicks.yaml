@@ -1,0 +1,5 @@
+start: https://www.aubergedesglazick.com/fr/cartes-et-menus.html
+steps:
+- follow:
+    href_matches: menu\-of\-pdf\-210626\.pdf
+content: pdf

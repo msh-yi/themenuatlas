@@ -1,0 +1,5 @@
+start: https://www.aquacrua.it/menu-aqua-crua/
+steps:
+- follow:
+    href_matches: MENU\-SITO\-VITTORIO\-10\.10\.pdf
+content: pdf

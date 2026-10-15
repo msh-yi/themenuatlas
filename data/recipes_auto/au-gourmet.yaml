@@ -1,0 +1,5 @@
+start: https://www.au-gourmet.fr/fr/
+steps:
+- follow:
+    href_matches: menu\-ds\-26\-s12\-format\-apiyou\.pdf
+content: pdf

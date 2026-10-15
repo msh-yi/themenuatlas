@@ -1,0 +1,5 @@
+start: https://www.7adamsrestaurant.com/menus
+steps:
+- follow:
+    href_matches: 5a647b_83c92d55bf4c4729875ec938b6aec769\.pdf
+content: pdf

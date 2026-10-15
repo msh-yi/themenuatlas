@@ -1,0 +1,5 @@
+start: https://www.coeur-dartichaut.de/menue
+steps:
+- follow:
+    href_matches: 6ab65f_f6afee717c83447fa20ed34eb5cfaafc\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://vororestaurant.com/en/menus/
+steps:
+- follow:
+    href_matches: V026_Menu_Web_DEVORO_EN_0626\.pdf
+content: pdf

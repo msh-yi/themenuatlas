@@ -1,0 +1,5 @@
+start: https://acquarestaurant.it/
+steps:
+- follow:
+    href_matches: Menu\-2026\.pdf
+content: pdf

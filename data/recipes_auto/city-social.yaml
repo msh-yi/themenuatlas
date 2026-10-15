@@ -1,0 +1,5 @@
+start: https://www.citysocial-london.com/
+steps:
+- follow:
+    href_matches: CITY\-SOCIAL\-LUNCH\-MENU\-30\.07\.26\.pdf
+content: pdf

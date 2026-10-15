@@ -1,0 +1,5 @@
+start: https://www.restaurantlabyrinth.com/menu-1
+steps:
+- follow:
+    href_matches: 0d52db_cce535398b00418facfaca0ef0242fec\.pdf
+content: pdf

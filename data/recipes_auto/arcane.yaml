@@ -1,0 +1,5 @@
+start: https://www.arcane.hk/menu
+steps:
+- follow:
+    href_matches: Arcane\-A\-la\-Carte\-Menu_20260926\.pdf
+content: pdf

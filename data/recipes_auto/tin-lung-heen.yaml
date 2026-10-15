@@ -1,0 +1,5 @@
+start: https://www.tinlungheen.com/menus
+steps:
+- follow:
+    href_matches: black\-pearl\-degustation\-menu\-sept\-2026\.pdf
+content: pdf

@@ -1,0 +1,6 @@
+start: https://www.corenucopia.com/
+steps:
+- follow:
+    href_matches: 099a59_c861eb5b614c4fe18fb2086b36af6c57\.pdf
+content: pdf
+render: js

@@ -1,0 +1,5 @@
+start: https://www.daterra.co.uk/
+steps:
+- follow:
+    href_matches: Sample\-Menu\.pdf
+content: pdf

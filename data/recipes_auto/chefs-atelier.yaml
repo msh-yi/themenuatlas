@@ -1,0 +1,5 @@
+start: https://www.chefsatelier.de/
+steps:
+- follow:
+    href_matches: ca\-menue\.pdf
+content: pdf

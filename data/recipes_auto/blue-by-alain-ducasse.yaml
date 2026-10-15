@@ -1,0 +1,5 @@
+start: https://www.blue-alainducasse.com/cuisine/
+steps:
+- follow:
+    href_matches: All\-Day\-Dining\-Menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.theglenturretrestaurant.com/
+steps:
+- follow:
+    href_matches: Sample_Lalique_Bar_Menu_Snacks\.pdf
+content: pdf

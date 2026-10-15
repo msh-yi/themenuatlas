@@ -1,0 +1,5 @@
+start: https://harryspiccolo.it/en/menu-eng/
+steps:
+- follow:
+    href_matches: 20260512_SUMMER_A4_ENG_web\.pdf
+content: pdf

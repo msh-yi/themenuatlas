@@ -1,0 +1,5 @@
+start: https://www.ristorantesantaelisabetta.it/menu-and-wine-list/
+steps:
+- follow:
+    href_matches: santa\-elisabetta\-tastings\-with\-wines\.pdf
+content: pdf

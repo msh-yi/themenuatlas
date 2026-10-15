@@ -1,0 +1,5 @@
+start: https://www.rosmolen.nl/
+steps:
+- follow:
+    href_matches: Rosmolen_menukaart_2026_v2_juli\.pdf
+content: pdf

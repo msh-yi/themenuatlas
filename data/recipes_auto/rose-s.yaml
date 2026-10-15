@@ -1,0 +1,5 @@
+start: https://rosesrestaurant.org/
+steps:
+- follow:
+    href_matches: DINNER%20MENU\.pdf
+content: pdf

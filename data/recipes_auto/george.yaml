@@ -1,0 +1,5 @@
+start: https://en.georgerestaurant.it/the-menu
+steps:
+- follow:
+    href_matches: GEORGE\-TASTING\-EN\.pdf
+content: pdf

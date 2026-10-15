@@ -1,0 +1,6 @@
+start: https://amisfield.co.nz/pages/dining
+steps:
+- follow:
+    href_matches: Amisfield_Cellar_Door_and_Bistro\-_Sample_Menu_Winter_2026_166cd1c4\-fcea\-45a3\-90b1\-240c180fb2da\.pdf
+content: pdf
+render: js

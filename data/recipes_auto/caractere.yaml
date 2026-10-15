@@ -1,0 +1,5 @@
+start: https://www.caractererestaurant.com/
+steps:
+- follow:
+    href_matches: Lunch\-menu\-llg3\.pdf
+content: pdf

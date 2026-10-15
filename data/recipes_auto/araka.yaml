@@ -1,0 +1,5 @@
+start: https://araka.com.tr/menu/
+steps:
+- follow:
+    href_matches: Tasting\-Menu\-2\.pdf
+content: pdf

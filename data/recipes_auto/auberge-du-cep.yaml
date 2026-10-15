@@ -1,0 +1,5 @@
+start: https://aubergeducep.com/fr/carte-et-menus.html
+steps:
+- follow:
+    href_matches: menu\-marguerite\-chabert\-automne\-2026\.pdf
+content: pdf

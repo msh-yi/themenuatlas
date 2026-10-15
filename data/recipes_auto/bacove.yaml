@@ -1,0 +1,5 @@
+start: https://restaurant-bacove.com/fr/cartes-menus.html
+steps:
+- follow:
+    href_matches: menu\-escute\-01\-10\-2026\.pdf
+content: pdf

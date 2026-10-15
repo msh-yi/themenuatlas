@@ -1,0 +1,5 @@
+start: https://www.ristorantealmetro.it/
+steps:
+- follow:
+    href_matches: menu\.pdf
+content: pdf

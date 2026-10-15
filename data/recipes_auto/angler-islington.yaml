@@ -1,0 +1,5 @@
+start: https://anglerrestaurant.com/menus/
+steps:
+- follow:
+    href_matches: SIGNATURE\-MENU\-SEP\-26\.pdf
+content: pdf

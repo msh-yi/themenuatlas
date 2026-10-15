@@ -1,0 +1,5 @@
+start: https://www.chuan-ya.com/menu.html
+steps:
+- follow:
+    href_matches: menu\.pdf
+content: pdf

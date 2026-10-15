@@ -1,0 +1,5 @@
+start: https://www.buona-terra.com/
+steps:
+- follow:
+    href_matches: buona\-terra\-menu\.pdf
+content: pdf

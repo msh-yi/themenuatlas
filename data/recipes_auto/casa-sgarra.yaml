@@ -1,0 +1,5 @@
+start: https://casasgarra.it/
+steps:
+- follow:
+    href_matches: menu_autunno_2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.robuchon.hk/
+steps:
+- follow:
+    href_matches: Golden\ Hour\.pdf
+content: pdf

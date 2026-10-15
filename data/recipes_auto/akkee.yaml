@@ -1,0 +1,5 @@
+start: https://www.akkeerestaurant.com/
+steps:
+- follow:
+    href_matches: alacarte\-menu\.pdf
+content: pdf

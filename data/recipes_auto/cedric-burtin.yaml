@@ -1,0 +1,5 @@
+start: https://cedricburtin.com/fr/
+steps:
+- follow:
+    href_matches: nos\-menus\.pdf
+content: pdf

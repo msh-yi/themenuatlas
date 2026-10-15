@@ -1,0 +1,5 @@
+start: https://pacoroncerorestaurante.com/es/menus/
+steps:
+- follow:
+    href_matches: Menu\-Paco\-Roncero\-Restaurante\-1\.pdf
+content: pdf

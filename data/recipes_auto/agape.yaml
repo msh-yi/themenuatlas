@@ -1,0 +1,5 @@
+start: https://agape-paris.fr/menus-restaurant-gastronomique/
+steps:
+- follow:
+    href_matches: menu\-sainte\-valentin\-2024\.pdf
+content: pdf

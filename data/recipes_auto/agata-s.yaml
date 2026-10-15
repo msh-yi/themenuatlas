@@ -1,0 +1,6 @@
+start: https://www.agatas.de/cms/
+steps:
+- follow:
+    href_matches: Menuekarte\-EN\-1\.0\-2026\.pdf
+content: pdf
+render: js
