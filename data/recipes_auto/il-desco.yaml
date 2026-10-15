@@ -1,0 +1,6 @@
+start: https://ristoranteildesco.it/en/menu_/
+steps:
+- follow:
+    href_matches: Menu\-22026\-ENG\.pdf
+content: pdf
+render: js

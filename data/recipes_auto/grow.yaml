@@ -1,0 +1,6 @@
+start: https://growrestaurant.it/
+steps:
+- follow:
+    href_matches: menu\-autun\-sito\.pdf
+content: pdf
+render: js

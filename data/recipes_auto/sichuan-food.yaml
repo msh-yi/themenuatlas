@@ -1,0 +1,6 @@
+start: https://sichuanfood.nl/menu-nl/
+steps:
+- follow:
+    href_matches: SichuanFood_Menu_2026\-1\.pdf
+content: pdf
+render: js

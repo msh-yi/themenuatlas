@@ -1,0 +1,6 @@
+start: https://www.eichhalde-freiburg.de/
+steps:
+- follow:
+    href_matches: Speisekarte_260918\.pdf
+content: pdf
+render: js

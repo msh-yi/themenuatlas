@@ -1,0 +1,6 @@
+start: https://www.portobay.com/de/restaurants/restaurants-madeira/il-gallo-doro/menus
+steps:
+- follow:
+    href_matches: igo_menu_vegetariano\.pdf
+content: pdf
+render: js

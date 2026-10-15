@@ -1,0 +1,6 @@
+start: https://metarestaurant.ch/
+steps:
+- follow:
+    href_matches: METARESTAURANT_LUNCH%20MENU_0526\.pdf
+content: pdf
+render: js

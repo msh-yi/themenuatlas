@@ -1,0 +1,6 @@
+start: https://www.dallmayr.com/de/delikatessenhaus/restaurant/
+steps:
+- follow:
+    href_matches: Restaurant_Alois_Lunch\.pdf
+content: pdf
+render: js

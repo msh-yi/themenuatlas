@@ -1,0 +1,6 @@
+start: https://www.jola.wien/
+steps:
+- follow:
+    href_matches: menu\.pdf
+content: pdf
+render: js

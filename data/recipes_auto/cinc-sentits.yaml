@@ -1,0 +1,6 @@
+start: https://cincsentits.com/en/
+steps:
+- follow:
+    href_matches: web_menu_en\.pdf
+content: pdf
+render: js

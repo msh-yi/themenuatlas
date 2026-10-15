@@ -1,0 +1,6 @@
+start: https://www.restaurantvermeer.nl/en/
+steps:
+- follow:
+    href_matches: Vermeer_menu_early_autumn_2026_NL_ENG\.pdf
+content: pdf
+render: js
