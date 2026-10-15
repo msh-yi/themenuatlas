@@ -4,6 +4,7 @@ Robots and rate limits are enforced by the caller through Fetcher.allowed().
 """
 
 from playwright.sync_api import Browser, sync_playwright
+from playwright.sync_api import TimeoutError as PlaywrightTimeout
 
 
 class BrowserRenderer:
@@ -30,7 +31,12 @@ class BrowserRenderer:
         assert self._browser, "use BrowserRenderer as a context manager"
         page = self._browser.new_page(user_agent=self.user_agent)
         try:
-            page.goto(url, wait_until="networkidle", timeout=self.timeout_ms)
+            page.goto(url, wait_until="load", timeout=self.timeout_ms)
+            try:
+                # many sites never go network-idle (analytics, chat widgets); take what loaded
+                page.wait_for_load_state("networkidle", timeout=8_000)
+            except PlaywrightTimeout:
+                pass
             return page.url, page.content()
         finally:
             page.close()
