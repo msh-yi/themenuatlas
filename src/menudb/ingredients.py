@@ -7,6 +7,8 @@ every such term also goes to review_queue, status "auto", for a human to audit.
 Terms with neither a match nor a suggestion wait in review_queue as "open".
 """
 
+import unicodedata
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -14,7 +16,7 @@ from menudb.db.models import Ingredient, IngredientAlias, ReviewItem
 
 
 def _norm(term: str) -> str:
-    return " ".join(term.lower().split())[:160]
+    return " ".join(unicodedata.normalize("NFC", term).lower().split())[:160]
 
 
 class Matcher:

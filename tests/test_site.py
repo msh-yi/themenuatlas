@@ -196,3 +196,10 @@ def test_optouts_leave_no_trace(tmp_path):
     d = site.build(rows, restaurants, source="synthetic", details=details, preparations=preps, manifests=manifests)
     assert "syn-uk" not in json.dumps(d) and "Synthetic UK" not in json.dumps(d)
     assert d["totals"]["restaurants"] == 8
+
+
+def test_lexicon_info_gives_one_chip_per_spelling(tmp_path):
+    lex = tmp_path / "ingredients.txt"
+    lex.write_text("## meat\nbeef = en: wagyu, wagyū, Wagyu, ribeye, rib eye, rib-eye | fr: bœuf\n",
+                   encoding="utf-8")
+    assert site.lexicon_info(lex)["beef"]["aka"] == ["wagyu", "ribeye", "bœuf"]

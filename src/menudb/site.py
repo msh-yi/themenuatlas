@@ -16,6 +16,7 @@ builds the site from the synthetic fixture only.
 
 import csv
 import json
+import unicodedata
 from collections import Counter, defaultdict
 from collections.abc import Iterable
 from datetime import date, datetime, timezone
@@ -258,6 +259,13 @@ def apply_discovery(restaurants: dict[str, a.Restaurant], details: dict[str, dic
                 restaurants[r.slug] = replace(r, publishes_menu=found)
 
 
+def _spelling(term: str) -> str:
+    """Case, accents, spaces and punctuation removed: "Wagyū", "wagyu" and "rib-eye",
+    "rib eye", "ribeye" each come out the same."""
+    t = unicodedata.normalize("NFKD", term.lower())
+    return "".join(c for c in t if c.isalnum() and not unicodedata.combining(c))
+
+
 def lexicon_info(path: Path) -> dict[str, dict]:
     """canonical name -> {category, parent, aka}, from data/lexicon/ingredients.txt.
 
@@ -279,11 +287,13 @@ def lexicon_info(path: Path) -> dict[str, dict]:
         name, _, parent = head.partition(">")
         name = name.strip().lower()
         aka: list[str] = []
+        seen = {_spelling(name)}  # one chip per spelling: not both "ribeye" and "rib eye"
         for part in body.split("|") if body else []:
             _, _, terms = part.partition(":")
             for t in terms.split(","):
                 t = t.strip()
-                if t and t.lower() != name and t not in aka:
+                if t and _spelling(t) not in seen:
+                    seen.add(_spelling(t))
                     aka.append(t)
         out[name] = {"category": category, "parent": parent.strip().lower() or None, "aka": aka[:24]}
     return out

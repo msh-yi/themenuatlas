@@ -150,6 +150,10 @@ def extract_auto(slugs: set[str] | None = None, countries: dict[str, str] | None
             done = next((p + out.removeprefix(EXTRACTED) for p in (EXTRACTED, IMPORTED)
                          if storage.exists(p + out.removeprefix(EXTRACTED))), None)
             if done and not get_json(done).get("extractor", "").startswith("lexicon"):
+                # A session's extraction is kept, but re-imported so tidy() applies
+                # the current naming and course rules to it too.
+                if done.startswith(IMPORTED) and not dry_run:
+                    storage.move(done, out)
                 counts["kept_session_extraction"] += 1
                 continue
         found: list[str] = []
@@ -276,6 +280,9 @@ def import_menu(session: Session, ex: ExtractedMenu, now: datetime | None = None
     menu.extraction_version, menu.extraction_model, menu.extracted_at = (
         ex.extraction_version, ex.extractor, now)
     matcher = matcher or ingredients.Matcher(session)
+    from menudb.extract import auto
+
+    ex = auto.tidy(ex)
     for c in ex.courses if ex.is_menu else []:
         course = Course(menu_id=menu.id, position=c.position, raw_text=c.raw_text, kind=c.kind)
         session.add(course)

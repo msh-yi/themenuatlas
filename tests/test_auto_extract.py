@@ -117,7 +117,7 @@ def test_extract_auto_writes_extracted_and_keeps_session_work(bucket):  # noqa: 
     assert handoff.queue_items([a])["already_queued"] == 1
 
 
-BLANKET_EN = """Tasting Menu
+SINGLES_EN = """Tasting Menu
 Turbot, mussels and saffron
 Lamb, aubergine and miso
 Duck, cherry and beetroot
@@ -125,15 +125,26 @@ Pear, almond and vanilla
 Tuna
 Cheese
 Wine
-Bread
 """
 
 
-def test_lone_blanket_terms_are_not_dishes():
-    ex = auto.extract(item(BLANKET_EN), country="GB")
-    assert [names(c) for c in ex.courses][-1] == {"tuna"}  # a lone specific ingredient stays
-    assert not any(names(c) <= {"cheese", "wine", "bread"} for c in ex.courses)
-    assert len(ex.courses) == 5
+def test_courses_need_two_ingredients():
+    ex = auto.extract(item(SINGLES_EN), country="GB")
+    assert len(ex.courses) == 4 and all(len(names(c)) >= 2 for c in ex.courses)
+
+
+def test_tidy_folds_variant_names_and_drops_lone_terms():
+    from menudb.extract.schema import ComponentOut, CourseOut
+    comp = lambda raw, name: ComponentOut(raw_term=raw, name=name)  # noqa: E731
+    ex = ExtractedMenu(slug="r", normalized_hash="h" * 64, extractor="claude-code-session", courses=[
+        CourseOut(position=1, raw_text="x", components=[comp("ribeye", "beef ribeye"), comp("w", "wagyū")]),
+        CourseOut(position=2, raw_text="y", components=[comp("a", "Parmigiano  Reggiano"), comp("b", "lingot bean")]),
+        CourseOut(position=3, raw_text="z", components=[comp("t", "bluefin tuna")]),
+    ])
+    out = auto.tidy(ex)
+    # ribeye and wagyū both fold onto beef, leaving one ingredient: dropped like the lone tuna
+    assert [(c.position, names(c)) for c in out.courses] == [(1, {"parmesan", "lingot bean"})]
+    assert auto.canonical("beef ribeye") == "beef" and auto.canonical("wagyū") == "beef"
 
 
 def test_stopwords_block_false_friends():
@@ -145,12 +156,6 @@ def test_stopwords_block_false_friends():
     assert hits("Maïs grillé, mais pas trop", ["fr"]) == {"corn"}
     assert hits("Verre de rosé", ["fr"]) == set()
     assert hits("Sortiment", ["de"]) == set()  # not "mint" via the compound tail -ment
-
-
-def test_blanket_names_are_in_the_lexicon():
-    ing, _ = auto.load()
-    known = {e.name for es in ing.words.values() for _, e in es}
-    assert auto.blanket() <= known, auto.blanket() - known
 
 
 def test_rose_and_mais_keep_their_real_meanings():

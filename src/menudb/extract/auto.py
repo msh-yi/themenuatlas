@@ -139,9 +139,34 @@ def load(directory: Path = LEXICON_DIR) -> tuple[Lexicon, Lexicon]:
 
 
 @lru_cache(maxsize=4)
-def blanket(directory: Path = LEXICON_DIR) -> frozenset[str]:
-    """Canonical names that, alone in a course, mark a heading or drink line, not a dish."""
-    return frozenset(l.split("#")[0].strip() for l in _lines(directory / "blanket.txt"))
+def canonical_names(directory: Path = LEXICON_DIR) -> frozenset[str]:
+    ing, _ = load(directory)
+    return frozenset(e.name for es in ing.words.values() for _, e in es)
+
+
+def canonical(name: str, directory: Path = LEXICON_DIR) -> str:
+    """The lexicon's canonical name for an ingredient name from any extractor: Unicode,
+    case and spacing normalized, and a variant the lexicon knows ("beef ribeye",
+    "parmigiano reggiano", "wagyū") folded onto its ingredient (beef, parmesan, beef)."""
+    name = " ".join(unicodedata.normalize("NFC", name).lower().split())
+    if name in canonical_names(directory):
+        return name
+    hits = {h.entry.name for h in find(load(directory)[0], name, ["en"])}
+    return hits.pop() if len(hits) == 1 else name
+
+
+def tidy(ex: ExtractedMenu, directory: Path = LEXICON_DIR) -> ExtractedMenu:
+    """Canonical names, and only courses naming at least two ingredients: a lone term
+    ("Wine", "Cheese", "Tuna") is a heading, a drink line or a bare listing, and adds
+    nothing to pairings. Applied to every extraction, lexicon or session, at import."""
+    courses = []
+    for c in ex.courses:
+        comps = [comp.model_copy(update={"name": canonical(comp.name, directory)}) if comp.name else comp
+                 for comp in c.components]
+        # unnamed components (waiting for review) still count as ingredients
+        if len({comp.name or fold(comp.raw_term) for comp in comps}) >= 2:
+            courses.append(c.model_copy(update={"position": len(courses) + 1, "components": comps}))
+    return ex.model_copy(update={"courses": courses})
 
 
 def _pick(cands: list[tuple[str, Entry]], langs: list[str], fallback: bool = False) -> Entry | None:
@@ -593,10 +618,10 @@ def extract(item: PendingItem, country: str | None = None, lexicon_dir: Path = L
         found: list[str] = []
         comps = _components(raw.replace("\n", " , "), langs, ing, prep, found)
         named = {c.name for c in comps if c.name}
-        if not named or (len(named) == 1 and named <= blanket(lexicon_dir)):
-            continue  # nothing found, or a lone blanket term ("Wine", "Cheese")
-        if candidates is not None:
-            candidates.extend(found)
+        if named and candidates is not None:
+            candidates.extend(found)  # a lone match next to unknown words is a lexicon gap
+        if len(named) < 2:
+            continue  # a lone term ("Wine", "Cheese", "Tuna") is not a dish; see tidy()
         courses.append((raw, head, comps))
     out = []
     for i, (raw, head, comps) in enumerate(courses):
