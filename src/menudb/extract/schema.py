@@ -26,7 +26,12 @@ class PendingItem(BaseModel):
 
 
 Role = Literal["main", "sauce", "garnish", "seasoning", "base", "drink", "other"]
-CourseKind = Literal["snack", "course", "dessert", "mignardise", "drink", "other"]
+CourseKind = Literal["snack", "course", "dessert", "mignardise", "drink", "other", "section"]
+
+# A course naming more ingredients than this is a whole section or card the extractor
+# could not split into dishes. It is kept, as kind "section", but left out of pairings
+# (n ingredients make n(n-1)/2 pairs) and of the site's course lists.
+MAX_DISH_INGREDIENTS = 15
 
 
 class ComponentOut(BaseModel):

@@ -105,3 +105,10 @@ def test_load_db(pg_url):
         finally:
             s.rollback()
     engine.dispose()
+
+
+def test_pairs_skip_oversized_courses():
+    rows = [row(s, "m", 1, i) for s in ("a", "b") for i in ("lamb", "mint")]
+    rows += [row(s, "m", 2, f"x{k}") for s in ("a", "b") for k in range(a.MAX_DISH_INGREDIENTS + 1)]
+    pairs = {(p["a"], p["b"]) for p in a.pair_stats(rows)}
+    assert pairs == {("lamb", "mint")}

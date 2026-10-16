@@ -221,3 +221,12 @@ def test_menu_terms_only_from_the_lexicon():
     assert kept["r2"][0]["courses"][0]["i"][0] == ["beef", ["raw"]]  # not a lexicon name: dropped
     assert counts == {"beef": {"tri-tip": 1}}
     assert "grandmother" not in json.dumps(kept)
+
+
+def test_manifests_mark_unsplit_sections():
+    comps = [{"raw_term": f"x{k}", "name": f"x{k}"} for k in range(17)]
+    menus = [{"slug": "r", "normalized_hash": "h" * 64, "courses": [
+        {"position": 1, "kind": "course", "components": comps[:3]},
+        {"position": 2, "kind": "course", "components": comps}]}]
+    kinds = [c["k"] for c in site.manifests_from_extracted(menus)["r"][0]["courses"]]
+    assert kinds == ["course", "section"]

@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
-from menudb.extract.schema import ComponentOut, CourseOut, ExtractedMenu, PendingItem
+from menudb.extract.schema import MAX_DISH_INGREDIENTS, ComponentOut, CourseOut, ExtractedMenu, PendingItem
 
 EXTRACTOR = "lexicon-3"  # bump the number when the rules change enough to re-run
 
@@ -164,8 +164,10 @@ def tidy(ex: ExtractedMenu, directory: Path = LEXICON_DIR) -> ExtractedMenu:
         comps = [comp.model_copy(update={"name": canonical(comp.name, directory)}) if comp.name else comp
                  for comp in c.components]
         # unnamed components (waiting for review) still count as ingredients
-        if len({comp.name or fold(comp.raw_term) for comp in comps}) >= 2:
-            courses.append(c.model_copy(update={"position": len(courses) + 1, "components": comps}))
+        n = len({comp.name or fold(comp.raw_term) for comp in comps})
+        if n >= 2:
+            kind = "section" if n > MAX_DISH_INGREDIENTS else c.kind
+            courses.append(c.model_copy(update={"position": len(courses) + 1, "components": comps, "kind": kind}))
     return ex.model_copy(update={"courses": courses})
 
 
@@ -306,8 +308,12 @@ _COUNTRY_KR = {"DK": "DKK", "SE": "SEK", "NO": "NOK", "IS": "ISK"}
 _COUNTRY_DOLLAR = {"MX": "MXN", "CA": "CAD", "AU": "AUD", "NZ": "NZD", "HK": "HKD", "SG": "SGD",
                    "TW": "TWD", "BR": "BRL", "AR": "ARS", "CL": "CLP", "CO": "COP", "MO": "MOP"}
 _COUNTRY_YEN = {"CN": "CNY"}
-_CONTINUE_END = re.compile(r"([,;&+/–-]|\b(and|with|et|avec|y|con|e|mit|und|og|med|och|en|met|de|di|à|au|aux|al|alla))$", re.I)
+# A trailing dash continues only as hyphenation ("Rinder-"), not as a spaced style dash or
+# the end of a Dutch price ("24,-").
+_CONTINUE_END = re.compile(r"([,;&+/]|(?<=[^\W\d_])[–-]|\b(and|with|et|avec|y|con|e|mit|und|og|med|och|en|met|de|di|à|au|aux|al|alla))$", re.I)
 _CONTINUE_START = re.compile(r"^([a-zà-ÿ(&+]|(?i:and|with|served|et|avec|con|mit|und|og|med|och|met)\b)")
+# A bare price ending a line: "hamachi, radish 16", "Kalfszwezerik 24,-", "… 18.50"
+_BARE_PRICE = re.compile(r"\s\d{1,4}(?:[.,]\d{1,2})?(?:\s?[,.][-–])?$|\s?[,.][-–]$")
 _SPLIT = re.compile(r"[,;:&+/|·•()\[\]]|\s[–—-]\s|\b(?:and|with|et|avec|y|con|e|mit|und|og|med|och|en|met|sur|on|in|au|aux|à la|al|alla|del|della|de la|du|des|of)\b", re.I)
 
 _HEADINGS = {
@@ -335,6 +341,7 @@ class Line:
     text: str
     hits: list[Hit]
     caps: bool
+    priced: bool = False  # a price ended the line, so the dish ends there
 
 
 def _is_title(prev: Line, line: Line) -> bool:
@@ -378,29 +385,34 @@ def _dish_lines(text: str, langs: list[str], ing: Lexicon) -> list[list[Line] | 
             flush("|")
             continue
         stripped = _PRICE.sub("", s).strip()
-        if stripped != s:
+        priced = stripped != s
+        if priced:
             stripped = stripped.rstrip(" .-–")
+        if _BARE_PRICE.search(stripped):
+            stripped, priced = _BARE_PRICE.sub("", stripped).rstrip(" .,-–"), True
         hits = find(ing, stripped, langs)
         letters = [c for c in stripped if c.isalpha()]
         caps = bool(letters) and all(c.isupper() for c in letters if c.isascii()) and len(letters) > 2
         if not hits and not caps:
             if block and _CONTINUE_END.search(block[-1].text):
-                block.append(Line(stripped, hits, caps))  # unmatched continuation of a dish
+                block.append(Line(stripped, hits, caps, priced))  # unmatched continuation of a dish
             else:
                 flush("|")
             continue
-        block.append(Line(stripped, hits, caps))
+        block.append(Line(stripped, hits, caps, priced))
     flush("|")
     return out
 
 
 def _split_block(block: list[Line], whole: bool) -> list[list[Line]]:
-    if whole:
+    """One block of dish lines into dishes. `whole` (a menu with a divider between most
+    dishes) keeps a short block as one dish; a long one is a section and is split."""
+    if whole and len(block) <= 4:
         return [block]
     dishes: list[list[Line]] = []
     for i, line in enumerate(block):
         prev = block[i - 1] if i else None
-        joined = prev is not None and (
+        joined = prev is not None and not prev.priced and (
             _CONTINUE_END.search(prev.text) is not None
             or _CONTINUE_START.match(line.text) is not None
             or (len(dishes[-1]) == 1 and _is_title(prev, line)))
@@ -625,8 +637,9 @@ def extract(item: PendingItem, country: str | None = None, lexicon_dir: Path = L
         courses.append((raw, head, comps))
     out = []
     for i, (raw, head, comps) in enumerate(courses):
+        section = len({c.name for c in comps if c.name}) > MAX_DISH_INGREDIENTS
         out.append(CourseOut(position=i + 1, raw_text=raw,
-                             kind=_kind(comps, head, i, len(courses), categories),
+                             kind="section" if section else _kind(comps, head, i, len(courses), categories),
                              components=comps))
 
     prices = _prices(text, country)

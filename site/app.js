@@ -707,6 +707,7 @@ function courses(params) {
     for (const m of r.menu_list || []) {
       let k = 0;
       for (const c of m.courses) {
+        if (c.k === "section") continue; // a whole section the extractor couldn't split into dishes
         if (c.k !== "drink") k++;
         if (c.i.some(([n, p, t]) => match(n, p, t))) found.push({ r, m, c, n: c.k === "drink" ? null : k });
       }
@@ -770,16 +771,20 @@ function menuCard(m, open, r) {
     catch { price = `${m.price} ${m.currency || ""}`.trim(); }
   }
   const title = MENU_TYPES[m.type] || "Menu";
-  const meta = [`${m.courses.length} courses`, `${n} ingredients`, price, LANGS[m.lang] || m.lang, m.period, when].filter(Boolean).join(" · ");
+  const dishes = m.courses.filter((c) => c.k !== "section").length;
+  const meta = [`${dishes} courses`, `${n} ingredients`, price, LANGS[m.lang] || m.lang, m.period, when].filter(Boolean).join(" · ");
   let k = 0;
   return h("details", { class: "card menu", open: open || null },
     h("summary", {}, h("span", {}, title), h("span", { class: "muted menu-meta" }, meta)),
     h("ol", { class: "courses" }, m.courses.map((c) => {
-      if (c.k !== "drink") k++;
-      return h("li", { class: "mc" },
-        h("span", { class: "mc-n" }, c.k === "drink" ? "" : String(k)),
+      const plain = c.k === "drink" || c.k === "section";
+      if (!plain) k++;
+      return h("li", { class: "mc" + (c.k === "section" ? " mc-section" : "") },
+        h("span", { class: "mc-n" }, plain ? "" : String(k)),
         h("div", { class: "mc-body" },
-          c.k && c.k !== "course" ? h("span", { class: "mc-kind" }, c.k) : null,
+          c.k === "section"
+            ? h("span", { class: "mc-kind", title: "Several dishes the extractor couldn't tell apart; left out of pairings and course lists" }, "section, not split into dishes")
+            : c.k && c.k !== "course" ? h("span", { class: "mc-kind" }, c.k) : null,
           courseItems(c)));
     })),
     r.url ? h("p", { class: "muted", style: "font-size:.82rem;margin:.6rem 0 0" }, "Ingredients and preparations as read by the extractor. For the dishes as the chef wrote them, see ",

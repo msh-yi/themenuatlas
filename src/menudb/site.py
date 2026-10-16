@@ -23,6 +23,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 from menudb import analysis as a
+from menudb.extract.schema import MAX_DISH_INGREDIENTS
 
 SCHEMA = 2  # 2: split into data.json, pairs.json and menus/NN.json (see write())
 MENU_SHARDS = 64
@@ -126,7 +127,9 @@ def manifests_from_extracted(menus: Iterable[dict],
                     item.append(term)
                 items.append(item)
             if items:
-                courses.append({"k": c.get("kind") or "course", "i": items})
+                # an unsplit section: shown apart, kept out of course lists (and pairings)
+                kind = "section" if len(items) > MAX_DISH_INGREDIENTS else c.get("kind") or "course"
+                courses.append({"k": kind, "i": items})
         if not courses:
             continue
         first, last = (seen or {}).get(m["normalized_hash"], (None, None))

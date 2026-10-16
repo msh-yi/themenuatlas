@@ -20,6 +20,7 @@ from datetime import date
 from itertools import combinations
 from pathlib import Path
 
+from menudb.extract.schema import MAX_DISH_INGREDIENTS
 from menudb.seasons import season
 
 # Regions by ISO country code. The first slice's regions, widened on 2026-10-15 for the
@@ -212,6 +213,8 @@ def pair_stats(rows: list[Row], min_restaurants: int = 2, prior: float = PAIR_PR
     courses: dict[tuple[str, str, int], set[str]] = defaultdict(set)
     for r in rows:
         courses[(r.restaurant, r.menu, r.course)].add(r.ingredient)
+    # A whole section the extractor couldn't split would add n(n-1)/2 spurious pairs.
+    courses = {k: v for k, v in courses.items() if len(v) <= MAX_DISH_INGREDIENTS}
     per_restaurant: dict[str, int] = defaultdict(int)
     for slug, _, _ in courses:
         per_restaurant[slug] += 1

@@ -163,3 +163,67 @@ def test_rose_and_mais_keep_their_real_meanings():
     hits = lambda text, langs: {h.entry.name for h in auto.find(ing, text, langs)}  # noqa: E731
     assert hits("Pamplemousse, rose, litchi", ["fr"]) == {"grapefruit", "rose", "lychee"}
     assert hits("Crema di mais", ["it"]) == {"cream", "corn"}
+
+
+DIVIDED_WITH_SECTION = """Menu
+✳
+Smoked eel, beetroot
+✳
+Turbot, mussels, saffron
+✳
+Pigeon, cherry, beetroot
+✳
+Starters
+Hake, leek, mussels
+Scallop, pumpkin, sage
+Duck, plum, celeriac
+Lamb, aubergine, miso
+Pork, apple, fennel
+Venison, quince, juniper
+✳
+Pear, almond, vanilla
+✳
+"""
+
+LOWERCASE_PRICED = """dinner
+hamachi, radish, yuzu 16
+scallop, pumpkin, sage 18
+duck, plum, celeriac 32
+lamb, aubergine, miso 34
+pear, almond, vanilla 12
+"""
+
+DUTCH_PRICES = """Dinner
+Sweetbread, leek, mustard € 24,-
+Turbot, mussels, saffron 32,-
+Duck, plum, celeriac 34,-
+Pear, almond, vanilla 14,-
+"""
+
+
+def test_a_long_block_between_dividers_is_split_into_dishes():
+    ex = auto.extract(item(DIVIDED_WITH_SECTION), country="GB")
+    assert max(len(names(c)) for c in ex.courses) <= 3
+    assert {"venison", "quince", "juniper"} in [names(c) for c in ex.courses]
+
+
+def test_lines_ending_in_a_bare_price_are_separate_dishes():
+    for text, n in ((LOWERCASE_PRICED, 5), (DUTCH_PRICES, 4)):
+        ex = auto.extract(item(text), country="NL")
+        assert len(ex.courses) == n and all(len(names(c)) == 3 for c in ex.courses)
+
+
+def test_trailing_dash_continues_only_as_hyphenation():
+    assert auto._CONTINUE_END.search("Rinder-")
+    assert not auto._CONTINUE_END.search("Kalfszwezerik -")
+    assert not auto._CONTINUE_END.search("prei 24,-")
+
+
+def test_an_unsplittable_section_is_flagged():
+    many = ", ".join(["turbot", "mussels", "saffron", "leek", "scallop", "pumpkin", "sage", "duck", "plum",
+                      "celeriac", "lamb", "aubergine", "miso", "pork", "apple", "fennel"])
+    text = "Menu\n" + many + "\n" + "\n".join(["Hake, leek, dill", "Eel, beetroot, apple",
+                                              "Duck, cherry, beetroot", "Pear, almond, vanilla"])
+    ex = auto.extract(item(text), country="GB")
+    assert [c.kind for c in ex.courses][0] == "section"
+    assert all(c.kind != "section" for c in ex.courses[1:])

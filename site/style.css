@@ -193,6 +193,7 @@ details.menu[open] > summary { margin-bottom: .6rem; }
 .mc-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .85rem; text-align: right; padding-top: .05rem; }
 .mc-body { min-width: 0; display: flex; flex-wrap: wrap; gap: .1rem .5rem; align-items: baseline; }
 .mc-kind { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.mc-section .mc-body { opacity: .65; font-size: .9em; }
 .mc-items { min-width: 0; }
 .mp { font-size: .85rem; }
 .sep { color: var(--muted); }
