@@ -241,3 +241,13 @@ details.menu[open] > summary { margin-bottom: .6rem; }
 /* the home page has the title front and centre; keep the nav where it is on wide screens */
 body.home .brand { visibility: hidden; }
 @media (max-width: 560px) { body.home .brand { display: none; } }
+/* course lists: the ingredient the list is about */
+.mi.hit > a { font-weight: 600; box-shadow: inset 0 -2px 0 var(--contrast); }
+.mt { font-style: italic; }
+.stacked td { vertical-align: top; }
+@media (max-width: 640px) {
+  .stacked thead, .stacked td:nth-child(2) { display: none; }
+  .stacked tr, .stacked td { display: block; }
+  .stacked td { border: 0; padding: .15rem 0; }
+  .stacked tr { border-bottom: 1px solid var(--border); padding: .6rem 0; }
+}

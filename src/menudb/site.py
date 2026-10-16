@@ -101,7 +101,9 @@ def preparations_from_extracted(menus: Iterable[dict]) -> dict[str, Counter]:
 def manifests_from_extracted(menus: Iterable[dict],
                              seen: dict[str, tuple[str | None, str | None]] | None = None) -> dict[str, list[dict]]:
     """slug -> that restaurant's menus as manifests: courses in order, each a list of
-    [ingredient, [preparations]]. Canonical names only, never the menu's wording.
+    [ingredient, [preparations]] or [ingredient, [preparations], term], where term is the name
+    the menu used when it differs from the canonical one. build() keeps a term only if the
+    lexicon lists it as another name for that ingredient, so no other wording gets through.
     `seen` maps normalized_hash to (first_seen, last_seen) ISO dates when known."""
     out: dict[str, list[dict]] = defaultdict(list)
     done = set()
@@ -118,7 +120,11 @@ def manifests_from_extracted(menus: Iterable[dict],
                 if not name or name in names:
                     continue
                 names.add(name)
-                items.append([name, [p.strip().lower() for p in comp.get("preparations") or [] if p.strip()]])
+                item = [name, [p.strip().lower() for p in comp.get("preparations") or [] if p.strip()]]
+                term = (comp.get("raw_term") or "").strip().lower()
+                if term and _spelling(term) != _spelling(name):
+                    item.append(term)
+                items.append(item)
             if items:
                 courses.append({"k": c.get("kind") or "course", "i": items})
         if not courses:
@@ -143,7 +149,7 @@ def manifests_from_db(session) -> dict[str, list[dict]]:
                Menu.currency, Menu.first_seen, Menu.last_seen, Course.position, Course.kind,
                func.lower(func.coalesce(Ingredient.canonical_name, Component.suggested_name,
                                         Component.raw_term)),
-               Component.preparations)
+               Component.preparations, Component.raw_term)
         .join(Menu, Menu.restaurant_id == Restaurant.id)
         .join(Course, Course.menu_id == Menu.id)
         .join(Component, Component.course_id == Course.id)
@@ -153,14 +159,14 @@ def manifests_from_db(session) -> dict[str, list[dict]]:
     )
     menus: dict[tuple[str, str], dict] = {}
     seen: dict[str, tuple[str | None, str | None]] = {}
-    for slug, h, mtype, lang, price, cur, first, last, pos, kind, name, preps in session.execute(q):
+    for slug, h, mtype, lang, price, cur, first, last, pos, kind, name, preps, term in session.execute(q):
         m = menus.setdefault((slug, h), {"slug": slug, "normalized_hash": h, "is_menu": mtype != "not_a_menu",
                                          "menu_type": mtype, "language": lang, "price": price,
                                          "currency": cur, "courses": {}})
         seen[h] = (first.date().isoformat() if first else None, last.date().isoformat() if last else None)
         c = m["courses"].setdefault(pos, {"position": pos, "kind": kind, "components": []})
         if name:
-            c["components"].append({"raw_term": name, "preparations": preps or []})
+            c["components"].append({"name": name, "raw_term": term, "preparations": preps or []})
     for m in menus.values():
         m["courses"] = list(m["courses"].values())
     return manifests_from_extracted(menus.values(), seen)
@@ -266,6 +272,31 @@ def _spelling(term: str) -> str:
     return "".join(c for c in t if c.isalnum() and not unicodedata.combining(c))
 
 
+def _lexicon_terms(manifests: dict[str, list[dict]] | None,
+                   lexicon: dict[str, dict]) -> tuple[dict[str, list[dict]] | None, dict[str, dict[str, int]]]:
+    """Manifests with each item's term kept only when the lexicon lists it as another name
+    for that ingredient (as the lexicon spells it), and ingredient -> term -> restaurants."""
+    if not manifests:
+        return manifests, {}
+    known = {name: {_spelling(t): t for t in info.get("aka") or []} for name, info in lexicon.items()}
+    users: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    out: dict[str, list[dict]] = {}
+    for slug, ms in manifests.items():
+        out[slug] = []
+        for m in ms:
+            courses = []
+            for c in m["courses"]:
+                items = []
+                for item in c["i"]:
+                    term = known.get(item[0], {}).get(_spelling(item[2])) if len(item) > 2 else None
+                    items.append([item[0], item[1], term] if term else [item[0], item[1]])
+                    if term:
+                        users[item[0]][term].add(slug)
+                courses.append({**c, "i": items})
+            out[slug].append({**m, "courses": courses})
+    return out, {i: {t: len(s) for t, s in ts.items()} for i, ts in users.items()}
+
+
 def lexicon_info(path: Path) -> dict[str, dict]:
     """canonical name -> {category, parent, aka}, from data/lexicon/ingredients.txt.
 
@@ -317,6 +348,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
     details = details or {}
     wikipedia = wikipedia or {}
     lexicon = lexicon or {}
+    manifests, aka_counts = _lexicon_terms(manifests, lexicon)
     preparations = preparations or {}
     overall = a.ingredient_frequency(rows)
     by_region, by_season = _share_by(rows, "region"), _share_by(rows, "season")
@@ -354,6 +386,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "preparations": preparations.get(d["ingredient"], Counter()).most_common(8),
         "wikipedia": wikipedia.get(d["ingredient"]),
         **{k: v for k, v in lexicon.get(d["ingredient"], {}).items() if v},
+        **({"aka_n": aka_counts[d["ingredient"]]} if aka_counts.get(d["ingredient"]) else {}),
     } for d in overall]
 
     restaurant_list = []

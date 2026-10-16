@@ -203,3 +203,21 @@ def test_lexicon_info_gives_one_chip_per_spelling(tmp_path):
     lex.write_text("## meat\nbeef = en: wagyu, wagyū, Wagyu, ribeye, rib eye, rib-eye | fr: bœuf\n",
                    encoding="utf-8")
     assert site.lexicon_info(lex)["beef"]["aka"] == ["wagyu", "ribeye", "bœuf"]
+
+
+def test_menu_terms_only_from_the_lexicon():
+    menus = [{"slug": "r1", "normalized_hash": "h1", "courses": [{"position": 1, "components": [
+        {"name": "beef", "raw_term": "Tri-Tip", "preparations": ["braised"]},
+        {"name": "beef", "raw_term": "our grandmother's secret beef", "preparations": []},
+        {"name": "shallot", "raw_term": "shallot", "preparations": []}]}]},
+             {"slug": "r2", "normalized_hash": "h2", "courses": [{"position": 1, "components": [
+        {"name": "beef", "raw_term": "grandmother's beef", "preparations": ["raw"]},
+        {"name": "onion", "raw_term": "onion", "preparations": []}]}]}]
+    manifests = site.manifests_from_extracted(menus)
+    assert manifests["r1"][0]["courses"][0]["i"][0] == ["beef", ["braised"], "tri-tip"]
+    lexicon = {"beef": {"aka": ["tri-tip", "wagyu"]}}
+    kept, counts = site._lexicon_terms(manifests, lexicon)
+    assert kept["r1"][0]["courses"][0]["i"] == [["beef", ["braised"], "tri-tip"], ["shallot", []]]
+    assert kept["r2"][0]["courses"][0]["i"][0] == ["beef", ["raw"]]  # not a lexicon name: dropped
+    assert counts == {"beef": {"tri-tip": 1}}
+    assert "grandmother" not in json.dumps(kept)

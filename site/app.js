@@ -36,6 +36,14 @@ async function ensureMenus(slug) {
   } catch { /* the page still shows the ingredient list */ }
   if (r.menu_list === undefined) r.menu_list = [];
 }
+// Every restaurant's menus (all 64 shards, about 0.4 MB compressed), for the course lists.
+let allMenus = null;
+function ensureAllMenus() {
+  if (!D.has_menus) return Promise.resolve();
+  return (allMenus ||= Promise.all(Array.from({ length: 64 }, (_, i) => fetchJSON(`menus/${String(i).padStart(2, "0")}.json`)
+    .then((part) => { for (const [k, v] of Object.entries(part)) { const x = byRestaurant.get(k); if (x) x.menu_list = v; } })
+    .catch(() => {}))));
+}
 // Fill back the fields export-site drops at their default, and turn restaurant indexes into slugs.
 const R_DEFAULTS = { approx: false, blocked: false, menus: 0, ingredients: 0, publishes_menu: "unknown",
   url: null, city: null, country: null, lat: null, lon: null };
@@ -126,7 +134,7 @@ async function route() {
   const view = parts[0] || "home";
   const ticket = ++routing;
   const needs = view === "pairings" || view === "ingredient" ? ensurePairs()
-    : view === "restaurant" && parts[1] ? ensureMenus(parts[1]) : null;
+    : view === "restaurant" && parts[1] ? ensureMenus(parts[1]) : view === "courses" ? ensureAllMenus() : null;
   if (needs) {
     const app = document.getElementById("app");
     const timer = setTimeout(() => { if (ticket === routing) app.replaceChildren(h("p", { class: "muted" }, "Loading…")); }, 150);
@@ -135,7 +143,7 @@ async function route() {
     if (ticket !== routing) return;
   }
   for (const a of document.querySelectorAll("[data-nav]")) {
-    const on = a.dataset.nav === view || (view === "ingredient" && a.dataset.nav === "ingredients")
+    const on = a.dataset.nav === view || ((view === "ingredient" || view === "courses") && a.dataset.nav === "ingredients")
       || (view === "restaurant" && a.dataset.nav === "restaurants");
     a.classList.toggle("on", on);
     if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -143,7 +151,7 @@ async function route() {
   // The home page shows the title large, so the header's copy is hidden there.
   document.body.classList.toggle("home", view === "home");
   const app = document.getElementById("app");
-  const views = { home, ingredients, ingredient, pairings, restaurants, restaurant, coverage, about };
+  const views = { home, ingredients, ingredient, courses, pairings, restaurants, restaurant, coverage, about };
   const fn = views[view] || notFound;
   app.replaceChildren(...[].concat(fn(params, parts.slice(1))));
   document.title = (fn === home ? "" : (app.querySelector("h1")?.textContent + " · ")) + "The Menu Atlas";
@@ -454,10 +462,14 @@ function ingredient(_params, [name]) {
       h("section", { class: "card stack" },
         h("div", {}, h("h2", {}, "Preparations"),
           ing.preparations.length
-            ? h("div", { class: "chips" }, ing.preparations.map(([p, n]) => h("span", { class: "chip" }, p, h("span", { class: "n" }, n))))
+            ? h("div", { class: "chips" }, ing.preparations.map(([p, n]) => D.has_menus
+              ? h("a", { class: "chip", href: coursesHref(name, { prep: p }), title: `${cap(name)}, ${p}: every course` }, p, h("span", { class: "n" }, n))
+              : h("span", { class: "chip" }, p, h("span", { class: "n" }, n))))
             : h("p", { class: "empty" }, "None recorded.")),
         ing.aka?.length ? h("div", {}, h("h2", {}, "Also on menus as"),
-          h("div", { class: "chips" }, ing.aka.map((a) => h("span", { class: "chip" }, a)))) : null,
+          h("div", { class: "chips" }, [...ing.aka].sort((a, b) => (ing.aka_n?.[b] || 0) - (ing.aka_n?.[a] || 0)).map((a) => ing.aka_n?.[a] && D.has_menus
+            ? h("a", { class: "chip", href: coursesHref(name, { as: a }), title: `Every course where the menu said “${a}”` }, a, h("span", { class: "n" }, ing.aka_n[a]))
+            : h("span", { class: "chip muted" }, a)))) : null,
         h("div", {}, h("h2", {}, "Restaurants"),
           h("div", { class: "chips" }, rs.slice(0, LIST).map((r) => h("a", { class: "chip", href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name)),
             rs.length > LIST ? h("span", { class: "muted" }, `and ${rs.length - LIST} more, all on the map below`) : null)))),
@@ -670,6 +682,83 @@ function fmtDate(d) {
   try { return new Date(d + "T00:00:00Z").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" }); }
   catch { return d; }
 }
+// One course's ingredients with their preparations. `hit` marks the item a course list is
+// about; that one also shows the menu's own name for it when it used another ("beef (wagyu)").
+function courseItems(c, hit) {
+  return h("span", { class: "mc-items" }, c.i.flatMap(([name, preps, term], j) => {
+    const on = hit && hit(name, preps, term);
+    return [j ? h("span", { class: "sep" }, " · ") : null,
+    h("span", { class: "mi" + (on ? " hit" : "") }, byName.has(name) ? ingLink(name) : name,
+      on && term ? h("span", { class: "muted mt" }, ` (${term})`) : null,
+      preps.length ? h("span", { class: "muted mp" }, " " + preps.join(", ")) : null)];
+  }));
+}
+const coursesHref = (name, { prep, as } = {}) => "#/courses?" + new URLSearchParams({ i: name, ...(prep ? { prep } : {}), ...(as ? { as } : {}) });
+
+// Every course, across all restaurants, where an ingredient appears prepared one way
+// (?i=beef&prep=braised) or under one of its other names (?i=beef&as=wagyu).
+function courses(params) {
+  const name = params.get("i") || "", prep = params.get("prep"), as = params.get("as");
+  const ing = byName.get(name);
+  if (!ing || !(prep || as)) return notFound();
+  const match = (n, preps, term) => n === name && (prep ? preps.includes(prep) : term === as);
+  const found = [];
+  for (const r of D.restaurants) {
+    for (const m of r.menu_list || []) {
+      let k = 0;
+      for (const c of m.courses) {
+        if (c.k !== "drink") k++;
+        if (c.i.some(([n, p, t]) => match(n, p, t))) found.push({ r, m, c, n: c.k === "drink" ? null : k });
+      }
+    }
+  }
+  const state = { sort: params.get("sort") || "acc", dir: params.get("dir") || "desc", page: 50 };
+  const regionSel = h("select", {}, h("option", { value: "" }, "All regions"),
+    D.groups.region.filter((g) => found.some((f) => f.r.region === g)).map((g) => h("option", { value: g, selected: g === params.get("region") }, g)));
+  const host = h("div", {}), withHost = h("div", {});
+  const live = () => {
+    const p = new URLSearchParams({ i: name, ...(prep ? { prep } : {}), ...(as ? { as } : {}) });
+    if (regionSel.value) p.set("region", regionSel.value);
+    if (state.sort !== "acc") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
+    setParams(p);
+    const rows = found.filter((f) => !regionSel.value || f.r.region === regionSel.value)
+      .map((f) => ({ ...f, name: f.r.name, region: f.r.region, acc: accoladeScore(f.r.accolades) }));
+    const places = new Set(rows.map((f) => f.r.slug));
+    // what else is on the plate, counted by restaurant
+    const other = new Map();
+    for (const f of rows) for (const [n] of f.c.i) if (n !== name) (other.get(n) || other.set(n, new Set()).get(n)).add(f.r.slug);
+    const top = [...other].map(([n, s]) => [n, s.size]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 16);
+    withHost.replaceChildren(top.length ? h("section", { class: "card" }, h("h2", {}, "Most often on the plate with it"),
+      h("div", { class: "chips" }, top.map(([n, c]) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(n) }, n, h("span", { class: "n", title: "restaurants" }, c))))) : "");
+    host.replaceChildren(h("p", { class: "muted" }, `${rows.length.toLocaleString()} course${rows.length === 1 ? "" : "s"} at ${places.size.toLocaleString()} restaurant${places.size === 1 ? "" : "s"}`),
+      h("div", { class: "stacked" }, table(rows, [
+        // "acc" isn't a column: it falls back to this one, sorted by accolades
+        { key: "name", label: "Restaurant", sort: (f) => (state.sort === "acc" ? f.acc : f.name), render: (f) => h("span", {}, h("a", { href: "#/restaurant/" + encodeURIComponent(f.r.slug) }, f.r.name),
+          accoladeText(f.r.accolades) ? h("span", { class: "acc", title: accoladeTitle(f.r.accolades), style: "margin-left:.4rem" }, accoladeNodes(f.r.accolades)) : null,
+          h("div", { class: "muted", style: "font-size:.85rem" }, [f.r.city, f.r.country].filter(Boolean).join(", "))) },
+        { key: "region", label: "Region" },
+        { key: "course", label: "Course", nosort: true, render: (f) => h("div", {},
+          h("div", { class: "muted", style: "font-size:.78rem" }, [MENU_TYPES[f.m.type] || "Menu", f.n ? `course ${f.n}` : f.c.k].filter(Boolean).join(" · ")),
+          courseItems(f.c, match)) },
+      ], state, (sort, dir) => { state.sort = sort; state.dir = dir; live(); })));
+  };
+  regionSel.addEventListener("change", live);
+  live();
+  return h("div", {},
+    h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/ingredient/" + encodeURIComponent(name) }, "← " + cap(name))),
+    h("h1", {}, prep ? `${cap(name)}, ${prep}` : `${cap(name)} as “${as}”`),
+    h("p", { class: "sub" }, prep
+      ? `Every course where ${name} is ${prep}, on the menus of every restaurant. Each course is shown as its ingredients; for the dish itself, see the restaurant's site.`
+      : `Every course where the menu calls ${name} “${as}”. Each course is shown as its ingredients; for the dish itself, see the restaurant's site.`),
+    h("div", { class: "filters" }, h("label", {}, "Region", regionSel),
+      h("label", {}, "Sort", (() => {
+        const sel = h("select", {}, [["acc", "Most decorated first"], ["name", "Restaurant A–Z"], ["region", "Region"]].map(([v, l]) => h("option", { value: v, selected: v === state.sort }, l)));
+        sel.addEventListener("change", () => { state.sort = sel.value; state.dir = sel.value === "acc" ? "desc" : "asc"; live(); });
+        return sel;
+      })())),
+    withHost, host);
+}
+
 function menuCard(m, open, r) {
   const n = new Set(m.courses.flatMap((c) => c.i.map(([name]) => name))).size;
   const when = m.first_seen
@@ -691,9 +780,7 @@ function menuCard(m, open, r) {
         h("span", { class: "mc-n" }, c.k === "drink" ? "" : String(k)),
         h("div", { class: "mc-body" },
           c.k && c.k !== "course" ? h("span", { class: "mc-kind" }, c.k) : null,
-          h("span", { class: "mc-items" }, c.i.flatMap(([name, preps], j) => [j ? h("span", { class: "sep" }, " · ") : null,
-            h("span", { class: "mi" }, byName.has(name) ? ingLink(name) : name,
-              preps.length ? h("span", { class: "muted mp" }, " " + preps.join(", ")) : null)]))));
+          courseItems(c)));
     })),
     r.url ? h("p", { class: "muted", style: "font-size:.82rem;margin:.6rem 0 0" }, "Ingredients and preparations as read by the extractor. For the dishes as the chef wrote them, see ",
       h("a", { href: r.url, rel: "noopener", target: "_blank" }, "the restaurant's site ↗"), ".") : null);
