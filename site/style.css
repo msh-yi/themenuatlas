@@ -58,7 +58,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.45; font-size: 15px; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.45; font-size: 15px; font-family: var(--serif-text); }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 h1, h2, .brand, .tile .v { font-family: var(--serif-display); }
