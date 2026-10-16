@@ -3,19 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menu Atlas</title>
+  <title>The Menu Atlas</title>
   <meta name="description" content="Ingredients, preparations and pairings across published fine-dining menus, by region and season.">
   <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- The Michelin star, drawn as a stroke: top and bottom petals, plus the side petals that branch off them. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mstar" viewBox="0 0 960 1048">
+      <g fill="none" stroke="currentColor" stroke-width="64">
+        <g id="mstar-half">
+          <path d="M407 397C360 300 332 240 333 185C334 120 390 88 480 88C570 88 626 120 627 185C628 240 600 300 553 397"/>
+          <path d="M333 212C260 170 150 175 90 250C30 320 30 400 90 450C150 500 250 515 335 525"/>
+          <path d="M627 212C700 170 810 175 870 250C930 320 930 400 870 450C810 500 710 515 625 525"/>
+        </g>
+        <use href="#mstar-half" transform="matrix(1 0 0 -1 0 1048)"/>
+      </g>
+    </symbol>
+  </svg>
   <header class="top">
-    <a class="brand" href="#/">Menu Atlas</a>
+    <a class="brand" href="#/">The Menu Atlas</a>
     <nav aria-label="Sections">
-      <a href="#/" data-nav="ingredients">Ingredients</a>
-      <a href="#/pairings" data-nav="pairings">Pairings</a>
+      <a href="#/ingredients" data-nav="ingredients">Ingredients</a>
       <a href="#/restaurants" data-nav="restaurants">Restaurants</a>
-      <a href="#/coverage" data-nav="coverage">Coverage</a>
+      <a href="#/pairings" data-nav="pairings">Pairings</a>
+      <a href="#/coverage" data-nav="coverage">Map</a>
       <a href="#/about" data-nav="about">About</a>
     </nav>
   </header>
