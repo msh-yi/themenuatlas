@@ -741,6 +741,18 @@ SITE_KEY = "site/"  # private: real-data builds stay in the bucket until publish
 
 
 @app.command()
+def consolidate():
+    """Merge ingredients the lexicon folds onto another ("beef ribeye" -> beef). Postgres."""
+    from menudb import ingredients
+    from menudb.db import get_session
+
+    with get_session() as session:
+        n = ingredients.consolidate(session)
+        session.commit()
+    typer.echo(f"ingredients merged: {n}")
+
+
+@app.command()
 def stats():
     """Row counts per table and data-quality checks (counts, slugs and hosts only), also
     written to the Actions step summary."""

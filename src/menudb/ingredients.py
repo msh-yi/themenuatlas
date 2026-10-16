@@ -72,3 +72,50 @@ def match(session: Session, raw_term: str, suggested: str | None, language: str 
           context: str | None = None, auto_accept: bool = True) -> int | None:
     """One-off match; loads the caches, so use a Matcher for many terms."""
     return Matcher(session).match(raw_term, suggested, language, context, auto_accept)
+
+
+def consolidate(session: Session) -> int:
+    """Merge ingredients whose name the lexicon folds onto another one ("beef ribeye",
+    "wagyū" -> beef; "parmigiano  reggiano" -> parmesan) into that ingredient: its
+    components, aliases and children move over and the variant row goes. Earlier imports
+    left such rows behind, and their aliases would keep catching new menus. Ingredients a
+    human chose in review (an alias of a mapped or accepted term) are left alone.
+    Returns the number of ingredients merged away."""
+    from sqlalchemy import update
+
+    from menudb.db.models import Component
+    from menudb.extract.auto import canonical, canonical_names
+
+    lexicon = canonical_names()
+    decided = {(r.raw_term.lower(), r.language) for r in session.scalars(
+        select(ReviewItem).where(ReviewItem.status.in_(("mapped", "accepted"))))}
+    protected = {i for a, lang, i in session.execute(
+        select(IngredientAlias.alias, IngredientAlias.language, IngredientAlias.ingredient_id))
+        if (a, lang) in decided}
+    by_name = {i.canonical_name: i for i in session.scalars(select(Ingredient))}
+    merged = 0
+    for name, ing in list(by_name.items()):
+        target_name = canonical(name)
+        if target_name == name or ing.id in protected:
+            continue
+        if target_name not in lexicon and target_name not in by_name:
+            ing.canonical_name = target_name  # only the spelling changes
+            by_name[target_name] = by_name.pop(name)
+            continue
+        target = by_name.get(target_name)
+        if target is None:
+            target = by_name[target_name] = Ingredient(canonical_name=target_name)
+            session.add(target)
+            session.flush()
+        session.execute(update(Component).where(Component.ingredient_id == ing.id)
+                        .values(ingredient_id=target.id))
+        session.execute(update(IngredientAlias).where(IngredientAlias.ingredient_id == ing.id)
+                        .values(ingredient_id=target.id))
+        session.execute(update(Ingredient).where(Ingredient.parent_id == ing.id)
+                        .values(parent_id=target.id))
+        session.flush()
+        session.delete(ing)
+        del by_name[name]
+        merged += 1
+    session.flush()
+    return merged

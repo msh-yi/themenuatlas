@@ -88,3 +88,29 @@ def test_bucket_round_trip(session, imported, bucket):  # noqa: F811
     assert counts["mapped"] == 1 and counts["invalid_files"] == 1 and counts["files"] == 1
     assert "review/applied/a.json" in bucket and "review/decisions/b.json" in bucket
     assert ingredient_of(session, "Langoustine") == "langoustine"
+
+
+def test_consolidate_merges_variant_ingredients(session, bucket):  # noqa: F811
+    from menudb import ingredients
+    from menudb.db.models import Course
+
+    menu = make_menu(session, bucket)
+    beef, ribeye, kept = (Ingredient(canonical_name=n) for n in ("beef", "beef ribeye", "beef tartare stuff"))
+    nfd = Ingredient(canonical_name="lingot  bean")
+    session.add_all([beef, ribeye, kept, nfd])
+    session.flush()
+    session.add_all([IngredientAlias(alias="ribeye", language="en", ingredient_id=ribeye.id),
+                     IngredientAlias(alias="tartare", language="en", ingredient_id=kept.id),
+                     ReviewItem(raw_term="tartare", language="en", status="mapped", occurrences=1)])
+    course = Course(menu_id=menu.id, position=1, raw_text="x")
+    course.components.append(Component(raw_term="ribeye", ingredient_id=ribeye.id))
+    session.add(course)
+    session.commit()
+
+    assert ingredients.consolidate(session) == 1
+    session.commit()
+    names = set(session.scalars(select(Ingredient.canonical_name)))
+    assert names == {"beef", "beef tartare stuff", "lingot bean"}  # human choice kept, spacing fixed
+    assert ingredient_of(session, "ribeye") == "beef"
+    alias = session.scalar(select(IngredientAlias).where(IngredientAlias.alias == "ribeye"))
+    assert alias.ingredient_id == beef.id
