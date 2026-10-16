@@ -3,19 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menu Atlas</title>
+  <title>The Menu Atlas</title>
   <meta name="description" content="Ingredients, preparations and pairings across published fine-dining menus, by region and season.">
-  <link rel="icon" href="data:,">
+  <meta property="og:title" content="The Menu Atlas">
+  <meta property="og:description" content="What the world's best restaurants are cooking: ingredients, preparations and pairings read from the tasting menus they publish.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#253d2c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23253d2c'/%3E%3Ctext x='16' y='23.5' text-anchor='middle' font-family='Georgia,serif' font-size='21' fill='%23cfffdc'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- The Michelin star, traced from the 960px render of Wikimedia Commons' Etoile_Michelin-1.svg. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mstar" viewBox="0 0 500 546">
+      <path fill="currentColor" fill-rule="evenodd" d="M258.0 545.1L246.0 545.4L234.0 544.3L224.0 542.3L215.0 539.4L206.0 535.4L196.0 529.3L187.3 522.0L178.7 513.0L173.6 506.0L169.0 498.0L164.6 488.0L161.6 478.0L159.7 467.0L159.0 457.0L159.8 428.0L159.0 427.2L145.0 437.3L133.0 444.0L121.0 449.3L107.0 453.3L93.0 455.2L83.0 455.2L70.0 453.4L59.0 450.2L47.0 444.4L38.0 438.3L25.7 427.0L16.8 416.0L9.5 404.0L4.8 393.0L2.6 386.0L0.7 377.0L-0.5 365.0L-0.3 354.0L0.6 347.0L3.7 335.0L9.7 322.0L15.7 313.0L20.7 307.0L27.0 300.6L39.0 290.7L53.0 281.6L69.8 273.0L70.1 272.0L56.0 265.4L47.0 260.4L36.0 253.2L29.5 248.0L20.0 238.7L13.8 231.0L8.8 223.0L4.7 214.0L1.6 204.0L-0.3 192.0L-0.4 180.0L0.7 170.0L2.7 161.0L5.7 152.0L10.0 142.1L15.6 132.0L20.6 125.0L28.6 116.0L37.0 108.8L44.0 103.7L51.0 99.6L62.0 94.6L68.0 92.7L79.0 90.6L88.0 90.2L97.0 90.7L108.0 92.8L115.0 94.9L125.0 98.7L135.0 103.5L146.0 109.7L159.0 118.4L159.8 118.0L158.8 106.0L158.9 93.0L159.7 81.0L161.7 69.0L164.7 58.0L167.7 50.0L171.6 42.0L176.7 34.0L183.0 26.2L189.2 20.0L196.0 14.6L204.0 9.6L213.0 5.6L222.0 2.7L232.0 0.7L245.0 -0.5L257.0 -0.3L266.0 0.7L279.0 3.7L287.0 6.6L297.0 11.8L307.0 18.8L314.0 25.3L320.1 32.0L325.3 39.0L330.4 48.0L334.3 57.0L337.3 67.0L339.3 78.0L340.0 88.0L340.3 118.0L341.0 118.4L356.0 106.8L366.0 100.9L378.0 95.7L388.0 92.7L400.0 90.7L415.0 90.3L428.0 91.6L439.0 94.7L450.0 99.7L463.0 108.8L473.4 119.0L481.3 129.0L489.3 142.0L494.4 154.0L498.3 169.0L499.4 180.0L499.3 191.0L498.4 198.0L495.3 210.0L489.3 223.0L483.3 232.0L477.4 239.0L472.0 244.4L460.0 254.2L444.0 264.4L428.9 272.0L430.0 273.4L445.0 280.6L457.0 287.6L467.0 294.8L474.0 300.9L482.3 310.0L487.3 317.0L491.2 324.0L494.3 331.0L497.4 341.0L498.5 347.0L499.4 355.0L499.1 370.0L497.3 382.0L494.5 392.0L489.4 404.0L484.1 413.0L478.4 421.0L470.0 430.4L460.0 439.2L454.0 443.4L445.0 448.3L437.0 451.4L426.0 454.2L417.0 455.2L408.0 455.2L400.0 454.3L391.0 452.4L379.0 448.4L360.0 439.2L340.8 427.0L340.2 428.0L340.2 448.0L339.4 463.0L337.3 476.0L334.3 487.0L331.2 495.0L327.2 503.0L322.2 511.0L316.0 518.7L308.6 526.0L303.0 530.4L295.0 535.3L289.0 538.2L280.0 541.4L266.0 544.3ZM258.3 516.0L270.0 514.2L279.0 511.3L288.0 506.3L294.0 501.4L301.4 492.0L305.4 484.0L308.3 475.0L310.2 465.0L311.2 450.0L311.1 443.0L310.2 432.0L307.3 415.0L303.4 400.0L296.4 379.0L287.3 357.0L280.6 343.0L280.3 342.0L282.0 340.6L294.0 333.7L308.7 354.0L318.9 367.0L324.7 374.0L340.0 390.2L355.0 403.4L366.0 411.3L378.0 418.0L391.0 423.3L400.0 425.4L412.0 426.4L422.0 425.3L429.0 423.3L437.0 419.4L444.6 414.0L453.0 405.6L460.3 396.0L464.1 389.0L468.3 378.0L470.4 367.0L470.3 355.0L468.4 345.0L465.3 337.0L460.4 329.0L453.0 320.6L442.0 311.8L432.0 305.8L421.0 300.6L405.0 294.8L390.0 290.6L366.0 285.6L345.0 282.6L325.0 280.6L324.4 280.0L324.4 266.0L325.0 264.6L340.0 263.3L362.0 260.3L392.0 254.2L409.0 249.2L417.0 246.3L424.0 243.4L436.0 237.4L444.0 232.3L451.7 226.0L459.2 218.0L463.3 212.0L467.2 204.0L469.3 197.0L470.4 189.0L470.4 180.0L468.2 167.0L463.4 155.0L456.3 144.0L447.0 133.9L442.0 129.7L436.0 125.6L430.0 122.7L425.0 120.9L420.0 119.7L414.0 119.2L402.0 119.7L390.0 122.6L377.0 128.0L364.0 135.7L352.0 144.7L340.0 155.5L322.7 174.0L309.6 190.0L294.0 211.2L281.0 204.2L280.4 203.0L280.8 202.0L291.3 179.0L299.3 158.0L303.4 145.0L307.2 130.0L310.2 112.0L311.1 101.0L310.9 88.0L309.3 74.0L306.3 63.0L302.2 54.0L296.0 45.5L291.0 40.7L287.0 37.7L277.0 32.7L266.0 29.8L257.0 28.6L244.0 28.6L234.0 29.8L224.0 32.6L214.0 37.6L206.0 44.0L199.5 52.0L194.5 61.0L191.7 68.0L188.7 81.0L187.7 95.0L188.6 110.0L190.7 124.0L192.8 134.0L197.8 152.0L202.6 166.0L210.7 186.0L218.2 202.0L218.6 203.0L218.0 204.2L205.0 211.2L182.3 181.0L168.3 165.0L155.0 151.7L142.0 140.7L132.0 133.7L119.0 126.5L109.0 122.6L97.0 119.7L88.0 119.1L79.0 119.6L71.0 121.6L62.0 125.8L55.0 130.7L45.7 140.0L39.7 148.0L34.6 157.0L30.8 167.0L28.7 178.0L28.6 190.0L30.7 201.0L34.0 209.0L38.8 217.0L46.0 225.2L56.0 233.3L64.0 238.3L74.0 243.3L92.0 250.2L110.0 255.2L130.0 259.3L157.0 263.2L174.0 265.0L174.3 280.0L173.0 280.7L169.0 281.2L154.0 282.7L133.0 285.7L105.0 291.6L91.0 295.7L80.0 299.7L69.0 304.7L60.0 309.7L53.0 314.5L45.5 321.0L40.9 326.0L34.7 335.0L31.6 342.0L29.6 349.0L28.6 356.0L28.6 366.0L30.7 379.0L32.6 385.0L35.8 392.0L41.6 401.0L46.7 407.0L52.0 412.1L62.0 419.4L73.0 424.3L85.0 426.4L92.0 426.3L99.0 425.4L111.0 422.3L123.0 417.1L136.0 409.3L149.0 399.3L159.2 390.0L174.3 374.0L190.3 354.0L205.0 333.7L217.0 340.6L218.7 342.0L218.4 343.0L209.7 362.0L200.8 385.0L195.6 401.0L190.8 421.0L188.7 434.0L187.7 450.0L188.7 464.0L189.8 470.0L193.7 482.0L199.6 493.0L206.0 500.8L214.0 507.2L224.0 512.3L235.0 515.3L246.0 516.4Z"/>
+    </symbol>
+  </svg>
   <header class="top">
-    <a class="brand" href="#/">Menu Atlas</a>
+    <a class="brand" href="#/">The Menu Atlas</a>
     <nav aria-label="Sections">
-      <a href="#/" data-nav="ingredients">Ingredients</a>
-      <a href="#/pairings" data-nav="pairings">Pairings</a>
+      <a href="#/ingredients" data-nav="ingredients">Ingredients</a>
       <a href="#/restaurants" data-nav="restaurants">Restaurants</a>
-      <a href="#/coverage" data-nav="coverage">Coverage</a>
+      <a href="#/pairings" data-nav="pairings">Pairings</a>
+      <a href="#/coverage" data-nav="coverage">Map</a>
       <a href="#/about" data-nav="about">About</a>
     </nav>
   </header>
@@ -23,7 +36,7 @@
   <main id="app" tabindex="-1"><p class="muted">Loading…</p></main>
   <footer class="foot">
     <span id="stamp"></span>
-    <span>Derived data only. Each restaurant links to its own site.</span>
+    <span>Derived data only. Each restaurant links to its own site. <a href="#/about">Restaurants: opt out or correct</a></span>
   </footer>
   <div id="tip" class="tip" role="tooltip" hidden></div>
   <script src="world.js"></script>

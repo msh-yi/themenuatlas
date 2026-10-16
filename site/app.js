@@ -1,4 +1,4 @@
-// Menu Atlas: a static page over data/data.json (written by `menudb export-site`).
+// The Menu Atlas: a static page over data/data.json (written by `menudb export-site`).
 // Everything (search, filters, charts) runs in the browser. Data strings are only
 // ever inserted with textContent, never as HTML.
 "use strict";
@@ -123,7 +123,7 @@ let routing = 0;
 async function route() {
   hideTip();
   const { parts, params } = parseHash();
-  const view = parts[0] || "ingredients";
+  const view = parts[0] || "home";
   const ticket = ++routing;
   const needs = view === "pairings" || view === "ingredient" ? ensurePairs()
     : view === "restaurant" && parts[1] ? ensureMenus(parts[1]) : null;
@@ -141,10 +141,10 @@ async function route() {
     if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
   const app = document.getElementById("app");
-  const views = { ingredients, ingredient, pairings, restaurants, restaurant, coverage, about };
+  const views = { home, ingredients, ingredient, pairings, restaurants, restaurant, coverage, about };
   const fn = views[view] || notFound;
   app.replaceChildren(...[].concat(fn(params, parts.slice(1))));
-  document.title = (fn === ingredients ? "" : (app.querySelector("h1")?.textContent + " · ")) + "Menu Atlas";
+  document.title = (fn === home ? "" : (app.querySelector("h1")?.textContent + " · ")) + "The Menu Atlas";
 }
 
 // --- shared pieces ------------------------------------------------------------
@@ -229,18 +229,34 @@ function accoladeTitle(a = {}) {
 function accoladeScore(a = {}) {
   return (a.stars || 0) * 1000 + (a.w50b ? 500 - a.w50b : 0) + (a.nyt50 ? 50 : 0) + (a.nytnyc ? (101 - a.nytnyc) / 10 : 0);
 }
+// n Michelin stars, drawn with the symbol in index.html (#mstar)
+function stars(n) {
+  return h("span", { class: "stars", role: "img", "aria-label": `${n} Michelin star${n > 1 ? "s" : ""}` },
+    Array.from({ length: n }, () => s("svg", { "aria-hidden": "true" }, s("use", { href: "#mstar" }))));
+}
+// accoladeText as nodes, with the stars as symbols
+function accoladeNodes(a = {}) {
+  const rest = accoladeText({ ...a, stars: 0 });
+  return [a.stars ? stars(a.stars) : null, a.stars && rest ? " · " : null, rest || null];
+}
 function accoladeCell(a) {
-  const t = accoladeText(a);
-  return t ? h("span", { class: "acc", title: accoladeTitle(a) }, t) : h("span", { class: "muted" }, "–");
+  return accoladeText(a) ? h("span", { class: "acc", title: accoladeTitle(a) }, accoladeNodes(a)) : h("span", { class: "muted" }, "–");
 }
 // Filter values: "" (all), a group name, "starred" (any Michelin star) or "none".
-function accoladeSelect(selected, groups = D.groups.accolade || []) {
-  const opt = (v, l) => h("option", { value: v, selected: v === selected }, l);
-  const n = (f) => D.restaurants.filter((r) => accoladeMatch(r, f)).length;
-  return h("select", {}, opt("", "Any or none"),
-    groups.map((g) => opt(g, `${g} (${n(g)})`)),
-    groups.some((g) => g.endsWith("star") || g.endsWith("stars")) ? opt("starred", `Any Michelin star (${n("starred")})`) : null,
-    opt("none", `None of these lists (${n("none")})`));
+// Counts are over pool(); call sel.refresh() when the pool changes.
+function accoladeSelect(selected, groups = D.groups.accolade || [], pool = () => D.restaurants) {
+  const sel = h("select", {});
+  sel.refresh = () => {
+    const cur = sel.options.length ? sel.value : selected;
+    const opt = (v, l) => h("option", { value: v, selected: v === cur }, l);
+    const rs = pool(), n = (f) => rs.filter((r) => accoladeMatch(r, f)).length;
+    sel.replaceChildren(opt("", "Any or none"),
+      ...groups.map((g) => opt(g, `${g} (${n(g)})`)),
+      ...(groups.some((g) => g.endsWith("star") || g.endsWith("stars")) ? [opt("starred", `Any Michelin star (${n("starred")})`)] : []),
+      opt("none", `None of these lists (${n("none")})`));
+  };
+  sel.refresh();
+  return sel;
 }
 function accoladeMatch(r, f) {
   if (!f) return true;
@@ -264,7 +280,73 @@ function groupShare(ing, group) {
   return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
+const REPO = "https://github.com/msh-yi/themenuatlas";
+const OPT_OUT = REPO + "/issues/new?template=opt-out.yml";
+const CORRECTION = REPO + "/issues/new?template=correction.yml";
+const ext = (href, text) => h("a", { href, rel: "noopener", target: "_blank" }, text);
+
 // --- views --------------------------------------------------------------------
+
+// The landing page: one search box over ingredients and restaurants, then the ways in.
+function home() {
+  const t = D.totals;
+  const withMenus = D.restaurants.filter((r) => r.menus > 0);
+  const found = h("ul", { class: "found", id: "found", "aria-label": "Matches" });
+  const search = h("input", { type: "search", placeholder: "An ingredient, restaurant or city", autocomplete: "off",
+    "aria-label": "Search ingredients and restaurants", "aria-controls": "found" });
+  let first = null;
+  const rank = (name, needle) => (fold(name).startsWith(needle) ? 0 : 1);
+  const live = () => {
+    const needle = fold(search.value.trim());
+    first = null;
+    if (!needle) { found.replaceChildren(); return; }
+    const ings = D.ingredients
+      .map((i) => ({ i, via: fold(i.name).includes(needle) ? null : (i.aka || []).find((a) => fold(a).includes(needle)) }))
+      .filter(({ i, via }) => via || fold(i.name).includes(needle))
+      .sort((a, b) => rank(a.via || a.i.name, needle) - rank(b.via || b.i.name, needle) || b.i.restaurants.length - a.i.restaurants.length)
+      .slice(0, 5)
+      .map(({ i, via }) => ["#/ingredient/" + encodeURIComponent(i.name), via ? `${i.name} (as “${via}”)` : i.name,
+        `ingredient · ${i.restaurants.length} restaurant${i.restaurants.length === 1 ? "" : "s"}`]);
+    const rests = withMenus
+      .filter((r) => fold(r.name).includes(needle) || fold(r.city).includes(needle))
+      .sort((a, b) => rank(a.name, needle) - rank(b.name, needle) || accoladeScore(b.accolades) - accoladeScore(a.accolades))
+      .slice(0, 5)
+      .map((r) => ["#/restaurant/" + encodeURIComponent(r.slug), r.name, ["restaurant", r.city].filter(Boolean).join(" · ")]);
+    const all = [...ings, ...rests];
+    first = all[0]?.[0] || null;
+    found.replaceChildren(...(all.length
+      ? all.map(([href, label, kind]) => h("li", {}, h("a", { href }, h("span", {}, label), h("span", { class: "kind" }, kind))))
+      : [h("li", { class: "none" }, "Nothing matches. Try another spelling.")]));
+  };
+  search.addEventListener("input", live);
+  search.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && first) location.hash = first;
+    else if (e.key === "ArrowDown") { const a = found.querySelector("a"); if (a) { e.preventDefault(); a.focus(); } }
+  });
+  found.addEventListener("keydown", (e) => {
+    const links = [...found.querySelectorAll("a")], i = links.indexOf(document.activeElement);
+    if (e.key === "ArrowDown" && i < links.length - 1) { e.preventDefault(); links[i + 1].focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); (i > 0 ? links[i - 1] : search).focus(); }
+  });
+  const popular = [...D.ingredients].sort((a, b) => b.restaurants.length - a.restaurants.length).slice(0, 4);
+  const path = (href, title, text, go) => h("a", { class: "path", href }, h("h2", {}, title), h("p", {}, text), h("span", { class: "go" }, go + " →"));
+  setTimeout(() => search.focus({ preventScroll: true }), 0);
+  return h("div", {},
+    h("section", { class: "hero" },
+      h("h1", {}, "The Menu Atlas"),
+      h("p", { class: "lede" }, `What the world's best restaurants are cooking, read from the tasting menus ${t.restaurants_with_data.toLocaleString()} of them publish: every ingredient, how it's prepared, what it's paired with, and where.`),
+      h("div", { class: "finder" }, search, found,
+        h("p", { class: "hint" }, "Popular: ", popular.flatMap((i, n) => [n ? " · " : "", ingLink(i.name)])))),
+    h("div", { class: "paths" },
+      path("#/ingredients", "Ingredients", `Look up any of ${t.ingredients.toLocaleString()} ingredients: how often it's on the menu, by region and season, and how chefs prepare it.`, "Browse ingredients"),
+      path("#/restaurants", "Restaurants", `Find a restaurant by name, city, region or accolade${D.has_menus ? ", and read its menus course by course" : ", and see what it cooks with"}.`, "Find a restaurant"),
+      path("#/pairings", "Pairings", "Ingredients that share a plate more often than chance, from the classics to the surprising.", "Explore pairings"),
+      path("#/coverage", "Map", "Every restaurant with a menu on a world map. Zoom into a country and open any of them.", "Open the map")),
+    h("section", { class: "home-stats" },
+      tiles([[t.restaurants_with_data.toLocaleString(), "restaurants with menus"], [t.menus.toLocaleString(), "menus read"],
+        [t.ingredients.toLocaleString(), "ingredients"], [t.pairs.toLocaleString(), "pairings"]]),
+      h("p", { class: "muted" }, "Only ingredient names and counts are shown; each restaurant links to its own site. ", h("a", { href: "#/about" }, "How it works →"))));
+}
 
 function ingredients(params) {
   const state = { sort: params.get("sort") || "gshare", dir: params.get("dir") || "desc" };
@@ -329,7 +411,7 @@ function ingredient(_params, [name]) {
   const children = D.ingredients.filter((i) => i.parent === name);
 
   return h("div", {},
-    h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/" }, "← Ingredients")),
+    h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/ingredients" }, "← Ingredients")),
     h("h1", {}, cap(name)),
     h("p", { class: "sub" }, ing.category ? `${cap(ing.category)} · ` : "", `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`,
       ing.wikipedia ? h("span", {}, " · ", wikiLink(ing.wikipedia, "Read about it on Wikipedia ↗")) : null),
@@ -475,13 +557,14 @@ function restaurants(params) {
   const opt = (v, l, sel) => h("option", { value: v, selected: v === sel }, l);
   const search = h("input", { type: "search", placeholder: "name or city", value: params.get("q") || "", "aria-label": "Search restaurants by name or city" });
   const regionSel = h("select", {}, opt("", "All regions", params.get("region") || ""), D.groups.region.map((g) => opt(g, g, params.get("region") || "")));
-  const accSel = accoladeSelect(params.get("acc") || "");
-  const menuSel = h("select", {}, [["", "All"], ["data", "With menus collected"], ["yes", "Publishes a menu"], ["blocked", "Opted out or blocked"]]
+  // Restaurants without menus are hidden unless asked for ("menus=all" and the others).
+  const menuSel = h("select", {}, [["", "With menus"], ["all", "All, with or without menus"], ["yes", "Publishes a menu"], ["blocked", "Opted out or blocked"]]
     .map(([v, l]) => opt(v, l, params.get("menus") || "")));
+  const menuMatch = (r, f) => (!f ? r.menus > 0 : f === "all" ? true : f === "yes" ? r.publishes_menu === "yes" : r.blocked);
+  const accSel = accoladeSelect(params.get("acc") || "", undefined, () => D.restaurants.filter((r) => menuMatch(r, menuSel.value)));
   const groupSel = h("select", {}, [["", "No grouping"], ["region", "Region"], ["accolade", "Accolade"]].map(([v, l]) => opt(v, l, params.get("by") || "")));
   const summaryHost = h("div", {});
   const host = h("div", {});
-  const menuMatch = (r, f) => !f || (f === "data" ? r.menus > 0 : f === "yes" ? r.publishes_menu === "yes" : r.blocked);
   const live = () => {
     const p = new URLSearchParams();
     const q = fold(search.value.trim());
@@ -496,7 +579,8 @@ function restaurants(params) {
       && menuMatch(r, menuSel.value) && (!q || fold(r.name).includes(q) || fold(r.city).includes(q)))
       .map((r) => ({ ...r, acc: accoladeScore(r.accolades) }));
     summaryHost.replaceChildren(groupSel.value ? groupSummary(rows, groupSel.value) : "");
-    host.replaceChildren(h("p", { class: "muted" }, `${rows.length.toLocaleString()} of ${D.restaurants.length.toLocaleString()} restaurants`),
+    host.replaceChildren(h("p", { class: "muted" }, `${rows.length.toLocaleString()} of ${D.restaurants.length.toLocaleString()} restaurants`,
+      menuSel.value ? "" : h("span", {}, " · ", h("a", { href: "#/restaurants?menus=all", onclick: (e) => { e.preventDefault(); menuSel.value = "all"; accSel.refresh(); live(); } }, "show the ones without menus too"))),
       table(rows, [
         { key: "name", label: "Restaurant", render: (r) => h("a", { href: "#/restaurant/" + encodeURIComponent(r.slug) }, r.name) },
         { key: "city", label: "City", render: (r) => r.city || "–" },
@@ -509,8 +593,9 @@ function restaurants(params) {
   };
   search.addEventListener("input", live);
   for (const el of [regionSel, accSel, menuSel, groupSel]) el.addEventListener("change", live);
+  menuSel.addEventListener("change", () => { accSel.refresh(); live(); });
   out.append(h("h1", {}, "Restaurants"),
-    h("p", { class: "sub" }, "Every restaurant in the list, including those that don't publish a menu. Stars are from the most recent Michelin guide the list records."),
+    h("p", { class: "sub" }, "Restaurants whose published menus we've read. Change “Menus” to see the rest of the list. Stars are from the most recent Michelin guide the list records."),
     h("div", { class: "filters" }, h("label", {}, "Search", search), h("label", {}, "Region", regionSel), h("label", {}, "Accolade", accSel),
       h("label", {}, "Menus", menuSel), h("label", {}, "Group by", groupSel)),
     summaryHost, host);
@@ -548,7 +633,7 @@ function restaurant(_params, [slug]) {
   return h("div", {},
     h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/restaurants" }, "← Restaurants")),
     h("h1", {}, r.name),
-    accoladeText(r.accolades) ? h("p", { class: "acc", style: "margin:-.1rem 0 .4rem", title: accoladeTitle(r.accolades) }, accoladeText(r.accolades)) : null,
+    accoladeText(r.accolades) ? h("p", { class: "acc", style: "margin:-.1rem 0 .4rem;font-size:1.1rem", title: accoladeTitle(r.accolades) }, accoladeNodes(r.accolades)) : null,
     h("p", { class: "sub" }, [r.city, r.country].filter(Boolean).join(", ") + (r.region ? ` · ${r.region}` : ""),
       r.url ? h("span", {}, " · ", h("a", { href: r.url, rel: "noopener", target: "_blank" }, "restaurant website ↗")) : null),
     tiles([[r.menus, "distinct menus"], [r.ingredients, "ingredients"], [r.publishes_menu === "yes" ? "Yes" : r.publishes_menu === "no" ? "No" : "?", "publishes a menu"]]),
@@ -560,7 +645,8 @@ function restaurant(_params, [slug]) {
         ? h("div", { class: "chips" }, distinct.map((i) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(i.name) }, i.name,
           h("span", { class: "n", title: "restaurants using it" }, i.restaurants.length))))
         : h("p", { class: "empty" }, "No menu data for this restaurant.")),
-    r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."));
+    r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."),
+    h("p", { class: "muted", style: "font-size:.85rem" }, "Is this your restaurant? ", ext(OPT_OUT, "Ask to be removed ↗"), " · Something wrong? ", ext(CORRECTION, "Report it ↗")));
 }
 
 // One menu as a manifest: courses in order, each with its ingredients and how they're
@@ -700,7 +786,9 @@ function coverageMap(params, opts = {}) {
     }
   }
   const maxTotal = Math.max(1, ...[...stats.values()].map((s) => s.total));
-  const hidden = new Set((params.get("hide") || "").split(",").filter(Boolean));
+  // Only restaurants with menus show until the legend turns the others on ("hide=none" shows all).
+  const DEFAULT_HIDDEN = STATUS.map((st) => st.key).filter((k) => k !== "data").join(",");
+  const hidden = new Set((params.get("hide") ?? DEFAULT_HIDDEN).split(",").filter((k) => k && k !== "none"));
   let preset = VIEWS[params.get("view")] ? params.get("view") : "World";
 
   const canvas = h("canvas", { class: "map", role: "img", tabindex: "0",
@@ -717,7 +805,8 @@ function coverageMap(params, opts = {}) {
     if (opts.sync === false) return;
     const p = new URLSearchParams(opts.extra || {});
     if (preset && preset !== "World") p.set("view", preset);
-    if (hidden.size) p.set("hide", [...hidden].join(","));
+    const key = STATUS.map((st) => st.key).filter((k) => hidden.has(k)).join(",");
+    if (key !== DEFAULT_HIDDEN) p.set("hide", key || "none");
     setParams(p);
   };
 
@@ -954,12 +1043,18 @@ function coverageMap(params, opts = {}) {
 
   const legend = h("div", { class: "legend" }, [...STATUS].reverse().filter((st) => counts[st.key]).map((st) => h("button", {
     type: "button", class: "key", "aria-pressed": String(!hidden.has(st.key)), title: "Show or hide",
-    onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); sync(); redraw(); },
+    onclick: (e) => { hidden.has(st.key) ? hidden.delete(st.key) : hidden.add(st.key); e.currentTarget.setAttribute("aria-pressed", String(!hidden.has(st.key))); offNote(); sync(); redraw(); },
   }, h("span", { class: "swatch" + (st.hollow ? " hollow" : ""), style: `--c:var(${st.color})` }), st.label, h("span", { class: "n" }, counts[st.key]))),
   h("span", { class: "shade" }, h("span", { class: "ramp" }), `Country shade: ${opts.shadeLabel || "restaurants in the list"} (1 to ${maxTotal})`));
 
   const unplaced = source.length - dots.length;
   const approx = dots.filter((d) => d.r.approx).length;
+  const offHost = h("span", {});
+  const offNote = () => {
+    const off = dots.filter((d) => hidden.has(d.st)).length;
+    offHost.textContent = off ? `${off} restaurant${off === 1 ? " is" : "s are"} hidden; click their keys above to show them. ` : "";
+  };
+  offNote();
   const notes = ["Scroll or pinch to zoom, drag to move. Click a country to zoom in, or a dot to open the restaurant.",
     approx ? `${approx} faded dots are placed at their city, not their address.` : null,
     unplaced ? `${unplaced} restaurants have no location yet and aren't on the map.` : null].filter(Boolean);
@@ -968,7 +1063,7 @@ function coverageMap(params, opts = {}) {
   else requestAnimationFrame(resize);
   window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", redraw);
   return h("section", { class: "card" }, h("div", { class: "maphead" }, viewButtons), wrap, legend,
-    h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" }, notes.join(" ")));
+    h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" }, offHost, notes.join(" ")));
 }
 
 function coverage(params) {
@@ -993,8 +1088,8 @@ function coverage(params) {
   });
   render();
   return h("div", {},
-    h("h1", {}, "Coverage"),
-    h("p", { class: "sub" }, "Where the menus come from. Read every chart on this site against this map: a region with two restaurants says little."),
+    h("h1", {}, "Map"),
+    h("p", { class: "sub" }, "Where the menus come from. Read every chart on this site against this map: a region with two restaurants says little. Only restaurants with menus show at first; the legend under the map adds the rest of the list."),
     h("div", { class: "filters" }, h("label", {}, "Accolade", accSel)),
     tilesHost, mapHost,
     h("details", { class: "card" }, h("summary", {}, "Coverage by region, as a table"),
@@ -1010,7 +1105,7 @@ function coverage(params) {
 function about() {
   return h("div", { class: "prose" },
     h("h1", {}, "About"),
-    h("p", {}, "Menu Atlas reads the tasting menus fine-dining restaurants publish on their own websites and breaks each dish into ingredients and preparations. It shows which ingredients are common, how they vary by region and by season, and which ones chefs put together more often than chance."),
+    h("p", {}, "The Menu Atlas reads the tasting menus fine-dining restaurants publish on their own websites and breaks each dish into ingredients and preparations. It shows which ingredients are common, how they vary by region and by season, and which ones chefs put together more often than chance."),
     h("h2", {}, "Method"),
     h("ul", {},
       h("li", {}, "Each distinct menu counts once. Seeing the same menu again only extends its date range."),
@@ -1021,12 +1116,26 @@ function about() {
     h("ul", {},
       h("li", {}, "Only derived facts: ingredient names, preparations, counts and scores, plus a link to each restaurant's site."),
       h("li", {}, "No menu text, dish descriptions, PDFs or photos."),
-      h("li", {}, "Sites that opt out through robots.txt or a TDM reservation are skipped.")),
+      h("li", {}, "Menus are ingredient lists as a program read them, so expect the odd mistake.")),
+    h("h2", {}, "How menus are collected"),
+    h("ul", {},
+      h("li", {}, "Only from restaurants' own websites: no booking platforms, social media or reviews."),
+      h("li", {}, "Slowly, a page at a time, by a crawler that names itself and links back to this project."),
+      h("li", {}, "Sites that reserve text and data mining rights (a TDM reservation) are skipped, and bot protection and CAPTCHAs are never bypassed.")),
+    h("h2", {}, "Restaurants: opting out and corrections"),
+    h("p", {}, "If you run a restaurant and would rather not be here, ", ext(OPT_OUT, "ask to be removed ↗"),
+      ". We take out the restaurant, its menus and every count built from them, and stop reading its site. To report a wrong ingredient or a menu matched to the wrong place, ",
+      ext(CORRECTION, "tell us here ↗"), ". Both open a public GitHub issue."),
+    h("h2", {}, "Sources and credits"),
+    h("ul", {},
+      h("li", {}, "Restaurant lists: the MICHELIN Guide (stars from the most recent guide year recorded), The World's 50 Best Restaurants, and The New York Times' restaurant lists. The Menu Atlas isn't affiliated with or endorsed by any of them; the MICHELIN star symbol is Michelin's trademark, used here only to show a restaurant's rating."),
+      h("li", {}, "Country outlines: Natural Earth (public domain). Ingredient articles: Wikipedia."),
+      h("li", {}, "The code is open source: ", ext(REPO, "github.com/msh-yi/themenuatlas ↗"), ".")),
     h("p", { class: "muted" }, `Data built ${new Date(D.generated_at).toLocaleString()} from source “${D.source}”.`));
 }
 
 function notFound() {
-  return h("div", {}, h("h1", {}, "Not found"), h("p", {}, h("a", { href: "#/" }, "Back to ingredients")));
+  return h("div", {}, h("h1", {}, "Not found"), h("p", {}, h("a", { href: "#/" }, "Back to the start")));
 }
 
 // --- boot ---------------------------------------------------------------------

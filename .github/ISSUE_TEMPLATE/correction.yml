@@ -1,0 +1,18 @@
+name: Report a mistake
+description: A wrong ingredient, a menu matched to the wrong restaurant, or anything else that looks off.
+title: "Correction: "
+labels: [correction]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Page
+      description: Link to the page on The Menu Atlas.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What's wrong
+    validations:
+      required: true
