@@ -280,7 +280,7 @@ function groupShare(ing, group) {
   return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
-const REPO = "https://github.com/msh-yi/themenuproject";
+const REPO = "https://github.com/msh-yi/themenuatlas";
 const OPT_OUT = REPO + "/issues/new?template=opt-out.yml";
 const CORRECTION = REPO + "/issues/new?template=correction.yml";
 const ext = (href, text) => h("a", { href, rel: "noopener", target: "_blank" }, text);
@@ -1130,7 +1130,7 @@ function about() {
     h("ul", {},
       h("li", {}, "Restaurant lists: the MICHELIN Guide (stars from the most recent guide year recorded), The World's 50 Best Restaurants, and The New York Times' restaurant lists. The Menu Atlas isn't affiliated with or endorsed by any of them; the MICHELIN star symbol is Michelin's trademark, used here only to show a restaurant's rating."),
       h("li", {}, "Country outlines: Natural Earth (public domain). Ingredient articles: Wikipedia."),
-      h("li", {}, "The code is open source: ", ext(REPO, "github.com/msh-yi/themenuproject ↗"), ".")),
+      h("li", {}, "The code is open source: ", ext(REPO, "github.com/msh-yi/themenuatlas ↗"), ".")),
     h("p", { class: "muted" }, `Data built ${new Date(D.generated_at).toLocaleString()} from source “${D.source}”.`));
 }
 
