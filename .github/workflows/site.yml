@@ -62,10 +62,14 @@ jobs:
       # Counts only in the log, never names or menus.
       - run: uv run menudb export-site --source db --out site/data --to-bucket --menus
       - run: node --check site/app.js
-      # The page, its scripts and data; not the README.
+      # The page, its scripts and data; not the README. Scripts and styles get ?v=<commit>, so a deploy
+      # isn't hidden behind Pages' 10-minute browser cache.
       - run: |
           mkdir -p "$RUNNER_TEMP/public"
           cp -r site/index.html site/app.js site/style.css site/world.js site/robots.txt site/data "$RUNNER_TEMP/public/"
+          v="${GITHUB_SHA::8}"
+          sed -i -E "s#(href|src)=\"(style\.css|app\.js|world\.js)\"#\1=\"\2?v=$v\"#g" "$RUNNER_TEMP/public/index.html"
+          grep -c "?v=$v" "$RUNNER_TEMP/public/index.html"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}/public
