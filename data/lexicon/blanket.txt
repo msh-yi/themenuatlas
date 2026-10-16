@@ -1,0 +1,31 @@
+# Blanket terms: a course whose only ingredient is one of these is a heading or a
+# drink line ("Wine", "Cheese", "Bread", "Fish of the day"), not a dish, and is dropped.
+# Courses naming any other ingredient as well keep it. Canonical names from ingredients.txt.
+
+# drinks
+wine
+beer
+cider
+spirits
+sake
+mead
+kombucha
+campari
+tea
+coffee
+rose   # alone, nearly always a rosé written without the accent ("Brut Rose")
+
+# courses and categories
+bread
+cheese
+pastry
+ice cream
+fish
+shellfish
+poultry
+game bird
+offal
+garden vegetables
+salad leaves
+herbs
+citrus

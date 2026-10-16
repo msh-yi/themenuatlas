@@ -115,3 +115,46 @@ def test_extract_auto_writes_extracted_and_keeps_session_work(bucket):  # noqa: 
 
     # processed items are not queued again
     assert handoff.queue_items([a])["already_queued"] == 1
+
+
+BLANKET_EN = """Tasting Menu
+Turbot, mussels and saffron
+Lamb, aubergine and miso
+Duck, cherry and beetroot
+Pear, almond and vanilla
+Tuna
+Cheese
+Wine
+Bread
+"""
+
+
+def test_lone_blanket_terms_are_not_dishes():
+    ex = auto.extract(item(BLANKET_EN), country="GB")
+    assert [names(c) for c in ex.courses][-1] == {"tuna"}  # a lone specific ingredient stays
+    assert not any(names(c) <= {"cheese", "wine", "bread"} for c in ex.courses)
+    assert len(ex.courses) == 5
+
+
+def test_stopwords_block_false_friends():
+    ing, _ = auto.load()
+    hits = lambda text, langs: {h.entry.name for h in auto.find(ing, text, langs)}  # noqa: E731
+    assert hits("Bread of the day, miso paste", ["en"]) == {"bread", "miso"}  # not tea, not pasta
+    assert hits("Thé vert", ["fr"]) == {"tea"}
+    assert hits("Restaurant 12 rue des Lilas", ["fr"]) == set()
+    assert hits("Maïs grillé, mais pas trop", ["fr"]) == {"corn"}
+    assert hits("Verre de rosé", ["fr"]) == set()
+    assert hits("Sortiment", ["de"]) == set()  # not "mint" via the compound tail -ment
+
+
+def test_blanket_names_are_in_the_lexicon():
+    ing, _ = auto.load()
+    known = {e.name for es in ing.words.values() for _, e in es}
+    assert auto.blanket() <= known, auto.blanket() - known
+
+
+def test_rose_and_mais_keep_their_real_meanings():
+    ing, _ = auto.load()
+    hits = lambda text, langs: {h.entry.name for h in auto.find(ing, text, langs)}  # noqa: E731
+    assert hits("Pamplemousse, rose, litchi", ["fr"]) == {"grapefruit", "rose", "lychee"}
+    assert hits("Crema di mais", ["it"]) == {"cream", "corn"}

@@ -1,0 +1,15 @@
+# Words that look like a lexicon term after folding and stemming but almost never are one.
+# The extractor ignores them as single-word matches and as the tail of a compound.
+#
+#   lang: word, word        (* = every language; others apply when the page is in that language)
+#
+# Matched against the menu word lowercased with its accents kept, so "the" blocks the
+# English article but not French "thé", and "mais" blocks French "but" but not "maïs".
+
+* : the, te, rue, mai, cornas, calle, calles, anche, past, ment, ments, rosé, rosè, rosée
+en: paste, press, trip, leave, room
+de: mark
+fr: mais
+es: rosa, rosas
+it: rosa
+pt: rosa

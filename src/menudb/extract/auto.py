@@ -74,6 +74,11 @@ class Lexicon:
     cjk: dict[str, list[tuple[str, Entry]]] = field(default_factory=dict)
     single: dict[str, list[tuple[str, Entry]]] = field(default_factory=dict)  # for compounds
     max_len: int = 1
+    stop: dict[str, set[str]] = field(default_factory=dict)  # lang ("*" = any) -> words never matched
+
+    def stopped(self, word: str, langs: list[str]) -> bool:
+        w = word.lower()
+        return any(w in self.stop.get(lg, ()) for lg in ("*", *langs))
 
     def add(self, lang: str, term: str, entry: Entry) -> None:
         term = term.strip()
@@ -116,10 +121,27 @@ def _parse(path: Path, prep: bool) -> Lexicon:
     return lex
 
 
+def _lines(path: Path) -> list[str]:
+    if not path.exists():
+        return []
+    return [l.strip() for l in path.read_text(encoding="utf-8").splitlines()
+            if l.strip() and not l.strip().startswith("#")]
+
+
 @lru_cache(maxsize=4)
 def load(directory: Path = LEXICON_DIR) -> tuple[Lexicon, Lexicon]:
-    return (_parse(directory / "ingredients.txt", prep=False),
-            _parse(directory / "preparations.txt", prep=True))
+    ing = _parse(directory / "ingredients.txt", prep=False)
+    for line in _lines(directory / "stopwords.txt"):
+        lang, _, words = line.partition(":")
+        ing.stop.setdefault(lang.strip(), set()).update(
+            w.strip().lower() for w in words.split(",") if w.strip())
+    return ing, _parse(directory / "preparations.txt", prep=True)
+
+
+@lru_cache(maxsize=4)
+def blanket(directory: Path = LEXICON_DIR) -> frozenset[str]:
+    """Canonical names that, alone in a course, mark a heading or drink line, not a dish."""
+    return frozenset(l.split("#")[0].strip() for l in _lines(directory / "blanket.txt"))
 
 
 def _pick(cands: list[tuple[str, Entry]], langs: list[str], fallback: bool = False) -> Entry | None:
@@ -151,6 +173,8 @@ def find(lex: Lexicon, text: str, langs: list[str]) -> list[Hit]:
             key = tuple(t for t, _, _ in toks[i:i + n])
             cands = lex.words.get(key)
             entry = _pick(cands, langs, fallback=len("".join(key)) >= 6) if cands else None
+            if entry and n == 1 and lex.stopped(text[toks[i][1]:toks[i][2]], langs):
+                entry = None
             if entry:
                 hits.append(Hit(toks[i][1], toks[i + n - 1][2], entry))
                 i += n
@@ -172,7 +196,7 @@ def _compound(lex: Lexicon, text: str, tok: tuple[str, int, int], langs: list[st
         return []
     for k in range(3, len(word) - 3):
         tail = _pick(lex.single.get(stem(word[k:]), []), langs)
-        if not tail:
+        if not tail or lex.stopped(text[start + k:end], langs):
             continue
         out = [Hit(start + k, end, tail)]
         head = word[:k]
@@ -568,8 +592,9 @@ def extract(item: PendingItem, country: str | None = None, lexicon_dir: Path = L
         seen.add(fold(raw))
         found: list[str] = []
         comps = _components(raw.replace("\n", " , "), langs, ing, prep, found)
-        if not any(c.name for c in comps):
-            continue
+        named = {c.name for c in comps if c.name}
+        if not named or (len(named) == 1 and named <= blanket(lexicon_dir)):
+            continue  # nothing found, or a lone blanket term ("Wine", "Cheese")
         if candidates is not None:
             candidates.extend(found)
         courses.append((raw, head, comps))
