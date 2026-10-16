@@ -10,6 +10,10 @@ on:
       limit:
         description: max sources to check (blank = all due)
         required: false
+      rerun:
+        description: re-extract every processed menu with the current lexicon rules (extract-auto --rerun)
+        type: boolean
+        default: false
 
 concurrency:
   group: check
@@ -75,7 +79,9 @@ jobs:
       # Extracts the newly queued menus with the rule-based lexicon (no LLM), then
       # imports them, so new menus reach Postgres in the same run. Scans with no
       # text layer stay in pending/ for a session.
-      - run: uv run menudb extract-auto
+      - env:
+          RERUN: ${{ inputs.rerun && '--rerun' || '' }}
+        run: uv run menudb extract-auto $RERUN
       - run: uv run menudb import --from-bucket
 
       # Refreshes review/queue.json for the next review in a session.
