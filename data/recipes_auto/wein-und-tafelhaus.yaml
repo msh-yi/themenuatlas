@@ -1,0 +1,5 @@
+start: https://www.wein-tafelhaus.de/
+steps:
+- follow:
+    href_matches: Speisekarte\-Gourmet\-Aenderung\-vorbehalten\.pdf
+content: pdf

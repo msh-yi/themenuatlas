@@ -1,0 +1,5 @@
+start: https://www.yattungheen.com/menus
+steps:
+- follow:
+    href_matches: YTH\-Dim\-Sum\-Menu_Weekdays\-ahjx\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://latabledepierrereboul.com/fr/menus.html
+steps:
+- follow:
+    href_matches: menus\-pierre\-reboul\-provence\.pdf
+content: pdf

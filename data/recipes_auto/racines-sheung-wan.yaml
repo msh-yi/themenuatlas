@@ -1,0 +1,5 @@
+start: https://www.racineshk.com/empty-page
+steps:
+- follow:
+    href_matches: Website\+Menu\+\-\+Pairing\+plenitude\+Oct\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://pascuccialporticciolo.it/menu/
+steps:
+- follow:
+    href_matches: Menu_2026\.pdf
+content: pdf

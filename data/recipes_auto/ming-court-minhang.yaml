@@ -1,0 +1,5 @@
+start: https://www.mingcourt.com.hk/menu/
+steps:
+- follow:
+    href_matches: MCWAN_Lunch\-ALC\-Menu_Aug\-2026_digital\-ver\.pdf
+content: pdf

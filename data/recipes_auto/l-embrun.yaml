@@ -1,0 +1,5 @@
+start: https://www.lembrunrestaurant.fr/
+steps:
+- follow:
+    href_matches: OK_MENU_Octobre_2026\.pdf
+content: pdf

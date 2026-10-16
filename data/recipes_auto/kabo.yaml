@@ -1,0 +1,5 @@
+start: https://www.restaurantekabo.com/menu-de-temporada/
+steps:
+- follow:
+    href_matches: MENU\-TERRUNO\-KABO\-OTONO\-1\.pdf
+content: pdf

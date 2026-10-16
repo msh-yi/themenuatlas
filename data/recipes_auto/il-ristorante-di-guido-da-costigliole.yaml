@@ -1,0 +1,5 @@
+start: https://www.guidodacostigliole.it/menu/
+steps:
+- follow:
+    href_matches: menu_2026_AU\.pdf
+content: pdf

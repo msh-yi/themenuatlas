@@ -1,0 +1,5 @@
+start: https://lamm-rosswag.de/
+steps:
+- follow:
+    href_matches: Speisekarte\.pdf
+content: pdf

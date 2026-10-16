@@ -1,0 +1,5 @@
+start: https://shisenhanten.com.sg/menu
+steps:
+- follow:
+    href_matches: Shisen\-Hanten_Weekend\-Brunch\-Menu\-2026_02072026\.pdf
+content: pdf

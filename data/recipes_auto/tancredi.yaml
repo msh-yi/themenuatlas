@@ -1,0 +1,5 @@
+start: https://tancredi-sirmione.com/
+steps:
+- follow:
+    href_matches: Menu_ITA_estate26\.pdf
+content: pdf

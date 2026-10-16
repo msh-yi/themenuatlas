@@ -1,0 +1,5 @@
+start: https://www.pentonbridgeinn.co.uk/menus
+steps:
+- follow:
+    href_matches: 94bad4_2e6b91204dd74745a973967b35d87275\.pdf
+content: pdf

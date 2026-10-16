@@ -1,0 +1,5 @@
+start: https://www.selinerestaurant.com/menu
+steps:
+- follow:
+    href_matches: SAMPLE\-SUMMER\-MENU\.pdf
+content: pdf

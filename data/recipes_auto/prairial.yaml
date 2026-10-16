@@ -1,0 +1,5 @@
+start: https://www.prairial-restaurant.fr/fr
+steps:
+- follow:
+    href_matches: carte_vins_prarial\-03\.26\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurant-cueillette.fr/
+steps:
+- follow:
+    href_matches: 2026_MENU\-OCTOBRE\.pdf
+content: pdf

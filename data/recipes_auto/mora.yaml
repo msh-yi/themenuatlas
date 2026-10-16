@@ -1,0 +1,5 @@
+start: https://www.mora.com.hk/menus
+steps:
+- follow:
+    href_matches: 4e0bd7_c1c5cf797d2f4b02bc14c74d8e45dd67\.pdf
+content: pdf

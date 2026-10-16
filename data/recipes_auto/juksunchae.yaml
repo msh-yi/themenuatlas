@@ -1,0 +1,5 @@
+start: http://juksunchae.com/
+steps:
+- follow:
+    href_matches: menu\.pdf
+content: pdf

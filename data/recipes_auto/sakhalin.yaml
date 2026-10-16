@@ -1,0 +1,5 @@
+start: https://sakhalin.rest/istanbul/en
+steps:
+- follow:
+    href_matches: Sakhalin_signature\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.sapiorestaurant.it/
+steps:
+- follow:
+    href_matches: Menu\-ITA\-np\-dicembre\-25\.pdf
+content: pdf

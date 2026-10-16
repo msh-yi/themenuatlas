@@ -1,0 +1,5 @@
+start: https://wachter-foodbar.de/speisekarte/
+steps:
+- follow:
+    href_matches: Wachter_Foodbar\-Speisekarte\.pdf
+content: pdf

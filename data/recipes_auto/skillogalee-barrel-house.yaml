@@ -1,0 +1,5 @@
+start: https://www.skillogalee.com.au/barrel-house
+steps:
+- follow:
+    href_matches: prix\-fixe\-lunch\.pdf
+content: pdf

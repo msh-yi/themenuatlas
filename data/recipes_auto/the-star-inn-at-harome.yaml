@@ -1,0 +1,5 @@
+start: https://www.thestaratharome.co.uk/dining/
+steps:
+- follow:
+    href_matches: SundayMenu\.pdf
+content: pdf

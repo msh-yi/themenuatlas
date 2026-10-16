@@ -1,0 +1,5 @@
+start: https://www.lapetitemaisondecucuron.com/
+steps:
+- follow:
+    href_matches: Menu\-de\-la\-Saison\-a\-partir\-du\-23\-septembre\-2026\.pdf
+content: pdf

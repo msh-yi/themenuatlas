@@ -1,0 +1,5 @@
+start: https://homeatpenarth.co.uk/menus/
+steps:
+- follow:
+    href_matches: sunday\-lunch\-menu\-\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.newpunjabclub.com/
+steps:
+- follow:
+    href_matches: NPC_DinnerMenu_15June2026_Bi_v2\.pdf
+content: pdf

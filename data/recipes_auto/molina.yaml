@@ -1,0 +1,5 @@
+start: https://www.restaurant-molina.com/menu
+steps:
+- follow:
+    href_matches: 6a97bf6610bbbdeb2341977a_260828_Molina%20Signature%20menu_7%20courses_web\.pdf
+content: pdf

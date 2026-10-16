@@ -1,0 +1,5 @@
+start: https://www.maisonfantinlatour.fr/fr/
+steps:
+- follow:
+    href_matches: menus\-restaurant\-gastronomique\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.uglybutterfly.co.uk/
+steps:
+- follow:
+    href_matches: UB\-Sample\-Restaurant\-Menu\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://noni.com.mt/menu/
+steps:
+- follow:
+    href_matches: Menu\-Noni\.pdf
+content: pdf

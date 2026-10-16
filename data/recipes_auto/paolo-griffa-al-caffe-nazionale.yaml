@@ -1,0 +1,5 @@
+start: https://paologriffa.com/
+steps:
+- follow:
+    href_matches: paolo_griffa_summer_26_menu\.pdf
+content: pdf

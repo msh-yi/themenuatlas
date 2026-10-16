@@ -1,0 +1,5 @@
+start: https://www.mamanirestaurant.com/
+steps:
+- follow:
+    href_matches: 65a17462cff4c018dc3364096d79cc09661c244b\.pdf
+content: pdf

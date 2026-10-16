@@ -1,0 +1,5 @@
+start: https://www.ristorantelacaravella.com/tasting-menu-and-wine-list/
+steps:
+- follow:
+    href_matches: 2026\-M2\-tradizione\-IT\-EN\-1\.pdf
+content: pdf

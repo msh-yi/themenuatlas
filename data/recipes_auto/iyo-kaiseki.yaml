@@ -1,0 +1,5 @@
+start: https://www.iyo-kaiseki.com/menu/
+steps:
+- follow:
+    href_matches: 10\.07\.26\-IYO\-Kaiseki_MENU\-ESTATE\.pdf
+content: pdf

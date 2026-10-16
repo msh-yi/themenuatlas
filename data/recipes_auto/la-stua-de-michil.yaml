@@ -1,0 +1,5 @@
+start: https://www.lastuademichil.it/en/menu
+steps:
+- follow:
+    href_matches: menu\-en\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.saulrestaurant.com/
+steps:
+- follow:
+    href_matches: Saul\ Dinner\ Menu\.pdf
+content: pdf

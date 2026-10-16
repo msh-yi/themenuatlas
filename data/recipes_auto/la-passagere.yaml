@@ -1,0 +1,5 @@
+start: https://la-passagere.com/fr/
+steps:
+- follow:
+    href_matches: passagere\-menu\-septembre\-2026\-fr\.pdf
+content: pdf

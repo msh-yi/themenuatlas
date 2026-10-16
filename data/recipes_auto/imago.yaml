@@ -1,0 +1,5 @@
+start: https://www.imagorestaurant.it/
+steps:
+- follow:
+    href_matches: Menu\-Imago\-15\-ITA_\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.galerijaokusov.si/en/home/cuisine/tasting-menus
+steps:
+- follow:
+    href_matches: degustacijski\-meni\-EN\.pdf
+content: pdf

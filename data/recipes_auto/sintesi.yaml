@@ -1,0 +1,5 @@
+start: https://ristorantesintesi.it/our-menu-page/?lang=en
+steps:
+- follow:
+    href_matches: Menu\-Sintesi\-Eng\.\-26\.pdf
+content: pdf

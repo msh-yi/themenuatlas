@@ -1,0 +1,5 @@
+start: https://www.theforestside.com/restaurant/menus/
+steps:
+- follow:
+    href_matches: Dinner\-Autumn\-26\.pdf
+content: pdf

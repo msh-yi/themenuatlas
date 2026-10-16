@@ -1,0 +1,5 @@
+start: https://www.umbertoamare.it/en/tasting-routes/
+steps:
+- follow:
+    href_matches: menu_atelier_ING\.pdf
+content: pdf

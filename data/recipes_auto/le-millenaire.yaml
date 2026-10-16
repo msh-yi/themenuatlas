@@ -1,0 +1,5 @@
+start: https://www.restaurant-lemillenaire.com/nos-menus/
+steps:
+- follow:
+    href_matches: DEJEUNER\-MILLENAIRE\-06\-octobre\-2026\.pdf
+content: pdf

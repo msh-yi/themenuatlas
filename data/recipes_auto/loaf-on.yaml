@@ -1,0 +1,5 @@
+start: https://loafon.com/hk/
+steps:
+- follow:
+    href_matches: set_menu\.pdf
+content: pdf

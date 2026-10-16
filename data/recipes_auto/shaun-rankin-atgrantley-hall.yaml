@@ -1,0 +1,5 @@
+start: https://www.grantleyhall.co.uk/bars-restaurants/fletchers-restaurant/
+steps:
+- follow:
+    href_matches: fletchers\-lunch\-menu\.pdf
+content: pdf

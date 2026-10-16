@@ -1,0 +1,5 @@
+start: https://maison-chenet.com/fr/carte-et-menu.html
+steps:
+- follow:
+    href_matches: menu\-151026\.pdf
+content: pdf

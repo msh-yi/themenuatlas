@@ -1,0 +1,5 @@
+start: https://www.restaurant-les-oliviers-bandol.fr/
+steps:
+- follow:
+    href_matches: Menus\-fetes\-de\-fin\-d\-annee\-2026\.pdf
+content: pdf

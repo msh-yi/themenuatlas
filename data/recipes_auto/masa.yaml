@@ -1,0 +1,5 @@
+start: https://masa-frankfurt.de/de/cuisine
+steps:
+- follow:
+    href_matches: Menu_10\.2026\.pdf
+content: pdf

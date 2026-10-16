@@ -1,0 +1,5 @@
+start: https://www.pollen-restaurant.fr/
+steps:
+- follow:
+    href_matches: CARTES\-DES\-VINS\-DE\-POLLEN\.pdf
+content: pdf

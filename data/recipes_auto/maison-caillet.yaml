@@ -1,0 +1,5 @@
+start: https://maisoncaillet.com/en/menus.html
+steps:
+- follow:
+    href_matches: menusetcarte\.pdf
+content: pdf

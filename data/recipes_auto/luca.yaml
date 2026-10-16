@@ -1,0 +1,5 @@
+start: https://luca.restaurant/
+steps:
+- follow:
+    href_matches: barlunch091026\.pdf
+content: pdf

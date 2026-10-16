@@ -1,0 +1,5 @@
+start: https://www.karelv.nl/
+steps:
+- follow:
+    href_matches: Menukaart\ Restaurant\ Karel\ 5\ Zomer\ 2026\ NL\.pdf
+content: pdf

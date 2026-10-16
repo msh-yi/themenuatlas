@@ -1,0 +1,5 @@
+start: https://restaurant-thefirst.de/
+steps:
+- follow:
+    href_matches: Speisekarte\-The\-First\-No\.36\.pdf
+content: pdf

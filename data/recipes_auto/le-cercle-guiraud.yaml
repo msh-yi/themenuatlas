@@ -1,0 +1,5 @@
+start: https://www.lecercleguiraud.com/fr/carte-menus/
+steps:
+- follow:
+    href_matches: 260910\-LCG_MENU_FR\.pdf\.pdf
+content: pdf

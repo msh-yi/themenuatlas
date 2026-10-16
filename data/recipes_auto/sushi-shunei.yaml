@@ -1,0 +1,5 @@
+start: https://www.sushishunei.com/
+steps:
+- follow:
+    href_matches: 6853bce728a5c205283ebb19_250327_SHUNEI_Menu_Principal\.pdf
+content: pdf

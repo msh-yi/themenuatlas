@@ -1,0 +1,5 @@
+start: https://www.levivier-restaurant.com/cuisine-gastronomique-etoile-restaurant-le-vivier-vaucluse
+steps:
+- follow:
+    href_matches: VIVIER\-MENU\-OCT\-S40\-2026\.pdf
+content: pdf

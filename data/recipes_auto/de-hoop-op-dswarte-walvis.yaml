@@ -1,0 +1,5 @@
+start: https://www.dewalvis.nl/our-menus/
+steps:
+- follow:
+    href_matches: Walvis_dagmenu_EN_juni2026_03\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurant-ineffable.fr/fr/carte-menus.html
+steps:
+- follow:
+    href_matches: menu\-degustation\.pdf
+content: pdf

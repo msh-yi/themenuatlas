@@ -1,0 +1,5 @@
+start: https://www.yongfusg.com/menu
+steps:
+- follow:
+    href_matches: 9c76fd_98c638200d2642458e12fb2731f94630\.pdf
+content: pdf

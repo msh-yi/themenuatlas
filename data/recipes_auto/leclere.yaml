@@ -1,0 +1,5 @@
+start: https://www.restaurantleclere.com/
+steps:
+- follow:
+    href_matches: carte_des_vins_leclere\-2026\.pdf
+content: pdf

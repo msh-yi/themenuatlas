@@ -1,0 +1,5 @@
+start: https://ristorantecrocifisso.it/
+steps:
+- follow:
+    href_matches: 260505_Crocifisso_Menu_C_eraunavolta\-1_ita\.pdf
+content: pdf

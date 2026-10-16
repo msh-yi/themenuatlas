@@ -1,0 +1,5 @@
+start: https://gastroelemento.com/menu-english/
+steps:
+- follow:
+    href_matches: Menu\-Completo\-Gastro\-15\-Momentos\-Agosto\.pdf
+content: pdf

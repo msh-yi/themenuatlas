@@ -1,0 +1,5 @@
+start: https://www.thegoring.com/food-drink/
+steps:
+- follow:
+    href_matches: dining\-room\-set\-lunch\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.mezcaleriaalma.com/
+steps:
+- follow:
+    href_matches: MEZCALERIA\-MENUS\-WEB\-VERSION\-july\-2026\-nwfb\.pdf
+content: pdf

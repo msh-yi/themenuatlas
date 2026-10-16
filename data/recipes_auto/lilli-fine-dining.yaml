@@ -1,0 +1,5 @@
+start: https://lilli-fehring.at/
+steps:
+- follow:
+    href_matches: Speisekarte\ Wirtshaus\ Lilli\.pdf
+content: pdf

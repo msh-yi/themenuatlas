@@ -1,0 +1,5 @@
+start: https://legrapiot.com/fr/
+steps:
+- follow:
+    href_matches: menu\-grapiot\-12\-v1\.pdf
+content: pdf

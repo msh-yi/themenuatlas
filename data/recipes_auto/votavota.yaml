@@ -1,0 +1,5 @@
+start: https://www.votavota.it/
+steps:
+- follow:
+    href_matches: IT\-Degustazioni\-VotaVota\-Web\.pdf
+content: pdf

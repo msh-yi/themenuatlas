@@ -1,0 +1,5 @@
+start: https://www.lacachette-valence.fr/fr/carte-et-menus.html
+steps:
+- follow:
+    href_matches: menu\-bac\-a\-traille\-janvier26\.pdf
+content: pdf

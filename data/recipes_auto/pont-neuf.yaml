@@ -1,0 +1,5 @@
+start: https://pont-neuf.be/
+steps:
+- follow:
+    href_matches: Menu_NL\.pdf
+content: pdf

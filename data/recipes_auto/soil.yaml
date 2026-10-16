@@ -1,0 +1,5 @@
+start: https://soilrestaurant.gr/
+steps:
+- follow:
+    href_matches: 14\-EN\-10\.09\.26\.pdf
+content: pdf

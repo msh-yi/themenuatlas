@@ -1,0 +1,5 @@
+start: https://restaurantgaya.com/
+steps:
+- follow:
+    href_matches: carte_GAYA_\-_debut_sept_2026\.pdf
+content: pdf

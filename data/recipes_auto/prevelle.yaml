@@ -1,0 +1,5 @@
+start: https://prevelle.fr/
+steps:
+- follow:
+    href_matches: Exemple\-menus\-Prevelle\-printemps\-A5\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.limurestaurant.it/menu/
+steps:
+- follow:
+    href_matches: menu_limu_Autunno_2026_ITA\.pdf
+content: pdf

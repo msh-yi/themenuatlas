@@ -1,0 +1,5 @@
+start: https://locaniru.sg/menu/
+steps:
+- follow:
+    href_matches: Loca\-Niru\-Digital\-Dinner\-Menu\-Autumn\.pdf
+content: pdf

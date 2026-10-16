@@ -1,0 +1,5 @@
+start: https://www.fradisminoris.it/en/menu-eng/
+steps:
+- follow:
+    href_matches: WEB\-ING\-menu\-settembre\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.kulmeck.de/
+steps:
+- follow:
+    href_matches: kulmeck_menue_23092026\.pdf
+content: pdf

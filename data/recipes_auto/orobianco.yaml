@@ -1,0 +1,5 @@
+start: https://orobianco.es/en/orobianco-menu
+steps:
+- follow:
+    href_matches: ING\-Degustacion\-Orobianco\-2026\-4\.pdf
+content: pdf

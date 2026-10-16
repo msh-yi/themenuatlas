@@ -1,0 +1,5 @@
+start: http://gz.stiller.cn/
+steps:
+- follow:
+    href_matches: 20240413_STILLERALACARTE_V28\.pdf
+content: pdf

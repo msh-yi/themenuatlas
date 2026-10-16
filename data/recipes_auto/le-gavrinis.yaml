@@ -1,0 +1,5 @@
+start: https://www.gavrinis.fr/
+steps:
+- follow:
+    href_matches: menus_gavrinis14\.10\.2026\.pdf
+content: pdf

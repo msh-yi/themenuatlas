@@ -1,0 +1,5 @@
+start: https://www.edvard-restaurant.com/en/menus/
+steps:
+- follow:
+    href_matches: Anantara_Palais_Hansen_Vienna_EDVARD_Menukarte_DI_DO_Sept\-2026\.pdf
+content: pdf

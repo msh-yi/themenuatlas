@@ -1,0 +1,5 @@
+start: https://www.restaurantnisei.com/menu
+steps:
+- follow:
+    href_matches: Post\-Savory\-Beverage\-Menu\-2026612\.pdf
+content: pdf

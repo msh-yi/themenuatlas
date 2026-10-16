@@ -1,0 +1,5 @@
+start: https://www.latablelasne.be/menu-la-table
+steps:
+- follow:
+    href_matches: 6bdad6_bdc98883d0a84d0e969ffff97c6ee66b\.pdf
+content: pdf

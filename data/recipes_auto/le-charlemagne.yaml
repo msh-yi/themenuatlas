@@ -1,0 +1,5 @@
+start: https://www.lecharlemagne.fr/fr/carte-et-menu.html
+steps:
+- follow:
+    href_matches: menu\-decouverte\-octobre\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.blackswanoldstead.co.uk/food/
+steps:
+- follow:
+    href_matches: Dinner\-Sample\-5\.pdf
+content: pdf

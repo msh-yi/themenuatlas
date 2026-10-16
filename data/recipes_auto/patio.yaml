@@ -1,0 +1,5 @@
+start: https://patio.gr/menu/
+steps:
+- follow:
+    href_matches: PATIO\-MENU\-WEB\.pdf
+content: pdf

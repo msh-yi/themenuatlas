@@ -1,0 +1,5 @@
+start: https://www.ristorante-esplanade.com/en/menu/
+steps:
+- follow:
+    href_matches: menu\-esplanade\-2026eng\.pdf
+content: pdf

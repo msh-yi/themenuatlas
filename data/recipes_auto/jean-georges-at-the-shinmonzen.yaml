@@ -1,0 +1,5 @@
+start: https://theshinmonzen.com/dining/
+steps:
+- follow:
+    href_matches: 1791004884\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.ristorantelorenzo.com/it/mobile-menu/
+steps:
+- follow:
+    href_matches: INGLESE\-UOMO\-2024\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.saporium.com/
+steps:
+- follow:
+    href_matches: Saporium\-2026\-Giugno\-ING\.pdf
+content: pdf

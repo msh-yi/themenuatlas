@@ -1,0 +1,5 @@
+start: https://www.omakase.com.sg/
+steps:
+- follow:
+    href_matches: 9b60c2_3d17ca5ace744903950cc2629ff7512f\.pdf
+content: pdf

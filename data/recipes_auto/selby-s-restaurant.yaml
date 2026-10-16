@@ -1,0 +1,5 @@
+start: https://www.selbysrestaurant.com/menus
+steps:
+- follow:
+    href_matches: Selbys_Dinner_91126\.pdf
+content: pdf

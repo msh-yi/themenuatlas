@@ -1,0 +1,5 @@
+start: https://osmosimontepulciano.it/
+steps:
+- follow:
+    href_matches: menu\-osmosi_montepulciano\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://slowandlowbcn.com/
+steps:
+- follow:
+    href_matches: menu\-slow\-low\-cast\-11\-07\-26\.pdf
+content: pdf

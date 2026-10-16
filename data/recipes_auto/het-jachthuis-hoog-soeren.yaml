@@ -1,0 +1,5 @@
+start: https://www.brasseriehetjachthuis.nl/
+steps:
+- follow:
+    href_matches: 69f5fa5b479b46a1b92e5242_Jachthuis_Menu_EN_V4_FINAL_COMPLETE\.pdf
+content: pdf

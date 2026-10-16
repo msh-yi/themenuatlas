@@ -1,0 +1,5 @@
+start: https://www.restaurant-trente-trois.com/
+steps:
+- follow:
+    href_matches: 8f0a61_757753d8b4e54cddbbb4d72c44241668\.pdf
+content: pdf

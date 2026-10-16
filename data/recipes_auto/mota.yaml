@@ -1,0 +1,5 @@
+start: https://www.restaurant-mota.com/
+steps:
+- follow:
+    href_matches: menu_teaser_cta_url_ba087b410d6d\.pdf
+content: pdf

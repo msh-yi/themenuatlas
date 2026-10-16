@@ -1,0 +1,5 @@
+start: https://hotelvillaretiro.com/menu-clasico/
+steps:
+- follow:
+    href_matches: MENU\-WEB\-ESP\-2026\-1\.pdf\-1\.pdf
+content: pdf

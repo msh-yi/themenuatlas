@@ -1,0 +1,5 @@
+start: https://www.seventhson.hk/
+steps:
+- follow:
+    href_matches: 178876863457205000\.pdf
+content: pdf

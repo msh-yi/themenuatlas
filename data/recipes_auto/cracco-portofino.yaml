@@ -1,0 +1,5 @@
+start: https://www.craccoportofino.it/
+steps:
+- follow:
+    href_matches: Off\-Menu\-oct\-SS26\.pdf
+content: pdf

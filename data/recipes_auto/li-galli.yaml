@@ -1,0 +1,5 @@
+start: https://www.ligallirestaurant.it/
+steps:
+- follow:
+    href_matches: LiGalliFoodENG\.pdf
+content: pdf

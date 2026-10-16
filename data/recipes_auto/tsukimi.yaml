@@ -1,0 +1,5 @@
+start: https://www.tsukimi.nyc/
+steps:
+- follow:
+    href_matches: 2026\-Summer\-Kaiseki\-Menu\.pdf
+content: pdf

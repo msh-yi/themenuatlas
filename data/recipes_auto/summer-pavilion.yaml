@@ -1,0 +1,5 @@
+start: https://www.summerpavilion.com.sg/menu
+steps:
+- follow:
+    href_matches: summer\-pavilion\-set\-menu\.pdf
+content: pdf

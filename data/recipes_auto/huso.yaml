@@ -1,0 +1,5 @@
+start: https://husony.com/
+steps:
+- follow:
+    href_matches: HUSO\-Beverage\-Menu\-08\-13\-26\.pdf
+content: pdf

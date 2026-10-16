@@ -1,0 +1,5 @@
+start: https://www.irwin.paris/
+steps:
+- follow:
+    href_matches: 6aba27e7f20bcab37b2e6c74_CARTE%20DES%20VINS%20A5\.pdf
+content: pdf

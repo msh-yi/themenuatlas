@@ -1,0 +1,5 @@
+start: https://korennaer.be/
+steps:
+- follow:
+    href_matches: promenade\-sep\.pdf
+content: pdf
