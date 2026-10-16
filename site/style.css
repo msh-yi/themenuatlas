@@ -227,3 +227,6 @@ details.menu[open] > summary { margin-bottom: .6rem; }
 .home-stats { text-align: center; color: var(--text-2); }
 .home-stats .tiles { max-width: 720px; margin: 0 auto 1rem; }
 .finder input[type="search"]:focus-visible { outline-color: var(--contrast); }
+/* the home page has the title front and centre; keep the nav where it is on wide screens */
+body.home .brand { visibility: hidden; }
+@media (max-width: 560px) { body.home .brand { display: none; } }

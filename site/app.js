@@ -140,6 +140,8 @@ async function route() {
     a.classList.toggle("on", on);
     if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
+  // The home page shows the title large, so the header's copy is hidden there.
+  document.body.classList.toggle("home", view === "home");
   const app = document.getElementById("app");
   const views = { home, ingredients, ingredient, pairings, restaurants, restaurant, coverage, about };
   const fn = views[view] || notFound;
