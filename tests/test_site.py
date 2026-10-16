@@ -184,3 +184,15 @@ def test_add_windows_and_bucket_seen(monkeypatch):
                                                                     "processed/y/h2.json": t(4)}}
     monkeypatch.setattr(storage, "list_modified", lambda p: objs[p])
     assert site.bucket_seen() == {"h1": ("2026-03-01", "2026-09-01"), "h2": ("2026-04-01", "2026-04-01")}
+
+
+def test_optouts_leave_no_trace(tmp_path):
+    opt = tmp_path / "optouts.csv"
+    opt.write_text("slug,date,note\nsyn-uk,2026-10-16,asked by email\n\n")
+    assert site.optouts(opt) == {"syn-uk"} and site.optouts(tmp_path / "missing.csv") == frozenset()
+    rows, restaurants, details, preps, manifests = site.drop_restaurants(site.load("synthetic", ROOT), site.optouts(opt))
+    assert all(r.restaurant != "syn-uk" for r in rows)
+    assert "syn-uk" not in restaurants and "syn-uk" not in details and "syn-uk" not in manifests
+    d = site.build(rows, restaurants, source="synthetic", details=details, preparations=preps, manifests=manifests)
+    assert "syn-uk" not in json.dumps(d) and "Synthetic UK" not in json.dumps(d)
+    assert d["totals"]["restaurants"] == 8

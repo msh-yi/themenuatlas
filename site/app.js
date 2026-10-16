@@ -280,6 +280,11 @@ function groupShare(ing, group) {
   return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
+const REPO = "https://github.com/msh-yi/themenuproject";
+const OPT_OUT = REPO + "/issues/new?template=opt-out.yml";
+const CORRECTION = REPO + "/issues/new?template=correction.yml";
+const ext = (href, text) => h("a", { href, rel: "noopener", target: "_blank" }, text);
+
 // --- views --------------------------------------------------------------------
 
 // The landing page: one search box over ingredients and restaurants, then the ways in.
@@ -640,7 +645,8 @@ function restaurant(_params, [slug]) {
         ? h("div", { class: "chips" }, distinct.map((i) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(i.name) }, i.name,
           h("span", { class: "n", title: "restaurants using it" }, i.restaurants.length))))
         : h("p", { class: "empty" }, "No menu data for this restaurant.")),
-    r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."));
+    r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."),
+    h("p", { class: "muted", style: "font-size:.85rem" }, "Is this your restaurant? ", ext(OPT_OUT, "Ask to be removed ↗"), " · Something wrong? ", ext(CORRECTION, "Report it ↗")));
 }
 
 // One menu as a manifest: courses in order, each with its ingredients and how they're
@@ -1110,7 +1116,21 @@ function about() {
     h("ul", {},
       h("li", {}, "Only derived facts: ingredient names, preparations, counts and scores, plus a link to each restaurant's site."),
       h("li", {}, "No menu text, dish descriptions, PDFs or photos."),
-      h("li", {}, "Sites that opt out through robots.txt or a TDM reservation are skipped.")),
+      h("li", {}, "Menus are ingredient lists as a program read them, so expect the odd mistake.")),
+    h("h2", {}, "How menus are collected"),
+    h("ul", {},
+      h("li", {}, "Only from restaurants' own websites: no booking platforms, social media or reviews."),
+      h("li", {}, "Slowly, a page at a time, by a crawler that names itself and links back to this project."),
+      h("li", {}, "Sites that reserve text and data mining rights (a TDM reservation) are skipped, and bot protection and CAPTCHAs are never bypassed.")),
+    h("h2", {}, "Restaurants: opting out and corrections"),
+    h("p", {}, "If you run a restaurant and would rather not be here, ", ext(OPT_OUT, "ask to be removed ↗"),
+      ". We take out the restaurant, its menus and every count built from them, and stop reading its site. To report a wrong ingredient or a menu matched to the wrong place, ",
+      ext(CORRECTION, "tell us here ↗"), ". Both open a public GitHub issue."),
+    h("h2", {}, "Sources and credits"),
+    h("ul", {},
+      h("li", {}, "Restaurant lists: the MICHELIN Guide (stars from the most recent guide year recorded), The World's 50 Best Restaurants, and The New York Times' restaurant lists. The Menu Atlas isn't affiliated with or endorsed by any of them; the MICHELIN star symbol is Michelin's trademark, used here only to show a restaurant's rating."),
+      h("li", {}, "Country outlines: Natural Earth (public domain). Ingredient articles: Wikipedia."),
+      h("li", {}, "The code is open source: ", ext(REPO, "github.com/msh-yi/themenuproject ↗"), ".")),
     h("p", { class: "muted" }, `Data built ${new Date(D.generated_at).toLocaleString()} from source “${D.source}”.`));
 }
 

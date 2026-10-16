@@ -1,0 +1,37 @@
+name: Remove a restaurant
+description: For restaurants that would rather not appear on The Menu Atlas.
+title: "Opt out: "
+labels: [opt-out]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for getting in touch. We remove a restaurant from the site, its menus and every count built from them, usually within a few days, and stop reading its website.
+
+        This page is public. Please don't include private contact details; we'll reply here.
+  - type: input
+    id: restaurant
+    attributes:
+      label: Restaurant
+      description: Name and city, as shown on the site.
+      placeholder: e.g. Restaurant Name, Copenhagen
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to its page on The Menu Atlas, or its website
+    validations:
+      required: false
+  - type: dropdown
+    id: role
+    attributes:
+      label: You are
+      options: [The restaurant or its owner, Staff, Someone else]
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Optional. For example, if only one menu is wrong rather than the whole restaurant.

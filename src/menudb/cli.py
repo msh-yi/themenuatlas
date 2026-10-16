@@ -789,7 +789,7 @@ def export_site(
     out: Path = typer.Option(Path("site/data"), help="directory for data.json (gitignored)"),
     min_restaurants: int = typer.Option(2, help="drop pairs seen at fewer restaurants"),
     to_bucket: bool = typer.Option(False, help=f"also store it privately in the bucket under {SITE_KEY}"),
-    menus: bool = typer.Option(False, help="include each restaurant's menus (courses -> ingredients); private builds only"),
+    menus: bool = typer.Option(False, help="include each restaurant's menus (courses -> ingredients, no menu wording)"),
 ):
     """Write aggregated JSON for the static site: no course text, derived data only."""
     from menudb import site
@@ -813,7 +813,7 @@ def export_site(
                                     "first_load_bytes": paths[0].stat().st_size,
                                     "bytes": sum(p.stat().st_size for p in paths)})
     if source != "synthetic":
-        typer.echo("real data: keep it out of the repo and don't publish it (docs/PLAN.md, Website)")
+        typer.echo("real data: keep it out of the repo; site.yml publishes it (docs/PLAN.md, Website)")
 
 
 @app.command("wiki-links")

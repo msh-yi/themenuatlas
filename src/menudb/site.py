@@ -165,7 +165,7 @@ def manifests_from_db(session) -> dict[str, list[dict]]:
     return manifests_from_extracted(menus.values(), seen)
 
 
-def preparations_from_db(session) -> dict[str, Counter]:
+def preparations_from_db(session, drop: frozenset[str] = frozenset()) -> dict[str, Counter]:
     from sqlalchemy import func, select
 
     from menudb.db.models import Component, Course, Ingredient, Menu, Restaurant
@@ -183,7 +183,7 @@ def preparations_from_db(session) -> dict[str, Counter]:
     )
     return preparations_from_extracted(
         {"slug": slug, "courses": [{"components": [{"raw_term": name, "preparations": preps}]}]}
-        for slug, name, preps in session.execute(q) if name)
+        for slug, name, preps in session.execute(q) if name and slug not in drop)
 
 
 def restaurant_details(csv_path: Path | None) -> dict[str, dict]:
@@ -406,8 +406,30 @@ def _pair(p: dict) -> dict:
             "score": round(p.get("score", p["lift"]), 3), "restaurants": p["restaurants"]}
 
 
+def optouts(path: Path) -> frozenset[str]:
+    """Slugs of restaurants that asked to be left out (data/seed/optouts.csv: slug, date, note)."""
+    if not path.exists():
+        return frozenset()
+    with path.open(newline="") as f:
+        return frozenset(r["slug"].strip() for r in csv.DictReader(f) if r.get("slug", "").strip())
+
+
+def drop_restaurants(loaded: tuple, drop: frozenset[str]) -> tuple:
+    """load()'s result without these restaurants: no name, no menus, no part in any share or pair."""
+    if not drop:
+        return loaded
+    rows, restaurants, details, preps, manifests = loaded
+    return ([r for r in rows if r.restaurant not in drop],
+            {k: v for k, v in restaurants.items() if k not in drop},
+            {k: v for k, v in details.items() if k not in drop},
+            preps, {k: v for k, v in manifests.items() if k not in drop})
+
+
 def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant], dict, dict, dict]:
-    """rows, restaurants, restaurant details, preparations and menu manifests for one source."""
+    """rows, restaurants, restaurant details, preparations and menu manifests for one source.
+
+    Restaurants in data/seed/optouts.csv are left out of real builds entirely."""
+    drop = optouts(root / "data/seed/optouts.csv")
     csv_path = root / "data/seed/restaurants.csv"
     full_csv = root / "data/seed/restaurants_full.csv"  # the map shows the whole list
     if source == "synthetic":
@@ -427,8 +449,8 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         from menudb import handoff, storage
 
         restaurants = a.restaurants_from_csv(csv_path)
-        menus = [handoff.get_json(k) for prefix in (handoff.EXTRACTED, handoff.IMPORTED)
-                 for k in storage.list_keys(prefix)]
+        menus = [m for m in (handoff.get_json(k) for prefix in (handoff.EXTRACTED, handoff.IMPORTED)
+                             for k in storage.list_keys(prefix)) if m["slug"] not in drop]
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
@@ -436,21 +458,21 @@ def load(source: str, root: Path) -> tuple[list[a.Row], dict[str, a.Restaurant],
         add_windows(details, ((m["slug"], *seen[m["normalized_hash"]]) for m in menus
                               if m.get("is_menu", True) and m["normalized_hash"] in seen))
         first = {h: date.fromisoformat(f) for h, (f, _) in seen.items()}
-        return (a.rows_from_extracted(menus, restaurants, first), restaurants, details,
-                preparations_from_extracted(menus), manifests_from_extracted(menus, seen))
+        return drop_restaurants((a.rows_from_extracted(menus, restaurants, first), restaurants, details,
+                                 preparations_from_extracted(menus), manifests_from_extracted(menus, seen)), drop)
     if source == "db":
         from menudb.db import get_session
 
         with get_session() as session:
             rows, restaurants = a.load_db(session)
-            preps = preparations_from_db(session)
+            preps = preparations_from_db(session, drop)
             manifests = manifests_from_db(session)
             windows = menu_windows_from_db(session)
         details = restaurant_details(csv_path)
         add_full_list(restaurants, details, full_csv)
         apply_discovery(restaurants, details, root / "data/seed/discovery.csv")
         add_windows(details, windows)
-        return rows, restaurants, details, preps, manifests
+        return drop_restaurants((rows, restaurants, details, preps, manifests), drop)
     raise ValueError(f"unknown source {source!r}")
 
 
