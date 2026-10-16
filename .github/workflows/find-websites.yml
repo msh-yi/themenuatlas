@@ -53,7 +53,7 @@ jobs:
       - name: Find websites
         env:
           LIMIT: ${{ inputs.limit }}
-        run: uv run python scripts/find_websites.py --cache .cache/lists ${LIMIT:+--limit "$LIMIT"}
+        run: uv run python -u scripts/find_websites.py --cache .cache/lists ${LIMIT:+--limit "$LIMIT"}
 
       - name: Playwright version
         id: pw

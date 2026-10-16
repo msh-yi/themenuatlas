@@ -214,6 +214,8 @@ def main():
                     break
                 continue
             path.write_text(json.dumps(results))
+            if queried % 100 == 0:
+                print(f"{queried} queries, {found} websites found so far", file=sys.stderr, flush=True)
             time.sleep(1.1)  # both free plans allow 1 query per second
         if (site := pick(r["name"], r["city"], results)) and host_of(site) not in taken:
             r["website"], r["website_source"] = site, "search"
