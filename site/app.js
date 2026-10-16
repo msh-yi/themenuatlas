@@ -152,7 +152,7 @@ async function route() {
 // --- shared pieces ------------------------------------------------------------
 
 function tiles(items) {
-  return h("div", { class: "tiles" }, items.map(([v, k]) => h("div", { class: "tile" }, h("div", { class: "v" }, v), h("div", { class: "k" }, k))));
+  return h("div", { class: "tiles" }, items.map(([v, k]) => h("div", { class: "tile" }, h("div", { class: "v" }, typeof v === "number" ? v.toLocaleString() : v), h("div", { class: "k" }, k))));
 }
 
 function shareBar(x, max = 1) {
@@ -336,14 +336,18 @@ function home() {
   let pool = byUse.slice(30).filter((i) => i.restaurants.length >= 3);
   if (pool.length < 6) pool = byUse;
   const suggestions = [...pool].sort(() => Math.random() - 0.5).slice(0, 3);
-  const path = (href, title, text, go) => h("a", { class: "path", href }, h("h2", {}, title), h("p", {}, text), h("span", { class: "go" }, go + " →"));
+  // Four colour blocks, numbered like the sections of a 1960s guidebook.
+  let n = 0;
+  const path = (href, title, text, go) => h("a", { class: `path path-${++n}`, href },
+    h("span", { class: "kicker" }, String(n).padStart(2, "0")), h("h2", {}, title), h("p", {}, text), h("span", { class: "go" }, go + " →"));
   setTimeout(() => search.focus({ preventScroll: true }), 0);
   return h("div", {},
     h("section", { class: "hero" },
-      h("h1", {}, "The Menu Atlas"),
-      h("p", { class: "lede" }, `What the world's best restaurants are cooking, read from the tasting menus ${t.restaurants_with_data.toLocaleString()} of them publish: every ingredient, how it's prepared, what it's paired with, and where.`),
-      h("div", { class: "finder" }, search, found,
-        h("p", { class: "hint" }, "Try: ", suggestions.flatMap((i, n) => [n ? " · " : "", ingLink(i.name)])))),
+      h("div", { class: "hero-title" }, h("span", { class: "disc", "aria-hidden": "true" }), h("h1", {}, "The Menu Atlas")),
+      h("div", { class: "hero-side" },
+        h("p", { class: "lede" }, `What the world's best restaurants are cooking, read from the tasting menus ${t.restaurants_with_data.toLocaleString()} of them publish: every ingredient, how it's prepared, what it's paired with, and where.`),
+        h("div", { class: "finder" }, search, found,
+          h("p", { class: "hint" }, "Try: ", suggestions.flatMap((i, n) => [n ? " · " : "", ingLink(i.name)]))))),
     h("div", { class: "paths" },
       path("#/ingredients", "Ingredients", `Look up any of ${t.ingredients.toLocaleString()} ingredients: how often it's on the menu, by region and season, and how chefs prepare it.`, "Browse ingredients"),
       path("#/restaurants", "Restaurants", `Find a restaurant by name, city, region or accolade${D.has_menus ? ", and read its menus course by course" : ", and see what it cooks with"}.`, "Find a restaurant"),
