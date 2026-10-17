@@ -807,6 +807,7 @@ def export_site(
                       min_restaurants=min_restaurants, wikipedia=wiki.urls(),
                       min_group=2 if source == "synthetic" else site.MIN_GROUP,
                       lexicon=site.lexicon_info(root / "data/lexicon/ingredients.txt"),
+                      rules=site.pairing_rules(root / "data/lexicon/pairings.txt"),
                       manifests=manifests if menus else None)
     paths = site.write(data, out)
     if to_bucket:

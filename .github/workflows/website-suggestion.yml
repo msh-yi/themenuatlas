@@ -1,0 +1,96 @@
+# Applies a website suggestion (issue form .github/ISSUE_TEMPLATE/website.yml) once a maintainer
+# has checked it and added the `website-approved` label: sets the restaurant's website in the
+# lists, runs menu discovery on it, commits to main, and answers and closes the issue.
+# Only people with triage access can add labels, so a suggestion alone changes nothing.
+# The issue body reaches the script through an environment variable, never the shell.
+name: website-suggestion
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    if: github.event.label.name == 'website-approved'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL_S3: ${{ secrets.AWS_ENDPOINT_URL_S3 }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv sync --frozen --no-dev
+
+      - name: Apply the suggestion
+        id: apply
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: uv run python scripts/apply_website_suggestion.py
+
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(uv run python -c 'import importlib.metadata as m; print(m.version("playwright"))')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - run: uv run playwright install --with-deps chromium
+
+      # Stores what it finds in the bucket and queues it, as find-websites.yml does; check.yml
+      # extracts and imports it on its next run.
+      - name: Discover the menu
+        id: discover
+        env:
+          SLUG: ${{ steps.apply.outputs.slug }}
+        run: |
+          uv run menudb discover --slug "$SLUG" --redo --js --to-bucket | tee "$RUNNER_TEMP/discover.txt"
+          echo "status=$(grep -m1 "^$SLUG: " "$RUNNER_TEMP/discover.txt" | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit
+        env:
+          SLUG: ${{ steps.apply.outputs.slug }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add data/seed/restaurants_full.csv data/seed/restaurants.csv data/seed/discovery.csv data/recipes_auto
+          git diff --cached --quiet && exit 0
+          git commit -m "website-suggestion: $SLUG (#$ISSUE)"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 5; done
+          exit 1
+
+      - name: Reply and close
+        env:
+          MESSAGE: ${{ steps.apply.outputs.message }}
+          STATUS: ${{ steps.discover.outputs.status }}
+        run: |
+          case "$STATUS" in
+            menu_found|menu_maybe) found="Found a menu there; it will show on the site after the next daily update." ;;
+            *) found="Menu discovery didn't find a menu there yet (status: ${STATUS:-unknown})." ;;
+          esac
+          gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "$MESSAGE $found Thank you!"
+          gh issue close "$ISSUE" --repo "$GITHUB_REPOSITORY" --reason completed
+
+      - name: Explain a rejected suggestion
+        if: failure() && steps.apply.outcome == 'failure'
+        env:
+          MESSAGE: ${{ steps.apply.outputs.message }}
+        run: gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "$MESSAGE Edit the issue and remove and re-add the label to try again."

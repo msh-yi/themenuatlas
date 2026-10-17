@@ -290,9 +290,15 @@ function groupShare(ing, group) {
   return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
+// Staples (bread, butter, pasta...) pair with everything, so their pairings are hidden unless asked for.
+const isStaple = (name) => byName.get(name)?.pairing === "staple";
+const plain = (i) => !i.pairing; // neither generic nor a staple
+const staplesNote = () => D.ingredients.filter((i) => i.pairing === "staple").slice(0, 3).map((i) => i.name).join(", ");
+
 const REPO = "https://github.com/msh-yi/themenuatlas";
 const OPT_OUT = REPO + "/issues/new?template=opt-out.yml";
 const CORRECTION = REPO + "/issues/new?template=correction.yml";
+const SUGGEST = (r) => REPO + "/issues/new?" + new URLSearchParams({ template: "website.yml", title: `Website: ${r.name}`, restaurant: r.slug });
 const ext = (href, text) => h("a", { href, rel: "noopener", target: "_blank" }, text);
 
 // --- views --------------------------------------------------------------------
@@ -341,7 +347,7 @@ function home() {
   // Three random suggestions, new on each visit. Skip the most common ingredients (butter, beef...)
   // and the one-offs, so they're interesting but still lead somewhere.
   const byUse = [...D.ingredients].sort((a, b) => b.restaurants.length - a.restaurants.length);
-  let pool = byUse.slice(30).filter((i) => i.restaurants.length >= 3);
+  let pool = byUse.slice(30).filter((i) => i.restaurants.length >= 3 && plain(i));
   if (pool.length < 6) pool = byUse;
   const suggestions = [...pool].sort(() => Math.random() - 0.5).slice(0, 3);
   // Four colour blocks, numbered like the sections of a 1960s guidebook.
@@ -413,14 +419,18 @@ function ingredients(params) {
     resultsHost);
 }
 
-function ingredient(_params, [name]) {
+function ingredient(params, [name]) {
   const ing = byName.get(name);
   if (!ing) return notFound();
   const total = D.totals.restaurants_with_data;
   // Positive associations only, most widely shared first: a 40× lift seen at two
   // restaurants is one chef's dish, not a pattern.
-  const pairs = D.pairs.filter((p) => (p.a === name || p.b === name) && p.lift > 1)
+  const allPairs = D.pairs.filter((p) => (p.a === name || p.b === name) && p.lift > 1)
     .map((p) => ({ ...p, other: p.a === name ? p.b : p.a }));
+  const staples = params.get("staples") === "1";
+  const pairs = staples ? allPairs : allPairs.filter((p) => !isStaple(p.other));
+  const hiddenStaples = allPairs.length - pairs.length;
+  const toggleStaples = () => { const p = new URLSearchParams(); if (!staples) p.set("staples", "1"); setParams(p); route(); };
   const regions = D.groups.region.filter((g) => ing.by_region[g] != null).map((g) => [g, ing.by_region[g]]);
   const seasons = D.groups.season.filter((g) => ing.by_season[g] != null).map((g) => [cap(g), ing.by_season[g]]);
   const accolades = accoladeGroups().map((g) => [g, (ing.by_accolade || {})[g] || 0]);
@@ -458,7 +468,10 @@ function ingredient(_params, [name]) {
             { key: "lift", label: "Lift", num: true, render: (p) => num(p.lift, 1) + "×" },
             { key: "restaurants", label: "Restaurants", num: true },
           ], { sort: "score", dir: "desc", page: 15 }, () => {})
-          : h("p", { class: "empty" }, `No pairing seen at ${D.min_restaurants}+ restaurants yet.`)),
+          : h("p", { class: "empty" }, ing.pairing === "generic" ? "Too general an ingredient to pair." : `No pairing seen at ${D.min_restaurants}+ restaurants yet.`),
+        hiddenStaples || staples ? h("p", { class: "muted", style: "font-size:.85rem;margin:.5rem 0 0" },
+          staples ? "Including staples. " : `${hiddenStaples} pairing${hiddenStaples === 1 ? "" : "s"} with staples (${staplesNote()}…) hidden. `,
+          h("a", { href: "#", onclick: (e) => { e.preventDefault(); toggleStaples(); } }, staples ? "Hide them" : "Show them")) : null),
       h("section", { class: "card stack" },
         h("div", {}, h("h2", {}, "Preparations"),
           ing.preparations.length
@@ -481,7 +494,9 @@ function pairings(params) {
   const out = h("div", {});
   const accSel = h("select", {}, h("option", { value: "" }, "All restaurants"),
     accoladeGroups().map((g) => h("option", { value: g, selected: g === params.get("acc") }, `${g} (${D.groups.accolade_with_data[g]} with menus)`)));
-  const pool = () => (accSel.value && D.pairs_by_accolade?.[accSel.value]) || D.pairs;
+  const staplesBox = h("input", { type: "checkbox", checked: params.get("staples") === "1" });
+  const pool = () => ((accSel.value && D.pairs_by_accolade?.[accSel.value]) || D.pairs)
+    .filter((p) => staplesBox.checked || (!isStaple(p.a) && !isStaple(p.b)));
   const maxR = D.pairs.reduce((m, p) => Math.max(m, p.restaurants), D.min_restaurants);
   // With lots of data, start from pairs seen at more restaurants so one-off dishes don't lead.
   const defaultMin = () => { const n = pool().length; return n > 2000 ? Math.min(5, maxR) : n > 500 ? Math.min(3, maxR) : D.min_restaurants; };
@@ -499,6 +514,7 @@ function pairings(params) {
     const p = new URLSearchParams();
     const q = search.value.toLowerCase().trim(), min = Number(minSel.value);
     if (q) p.set("q", q); if (min !== defaultMin()) p.set("min", min); if (accSel.value) p.set("acc", accSel.value);
+    if (staplesBox.checked) p.set("staples", "1");
     if (state.sort !== "score") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
     const all = pool();
@@ -521,11 +537,13 @@ function pairings(params) {
   search.addEventListener("input", live);
   minSel.addEventListener("change", live);
   accSel.addEventListener("change", () => { minSel.value = String(defaultMin()); live(); });
+  staplesBox.addEventListener("change", live);
   out.append(h("h1", {}, "Pairings"),
     ...(D.pairsError ? [h("p", { class: "banner" }, `The pairings file didn't load (${D.pairsError}). Reload the page to try again.`)] : []),
-    h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent. Score is lift with half a restaurant added to both sides, so a pairing seen at two restaurants can't outrank one seen at forty; the list sorts by it.`),
+    h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent. Score is lift with half a restaurant added to both sides, so a pairing seen at two restaurants can't outrank one seen at forty; the list sorts by it. Obvious pairs are left out: an ingredient and its own kind (mushroom and porcini), and catch-all words like "herbs".`),
     h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel),
-      accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null),
+      accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null,
+      h("label", { class: "check" }, staplesBox, `Include staples (${staplesNote()}…)`)),
     chartHost, tableHost);
   live();
   return out;
@@ -669,6 +687,8 @@ function restaurant(_params, [slug]) {
           h("span", { class: "n", title: "restaurants using it" }, i.restaurants.length))))
         : h("p", { class: "empty" }, "No menu data for this restaurant.")),
     r.menu_list?.length ? null : h("p", { class: "muted", style: "font-size:.85rem" }, "Only ingredient names are shown here. For the dishes themselves, see the restaurant's own site."),
+    !r.url || !r.menus ? h("p", { class: "card suggest" }, r.url ? "We haven't found a menu on its website. Know the page it's on? " : "We don't know this restaurant's website. Know it? ",
+      ext(SUGGEST(r), r.url ? "Suggest the menu page ↗" : "Suggest it ↗")) : null,
     h("p", { class: "muted", style: "font-size:.85rem" }, "Is this your restaurant? ", ext(OPT_OUT, "Ask to be removed ↗"), " · Something wrong? ", ext(CORRECTION, "Report it ↗")));
 }
 
@@ -727,7 +747,8 @@ function courses(params) {
     const places = new Set(rows.map((f) => f.r.slug));
     // what else is on the plate, counted by restaurant
     const other = new Map();
-    for (const f of rows) for (const [n] of f.c.i) if (n !== name) (other.get(n) || other.set(n, new Set()).get(n)).add(f.r.slug);
+    const shown = (n) => n !== name && byName.get(n)?.pairing !== "generic" && (isStaple(name) || !isStaple(n));
+    for (const f of rows) for (const [n] of f.c.i) if (shown(n)) (other.get(n) || other.set(n, new Set()).get(n)).add(f.r.slug);
     const top = [...other].map(([n, s]) => [n, s.size]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 16);
     withHost.replaceChildren(top.length ? h("section", { class: "card" }, h("h2", {}, "Most often on the plate with it"),
       h("div", { class: "chips" }, top.map(([n, c]) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(n) }, n, h("span", { class: "n", title: "restaurants" }, c))))) : "");
@@ -1208,33 +1229,20 @@ function coverage(params) {
 function about() {
   return h("div", { class: "prose" },
     h("h1", {}, "About"),
-    h("p", {}, "The Menu Atlas reads the tasting menus fine-dining restaurants publish on their own websites and breaks each dish into ingredients and preparations. It shows which ingredients are common, how they vary by region and by season, and which ones chefs put together more often than chance."),
-    h("h2", {}, "Method"),
+    h("p", { class: "lede" }, "I started The Menu Atlas because I love flavor combinations. Say I have lamb to cook and want to do something more creative with it: what are the best restaurants in the world putting it with? This site answers that, from the menus they publish."),
+    h("h2", {}, "How it works"),
     h("ul", {},
-      h("li", {}, "Each distinct menu counts once. Seeing the same menu again only extends its date range."),
-      h("li", {}, "Every restaurant carries the same weight, split across its menus, so a restaurant that publishes five menus doesn't count five times."),
-      h("li", {}, "Seasons are hemisphere-adjusted: October in Melbourne compares with April in Paris. Restaurants inside the tropics are grouped separately."),
-      h("li", {}, `Pairings are scored per course by lift (how many times more often than chance) and PMI, and only shown when ${D.min_restaurants} or more restaurants use them.`)),
-    h("h2", {}, "What's shown and what isn't"),
-    h("ul", {},
-      h("li", {}, "Only derived facts: ingredient names, preparations, counts and scores, plus a link to each restaurant's site."),
-      h("li", {}, "No menu text, dish descriptions, PDFs or photos."),
-      h("li", {}, "Menus are ingredient lists as a program read them, so expect the odd mistake.")),
-    h("h2", {}, "How menus are collected"),
-    h("ul", {},
-      h("li", {}, "Only from restaurants' own websites: no booking platforms, social media or reviews."),
-      h("li", {}, "Slowly, a page at a time, by a crawler that names itself and links back to this project."),
-      h("li", {}, "Sites that reserve text and data mining rights (a TDM reservation) are skipped, and bot protection and CAPTCHAs are never bypassed.")),
-    h("h2", {}, "Restaurants: opting out and corrections"),
-    h("p", {}, "If you run a restaurant and would rather not be here, ", ext(OPT_OUT, "ask to be removed ↗"),
-      ". We take out the restaurant, its menus and every count built from them, and stop reading its site. To report a wrong ingredient or a menu matched to the wrong place, ",
-      ext(CORRECTION, "tell us here ↗"), ". Both open a public GitHub issue."),
-    h("h2", {}, "Sources and credits"),
-    h("ul", {},
-      h("li", {}, "Restaurant lists: the MICHELIN Guide (stars from the most recent guide year recorded), The World's 50 Best Restaurants, and The New York Times' restaurant lists. The Menu Atlas isn't affiliated with or endorsed by any of them; the MICHELIN star symbol is Michelin's trademark, used here only to show a restaurant's rating."),
-      h("li", {}, "Country outlines: Natural Earth (public domain). Ingredient articles: Wikipedia."),
-      h("li", {}, "The code is open source: ", ext(REPO, "github.com/msh-yi/themenuatlas ↗"), ".")),
-    h("p", { class: "muted" }, `Data built ${new Date(D.generated_at).toLocaleString()} from source “${D.source}”.`));
+      h("li", {}, "Menus come only from restaurants' own websites, read slowly by a crawler that names itself. Sites that reserve text and data mining rights are skipped, and bot protection is never bypassed."),
+      h("li", {}, "A program breaks each dish into its ingredients and how they're prepared, so expect the odd mistake. Only that is shown, never the menu's own wording."),
+      h("li", {}, `A pairing is two ingredients that share a dish more often than chance, at ${D.min_restaurants} or more restaurants. Each restaurant counts once, however many menus it publishes. Staples like bread and butter are hidden unless you ask for them.`)),
+    h("h2", {}, "Restaurants"),
+    h("p", {}, "Know a restaurant's website, or where its menu is? ", ext(REPO + "/issues/new?template=website.yml", "Suggest it ↗"),
+      ". Run one of these restaurants and would rather not be here? ", ext(OPT_OUT, "Ask to be removed ↗"),
+      " and we'll take out the restaurant and everything built from its menus. Spotted a mistake? ", ext(CORRECTION, "Report it ↗"),
+      ". Each opens a public GitHub issue."),
+    h("h2", {}, "Credits"),
+    h("p", { class: "muted" }, "Restaurant lists from the MICHELIN Guide, The World's 50 Best Restaurants and The New York Times; this site isn't affiliated with any of them, and the MICHELIN star is Michelin's trademark. Country outlines from Natural Earth; ingredient articles from Wikipedia. ",
+      ext(REPO, "The code is open source ↗"), ` · Data built ${new Date(D.generated_at).toLocaleString()} from “${D.source}”.`));
 }
 
 function notFound() {

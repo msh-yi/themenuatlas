@@ -8,7 +8,7 @@ name: site
 on:
   push:
     branches: [main]
-    paths: [site/**, src/menudb/site.py, src/menudb/analysis.py, tests/fixtures/synthetic_menus.json, .github/workflows/site.yml]
+    paths: [site/**, src/menudb/site.py, src/menudb/analysis.py, data/lexicon/pairings.txt, tests/fixtures/synthetic_menus.json, .github/workflows/site.yml]
   workflow_run:
     workflows: [check]
     types: [completed]
