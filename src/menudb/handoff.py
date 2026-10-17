@@ -60,18 +60,18 @@ def _known(prefixes: Iterable[str]) -> set[tuple[str, str]]:
 
 # --- pending ------------------------------------------------------------------
 
-def item_from_bytes(slug: str, label: str, url: str, data: bytes, ctype: str,
-                    menu_id: int | None = None, store: bool = True) -> PendingItem:
-    """Build a pending item with the same identity `check` gives the document."""
+def item_from_bytes(slug: str, label: str, url: str, data: bytes, ctype: str) -> PendingItem:
+    """Store the raw bytes and build a pending item with the same identity `check` gives
+    the document."""
     from menudb.pipeline import _MIME
 
     kind = document_kind(ctype, url, data)
     text = document_text(kind, data)
     raw_hash = content_hash(data)
     nhash = normalized_hash(text) if text else raw_hash
-    k = storage.put_raw(raw_hash, data, _MIME[kind]) if store else storage.key_for(raw_hash)
-    return PendingItem(slug=slug, source_label=label, normalized_hash=nhash, menu_id=menu_id,
-                       kind=kind, url=url, storage_key=k, text=text)
+    k = storage.put_raw(raw_hash, data, _MIME[kind])
+    return PendingItem(slug=slug, source_label=label, normalized_hash=nhash, kind=kind, url=url,
+                       storage_key=k, text=text)
 
 
 def pending_from_db(session: Session, limit: int | None = None) -> Counter:

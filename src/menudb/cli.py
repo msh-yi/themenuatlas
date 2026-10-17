@@ -50,6 +50,8 @@ def seed(
 @app.command()
 def check(limit: int = typer.Option(None, help="max sources to check this run")):
     """Check due sources for new menus (tier 0/1). Prints counts only."""
+    from datetime import datetime, timezone
+
     from menudb.db import get_session
     from menudb.db.models import Source
     from menudb.fetch.http import Fetcher
@@ -57,8 +59,6 @@ def check(limit: int = typer.Option(None, help="max sources to check this run"))
 
     s = get_settings()
     with get_session() as session, Fetcher(s.user_agent) as fetcher:
-        from datetime import datetime, timezone
-
         due = due_sources(session, datetime.now(timezone.utc), limit)
         needs_js = any(src.recipe.get("render") == "js" for src in due)
         if needs_js:
@@ -80,6 +80,32 @@ def check(limit: int = typer.Option(None, help="max sources to check this run"))
             f.write("### menudb check\n```\n" + summary + "\n```\n")
 
 
+def _recipe_sources(recipes_dir: Path, slugs: list[str] | None, shard: str | None = None) -> list:
+    """(slug, label, recipe) for every recipe in `recipes_dir`, optionally only `slugs`, or
+    only shard "i/n" of them (stable by slug)."""
+    from menudb.recipes import load_recipes
+
+    files = sorted(recipes_dir.glob("*.yaml"))
+    if slugs:
+        files = [f for f in files if f.stem in slugs]
+    if shard:
+        import zlib
+
+        i, n = (int(x) for x in shard.split("/"))
+        files = [f for f in files if zlib.crc32(f.stem.encode()) % n == i]
+    return [(f.stem, label, r) for f in files for label, r in load_recipes(f).items()]
+
+
+def _renderer(stack: contextlib.ExitStack, sources: list):
+    """A headless browser if any recipe needs one (render: js), closed with `stack`."""
+    if not any(r.render == "js" for *_, r in sources):
+        return None
+    from menudb.fetch.browser import BrowserRenderer
+
+    s = get_settings()
+    return stack.enter_context(BrowserRenderer(s.user_agent, s.chromium_path or None))
+
+
 @app.command()
 def probe(
     slugs: list[str] = typer.Argument(None, help="restaurant slugs; default: every recipe"),
@@ -97,21 +123,11 @@ def probe(
     from menudb.fetch.http import Fetcher, RobotsDisallowed
     from menudb.normalize import content_hash
     from menudb.pipeline import _MIME, fetch_documents, html_getter
-    from menudb.recipes import load_recipes
 
-    s = get_settings()
-    files = sorted(recipes_dir.glob("*.yaml"))
-    if slugs:
-        files = [f for f in files if f.stem in slugs]
-    sources = [(f.stem, label, r) for f in files for label, r in load_recipes(f).items()]
+    sources = _recipe_sources(recipes_dir, slugs)
     counts = {"ok": 0, "failed": 0, "opted_out": 0}
-
-    renderer = None
-    with Fetcher(s.user_agent) as fetcher, contextlib.ExitStack() as stack:
-        if any(r.render == "js" for *_, r in sources):
-            from menudb.fetch.browser import BrowserRenderer
-
-            renderer = stack.enter_context(BrowserRenderer(s.user_agent, s.chromium_path or None))
+    with Fetcher(get_settings().user_agent) as fetcher, contextlib.ExitStack() as stack:
+        renderer = _renderer(stack, sources)
         for slug, label, recipe in sources:
             name = f"{slug}/{label}"
             try:
@@ -171,12 +187,10 @@ def discover(
 
     import yaml
 
-    from menudb import handoff, storage
+    from menudb import handoff
     from menudb.discover import Discovery, discover as find_menu
     from menudb.fetch.http import Fetcher
-    from menudb.normalize import content_hash
-    from menudb.extract.text import document_kind
-    from menudb.pipeline import _MIME, fetch_documents, html_getter
+    from menudb.pipeline import fetch_documents, html_getter
     from menudb.recipes import Recipe
 
     s = get_settings()
@@ -209,12 +223,8 @@ def discover(
         docs = list(fetch_documents(recipe, fetcher, html_getter(recipe, fetcher, renderer), {}))
         if any(d.tdm_reserved for d in docs):
             return -1
-        items = []
-        for d in docs:
-            kind = document_kind(d.content_type, d.url, d.data)
-            storage.put_raw(content_hash(d.data), d.data, _MIME[kind])
-            items.append(handoff.item_from_bytes(slug, "main", d.url, d.data, d.content_type))
-        handoff.queue_items(items)
+        handoff.queue_items(handoff.item_from_bytes(slug, "main", d.url, d.data, d.content_type)
+                            for d in docs)
         return len(docs)
 
     def record(slug: str, d: Discovery, stored: int | str = ""):
@@ -439,25 +449,11 @@ def pending(
 
     from menudb.fetch.http import Fetcher
     from menudb.pipeline import fetch_documents, html_getter
-    from menudb.recipes import load_recipes
 
-    s = get_settings()
-    files = sorted(recipes_dir.glob("*.yaml"))
-    if slugs:
-        files = [f for f in files if f.stem in slugs]
-    if shard:
-        import zlib
-
-        i, n = (int(x) for x in shard.split("/"))
-        files = [f for f in files if zlib.crc32(f.stem.encode()) % n == i]
-    sources = [(f.stem, label, r) for f in files for label, r in load_recipes(f).items()]
+    sources = _recipe_sources(recipes_dir, slugs, shard)
     items, failed = [], 0
-    with Fetcher(s.user_agent) as fetcher, contextlib.ExitStack() as stack:
-        renderer = None
-        if any(r.render == "js" for *_, r in sources):
-            from menudb.fetch.browser import BrowserRenderer
-
-            renderer = stack.enter_context(BrowserRenderer(s.user_agent, s.chromium_path or None))
+    with Fetcher(get_settings().user_agent) as fetcher, contextlib.ExitStack() as stack:
+        renderer = _renderer(stack, sources)
         for slug, label, recipe in sources:
             try:
                 docs = list(fetch_documents(recipe, fetcher, html_getter(recipe, fetcher, renderer), {}))
@@ -590,7 +586,6 @@ def extract_auto(
 
     from menudb import handoff
 
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
     rows = list(csv.DictReader(full_csv.open())) if full_csv.exists() else []
     countries = {r["slug"]: r["country"] for r in rows}
     wanted = set(slugs) if slugs else None
@@ -737,7 +732,7 @@ def review_decide(
     _summary("menudb review decide", counts)
 
 
-SITE_KEY = "site/"  # private: real-data builds stay in the bucket until publishing is decided
+SITE_KEY = "site/"  # a copy of each real-data build, next to the Pages deploy
 
 
 @app.command()
@@ -804,12 +799,10 @@ def export_site(
     menus: bool = typer.Option(False, help="include each restaurant's menus (courses -> ingredients, no menu wording)"),
 ):
     """Write aggregated JSON for the static site: no course text, derived data only."""
-    from menudb import site
+    from menudb import site, wiki
 
     root = Path(__file__).resolve().parents[2]
     rows, restaurants, details, preps, manifests = site.load(source, root)
-    from menudb import wiki
-
     data = site.build(rows, restaurants, source=source, details=details, preparations=preps,
                       min_restaurants=min_restaurants, wikipedia=wiki.urls(),
                       min_group=2 if source == "synthetic" else site.MIN_GROUP,

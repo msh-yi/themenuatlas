@@ -144,7 +144,7 @@ def test_split_files_round_trip(tmp_path):
     paths = site.write(d, tmp_path)
     assert paths[0].name == "data.json" and len(paths) == 2 + site.MENU_SHARDS
     core = json.loads(paths[0].read_text())
-    assert "pairs" not in core and core["layout"] == "split"
+    assert "pairs" not in core
     assert not any("menu_list" in r for r in core["restaurants"])
     slugs = [r["slug"] for r in core["restaurants"]]
     uni = next(i for i in core["ingredients"] if i["name"] == "uni")

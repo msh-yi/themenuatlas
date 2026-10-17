@@ -6,12 +6,8 @@ shares, pair scores, coverage, and restaurant names with a link to their website
 Never course text, and pairs only when several restaurants use them.
 
 Each restaurant's menus, as courses with their ingredients and preparations (a
-manifest, no menu wording), go in only with `export-site --menus`. That reconstructs
-the structure of a restaurant's dishes, so real builds with it stay private (the
-bucket and private previews) until Marcus decides about publishing.
-
-Real data is not published yet (see "Website" in docs/PLAN.md). The Actions workflow
-builds the site from the synthetic fixture only.
+manifest, no menu wording), go in only with `export-site --menus`. site.yml builds the
+public site from Postgres with them (see "Website" in docs/PLAN.md).
 """
 
 import csv
@@ -376,7 +372,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         for d in a.ingredient_frequency(grows):
             by_accolade[d["ingredient"]][g] = round(d["share"], 4)
         gp = sorted(a.pair_stats(grows, min_restaurants=min_restaurants),
-                    key=lambda p: (-p.get("score", p["lift"]), -p["restaurants"], p["a"], p["b"]))
+                    key=lambda p: (-p["score"], -p["restaurants"], p["a"], p["b"]))
         pairs_by_accolade[g] = [_pair(p) for p in gp[:PAIRS_PER_GROUP]]
 
     ingredients = [{
@@ -449,7 +445,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
 def _pair(p: dict) -> dict:
     return {"a": p["a"], "b": p["b"], "support": round(p["support"], 5),
             "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3),
-            "score": round(p.get("score", p["lift"]), 3), "restaurants": p["restaurants"]}
+            "score": round(p["score"], 3), "restaurants": p["restaurants"]}
 
 
 def optouts(path: Path) -> frozenset[str]:
@@ -587,7 +583,6 @@ def split(data: dict) -> dict[str, object]:
                      loaded when a restaurant page opens
     """
     core = {k: v for k, v in data.items() if k not in ("pairs", "pairs_by_accolade")}
-    core["layout"] = "split"
     index = {r["slug"]: i for i, r in enumerate(data["restaurants"])}
     shards: dict[str, dict] = {f"{i:02d}": {} for i in range(MENU_SHARDS)} if data.get("has_menus") else {}
     restaurants = []

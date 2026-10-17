@@ -2,6 +2,7 @@
 conditional requests, and a small retry budget."""
 
 import fnmatch
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -10,7 +11,6 @@ from urllib.parse import urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
 import httpx
-import os
 
 _TDM_META = re.compile(
     r"""<meta[^>]+name=["']tdm-reservation["'][^>]+content=["']1["']""", re.I

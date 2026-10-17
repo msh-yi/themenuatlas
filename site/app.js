@@ -52,7 +52,7 @@ function expand(D) {
     for (const [k, v] of Object.entries(R_DEFAULTS)) if (!(k in r)) r[k] = v;
     r.accolades ||= {}; r.tiers ||= [];
   }
-  for (const i of D.ingredients) if (typeof i.restaurants[0] === "number") i.restaurants = i.restaurants.map((n) => D.restaurants[n].slug);
+  for (const i of D.ingredients) i.restaurants = i.restaurants.map((n) => D.restaurants[n].slug);
 }
 
 // --- tiny DOM helpers ---------------------------------------------------------
@@ -454,7 +454,7 @@ function ingredient(_params, [name]) {
         pairs.length
           ? table(pairs, [
             { key: "other", label: "Ingredient", render: (p) => ingLink(p.other) },
-            { key: "score", label: "Score", num: true, sort: (r) => r.score ?? r.lift, render: (p) => num(p.score ?? p.lift, 1) },
+            { key: "score", label: "Score", num: true, render: (p) => num(p.score, 1) },
             { key: "lift", label: "Lift", num: true, render: (p) => num(p.lift, 1) + "×" },
             { key: "restaurants", label: "Restaurants", num: true },
           ], { sort: "score", dir: "desc", page: 15 }, () => {})
@@ -511,7 +511,7 @@ function pairings(params) {
       (accSel.value && all.length >= 3000 ? " (the 3,000 seen at the most restaurants)" : "")),
       table(rows, [
         { key: "a", label: "Pair", sort: (r) => r.a + " " + r.b, render: (r) => h("span", {}, ingLink(r.a), " + ", ingLink(r.b)) },
-        { key: "score", label: "Score", num: true, sort: (r) => r.score ?? r.lift, render: (r) => num(r.score ?? r.lift, 1) },
+        { key: "score", label: "Score", num: true, render: (r) => num(r.score, 1) },
         { key: "lift", label: "Lift", num: true, render: (r) => num(r.lift, 1) + "×" },
         { key: "pmi", label: "PMI (bits)", num: true, render: (r) => num(r.pmi, 2) },
         { key: "support", label: "Support", num: true, render: (r) => pct(r.support) },
