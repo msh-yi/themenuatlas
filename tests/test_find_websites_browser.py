@@ -73,3 +73,19 @@ def test_run_respects_the_limit(tmp_path):
     calls = []
     _, stopped = run(rows(), fake_ddg(calls), tmp_path, {}, limit=1, pause=lambda: None)
     assert stopped == "limit" and calls == ["Shōfukurō Kyoto"]
+
+
+def test_google_results_and_bot_check(tmp_path):
+    from find_websites_browser import parse_google
+    html = ('<div id="search"><a href="https://www.tripadvisor.jp/x"><br><h3>Kikunoi - Tripadvisor</h3></a>'
+            '<a href="/url?q=https://kikunoi.jp/&sa=U"><h3>菊乃井 本店 | 京料理</h3></a>'
+            '<a href="https://maps.google.com/x"><h3>Map</h3></a><h3>People also ask</h3></div>')
+    assert parse_google(html) == [{"url": "https://www.tripadvisor.jp/x", "title": "Kikunoi - Tripadvisor"},
+                                  {"url": "https://kikunoi.jp/", "title": "菊乃井 本店 | 京料理"}]
+    with pytest.raises(BotCheck):
+        parse_google('<form id="captcha-form" action="/sorry/index">')
+    assert search_url("Kikunoi Kyoto", "JP", "google").endswith("?q=Kikunoi+Kyoto&num=20&gl=jp")
+    calls = []
+    found, _ = run(rows()[:1], lambda url: calls.append(url) or html.replace("kikunoi.jp", "syofukuro.jp"),
+                   tmp_path, {}, engine="google", pause=lambda: None)
+    assert found[0]["website"] == "https://syofukuro.jp/" and (tmp_path / "google").is_dir()
