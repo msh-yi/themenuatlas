@@ -8,6 +8,7 @@
 # same: two names for one thing on the plate (trout and its roe, fig and fig leaf). Never paired.
 #   One pair per line. A parent and its kind (mushroom > porcini in ingredients.txt) are never
 #   paired either, without being listed here.
+#   Also for pairs that come from a service line rather than a dish ("coffee or tea").
 
 generic: fish, shellfish, offal, herbs, salad leaves, garden vegetables, berry, citrus, nut, spice, stock, spirits, wine, jus
 
@@ -23,3 +24,4 @@ same: fish roe + salmon
 same: salmon + trout
 same: artichoke + barigoule
 same: pork + sausage
+same: coffee + tea
