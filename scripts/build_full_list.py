@@ -27,7 +27,7 @@ from urllib.parse import unquote
 import httpx
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
-UA = "themenuproject/0.1 (+https://github.com/msh-yi/themenuproject)"
+UA = "themenuproject/0.1 (+https://github.com/msh-yi/themenuatlas)"
 WIKI_API = "https://en.wikipedia.org/w/api.php"
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"

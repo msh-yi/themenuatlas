@@ -6,7 +6,7 @@ web.archive.org/web/<ts>id_/<url> and record what it finds as origin=wayback
 snapshots. `id_` returns the archived bytes without Wayback's rewriting, so links
 stay original and the recipe's selectors work unchanged.
 
-Politeness: about one request per second to web.archive.org, and the restaurant's
+Politeness: one request every WAYBACK_INTERVAL seconds to web.archive.org, and the restaurant's
 current robots.txt and TDM signals still apply to the archived copy.
 web.archive.org is unreachable from cloud sessions, so this runs in Actions or locally.
 """

@@ -190,4 +190,4 @@ class ReviewItem(Base):
     suggested_name: Mapped[str | None] = mapped_column(String(120))
     example_context: Mapped[str | None] = mapped_column(Text)
     occurrences: Mapped[int] = mapped_column(Integer, default=1)
-    status: Mapped[str] = mapped_column(String(10), default="open")  # open | mapped | ignored
+    status: Mapped[str] = mapped_column(String(10), default="open")  # open | auto | mapped | ignored

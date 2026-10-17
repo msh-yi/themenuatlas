@@ -29,7 +29,6 @@ class Settings(BaseSettings):
 
     neon_auth_base_url: str = ""
     neon_auth_jwks_url: str = ""
-    anthropic_api_key: str = ""
     contact_url: str = "https://github.com/msh-yi/themenuatlas"
     # Optional: a Chromium binary for render: js recipes when Playwright's own
     # download doesn't match (cloud sessions have one at /opt/pw-browsers/chromium).

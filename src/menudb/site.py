@@ -6,12 +6,8 @@ shares, pair scores, coverage, and restaurant names with a link to their website
 Never course text, and pairs only when several restaurants use them.
 
 Each restaurant's menus, as courses with their ingredients and preparations (a
-manifest, no menu wording), go in only with `export-site --menus`. That reconstructs
-the structure of a restaurant's dishes, so real builds with it stay private (the
-bucket and private previews) until Marcus decides about publishing.
-
-Real data is not published yet (see "Website" in docs/PLAN.md). The Actions workflow
-builds the site from the synthetic fixture only.
+manifest, no menu wording), go in only with `export-site --menus`. site.yml builds the
+public site from Postgres with them (see "Website" in docs/PLAN.md).
 """
 
 import csv
@@ -333,6 +329,36 @@ def lexicon_info(path: Path) -> dict[str, dict]:
     return out
 
 
+def pairing_rules(path: Path) -> dict:
+    """data/lexicon/pairings.txt: {"generic": set, "staple": set, "same": set of frozenset pairs}."""
+    rules: dict = {"generic": set(), "staple": set(), "same": set()}
+    if not path.exists():
+        return rules
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        kind, _, body = raw.partition("#")[0].partition(":")
+        kind = kind.strip()
+        if kind == "same":
+            a_, _, b_ = body.partition("+")
+            rules["same"].add(frozenset((a_.strip().lower(), b_.strip().lower())))
+        elif kind in ("generic", "staple"):
+            rules[kind] |= {n.strip().lower() for n in body.split(",") if n.strip()}
+    return rules
+
+
+def _trivial(a_: str, b_: str, lexicon: dict[str, dict], same: set) -> bool:
+    """Two names for one thing (listed in `same`), or an ingredient and its kind: a parent of
+    the other in the lexicon, however many levels up (mushroom and porcini)."""
+    if frozenset((a_, b_)) in same:
+        return True
+
+    def ancestors(name: str) -> set[str]:
+        out = set()
+        while (name := (lexicon.get(name) or {}).get("parent")) and name not in out:
+            out.add(name)
+        return out
+    return a_ in ancestors(b_) or b_ in ancestors(a_)
+
+
 def _share_by(rows: list[a.Row], by: str) -> dict[str, dict[str, float]]:
     """ingredient -> group -> share."""
     out: dict[str, dict[str, float]] = defaultdict(dict)
@@ -345,9 +371,19 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
           details: dict[str, dict] | None = None, preparations: dict[str, Counter] | None = None,
           min_restaurants: int = 2, min_group: int = MIN_GROUP, now: datetime | None = None,
           wikipedia: dict[str, str] | None = None, lexicon: dict[str, dict] | None = None,
-          manifests: dict[str, list[dict]] | None = None) -> dict:
+          manifests: dict[str, list[dict]] | None = None, rules: dict | None = None) -> dict:
     """`wikipedia` maps ingredient name -> article URL (see wiki.py); `lexicon` comes
-    from lexicon_info(); `manifests` (only with --menus) from manifests_from_extracted()."""
+    from lexicon_info(); `manifests` (only with --menus) from manifests_from_extracted();
+    `rules` from pairing_rules(): generic ingredients are left out of pairings, trivial pairs
+    dropped, and generic and staple ingredients flagged for the site."""
+    rules = rules or {}
+    generic, staple, same = rules.get("generic", set()), rules.get("staple", set()), rules.get("same", set())
+
+    def pairs_of(rs: list[a.Row]) -> list[dict]:
+        return [p for p in a.pair_stats([r for r in rs if r.ingredient not in generic],
+                                        min_restaurants=min_restaurants)
+                if not _trivial(p["a"], p["b"], lexicon, same)]
+
     details = details or {}
     wikipedia = wikipedia or {}
     lexicon = lexicon or {}
@@ -360,7 +396,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
     for r in rows:
         users[r.ingredient].add(r.restaurant)
         menus[r.restaurant].add(r.menu)
-    pairs = a.pair_stats(rows, min_restaurants=min_restaurants)
+    pairs = pairs_of(rows)
 
     # accolade groups: ingredient shares and pairings among the restaurants in each
     tiers = {slug: accolade_groups(details.get(slug, {}).get("accolades") or {}) for slug in restaurants}
@@ -375,8 +411,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         accolade_with_data[g] = n
         for d in a.ingredient_frequency(grows):
             by_accolade[d["ingredient"]][g] = round(d["share"], 4)
-        gp = sorted(a.pair_stats(grows, min_restaurants=min_restaurants),
-                    key=lambda p: (-p.get("score", p["lift"]), -p["restaurants"], p["a"], p["b"]))
+        gp = sorted(pairs_of(grows),
+                    key=lambda p: (-p["score"], -p["restaurants"], p["a"], p["b"]))
         pairs_by_accolade[g] = [_pair(p) for p in gp[:PAIRS_PER_GROUP]]
 
     ingredients = [{
@@ -390,6 +426,8 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
         "wikipedia": wikipedia.get(d["ingredient"]),
         **{k: v for k, v in lexicon.get(d["ingredient"], {}).items() if v},
         **({"aka_n": aka_counts[d["ingredient"]]} if aka_counts.get(d["ingredient"]) else {}),
+        **({"pairing": "generic"} if d["ingredient"] in generic
+           else {"pairing": "staple"} if d["ingredient"] in staple else {}),
     } for d in overall]
 
     restaurant_list = []
@@ -449,7 +487,7 @@ def build(rows: list[a.Row], restaurants: dict[str, a.Restaurant], *, source: st
 def _pair(p: dict) -> dict:
     return {"a": p["a"], "b": p["b"], "support": round(p["support"], 5),
             "lift": round(p["lift"], 3), "pmi": round(p["pmi"], 3),
-            "score": round(p.get("score", p["lift"]), 3), "restaurants": p["restaurants"]}
+            "score": round(p["score"], 3), "restaurants": p["restaurants"]}
 
 
 def optouts(path: Path) -> frozenset[str]:
@@ -587,7 +625,6 @@ def split(data: dict) -> dict[str, object]:
                      loaded when a restaurant page opens
     """
     core = {k: v for k, v in data.items() if k not in ("pairs", "pairs_by_accolade")}
-    core["layout"] = "split"
     index = {r["slug"]: i for i, r in enumerate(data["restaurants"])}
     shards: dict[str, dict] = {f"{i:02d}": {} for i in range(MENU_SHARDS)} if data.get("has_menus") else {}
     restaurants = []

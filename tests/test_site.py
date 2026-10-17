@@ -144,7 +144,7 @@ def test_split_files_round_trip(tmp_path):
     paths = site.write(d, tmp_path)
     assert paths[0].name == "data.json" and len(paths) == 2 + site.MENU_SHARDS
     core = json.loads(paths[0].read_text())
-    assert "pairs" not in core and core["layout"] == "split"
+    assert "pairs" not in core
     assert not any("menu_list" in r for r in core["restaurants"])
     slugs = [r["slug"] for r in core["restaurants"]]
     uni = next(i for i in core["ingredients"] if i["name"] == "uni")
@@ -230,3 +230,32 @@ def test_manifests_mark_unsplit_sections():
         {"position": 2, "kind": "course", "components": comps}]}]
     kinds = [c["k"] for c in site.manifests_from_extracted(menus)["r"][0]["courses"]]
     assert kinds == ["course", "section"]
+
+
+def test_pairing_rules_drop_trivial_and_generic_pairs():
+    rows, restaurants, details, preps, _ = site.load("synthetic", ROOT)
+    plain = site.build(rows, restaurants, source="synthetic", details=details)
+    pairs = {(p["a"], p["b"]) for p in plain["pairs"]}
+    assert {("beetroot", "horseradish"), ("rice", "uni")} <= pairs
+    lexicon = {"horseradish": {"parent": "root"}, "root": {"parent": "beetroot"}}  # two levels up
+    rules = {"generic": {"uni"}, "staple": {"rice"}, "same": {frozenset(("brown butter", "scallop"))}}
+    d = site.build(rows, restaurants, source="synthetic", details=details, lexicon=lexicon, rules=rules)
+    left = {(p["a"], p["b"]) for p in d["pairs"]}
+    assert not any("uni" in p for p in left)  # generic: no pairs at all
+    assert ("beetroot", "horseradish") not in left and ("brown butter", "scallop") not in left
+    assert left and left < pairs
+    ing = {i["name"]: i for i in d["ingredients"]}
+    assert ing["uni"]["pairing"] == "generic" and ing["rice"]["pairing"] == "staple"
+    assert "pairing" not in ing["beetroot"]
+
+
+def test_pairing_rules_file_names_lexicon_ingredients(tmp_path):
+    rules = site.pairing_rules(ROOT / "data/lexicon/pairings.txt")
+    known = set(site.lexicon_info(ROOT / "data/lexicon/ingredients.txt"))
+    assert rules["generic"] and rules["staple"] and rules["same"]
+    named = rules["generic"] | rules["staple"] | {n for pair in rules["same"] for n in pair}
+    assert named <= known, named - known
+    f = tmp_path / "p.txt"
+    f.write_text("# note\ngeneric: Fish, herbs\nstaple: bread  # comment\nsame: fig + fig leaf\n")
+    assert site.pairing_rules(f) == {"generic": {"fish", "herbs"}, "staple": {"bread"},
+                                     "same": {frozenset(("fig", "fig leaf"))}}

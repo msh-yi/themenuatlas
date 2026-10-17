@@ -33,7 +33,6 @@ log = logging.getLogger(__name__)
 
 API = "https://en.wikipedia.org/w/api.php"
 CSV_PATH = Path(__file__).resolve().parents[2] / "data/ingredients/wikipedia.csv"
-KEEP = {"manual", "none"}  # hand-set rows
 RETRY = {"check", "ambiguous", "missing"}
 LINKED = {"ok", "manual"}
 # Qualifiers tried when a name is a disambiguation page, in order.

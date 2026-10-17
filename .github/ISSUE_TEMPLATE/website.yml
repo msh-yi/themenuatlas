@@ -1,0 +1,38 @@
+name: Suggest a website or menu page
+description: For a restaurant on The Menu Atlas whose website, or whose menu, we haven't found.
+title: "Website: "
+labels: [website]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Once a maintainer checks the link, the site picks it up on its next build and starts reading the menu from it.
+
+        Please link the restaurant's **own** site, not a guide, booking or social media page. This page is public.
+  - type: input
+    id: restaurant
+    attributes:
+      label: Restaurant
+      description: Filled in when you come from the restaurant's page. Otherwise its name, as shown on the site.
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Link
+      description: The restaurant's website, or the page on it where the menu is.
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: You are
+      options: [The restaurant or its owner, Staff, A guest, Someone else]
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Optional.

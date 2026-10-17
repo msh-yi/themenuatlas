@@ -1,13 +1,12 @@
-# Manual: look up websites for restaurants in restaurants_full.csv that have none (LangSearch,
-# free up to 1,000 queries a day, or Brave Search at about $5 per 1,000), run menu discovery
-# on the new sites, and commit the updated list, statuses and recipes to main.
-# Needs repo secret LANGSEARCH_API_KEY (optionally LANGSEARCH_API_KEY_2 from a second account, or BRAVE_SEARCH_API_KEY) and the AWS_* bucket secrets.
-# With LangSearch each run does up to 950 queries; run it once a day until all are searched.
+# Manual: look up websites for restaurants in restaurants_full.csv that have none, run menu
+# discovery on the new sites, and commit the updated list, statuses and recipes to main.
+# Each run first re-validates existing search-sourced websites (see docs/PLAN.md).
+# Search: Brave (BRAVE_SEARCH_API_KEY, about $5 per 1,000 queries) when its key is set, otherwise
+# LangSearch (LANGSEARCH_API_KEY, optionally LANGSEARCH_API_KEY_2; free, 1,000 a day each, but it
+# rarely finds a restaurant's own site). Also needs the AWS_* bucket secrets.
 name: find-websites
 
 on:
-  # Manual only: LangSearch rarely returns a restaurant's own site, so a daily run finds little
-  # (see docs/PLAN.md). Each run first re-validates existing search-sourced websites.
   workflow_dispatch:
     inputs:
       limit:

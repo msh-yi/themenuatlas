@@ -32,7 +32,7 @@ class Matcher:
         self.reviews = {(r.raw_term, r.language): r for r in session.scalars(select(ReviewItem))}
 
     def match(self, raw_term: str, suggested: str | None, language: str | None,
-              context: str | None = None, auto_accept: bool = True) -> int | None:
+              context: str | None = None) -> int | None:
         lang = language or "und"
         alias = _norm(raw_term)
         found = self.aliases.get((alias, lang)) or self.aliases.get((alias, "und"))
@@ -41,7 +41,7 @@ class Matcher:
 
         name = _norm(suggested)[:120] if suggested else None
         ingredient_id = self.ingredients.get(name) if name else None
-        if name and ingredient_id is None and auto_accept:
+        if name and ingredient_id is None:
             ingredient = Ingredient(canonical_name=name)
             self.session.add(ingredient)
             self.session.flush()  # for its id
@@ -66,12 +66,6 @@ class Matcher:
             raw_term=term, language=lang, suggested_name=suggested, example_context=context,
             occurrences=1, status=status)
         self.session.add(item)
-
-
-def match(session: Session, raw_term: str, suggested: str | None, language: str | None,
-          context: str | None = None, auto_accept: bool = True) -> int | None:
-    """One-off match; loads the caches, so use a Matcher for many terms."""
-    return Matcher(session).match(raw_term, suggested, language, context, auto_accept)
 
 
 def consolidate(session: Session) -> int:

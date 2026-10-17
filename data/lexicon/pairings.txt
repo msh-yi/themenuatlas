@@ -1,0 +1,25 @@
+# How the site treats ingredients in pairings (read by `menudb export-site`; names are the
+# canonical names in ingredients.txt). Edit freely: the next site build picks it up.
+#
+# generic: too vague to say anything ("fish", "herbs"). Left out of pairings entirely, but still
+#   listed as ingredients and on menus.
+# staple: everywhere, so their pairings are obvious (bread + butter, pasta + parmesan). Pairings
+#   with them are hidden unless the viewer turns on "Include staples".
+# same: two names for one thing on the plate (trout and its roe, fig and fig leaf). Never paired.
+#   One pair per line. A parent and its kind (mushroom > porcini in ingredients.txt) are never
+#   paired either, without being listed here.
+
+generic: fish, shellfish, offal, herbs, salad leaves, garden vegetables, berry, citrus, nut, spice, stock, spirits, wine, jus
+
+staple: bread, butter, cream, milk, pasta, rice, rice noodle, pastry, sugar, salt, flour, olive oil
+
+same: fig + fig leaf
+same: caviar + sturgeon
+same: sweetbread + veal
+same: chocolate + cocoa
+same: bread + rye
+same: fish roe + trout
+same: fish roe + salmon
+same: salmon + trout
+same: artichoke + barigoule
+same: pork + sausage
