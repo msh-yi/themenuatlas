@@ -5,10 +5,16 @@ have none. Run it on your own machine (it opens a visible Chrome window through 
 
 It reads the results page one query at a time, with a pause of 10 to 20 seconds (Google) or 6
 to 12 (DuckDuckGo's plain HTML page) between queries, in the engine's region for the
-restaurant's country. If Google asks for cookie consent, accept it once in the window. A result counts only under the same rules as scripts/find_websites.py: the domain
-carries the restaurant's name (across romanisation spellings for Japan), or a homepage's title
-carries its name in its own script (from Wikidata). It never opens a restaurant's site; run
-`menudb discover --js --to-bucket` afterwards for the menus.
+restaurant's country. If Google asks for cookie consent, accept it once in the window.
+
+A result counts (pick_loose) when the restaurant's name, or a distinctive word of it, appears
+anywhere in the domain, or in the path of a page up to four levels deep, so a restaurant's page
+on a hotel or group site counts too (fourseasons.com/tokyo/dining/restaurants/den/). Guide,
+news, booking and social hosts and article-like paths (/2026/, /news/, /best-...) never count,
+and Japanese names are compared across romanisation spellings. This is looser than
+scripts/find_websites.py, which runs unreviewed in Actions, so review the matches. A homepage
+whose title carries the name in its own script (from Wikidata) also counts. It never opens a
+restaurant's site; run `menudb discover --js --to-bucket` afterwards for the menus.
 
 If the engine shows its bot check (Google's "unusual traffic" page, DuckDuckGo's challenge),
 the script saves what it has and stops. It doesn't try to get past it: wait a few hours (or
@@ -21,6 +27,7 @@ import argparse
 import csv
 import json
 import random
+import re
 import sys
 import time
 from collections.abc import Callable
@@ -32,7 +39,8 @@ from selectolax.lexbor import LexborHTMLParser
 
 sys.path.insert(0, str(Path(__file__).parent))
 from build_full_list import UA, norm_name  # noqa: E402
-from find_websites import host_of, native_names, pick, pick_native  # noqa: E402
+from find_websites import (  # noqa: E402
+    GENERIC, NOT_OFFICIAL, PLATFORM, domain_label, native_names, pick_native, romaji_fold)
 
 DDG = "https://html.duckduckgo.com/html/"
 GOOGLE = "https://www.google.com/search"
@@ -94,6 +102,66 @@ def parse_results(html: str) -> list[dict]:
     return out
 
 
+# Paths that are articles, lists or reviews about restaurants, not a restaurant's own page.
+_ARTICLE = re.compile(r"(?i)(^|[/_-])(19|20)\d\d([/_-]|$)|(^|/)(news|blogs?|articles?|stor(y|ies)|magazine|"
+                      r"best|top|guides?|lists?|reviews?|press|awards?|tags?|category|search|jobs?|careers?)([/_-]|$)")
+
+
+# News and food-media hosts the shared blocklist doesn't name: fine as a domain match, but their
+# pages about a restaurant are articles, so a name in their path doesn't count.
+_MEDIA = re.compile(r"(?i)(tribune|herald|gazette|chronicle|observer|daily|insider|thrillist|eater|forbes|"
+                    r"vogue|esquire|tatler|travel+er|gourmet|foodie|zagat|bloomberg|cnn|bbc|nymag|newyorker|"
+                    r"latimes|wsj|scmp|asahi|nikkei|mainichi|yomiuri|hotpepper|gnavi|ozmall|ikyu|savor|"
+                    r"tasteatlas|lemonde|lefigaro|repubblica|corriere|elpais|spiegel|zeit)")
+
+
+def _alnum(text: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", text.lower())
+
+
+def name_keys(name: str, city: str, romaji: bool = False) -> tuple[list[str], str]:
+    """The restaurant's distinctive name words (common words and the city's name left out,
+    unless that leaves nothing) and those words joined, folded like the URLs they're matched to."""
+    fold = romaji_fold if romaji else (lambda t: t)
+    city_words = {fold(w) for w in norm_name(city).split("-") if len(w) >= 3}
+    generic = {fold(w) for w in GENERIC}
+    every = [fold(w) for w in norm_name(name).split("-") if w]
+    words = [w for w in every if w not in generic and w not in city_words] or every
+    return words, "".join(words)
+
+
+def pick_loose(name: str, city: str, results: list[dict], romaji: bool = False) -> str:
+    """The first result whose domain, or whose path up to four levels deep, carries the name.
+
+    Domain: the joined name anywhere in it (4+ letters: alinearestaurant, sushisaito-ginza),
+    the domain's own name inside the restaurant's (4+), or one distinctive name word of 5+
+    letters (gordonramsayrestaurants for Restaurant Gordon Ramsay). Returns the homepage.
+    Path: the joined name (5+) anywhere in it, a path segment that is the name, or one name word
+    of 6+ letters, on a page that isn't an article or list. Returns that page, so a restaurant
+    inside a hotel or group site gets its own page as its website."""
+    fold = romaji_fold if romaji else (lambda t: t)
+    words, compact = name_keys(name, city, romaji)
+    if not compact:
+        return ""
+    for res in results:
+        parts = urlsplit(res.get("url", ""))
+        host = parts.netloc.lower()
+        if not host or NOT_OFFICIAL.search(host) or PLATFORM.search(host):
+            continue
+        label = fold(domain_label(host))
+        if ((len(compact) >= 4 and compact in label) or (len(label) >= 4 and label in compact)
+                or any(len(w) >= 5 and w in label for w in words)):
+            return f"{parts.scheme}://{parts.netloc}/"
+        segs = [s for s in parts.path.split("/") if s]
+        if not segs or len(segs) > 4 or _ARTICLE.search(parts.path) or _MEDIA.search(host):
+            continue
+        path = fold(_alnum(parts.path))
+        if ((len(compact) >= 5 and compact in path) or compact in {fold(_alnum(s)) for s in segs}
+                or any(len(w) >= 6 and w in path for w in words)):
+            return f"{parts.scheme}://{parts.netloc}{parts.path}"
+    return ""
+
+
 def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives: dict,
         limit: int | None = None, countries: set[str] | None = None, engine: str = "ddg",
         pause: Callable[[], None] | None = None) -> tuple[list[dict], str]:
@@ -104,7 +172,8 @@ def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives
     parse = parse_google if engine == "google" else parse_results
     cache_dir = cache / engine
     cache_dir.mkdir(parents=True, exist_ok=True)
-    taken = {host_of(r["website"]) for r in rows if r["website"]}
+    # websites in use: a group or hotel host may serve several restaurants, each its own page
+    taken = {r["website"].rstrip("/").lower() for r in rows if r["website"]}
     found: list[dict] = []
     queried = 0
 
@@ -134,25 +203,43 @@ def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives
             if res is None:
                 stopped = "limit"
                 break
-            if site := pick(r["name"], r["city"], res, romaji=cc == "JP"):
+            if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP"):
                 how = "name"
             elif native:
                 res = results(r["slug"], "native", native, cc) or []
-                if site := pick(r["name"], r["city"], res, romaji=cc == "JP"):
+                if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP"):
                     how = "native name"
                 elif site := pick_native(native, res):
                     how = "native name in homepage title"
         except BotCheck:
             stopped = "bot check"
             break
-        if site and host_of(site) not in taken:
+        if site and site.rstrip("/").lower() not in taken:
             r["website"], r["website_source"] = site, "search_browser"
-            taken.add(host_of(site))
+            taken.add(site.rstrip("/").lower())
             found.append({"slug": r["slug"], "name": r["name"], "city": r["city"], "country": cc,
                           "native": native, "website": site, "how": how})
             print(f"{r['slug']}: {site} ({how})", flush=True)
     print(f"{queried} searches, {len(found)} websites found; stopped: {stopped}", file=sys.stderr)
     return found, stopped
+
+
+def why(slug: str, csv_path: Path, cache: Path, engine: str) -> str:
+    """Each cached result for one restaurant, and whether pick_loose takes it."""
+    row = next((r for r in csv.DictReader(csv_path.open(newline="")) if r["slug"] == slug), None)
+    if row is None:
+        return f"no restaurant {slug!r} in {csv_path}"
+    print(f"{row['name']} ({row['city']}, {row['country']}), website now: {row['website'] or '-'}")
+    print(f"name words compared: {name_keys(row['name'], row['city'], row['country'] == 'JP')[0]}")
+    files = sorted((cache / engine).glob(f"{slug}.*.json"))
+    if not files:
+        return f"no cached {engine} results for {slug}: run a search first"
+    for f in files:
+        print(f"-- {f.name}")
+        for res in json.loads(f.read_text()):
+            got = pick_loose(row["name"], row["city"], [res], row["country"] == "JP")
+            print(f"  {'MATCH ' if got else '      '}{res['url']}")
+    return ""
 
 
 def main():
@@ -162,7 +249,10 @@ def main():
     ap.add_argument("--limit", type=int, default=None, help="max searches this run")
     ap.add_argument("--country", action="append", help="only these countries (repeatable), e.g. JP")
     ap.add_argument("--engine", choices=["google", "ddg"], default="google")
+    ap.add_argument("--why", metavar="SLUG", help="show a restaurant's cached results and which would match; no search")
     args = ap.parse_args()
+    if args.why:
+        sys.exit(why(args.why, args.csv, args.cache, args.engine))
 
     from DrissionPage import ChromiumPage  # only needed here: tests run without it
 

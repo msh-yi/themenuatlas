@@ -5,7 +5,7 @@ from urllib.parse import quote
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
-from find_websites_browser import BotCheck, parse_results, run, search_url  # noqa: E402
+from find_websites_browser import BotCheck, parse_results, pick_loose, run, search_url  # noqa: E402
 
 
 def page(*results: tuple[str, str]) -> str:
@@ -89,3 +89,30 @@ def test_google_results_and_bot_check(tmp_path):
     found, _ = run(rows()[:1], lambda url: calls.append(url) or html.replace("kikunoi.jp", "syofukuro.jp"),
                    tmp_path, {}, engine="google", pause=lambda: None)
     assert found[0]["website"] == "https://syofukuro.jp/" and (tmp_path / "google").is_dir()
+
+
+@pytest.mark.parametrize("name,city,url,want", [
+    ("Atera", "Manhattan – Tribeca", "https://ateranyc.com/", "https://ateranyc.com/"),  # name + suffix
+    ("Den", "Tokyo", "https://www.fourseasons.com/tokyo/dining/restaurants/den/", "https://www.fourseasons.com/tokyo/dining/restaurants/den/"),
+    ("Restaurant Gordon Ramsay", "London", "https://www.gordonramsayrestaurants.com/en/uk/restaurant-gordon-ramsay", "https://www.gordonramsayrestaurants.com/"),
+    ("Kitcho Arashiyama", "Kyoto", "https://www.kitcho.com/kyoto/shoplist_en/arashiyama/", "https://www.kitcho.com/"),
+    # still rejected: guides, articles, other names
+    ("Den", "Tokyo", "https://www.timeout.com/tokyo/restaurants/den", ""),
+    ("Atera", "Manhattan", "https://somefoodsite.com/2026/05/atera-review/", ""),
+    ("Atera", "Manhattan", "https://somefoodsite.com/best/atera", ""),
+    ("Den", "Tokyo", "https://jimbochoden.jp/", ""),
+    ("Alinea", "Chicago", "https://www.chicagotribune.com/x/alinea", ""),
+])
+def test_pick_loose(name, city, url, want):
+    assert pick_loose(name, city, [{"url": url, "title": ""}]) == want
+
+
+def test_group_sites_serve_several_restaurants(tmp_path):
+    rs = [{"slug": "a", "name": "Sukiyabashi Jiro Roppongi", "city": "Tokyo", "country": "JP", "website": "", "website_source": ""},
+          {"slug": "b", "name": "Ginza Sushi Kanesaka", "city": "Tokyo", "country": "JP", "website": "", "website_source": ""}]
+    pages_ = {"Sukiyabashi Jiro Roppongi Tokyo": page(("https://www.grouphotels.jp/tokyo/sukiyabashi-jiro-roppongi/", "x")),
+              "Ginza Sushi Kanesaka Tokyo": page(("https://www.grouphotels.jp/tokyo/kanesaka/", "x"))}
+    from urllib.parse import parse_qs, urlsplit
+    found, _ = run(rs, lambda u: pages_.get(parse_qs(urlsplit(u).query)["q"][0], ""), tmp_path, {}, pause=lambda: None)
+    assert [f["website"] for f in found] == ["https://www.grouphotels.jp/tokyo/sukiyabashi-jiro-roppongi/",
+                                            "https://www.grouphotels.jp/tokyo/kanesaka/"]
