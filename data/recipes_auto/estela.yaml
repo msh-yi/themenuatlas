@@ -1,0 +1,5 @@
+start: https://estelanyc.com/
+steps:
+- follow:
+    href_matches: Estela_Dinner_09\.14\.26\.pdf
+content: pdf
