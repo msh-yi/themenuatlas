@@ -143,7 +143,9 @@ async function route() {
     if (ticket !== routing) return;
   }
   for (const a of document.querySelectorAll("[data-nav]")) {
-    const on = a.dataset.nav === view || ((view === "ingredient" || view === "courses") && a.dataset.nav === "ingredients")
+    const pairView = view === "courses" && params.has("with");
+    const on = (a.dataset.nav === view && !pairView) || (pairView && a.dataset.nav === "pairings")
+      || ((view === "ingredient" || (view === "courses" && !pairView)) && a.dataset.nav === "ingredients")
       || (view === "restaurant" && a.dataset.nav === "restaurants");
     a.classList.toggle("on", on);
     if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -463,9 +465,8 @@ function ingredient(params, [name]) {
       h("section", { class: "card" }, h("h2", {}, "Pairs with"),
         pairs.length
           ? table(pairs, [
-            { key: "other", label: "Ingredient", render: (p) => ingLink(p.other) },
-            { key: "score", label: "Score", num: true, render: (p) => num(p.score, 1) },
-            { key: "lift", label: "Lift", num: true, render: (p) => num(p.lift, 1) + "×" },
+            { key: "other", label: "With", render: (p) => h("a", { href: pairHref(name, p.other), title: `Every dish with ${name} and ${p.other}` }, p.other) },
+            { key: "score", label: "Strength", render: (p) => strength(p.score, pairs[0] ? Math.max(...pairs.map((x) => x.score)) : 1) },
             { key: "restaurants", label: "Restaurants", num: true },
           ], { sort: "score", dir: "desc", page: 15 }, () => {})
           : h("p", { class: "empty" }, ing.pairing === "generic" ? "Too general an ingredient to pair." : `No pairing seen at ${D.min_restaurants}+ restaurants yet.`),
@@ -519,18 +520,16 @@ function pairings(params) {
     setParams(p);
     const all = pool();
     const rows = all.filter((x) => x.restaurants >= min && (!q || x.a.includes(q) || x.b.includes(q)));
-    chartHost.replaceChildren(h("h2", {}, "Lift against support"),
-      h("p", { class: "muted", style: "margin-top:-.5rem;font-size:.85rem" }, "Up is a stronger-than-chance pairing; right is a more common one. Hover a point; click to open its first ingredient."),
+    chartHost.replaceChildren(h("h2", {}, "Every pairing at a glance"),
+      h("p", { class: "muted", style: "margin-top:-.5rem;font-size:.85rem" }, "Hover a dot to see the pair; click it to see the dishes."),
       scatter(rows));
+    const top = Math.max(...rows.map((r) => r.score), 1e-9);
     tableHost.replaceChildren(h("p", { class: "muted" }, `${rows.length} of ${all.length} pairings` +
       (accSel.value ? `, scored among ${accSel.value} restaurants only` : "") +
       (accSel.value && all.length >= 3000 ? " (the 3,000 seen at the most restaurants)" : "")),
       table(rows, [
-        { key: "a", label: "Pair", sort: (r) => r.a + " " + r.b, render: (r) => h("span", {}, ingLink(r.a), " + ", ingLink(r.b)) },
-        { key: "score", label: "Score", num: true, render: (r) => num(r.score, 1) },
-        { key: "lift", label: "Lift", num: true, render: (r) => num(r.lift, 1) + "×" },
-        { key: "pmi", label: "PMI (bits)", num: true, render: (r) => num(r.pmi, 2) },
-        { key: "support", label: "Support", num: true, render: (r) => pct(r.support) },
+        { key: "a", label: "Pair", sort: (r) => r.a + " " + r.b, render: (r) => h("a", { href: pairHref(r.a, r.b), title: `Every dish with ${r.a} and ${r.b}` }, `${r.a} + ${r.b}`) },
+        { key: "score", label: "Strength", render: (r) => strength(r.score, top) },
         { key: "restaurants", label: "Restaurants", num: true },
       ], state, (sort, dir) => { state.sort = sort; state.dir = dir; live(); }));
   };
@@ -540,9 +539,9 @@ function pairings(params) {
   staplesBox.addEventListener("change", live);
   out.append(h("h1", {}, "Pairings"),
     ...(D.pairsError ? [h("p", { class: "banner" }, `The pairings file didn't load (${D.pairsError}). Reload the page to try again.`)] : []),
-    h("p", { class: "sub" }, `Ingredients that share a course more often than chance, seen at ${D.min_restaurants} or more restaurants. Lift 2× means twice as often as if they were independent. Score is lift with half a restaurant added to both sides, so a pairing seen at two restaurants can't outrank one seen at forty; the list sorts by it. Obvious pairs are left out: an ingredient and its own kind (mushroom and porcini), and catch-all words like "herbs".`),
-    h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Seen at", minSel),
-      accoladeGroups().length ? h("label", {}, "Restaurants", accSel) : null,
+    h("p", { class: "sub" }, "Ingredient pairings, ranked by how strongly two ingredients go together compared with chance, and by how many of the restaurants we surveyed put them on the same plate. Click any pair to see the dishes."),
+    h("div", { class: "filters" }, h("label", {}, "Ingredient", search), h("label", {}, "Restaurants", minSel),
+      accoladeGroups().length ? h("label", {}, "Accolade", accSel) : null,
       h("label", { class: "check" }, staplesBox, `Include staples (${staplesNote()}…)`)),
     chartHost, tableHost);
   live();
@@ -555,7 +554,7 @@ function scatter(all) {
   // Thousands of SVG points get slow; plot the pairs seen at the most restaurants.
   const CAP = 600;
   const rows = all.length <= CAP ? all : [...all].sort((a, b) => b.restaurants - a.restaurants || b.lift - a.lift).slice(0, CAP);
-  const W = 640, H = 310, m = { l: 44, r: 12, t: 10, b: 44 };
+  const W = 640, H = 310, m = { l: 18, r: 12, t: 22, b: 28 };
   const xs = rows.map((r) => r.support), ys = rows.map((r) => r.lift);
   const lx = (v) => Math.log10(v), pad = 0.08;
   let x0 = lx(Math.min(...xs)), x1 = lx(Math.max(...xs)), y0 = lx(Math.min(1, ...ys)), y1 = lx(Math.max(...ys));
@@ -563,12 +562,12 @@ function scatter(all) {
   const dx = (x1 - x0) * pad, dy = (y1 - y0) * pad; x0 -= dx; x1 += dx; y1 += dy;
   const X = (v) => m.l + ((lx(v) - x0) / (x1 - x0)) * (W - m.l - m.r);
   const Y = (v) => H - m.b - ((lx(v) - y0) / (y1 - y0)) * (H - m.t - m.b);
-  const ticks = (a, b) => { const out = []; for (let e = Math.floor(a); e <= Math.ceil(b); e++) for (const k of [1, 2, 5]) { const v = k * 10 ** e; if (lx(v) >= a && lx(v) <= b) out.push(v); } return out; };
-  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img", "aria-label": "Scatter of pairings: support against lift" });
-  for (const v of ticks(y0, y1)) svg.append(s("line", { class: "grid", x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v) }), s("text", { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end" }, v + "×"));
-  for (const v of ticks(x0, x1)) svg.append(s("text", { x: X(v), y: H - m.b + 16, "text-anchor": "middle" }, pct(v)));
-  svg.append(s("text", { x: W - m.r, y: H - 6, "text-anchor": "end" }, "support: share of courses (log scale)"));
-  svg.append(s("text", { x: 4, y: m.t + 4 }, "lift"));
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img", "aria-label": "Pairings: higher is a stronger association, further right a more popular one" });
+  svg.append(s("line", { class: "axis", x1: m.l, x2: m.l, y1: m.t, y2: H - m.b }), s("line", { class: "axis", x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b }));
+  // below this line, two ingredients share a dish less often than chance would have them
+  if (y0 < 0) svg.append(s("line", { class: "grid", x1: m.l, x2: W - m.r, y1: Y(1), y2: Y(1) }), s("text", { x: W - m.r, y: Y(1) - 5, "text-anchor": "end" }, "as often as chance"));
+  svg.append(s("text", { class: "axislab", x: m.l + 6, y: m.t - 8 }, "↑ stronger association"));
+  svg.append(s("text", { class: "axislab", x: W - m.r, y: H - 8, "text-anchor": "end" }, "more popular →"));
   for (const r of [...rows].sort((a, b) => a.restaurants - b.restaurants)) {
     const cx = X(r.support), cy = Y(r.lift);
     // smaller dots when there are many, so dense regions stay readable
@@ -576,18 +575,17 @@ function scatter(all) {
     const dot = s("circle", { class: "dot", cx, cy, r: dense ? 2.2 + Math.min(3, Math.log2(r.restaurants)) : 4 + Math.min(4, r.restaurants - 1),
       style: dense ? "stroke-width:1" : null });
     const hit = s("circle", { class: "hit", cx, cy, r: 12, tabindex: "0", role: "link", "aria-label": `${r.a} and ${r.b}` });
-    const label = `${r.a} + ${r.b} · ${pct(r.support)} support · ${r.restaurants} restaurants`;
-    hoverable(hit, num(r.lift, 1) + "× lift", label);
+    hoverable(hit, `${r.a} + ${r.b}`, `at ${r.restaurants} restaurants · click for the dishes`);
     hit.addEventListener("pointerenter", () => dot.classList.add("hl"));
     hit.addEventListener("pointerleave", () => dot.classList.remove("hl"));
-    const go = () => { location.hash = "#/ingredient/" + encodeURIComponent(r.a); };
+    const go = () => { location.hash = pairHref(r.a, r.b); };
     hit.addEventListener("click", go);
     hit.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
     svg.append(dot, hit);
   }
   if (rows.length < all.length) {
     return h("div", {}, svg, h("p", { class: "muted", style: "font-size:.8rem;margin:.25rem 0 0" },
-      `Showing the ${rows.length} pairs seen at the most restaurants, out of ${all.length}. Raise “Seen at” to narrow it.`));
+      `Showing the ${rows.length} pairs seen at the most restaurants, out of ${all.length}. Raise “Restaurants” to narrow it.`));
   }
   return svg;
 }
@@ -713,15 +711,22 @@ function courseItems(c, hit) {
       preps.length ? h("span", { class: "muted mp" }, " " + preps.join(", ")) : null)];
   }));
 }
+// Every dish with both ingredients; without menus in this build, the first ingredient's page.
+const pairHref = (a, b) => (D.has_menus ? "#/courses?" + new URLSearchParams({ i: a, with: b }) : "#/ingredient/" + encodeURIComponent(a));
+const strength = (v, max) => h("div", { class: "sbar", title: "How much more often than chance the two share a dish" },
+  h("div", { class: "track" }, h("div", { class: "fill", style: `width:${Math.max(0, Math.min(1, v / max)) * 100}%` })),
+  h("span", { class: "val" }, num(v, 1)));
 const coursesHref = (name, { prep, as } = {}) => "#/courses?" + new URLSearchParams({ i: name, ...(prep ? { prep } : {}), ...(as ? { as } : {}) });
 
 // Every course, across all restaurants, where an ingredient appears prepared one way
 // (?i=beef&prep=braised) or under one of its other names (?i=beef&as=wagyu).
 function courses(params) {
-  const name = params.get("i") || "", prep = params.get("prep"), as = params.get("as");
+  const name = params.get("i") || "", prep = params.get("prep"), as = params.get("as"), partner = params.get("with");
   const ing = byName.get(name);
-  if (!ing || !(prep || as)) return notFound();
-  const match = (n, preps, term) => n === name && (prep ? preps.includes(prep) : term === as);
+  if (!ing || !(prep || as || byName.has(partner))) return notFound();
+  // `match` marks the items the list is about; `has` picks the courses
+  const match = (n, preps, term) => (partner ? n === name || n === partner : n === name && (prep ? preps.includes(prep) : term === as));
+  const has = (c) => (partner ? c.i.some(([n]) => n === name) && c.i.some(([n]) => n === partner) : c.i.some(([n, p, t]) => match(n, p, t)));
   const found = [];
   for (const r of D.restaurants) {
     for (const m of r.menu_list || []) {
@@ -729,7 +734,7 @@ function courses(params) {
       for (const c of m.courses) {
         if (c.k === "section") continue; // a whole section the extractor couldn't split into dishes
         if (c.k !== "drink") k++;
-        if (c.i.some(([n, p, t]) => match(n, p, t))) found.push({ r, m, c, n: c.k === "drink" ? null : k });
+        if (has(c)) found.push({ r, m, c, n: c.k === "drink" ? null : k });
       }
     }
   }
@@ -738,7 +743,7 @@ function courses(params) {
     D.groups.region.filter((g) => found.some((f) => f.r.region === g)).map((g) => h("option", { value: g, selected: g === params.get("region") }, g)));
   const host = h("div", {}), withHost = h("div", {});
   const live = () => {
-    const p = new URLSearchParams({ i: name, ...(prep ? { prep } : {}), ...(as ? { as } : {}) });
+    const p = new URLSearchParams({ i: name, ...(prep ? { prep } : {}), ...(as ? { as } : {}), ...(partner ? { with: partner } : {}) });
     if (regionSel.value) p.set("region", regionSel.value);
     if (state.sort !== "acc") p.set("sort", state.sort); if (state.dir !== "desc") p.set("dir", state.dir);
     setParams(p);
@@ -747,10 +752,10 @@ function courses(params) {
     const places = new Set(rows.map((f) => f.r.slug));
     // what else is on the plate, counted by restaurant
     const other = new Map();
-    const shown = (n) => n !== name && byName.get(n)?.pairing !== "generic" && (isStaple(name) || !isStaple(n));
+    const shown = (n) => n !== name && n !== partner && byName.get(n)?.pairing !== "generic" && (isStaple(name) || !isStaple(n));
     for (const f of rows) for (const [n] of f.c.i) if (shown(n)) (other.get(n) || other.set(n, new Set()).get(n)).add(f.r.slug);
     const top = [...other].map(([n, s]) => [n, s.size]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 16);
-    withHost.replaceChildren(top.length ? h("section", { class: "card" }, h("h2", {}, "Most often on the plate with it"),
+    withHost.replaceChildren(top.length ? h("section", { class: "card" }, h("h2", {}, partner ? "Most often on the plate with them" : "Most often on the plate with it"),
       h("div", { class: "chips" }, top.map(([n, c]) => h("a", { class: "chip", href: "#/ingredient/" + encodeURIComponent(n) }, n, h("span", { class: "n", title: "restaurants" }, c))))) : "");
     host.replaceChildren(h("p", { class: "muted" }, `${rows.length.toLocaleString()} course${rows.length === 1 ? "" : "s"} at ${places.size.toLocaleString()} restaurant${places.size === 1 ? "" : "s"}`),
       h("div", { class: "stacked" }, table(rows, [
@@ -767,9 +772,13 @@ function courses(params) {
   regionSel.addEventListener("change", live);
   live();
   return h("div", {},
-    h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/ingredient/" + encodeURIComponent(name) }, "← " + cap(name))),
-    h("h1", {}, prep ? `${cap(name)}, ${prep}` : `${cap(name)} as “${as}”`),
-    h("p", { class: "sub" }, prep
+    h("p", { class: "muted", style: "margin:0 0 .25rem" }, partner
+      ? h("span", {}, h("a", { href: "#/pairings" }, "← Pairings"), " · ", ingLink(name), " · ", ingLink(partner))
+      : h("a", { href: "#/ingredient/" + encodeURIComponent(name) }, "← " + cap(name))),
+    h("h1", {}, partner ? `${cap(name)} + ${partner}` : prep ? `${cap(name)}, ${prep}` : `${cap(name)} as “${as}”`),
+    h("p", { class: "sub" }, partner
+      ? `Every dish with both ${name} and ${partner}, on the menus of every restaurant we read. Each is shown as its ingredients; for the dish itself, see the restaurant's site.`
+      : prep
       ? `Every course where ${name} is ${prep}, on the menus of every restaurant. Each course is shown as its ingredients; for the dish itself, see the restaurant's site.`
       : `Every course where the menu calls ${name} “${as}”. Each course is shown as its ingredients; for the dish itself, see the restaurant's site.`),
     h("div", { class: "filters" }, h("label", {}, "Region", regionSel),
