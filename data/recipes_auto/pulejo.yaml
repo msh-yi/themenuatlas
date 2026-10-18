@@ -1,0 +1,5 @@
+start: https://pulejo.it/
+steps:
+- follow:
+    href_matches: Menu\-Food\-Italiano_Inglese\-LUGLIO\-26\-MODIFICABILE\-1\.pdf
+content: pdf

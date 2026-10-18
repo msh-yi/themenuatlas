@@ -1,0 +1,5 @@
+start: https://giardinohotels.ch/de/restaurant/ecco-st-moritz/
+steps:
+- follow:
+    href_matches: Ecco\-St\-Moritz\-Menu\-DE\.pdf
+content: pdf

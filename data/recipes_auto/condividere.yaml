@@ -1,0 +1,5 @@
+start: https://www.condividere.com/
+steps:
+- follow:
+    href_matches: Menu\-Ristorante\-Condividere\-12\.pdf
+content: pdf

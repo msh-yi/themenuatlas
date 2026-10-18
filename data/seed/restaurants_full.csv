@@ -3344,7 +3344,7 @@ nabeno-ism,Nabeno-Ism,Tokyo – Taito,JP,35.6769,139.7639,https://www.nabeno-ism
 nacre,Nacre,Gironde – Arès,FR,44.7663,-1.14,https://www.restaurant-nacre.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,osm,exact
 nae-um,Nae:um,Central Region - Central Area,SG,1.3571,103.8195,https://naeum.sg/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Singapore@1379530352,search,country
 nagamoto,Nagamoto,18 On Lan St,HK,22.3492,114.1858,https://nagamoto.hk/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,search_browser,country
-nagaya,Nagaya,Düsseldorf,DE,51.2254,6.7861,https://www.nagaya.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,search,exact
+nagaya,Nagaya,Düsseldorf,DE,51.2254,6.7861,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,search_rejected,exact
 nahm,Nahm,Bangkok,TH,13.7236,100.539,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Thailand@1340482452,,exact
 nakamitsu,Nakamitsu,Kyoto,JP,35.0116,135.7681,https://nakamitsu-kyoto.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,search_browser,city
 nakatani,Nakatani,Paris – 7th Palais-Bourbon,FR,48.8484,2.3196,https://www.restaurant-nakatani.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,osm,exact

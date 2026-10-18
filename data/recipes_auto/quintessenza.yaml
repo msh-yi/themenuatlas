@@ -1,0 +1,6 @@
+start: https://www.quintessenzaristorante.it/it/
+steps:
+- follow:
+    href_matches: MENU\-ENGFRA\-QUINTESSENZA\-TRANI\-2026\.pdf
+content: pdf
+render: js

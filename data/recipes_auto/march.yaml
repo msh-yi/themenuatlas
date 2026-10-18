@@ -1,0 +1,5 @@
+start: https://www.marchrestaurant.com/menu/
+steps:
+- follow:
+    href_matches: 7_course_tasting\.pdf
+content: pdf

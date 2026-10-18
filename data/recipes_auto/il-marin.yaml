@@ -1,0 +1,5 @@
+start: https://ilmarin.it/
+steps:
+- follow:
+    href_matches: menu_marin_maggio26_eng\.pdf
+content: pdf

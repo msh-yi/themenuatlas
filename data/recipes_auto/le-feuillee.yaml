@@ -1,0 +1,5 @@
+start: https://www.couventdesminimes-hotelspa.com/fr/la-restauration/restaurant-gastronomique-le-feuillee.html
+steps:
+- follow:
+    href_matches: menu\-feuillee\-web\-fr\-diner\.pdf
+content: pdf

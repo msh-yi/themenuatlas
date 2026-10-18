@@ -1,0 +1,5 @@
+start: https://hotelmvsa.com/dining/molino-de-urdaniz/
+steps:
+- follow:
+    href_matches: 5980\-CHEF\-MENU\-with\-price\.pdf
+content: pdf

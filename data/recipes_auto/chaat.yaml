@@ -1,0 +1,5 @@
+start: https://www.rosewoodhotels.com/en/hong-kong/dining/chaat
+steps:
+- follow:
+    href_matches: Rosewood\-Hong\-Kong\-CHAAT\-Set\-Lunch\-Menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://skykitchen.berlin/
+steps:
+- follow:
+    href_matches: Skykitchen_Menue_aktualisiert_28\-08\-2026\-2\.pdf
+content: pdf

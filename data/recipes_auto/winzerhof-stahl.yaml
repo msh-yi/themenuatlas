@@ -1,0 +1,5 @@
+start: https://www.winzerhof-stahl.de/
+steps:
+- follow:
+    href_matches: Speisekarte\-9\-Gaenge\-Menu\-Fine\-Dining\-Restaurant\-Stahl\-Winzerhof\-Auernhofen\-Taubertal\-Wuerzburg\.pdf
+content: pdf

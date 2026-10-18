@@ -1,0 +1,5 @@
+start: https://www.die-hirschau.de/
+steps:
+- follow:
+    href_matches: BG\-NEU\-ENGLISH\-MENU\.pdf
+content: pdf

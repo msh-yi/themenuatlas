@@ -1,0 +1,5 @@
+start: https://www.oldstamphouse.com/
+steps:
+- follow:
+    href_matches: Dinner\-Autumn26\.pdf
+content: pdf

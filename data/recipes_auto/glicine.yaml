@@ -1,0 +1,5 @@
+start: https://www.hotelsantacaterina.it/en/restaurants-and-bar/glicine-restaurant/
+steps:
+- follow:
+    href_matches: Menu\-Glicine\-Aprile\-2026\.pdf
+content: pdf

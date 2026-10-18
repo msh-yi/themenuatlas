@@ -1,0 +1,5 @@
+start: https://restaurant-edem.com/fr/carte-menus.html
+steps:
+- follow:
+    href_matches: carte\-26\-02\-26\.pdf
+content: pdf

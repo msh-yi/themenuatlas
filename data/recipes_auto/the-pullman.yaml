@@ -1,0 +1,5 @@
+start: https://www.glenloabbeyhotel.ie/palmers-bar-and-kitchen---sunday-lunch.html
+steps:
+- follow:
+    href_matches: palmers_sunday_lunch_menu\.pdf
+content: pdf

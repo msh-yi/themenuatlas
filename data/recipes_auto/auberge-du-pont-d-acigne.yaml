@@ -1,0 +1,5 @@
+start: https://lepontdacigne.com/
+steps:
+- follow:
+    href_matches: menu\-dejeuner\-septembre\-2026\-site\.pdf
+content: pdf

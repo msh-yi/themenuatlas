@@ -1,0 +1,5 @@
+start: https://www.bridges-nyc.com/menu
+steps:
+- follow:
+    href_matches: 07f717124be32a7c71dc5255b250c9c64271b997\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.yamadanewyork.com/
+steps:
+- follow:
+    href_matches: yamada_menu_winter_1222\.pdf
+content: pdf

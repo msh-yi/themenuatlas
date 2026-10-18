@@ -1,0 +1,6 @@
+start: https://www.cetariaristorante.it/menu/
+steps:
+- follow:
+    href_matches: Menu\-Cetaria\-PRIMAVERA\-ESTATE\-2026\-Stampa\-cortometraggio\.pdf
+content: pdf
+render: js

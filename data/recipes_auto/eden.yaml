@@ -1,0 +1,5 @@
+start: https://restaurant-eden.nl/
+steps:
+- follow:
+    href_matches: Selection\-menu\.pdf
+content: pdf

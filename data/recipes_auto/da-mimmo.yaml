@@ -1,0 +1,5 @@
+start: https://www.da-mimmo.be/en/les-menus/
+steps:
+- follow:
+    href_matches: ANG\-DEGUSTAZIONE\.pdf
+content: pdf

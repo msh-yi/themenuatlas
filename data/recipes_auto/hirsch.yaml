@@ -1,0 +1,5 @@
+start: https://www.romantikhotel-hirsch.de/de/speisekarten.html
+steps:
+- follow:
+    href_matches: speisekarte\-dorfstube\.pdf
+content: pdf

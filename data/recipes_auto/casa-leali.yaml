@@ -1,0 +1,5 @@
+start: https://casalealiristorante.it/
+steps:
+- follow:
+    href_matches: 2026\.07_ITA_CasaLeali_Menu\.pdf
+content: pdf

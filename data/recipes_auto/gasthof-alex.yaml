@@ -1,0 +1,5 @@
+start: https://www.gasthofalex.de/
+steps:
+- follow:
+    href_matches: 2026\-10\-16\-Menukarte\-Gasthof\-Alex\-2026\-10\-16\-HOMEPAGE\.pdf
+content: pdf

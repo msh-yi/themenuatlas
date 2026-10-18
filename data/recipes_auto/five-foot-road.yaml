@@ -1,0 +1,5 @@
+start: https://static.mgm.mo/menulanding/cotai/aji/
+steps:
+- follow:
+    href_matches: Aji\-Set\-Menu\.pdf
+content: pdf

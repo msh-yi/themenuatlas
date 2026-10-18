@@ -1,0 +1,5 @@
+start: https://www.ristorantecoria.it/
+steps:
+- follow:
+    href_matches: Menu\-Coria\-ita\-28_07_2026\-PDF\.pdf
+content: pdf

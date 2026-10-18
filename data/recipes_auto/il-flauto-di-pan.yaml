@@ -1,0 +1,5 @@
+start: https://www.hotelvillacimbrone.com/il-flauto-di-pan/
+steps:
+- follow:
+    href_matches: 2\-Menù\-Primavera\-2026\-Il\-Flauto\-di\-Pan94\-copia\.pdf
+content: pdf

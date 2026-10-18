@@ -1,0 +1,5 @@
+start: https://capdantibes-beachhotel.com/restaurant-les-pecheurs
+steps:
+- follow:
+    href_matches: carte\-les\-pecheurs\-fr\.pdf
+content: pdf

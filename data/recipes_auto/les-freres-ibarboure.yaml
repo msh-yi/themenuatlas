@@ -1,0 +1,5 @@
+start: https://freresibarboure.com/fr/menus
+steps:
+- follow:
+    href_matches: LA%20CARTE\.pdf
+content: pdf

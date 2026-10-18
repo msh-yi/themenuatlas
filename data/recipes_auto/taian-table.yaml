@@ -1,0 +1,5 @@
+start: https://gz.taian-table.cn/
+steps:
+- follow:
+    href_matches: 20260915\-TTGZ\-Menu\-54\.pdf
+content: pdf

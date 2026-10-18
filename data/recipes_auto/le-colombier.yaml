@@ -1,0 +1,5 @@
+start: https://domaine-colombier.com/fr/
+steps:
+- follow:
+    href_matches: menu_le_colombier_francais_prix\.pdf
+content: pdf

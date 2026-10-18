@@ -1,0 +1,5 @@
+start: https://theaquavitrestaurants.online/
+steps:
+- follow:
+    href_matches: 80\-menu\-2023\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurant-soulfood.com/speisekarte.html
+steps:
+- follow:
+    href_matches: aktuelle_abendkarte\.pdf
+content: pdf

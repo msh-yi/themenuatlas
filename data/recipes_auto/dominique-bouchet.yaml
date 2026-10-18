@@ -1,0 +1,5 @@
+start: https://www.dominique-bouchet.jp/
+steps:
+- follow:
+    href_matches: Menu\-Simon\-Bize\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.hotel-sackmann.de/restaurants-bars/gourmetrestaurant-schlossberg
+steps:
+- follow:
+    href_matches: Murgstubenkarte%20ab%2003\.07\.2026\.pdf
+content: pdf

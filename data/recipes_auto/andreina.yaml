@@ -1,0 +1,5 @@
+start: https://ristoranteandreina.it/
+steps:
+- follow:
+    href_matches: FumoITA_SmokeENG\.pdf
+content: pdf

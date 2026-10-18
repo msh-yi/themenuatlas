@@ -1,0 +1,5 @@
+start: https://www.ristoranteguido.it/
+steps:
+- follow:
+    href_matches: menu\-guido\-agosto\-2026\.pdf
+content: pdf

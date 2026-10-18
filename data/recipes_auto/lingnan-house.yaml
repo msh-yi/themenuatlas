@@ -1,0 +1,5 @@
+start: https://www.rosewoodhotels.com/en/guangzhou/dining/lingnan-house
+steps:
+- follow:
+    href_matches: Rosewood\-Guangzhou\-Lingnan\-House\-Seasonal\-Menu\-pdf\.pdf
+content: pdf

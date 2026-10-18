@@ -1,0 +1,5 @@
+start: https://ormaroma.it/menu/
+steps:
+- follow:
+    href_matches: MENU\-IT\.pdf
+content: pdf

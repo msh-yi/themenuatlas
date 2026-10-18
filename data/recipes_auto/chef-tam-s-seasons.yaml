@@ -1,0 +1,5 @@
+start: https://www.wynnresortsmacau.com/en/wynn-palace/dining/chef-tams-seasons
+steps:
+- follow:
+    href_matches: wp\-chef\-tams\-seasons\-lunch\-specialties\-menu\-261001\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://lagaiaibiza.com/
+steps:
+- follow:
+    href_matches: alacarteV4\.pdf
+content: pdf

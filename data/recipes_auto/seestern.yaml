@@ -1,0 +1,5 @@
+start: https://hotel.lago-ulm.de/gourmet-restaurant-seestern/
+steps:
+- follow:
+    href_matches: Seestern_2026_Herbst_Menue\.pdf
+content: pdf

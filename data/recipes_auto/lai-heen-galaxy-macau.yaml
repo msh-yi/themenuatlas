@@ -1,0 +1,5 @@
+start: https://www.galaxymacau.com/offers/dining/kannazuki-kaiseki-yamazato/
+steps:
+- follow:
+    href_matches: Yamazato%20Kannazuki%20Kaiseki%20with%20Sake%20Pairing\-Oct%202026\.pdf
+content: pdf

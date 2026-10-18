@@ -1,0 +1,5 @@
+start: https://www.ilboscaretoresort.it/il-sunsi-bistrot/
+steps:
+- follow:
+    href_matches: BISTRO\-ITA\-26\-1\.pdf
+content: pdf

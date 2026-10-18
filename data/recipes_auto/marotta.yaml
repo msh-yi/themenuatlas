@@ -1,0 +1,5 @@
+start: https://marottaristorante.com/
+steps:
+- follow:
+    href_matches: Menu\-Marotta\-Carta\-Botanika\-Ottobre\-2026\-1\.pdf
+content: pdf

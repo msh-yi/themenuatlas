@@ -1,0 +1,5 @@
+start: https://www.domainedelacorniche.com/fr/page/restaurant-gastronomique-panoramique-la-corniche-etoile-guide-michelin-vue.1055.html
+steps:
+- follow:
+    href_matches: Menu%20du%20panoramique%209%20Octobre\.pdf
+content: pdf

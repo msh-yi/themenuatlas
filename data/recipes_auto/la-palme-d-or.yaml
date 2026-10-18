@@ -1,0 +1,5 @@
+start: https://www.lapalmedor-restaurant.fr/
+steps:
+- follow:
+    href_matches: JCAGH_PALME_DOR_CARTE_FR\.pdf
+content: pdf

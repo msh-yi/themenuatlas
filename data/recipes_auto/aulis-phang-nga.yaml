@@ -1,0 +1,5 @@
+start: https://www.aulisphuket.com/our-menu/
+steps:
+- follow:
+    href_matches: AULIS\-PHUKET\-SAMPLE\-MENU\-OCT\-2025\.pdf
+content: pdf

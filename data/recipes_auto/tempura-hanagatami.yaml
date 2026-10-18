@@ -1,0 +1,5 @@
+start: https://hanagatami.ritzcarltonosaka.com/en/our-menus
+steps:
+- follow:
+    href_matches: kaisekilunch1026\.pdf
+content: pdf

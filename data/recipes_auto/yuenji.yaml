@@ -1,0 +1,5 @@
+start: https://yuen-ji.com/cuisine/
+steps:
+- follow:
+    href_matches: YUENJI\-MENU251121\.pdf
+content: pdf

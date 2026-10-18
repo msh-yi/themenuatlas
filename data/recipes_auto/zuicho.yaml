@@ -1,0 +1,5 @@
+start: https://www.grandlisboapalace.com/tc/restaurants-n-bars/zuicho
+steps:
+- follow:
+    href_matches: glp\-zuicho\-dinner\-menu\-261014\-77bf82a2\.pdf
+content: pdf

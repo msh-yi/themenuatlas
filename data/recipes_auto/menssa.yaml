@@ -1,0 +1,5 @@
+start: https://www.menssa.be/
+steps:
+- follow:
+    href_matches: d3e3a6_e6fc32128e5b42d88948f5e199c87135\.pdf
+content: pdf

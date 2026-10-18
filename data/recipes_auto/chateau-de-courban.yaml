@@ -1,0 +1,5 @@
+start: https://chateaudecourban.com/fr/
+steps:
+- follow:
+    href_matches: carte\-chateau\-de\-courban\-site\-web\.pdf
+content: pdf

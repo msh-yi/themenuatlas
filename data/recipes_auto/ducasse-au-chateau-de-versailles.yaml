@@ -1,0 +1,5 @@
+start: https://www.ducasse-chateauversailles.com/en/menu/
+steps:
+- follow:
+    href_matches: 2026_09_25\-ORE\-CARTE\-GB\.pdf
+content: pdf

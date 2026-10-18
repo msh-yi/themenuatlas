@@ -1,0 +1,5 @@
+start: https://www.garbo-loewen.de/
+steps:
+- follow:
+    href_matches: 16\-jahre\-garbo\-das\-menu\.pdf
+content: pdf

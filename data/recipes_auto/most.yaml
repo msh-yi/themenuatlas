@@ -1,0 +1,5 @@
+start: https://miedzy-mostami.pl/
+steps:
+- follow:
+    href_matches: Bar\-2\.pdf
+content: pdf

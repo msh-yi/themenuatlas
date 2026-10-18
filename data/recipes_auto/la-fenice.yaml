@@ -1,0 +1,5 @@
+start: https://www.arlberghotel.at/de/kulinarik/la-fenice/
+steps:
+- follow:
+    href_matches: Lafenice_DE_Juli26\.pdf
+content: pdf

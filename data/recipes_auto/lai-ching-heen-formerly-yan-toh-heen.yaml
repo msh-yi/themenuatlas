@@ -1,0 +1,5 @@
+start: https://hongkong.regenthotels.com/zh-hant/dining-destination/lai-ching-heen/
+steps:
+- follow:
+    href_matches: Lai\-Ching\-Heen\-Lunch\-Menu\-Oct\-2\-2026\.pdf
+content: pdf

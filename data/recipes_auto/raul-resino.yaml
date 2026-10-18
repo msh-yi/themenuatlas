@@ -1,0 +1,5 @@
+start: https://www.restauranteraulresino.com/paginas/Menu
+steps:
+- follow:
+    href_matches: e6c83cdc2eaad325878aa422c84badc4\.pdf
+content: pdf

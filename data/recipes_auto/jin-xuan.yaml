@@ -1,0 +1,5 @@
+start: https://www.jinxuanchineserestaurantshanghai.com/menu
+steps:
+- follow:
+    href_matches: 202508\-jinxuan\-menu\.pdf
+content: pdf

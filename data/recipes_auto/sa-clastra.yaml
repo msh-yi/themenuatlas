@@ -1,0 +1,5 @@
+start: https://www.castellsonclaret.com/gastronomia/restaurante-sa-clastra-alta-cocina-en-mallorca
+steps:
+- follow:
+    href_matches: 17875613092598_COMPLETO%20Viento%20y%20Memoria%2017\.06\.26%20ESP%20%28SETIEMBRE%29\.pdf
+content: pdf

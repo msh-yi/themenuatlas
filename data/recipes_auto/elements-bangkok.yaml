@@ -1,0 +1,5 @@
+start: https://www.okurabangkok.com/dining/elements-inspired-by-ciel-bleu
+steps:
+- follow:
+    href_matches: file\.pdf
+content: pdf

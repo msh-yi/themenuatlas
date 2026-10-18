@@ -1,0 +1,5 @@
+start: https://www.ristoranteinkiostro.it/
+steps:
+- follow:
+    href_matches: 9d6faf_73144c77b50f4a8599bf85023a487cba\.pdf
+content: pdf

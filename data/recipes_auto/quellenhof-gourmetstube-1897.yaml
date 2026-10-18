@@ -1,0 +1,5 @@
+start: https://www.quellenhof-gourmetstube1897.it/de/
+steps:
+- follow:
+    href_matches: GourmetstubeMenuDE\.pdf
+content: pdf

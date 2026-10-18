@@ -1,0 +1,5 @@
+start: https://www.corrigansmayfair.co.uk/menus
+steps:
+- follow:
+    href_matches: corrigans_mayfair_lunch\-du\-jour_menu_300926\.pdf
+content: pdf

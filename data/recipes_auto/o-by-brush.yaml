@@ -1,0 +1,5 @@
+start: https://www.obybrush.com/
+steps:
+- follow:
+    href_matches: f1a40d_f1c714142a624401b9ba3b8a5efb8c0f\.pdf
+content: pdf

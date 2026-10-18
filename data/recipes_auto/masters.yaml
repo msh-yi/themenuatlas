@@ -1,0 +1,5 @@
+start: https://www.restaurant-masters.de/
+steps:
+- follow:
+    href_matches: Menuekarte_Floraison\.pdf
+content: pdf

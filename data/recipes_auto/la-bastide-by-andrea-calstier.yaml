@@ -1,0 +1,5 @@
+start: https://www.labastidebyac.com/cenadou
+steps:
+- follow:
+    href_matches: CENADOU\+MENU\-2ebcb20a\.pdf
+content: pdf

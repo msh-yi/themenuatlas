@@ -1,0 +1,5 @@
+start: https://www.maerzundmaerz.de/de/maerz-burger/speisekarten-oeffnungszeiten.html
+steps:
+- follow:
+    href_matches: maerz\-burger\-speisekarte\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.fernando.com.mt/
+steps:
+- follow:
+    href_matches: fernando\-7courseapril\.pdf
+content: pdf

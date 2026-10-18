@@ -1,0 +1,5 @@
+start: https://www.noseandbelly.de/
+steps:
+- follow:
+    href_matches: speisekarte\-nose\-and\-belly\.pdf
+content: pdf

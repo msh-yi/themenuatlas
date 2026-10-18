@@ -1,0 +1,5 @@
+start: https://www.ariarestaurant.it/menu/
+steps:
+- follow:
+    href_matches: aria_menu_EN\.pdf
+content: pdf

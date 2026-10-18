@@ -1,0 +1,5 @@
+start: https://www.smithereensnyc.com/menus
+steps:
+- follow:
+    href_matches: food\-menu\-102\.pdf
+content: pdf

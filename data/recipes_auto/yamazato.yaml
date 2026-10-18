@@ -1,0 +1,5 @@
+start: https://theokuratokyo.jp/en/dining/yamazato/
+steps:
+- follow:
+    href_matches: yamazato\-lunch\-en\-202604\.pdf
+content: pdf

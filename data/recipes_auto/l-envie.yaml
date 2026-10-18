@@ -1,0 +1,5 @@
+start: https://lenvie-restaurant.be/fr/notre-menu/
+steps:
+- follow:
+    href_matches: Carte\-vin\-Impression\-JUin\-2026\.pdf
+content: pdf

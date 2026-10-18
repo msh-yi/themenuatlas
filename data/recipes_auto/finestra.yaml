@@ -1,0 +1,5 @@
+start: https://finestra-d-amore.fr/la-cuisine/
+steps:
+- follow:
+    href_matches: Finestra\-Carte\-A5\-AUTOMNE\-2026_BILINGUE\.pdf
+content: pdf

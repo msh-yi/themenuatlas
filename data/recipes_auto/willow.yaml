@@ -1,0 +1,5 @@
+start: https://www.willowrestaurant.sg/
+steps:
+- follow:
+    href_matches: 89e586_fefd7da1de354b9c8338c8c82e822f74\.pdf
+content: pdf
