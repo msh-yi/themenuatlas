@@ -55,7 +55,7 @@ def fake_ddg(calls):
 def test_run_finds_matches_caches_and_stops_at_bot_check(tmp_path):
     rs, calls = rows(), []
     natives = {("kikunoi-honten", "JP"): "菊乃井 本店"}
-    found, stopped = run(rs, fake_ddg(calls), tmp_path, natives, pause=lambda: None)
+    found, stopped, _ = run(rs, fake_ddg(calls), tmp_path, natives, pause=lambda: None)
     assert stopped == "bot check"
     got = {r["slug"]: (r["website"], r["website_source"]) for r in rs}
     assert got["shofukuro"] == ("https://syofukuro.jp/", "search_browser")
@@ -71,7 +71,7 @@ def test_run_finds_matches_caches_and_stops_at_bot_check(tmp_path):
 
 def test_run_respects_the_limit(tmp_path):
     calls = []
-    _, stopped = run(rows(), fake_ddg(calls), tmp_path, {}, limit=1, pause=lambda: None)
+    _, stopped, _ = run(rows(), fake_ddg(calls), tmp_path, {}, limit=1, pause=lambda: None)
     assert stopped == "limit" and calls == ["Shōfukurō Kyoto"]
 
 
@@ -86,7 +86,7 @@ def test_google_results_and_bot_check(tmp_path):
         parse_google('<form id="captcha-form" action="/sorry/index">')
     assert search_url("Kikunoi Kyoto", "JP", "google").endswith("?q=Kikunoi+Kyoto&num=20&gl=jp")
     calls = []
-    found, _ = run(rows()[:1], lambda url: calls.append(url) or html.replace("kikunoi.jp", "syofukuro.jp"),
+    found, _, _ = run(rows()[:1], lambda url: calls.append(url) or html.replace("kikunoi.jp", "syofukuro.jp"),
                    tmp_path, {}, engine="google", pause=lambda: None)
     assert found[0]["website"] == "https://syofukuro.jp/" and (tmp_path / "google").is_dir()
 
@@ -113,6 +113,46 @@ def test_group_sites_serve_several_restaurants(tmp_path):
     pages_ = {"Sukiyabashi Jiro Roppongi Tokyo": page(("https://www.grouphotels.jp/tokyo/sukiyabashi-jiro-roppongi/", "x")),
               "Ginza Sushi Kanesaka Tokyo": page(("https://www.grouphotels.jp/tokyo/kanesaka/", "x"))}
     from urllib.parse import parse_qs, urlsplit
-    found, _ = run(rs, lambda u: pages_.get(parse_qs(urlsplit(u).query)["q"][0], ""), tmp_path, {}, pause=lambda: None)
+    found, _, _ = run(rs, lambda u: pages_.get(parse_qs(urlsplit(u).query)["q"][0], ""), tmp_path, {}, pause=lambda: None)
     assert [f["website"] for f in found] == ["https://www.grouphotels.jp/tokyo/sukiyabashi-jiro-roppongi/",
                                             "https://www.grouphotels.jp/tokyo/kanesaka/"]
+
+
+def test_pages_on_other_sites_go_to_review():
+    review = []
+    got = pick_loose("Oryori Hanagaki", "Nara", [{"url": "https://mishumap.com/ja/nara/r/oryori-hanagaki/", "title": ""}],
+                     romaji=True, review=review)
+    assert got == "" and review == ["https://mishumap.com/ja/nara/r/oryori-hanagaki/"]
+    assert pick_loose("Hoseki", "Dubai", [{"url": "https://www.bulgarihotels.com/dubai/dining/hoseki", "title": ""}]) \
+        == "https://www.bulgarihotels.com/dubai/dining/hoseki"
+
+
+def test_website_review_triage_and_apply(tmp_path):
+    import csv as _csv
+    from website_review import apply, triage
+    full, review = tmp_path / "full.csv", tmp_path / "review.csv"
+    fields = ["slug", "name", "city", "country", "website", "website_source"]
+    with full.open("w", newline="") as f:
+        w = _csv.DictWriter(f, fields)  # \r\n, like the real file
+        w.writeheader()
+        w.writerows([
+            {"slug": "a", "name": "A", "city": "Nara", "country": "JP", "website": "https://mishumap.com/r/a/", "website_source": "search_browser"},
+            {"slug": "b", "name": "B", "city": "Dubai", "country": "AE", "website": "https://www.bulgarihotels.com/dubai/b", "website_source": "search_browser"},
+            {"slug": "c", "name": "C", "city": "Rome", "country": "IT", "website": "https://romecavalieri.com/it/c/", "website_source": "search_browser"},
+            {"slug": "d", "name": "D", "city": "Paris", "country": "FR", "website": "https://d.fr/", "website_source": "search_browser"},
+        ])
+    assert triage(full, review) == (2, 2)
+    rows = {r["slug"]: r for r in _csv.DictReader(full.open())}
+    assert rows["a"]["website"] == "" and rows["a"]["website_source"] == "browser_review"
+    assert rows["b"]["website"] and rows["d"]["website"]
+    assert b"\r\n" in full.read_bytes()
+    marks = list(_csv.DictReader(review.open()))
+    marks[0]["approve"], marks[1]["approve"] = "n", "y"  # a: directory; c: the group's own page
+    with review.open("w", newline="") as f:
+        w = _csv.DictWriter(f, list(marks[0]))
+        w.writeheader()
+        w.writerows(marks)
+    assert apply(full, review) == {"approved": 1, "rejected": 1, "pending": 0}
+    rows = {r["slug"]: r for r in _csv.DictReader(full.open())}
+    assert rows["c"]["website"] == "https://romecavalieri.com/it/c/" and rows["c"]["website_source"] == "reviewed"
+    assert rows["a"]["website"] == "" and list(_csv.DictReader(review.open())) == []

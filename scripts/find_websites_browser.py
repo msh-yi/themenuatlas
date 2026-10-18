@@ -8,10 +8,12 @@ to 12 (DuckDuckGo's plain HTML page) between queries, in the engine's region for
 restaurant's country. If Google asks for cookie consent, accept it once in the window.
 
 A result counts (pick_loose) when the restaurant's name, or a distinctive word of it, appears
-anywhere in the domain, or in the path of a page up to four levels deep, so a restaurant's page
-on a hotel or group site counts too (fourseasons.com/tokyo/dining/restaurants/den/). Guide,
-news, booking and social hosts and article-like paths (/2026/, /news/, /best-...) never count,
-and Japanese names are compared across romanisation spellings. This is looser than
+anywhere in the domain, or in the path of a page up to four levels deep on a hotel or resort
+site (fourseasons.com/tokyo/dining/restaurants/den/). A name in the path of any other site is
+usually a directory listing (mishumap.com/ja/nara/r/<name>/), so those pages only go to
+data/seed/website_review.csv for a person to approve (scripts/website_review.py). Guide, news,
+booking and social hosts and article-like paths (/2026/, /news/, /best-...) never count, and
+Japanese names are compared across romanisation spellings. This is looser than
 scripts/find_websites.py, which runs unreviewed in Actions, so review the matches. A homepage
 whose title carries the name in its own script (from Wikidata) also counts. It never opens a
 restaurant's site; run `menudb discover --js --to-bucket` afterwards for the menus.
@@ -115,6 +117,24 @@ _MEDIA = re.compile(r"(?i)(tribune|herald|gazette|chronicle|observer|daily|insid
                     r"tasteatlas|lemonde|lefigaro|repubblica|corriere|elpais|spiegel|zeit)")
 
 
+# Hotels, resorts and hotel groups: a restaurant's page on their site is its official page.
+_HOTEL = re.compile(r"(?i)(hotel|resort|palace|palazzo|castel|castle|chateau|schloss|muehle|muhle|"
+                    r"fourseasons|mandarinoriental|peninsula|shangri|rosewood|aman|belmond|marriott|"
+                    r"ritzcarlton|hilton|hyatt|raffles|fairmont|sofitel|kempinski|waldorf|bulgari|mgm|wynn|"
+                    r"sands|galaxymacau|okura|capella|oberoi|tajhotels|fullerton|dorchester|savoy|langham|"
+                    r"conrad|intercontinental|ihg|cheval|casino|stregis|melia|barcelo|jumeirah|atlantis|"
+                    r"tenuta|domaine|gasthof|landhaus|ryokan|onsen)")
+
+
+# Member directories and listings that look like hotel sites but aren't one hotel's own.
+_HOTEL_DIRECTORY = re.compile(r"(?i)(relaischateaux|logishotels|myclubmarriott|slh\.com|"
+                              r"leadinghotels|hotelscombined|(^|\.)hotels\.com$|(^|\.)booking\.com$)")
+
+
+def hotel_host(host: str) -> bool:
+    return bool(_HOTEL.search(host)) and not _HOTEL_DIRECTORY.search(host)
+
+
 def _alnum(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
@@ -130,15 +150,18 @@ def name_keys(name: str, city: str, romaji: bool = False) -> tuple[list[str], st
     return words, "".join(words)
 
 
-def pick_loose(name: str, city: str, results: list[dict], romaji: bool = False) -> str:
-    """The first result whose domain, or whose path up to four levels deep, carries the name.
+def pick_loose(name: str, city: str, results: list[dict], romaji: bool = False,
+               review: list | None = None) -> str:
+    """The first result whose domain, or whose path up to four levels deep on a hotel or resort
+    site, carries the name. A page on any other site that carries the name in its path is
+    appended to `review` (when given) instead of being taken.
 
     Domain: the joined name anywhere in it (4+ letters: alinearestaurant, sushisaito-ginza),
     the domain's own name inside the restaurant's (4+), or one distinctive name word of 5+
     letters (gordonramsayrestaurants for Restaurant Gordon Ramsay). Returns the homepage.
     Path: the joined name (5+) anywhere in it, a path segment that is the name, or one name word
     of 6+ letters, on a page that isn't an article or list. Returns that page, so a restaurant
-    inside a hotel or group site gets its own page as its website."""
+    inside a hotel gets its own page as its website."""
     fold = romaji_fold if romaji else (lambda t: t)
     words, compact = name_keys(name, city, romaji)
     if not compact:
@@ -158,15 +181,19 @@ def pick_loose(name: str, city: str, results: list[dict], romaji: bool = False) 
         path = fold(_alnum(parts.path))
         if ((len(compact) >= 5 and compact in path) or compact in {fold(_alnum(s)) for s in segs}
                 or any(len(w) >= 6 and w in path for w in words)):
-            return f"{parts.scheme}://{parts.netloc}{parts.path}"
+            page = f"{parts.scheme}://{parts.netloc}{parts.path}"
+            if hotel_host(host):
+                return page
+            if review is not None and not review:
+                review.append(page)
     return ""
 
 
 def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives: dict,
         limit: int | None = None, countries: set[str] | None = None, engine: str = "ddg",
-        pause: Callable[[], None] | None = None) -> tuple[list[dict], str]:
+        pause: Callable[[], None] | None = None) -> tuple[list[dict], str, list[dict]]:
     """Search for every row without a website; set the ones found. Returns (matches, why it
-    stopped: "done", "limit" or "bot check")."""
+    stopped: "done", "limit" or "bot check", pages on other sites to review)."""
     low, high = (10, 20) if engine == "google" else (6, 12)
     pause = pause or (lambda: time.sleep(random.uniform(low, high)))
     parse = parse_google if engine == "google" else parse_results
@@ -175,6 +202,7 @@ def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives
     # websites in use: a group or hotel host may serve several restaurants, each its own page
     taken = {r["website"].rstrip("/").lower() for r in rows if r["website"]}
     found: list[dict] = []
+    to_review: list[dict] = []  # pages on other sites that carry the name: for a person to approve
     queried = 0
 
     def results(slug: str, tag: str, query: str, country: str) -> list[dict] | None:
@@ -197,17 +225,17 @@ def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives
             continue
         cc = r["country"]
         native = natives.get((norm_name(r["name"]), cc), "")
-        site, how = "", ""
+        site, how, maybe = "", "", []
         try:
             res = results(r["slug"], "name", " ".join(x for x in (r["name"], r["city"]) if x), cc)
             if res is None:
                 stopped = "limit"
                 break
-            if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP"):
+            if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP", review=maybe):
                 how = "name"
             elif native:
                 res = results(r["slug"], "native", native, cc) or []
-                if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP"):
+                if site := pick_loose(r["name"], r["city"], res, romaji=cc == "JP", review=maybe):
                     how = "native name"
                 elif site := pick_native(native, res):
                     how = "native name in homepage title"
@@ -220,8 +248,12 @@ def run(rows: list[dict], fetch_html: Callable[[str], str], cache: Path, natives
             found.append({"slug": r["slug"], "name": r["name"], "city": r["city"], "country": cc,
                           "native": native, "website": site, "how": how})
             print(f"{r['slug']}: {site} ({how})", flush=True)
-    print(f"{queried} searches, {len(found)} websites found; stopped: {stopped}", file=sys.stderr)
-    return found, stopped
+        elif maybe and not site:
+            to_review.append({"slug": r["slug"], "name": r["name"], "city": r["city"], "country": cc,
+                              "website": maybe[0], "approve": ""})
+    print(f"{queried} searches, {len(found)} websites found, {len(to_review)} pages to review; "
+          f"stopped: {stopped}", file=sys.stderr)
+    return found, stopped, to_review
 
 
 def why(slug: str, csv_path: Path, cache: Path, engine: str) -> str:
@@ -271,7 +303,7 @@ def main():
         return page.html
 
     try:
-        found, stopped = run(rows, fetch_html, args.cache, natives, args.limit,
+        found, stopped, to_review = run(rows, fetch_html, args.cache, natives, args.limit,
                              set(args.country) if args.country else None, args.engine)
     finally:
         page.quit()
@@ -286,6 +318,10 @@ def main():
         w.writeheader()
         w.writerows(old + found)
     print(f"review the matches in {review}", file=sys.stderr)
+    from website_review import add_candidates
+    n = add_candidates(to_review)
+    print(f"{n} pages on other sites added to data/seed/website_review.csv: mark approve=y for the "
+          f"restaurant's own pages, then run scripts/website_review.py", file=sys.stderr)
     if stopped == "bot check":
         sys.exit(f"{args.engine} showed its bot check: progress is saved; try again in a few hours")
 
