@@ -78,3 +78,67 @@ def test_run_records_recipes_and_statuses_and_skips_tried(tmp_path):
     assert saved["a"]["status"] == "menu_found" and saved["a"]["note"].startswith("chrome")
     assert saved["b"]["status"] == "menu_found"  # untouched
     assert fm.todo(full, status, fm.RETRY, redo=False)[0] == []  # a is done
+
+
+def menu_pdf() -> bytes:
+    import pymupdf
+    doc = pymupdf.open()
+    page = doc.new_page()
+    y = 72
+    for line in ("Autumn tasting menu", "Scallop, yuzu, brown butter", "Turbot, celeriac, truffle",
+                 "Lamb, garlic, rosemary, potato", "Duck, cherry, beetroot",
+                 "Chocolate, hazelnut, sorrel, cream", "Oyster, cucumber, dill"):
+        page.insert_text((72, y), line)
+        y += 20
+    return doc.tobytes()
+
+
+def site_fetcher(files: dict) -> Fetcher:
+    """HTTP for robots.txt, sitemaps and PDFs (pages come from FakeChrome)."""
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = files.get(str(request.url))
+        if body is None:
+            return httpx.Response(404)
+        ctype = "application/pdf" if str(request.url).endswith(".pdf") else "text/plain"
+        return httpx.Response(200, content=body if isinstance(body, bytes) else body.encode(),
+                              headers={"content-type": ctype})
+    return Fetcher("test", transport=httpx.MockTransport(handler), sleep=lambda s: None)
+
+
+def test_finds_a_pdf_only_mentioned_in_a_script():
+    home = HOME + '<script>window.__DATA__={"menu":"https:\\/\\/cdn.example.net\\/f\\/carte-automne.pdf"}</script>'
+    f = site_fetcher({"https://cdn.example.net/f/carte-automne.pdf": menu_pdf()})
+    d = fm.find_menu("https://r.example/", f, fm.page_loader(f, FakeChrome({"https://r.example": home})))
+    assert d.status == "menu_found" and d.kind == "pdf"
+    assert d.recipe == {"start": "https://cdn.example.net/f/carte-automne.pdf", "content": "pdf"}
+    assert "page source" in d.note
+
+
+def test_finds_a_menu_page_through_the_sitemap():
+    f = site_fetcher({"https://r.example/robots.txt": "User-agent: *\nAllow: /\nSitemap: https://r.example/sm.xml\n",
+                      "https://r.example/sm.xml": "<urlset><url><loc>https://r.example/about</loc></url>"
+                                                  "<url><loc>https://r.example/fr/la-carte-du-moment</loc></url></urlset>"})
+    chrome = FakeChrome({"https://r.example": HOME, "https://r.example/fr/la-carte-du-moment": DISHES})
+    d = fm.find_menu("https://r.example/", f, fm.page_loader(f, chrome))
+    assert d.status == "menu_found" and d.menu_url == "https://r.example/fr/la-carte-du-moment"
+    assert "sitemap" in d.note
+
+
+def test_finds_a_menu_named_like_anything_through_the_navigation():
+    home = HOME + '<nav><a href="/story">Our story</a><a href="/the-journey">The Journey</a><a href="/gift-vouchers">Gifts</a></nav>'
+    chrome = FakeChrome({"https://r.example": home, "https://r.example/story": HOME, "https://r.example/the-journey": DISHES})
+    f = fetcher()
+    d = fm.find_menu("https://r.example/", f, fm.page_loader(f, chrome))
+    assert d.status == "menu_found" and d.menu_url == "https://r.example/the-journey"
+    assert "navigation" in d.note
+    assert "https://r.example/gift-vouchers" not in chrome.loaded
+
+
+def test_each_page_is_loaded_once_and_the_budget_holds():
+    links = "".join(f'<a href="/p{i}">Page {i}</a>' for i in range(30))
+    chrome = FakeChrome({"https://r.example": HOME + links})
+    f = fetcher()
+    d = fm.find_menu("https://r.example/", f, fm.page_loader(f, chrome))
+    assert d.status == "no_menu_found"
+    assert len(chrome.loaded) == len(set(chrome.loaded))
+    assert len(chrome.loaded) <= 1 + 8 + fm.EXTRA_BUDGET + 2 * len(fm.COMMON_PATHS)

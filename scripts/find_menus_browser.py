@@ -6,8 +6,15 @@ Run it on your own machine (it opens a visible Chrome window through DrissionPag
 For each restaurant with a website whose status in data/seed/discovery.csv is no_menu_found,
 failed or needs_js (add `--status new` for websites not checked yet), it runs the same menu
 discovery as `menudb discover` (src/menudb/discover.py), with every page loaded in Chrome so
-menus built by JavaScript appear. It follows up to 8 menu-like links instead of 4, and when
-the home page links to no menu it tries the usual addresses (/menu, /menus, /carte, /en/menu).
+menus built by JavaScript appear, following up to 8 menu-like links instead of 4. When that
+finds no menu, it looks further, cheapest first, up to 15 more pages or PDFs per site:
+  1. PDFs anywhere in the home page's source (scripts, page data, embedded viewers), not only
+     in links;
+  2. the site's sitemap (sitemap.xml and the ones robots.txt lists), pages ranked by menu
+     words in their address;
+  3. up to 8 of the site's own pages the home page links to, whatever they're called ("The
+     Experience", "Our Journey"), each judged by the food words it contains;
+  4. the usual addresses (/menu, /menus, /carte, /en/menu).
 
 Politeness is the crawler's own: Chrome sends the project's User-Agent, robots.txt is checked
 before every page (RESPECT_ROBOTS=false skips that, as in the monthly workflows), a site gets
@@ -32,14 +39,27 @@ from urllib.parse import urljoin, urlsplit
 
 import yaml
 
-from menudb.discover import MAYBE_MIN, MENU_MIN, Discovery, _candidate, discover, food_score
-from menudb.fetch.http import _TDM_META, Fetcher, RobotsDisallowed
+import re
+
+from selectolax.lexbor import LexborHTMLParser
+
+from menudb.discover import (
+    _AVOID_RE, _FILE_RE, _MENU_HREF_RE, _MENU_RE, _SOCIAL_HOSTS, MAYBE_MIN, MENU_MIN, Discovery,
+    _candidate, _site, discover, food_score)
+from menudb.extract.text import document_kind, document_text
+from menudb.fetch.http import _TDM_META, Fetcher, RobotsDisallowed, absolute
 from menudb.normalize import html_to_text
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ["slug", "status", "score", "kind", "menu_url", "stored", "note", "checked"]
 RETRY = {"no_menu_found", "failed", "needs_js"}
 COMMON_PATHS = ["/menu", "/menus", "/carte", "/en/menu"]
+EXTRA_BUDGET = 15  # pages or PDFs looked at per site after discover() finds nothing
+NAV_PAGES = 8
+SITEMAPS = ["/sitemap.xml", "/sitemap_index.xml", "/wp-sitemap.xml"]
+# a .pdf address anywhere in a page's source: links, scripts, JSON, data attributes
+_PDF_IN_SOURCE = re.compile(r"""(?i)(https?:\\?/\\?/[^"'\s<>()]+?\.pdf|/[^"'\s<>()]+?\.pdf)(?=[?#"'\s<>()]|$)""")
+_LOC = re.compile(r"(?is)<loc>\s*(.*?)\s*</loc>")
 NOTE = "chrome"  # marks restaurants this script has tried
 
 
@@ -74,8 +94,15 @@ class ChromeRenderer:
 
 
 def page_loader(fetcher: Fetcher, renderer):
-    """get_html for discover(): robots.txt and TDM checked, the page loaded in Chrome."""
+    """get_html for discover(): robots.txt and TDM checked, the page loaded in Chrome. Pages
+    are kept for the rest of the site's search, so none is loaded twice."""
+    loaded: dict[str, tuple[str, str]] = {}
+
     def get_html(url: str) -> tuple[str, str]:
+        if url in loaded:
+            return loaded[url]
+        if len(loaded) > 200:
+            loaded.clear()
         if not fetcher.allowed(url):
             raise RobotsDisallowed(url)
         _, host = fetcher._host(url)
@@ -84,35 +111,140 @@ def page_loader(fetcher: Fetcher, renderer):
         final, html = renderer.render(url)
         if _TDM_META.search(html[:20000]):
             raise TdmReserved(url)
+        loaded[url] = (final, html)
         return final, html
     return get_html
 
 
 def find_menu(website: str, fetcher: Fetcher, get_html) -> Discovery:
-    """discover() in the browser with more links followed; then the usual menu addresses when
-    that finds no menu."""
+    """discover() in the browser with more links followed; then, when that finds no menu, the
+    places discover() doesn't look (see the module docstring), best candidate first."""
     d = discover(website, fetcher, get_html, max_pages=8)
     if "TdmReserved" in d.note:
         return Discovery("opted_out", note="tdm-reservation")
     if d.status in ("menu_found", "robots", "bot_blocked", "opted_out"):
         return d
     best = d if d.status == "menu_maybe" else None
-    root = f"{urlsplit(website).scheme}://{urlsplit(website).netloc}"
-    for path in COMMON_PATHS:
-        url = urljoin(root, path)
-        if not fetcher.allowed(url):
-            continue
-        tried = discover(url, fetcher, get_html, max_pages=2)
-        if tried.status == "needs_js":  # a short page; Chrome has already run its scripts
-            tried = _scored(url, get_html)
-        if tried.status.startswith("menu_") and (best is None or tried.score > best.score):
-            best = tried
+    try:
+        home_url, home = get_html(website)
+    except Exception:
+        home_url, home = website, ""
+    tried = 0
+    for url, how in candidates(home_url, home, fetcher):
+        if tried >= EXTRA_BUDGET:
+            break
+        tried += 1
+        got = _try(url, fetcher, get_html)
+        if got.status.startswith("menu_") and (best is None or got.score > best.score):
+            got.note = f"found via {how}"
+            best = got
         if best is not None and best.status == "menu_found":
             break
     if best is None:
         return Discovery(d.status if d.status != "needs_js" else "no_menu_found",
-                         score=d.score, menu_url=d.menu_url, note=d.note)
+                         score=d.score, menu_url=d.menu_url, note=f"{d.note}; {tried} more tried")
     return best
+
+
+def candidates(home_url: str, html: str, fetcher: Fetcher):
+    """(url, how found) to look at, cheapest and likeliest first, each once: PDFs in the home
+    page's source, menu-like addresses from the sitemap, the site's own pages linked from the
+    home page, then the usual menu addresses."""
+    seen = {home_url.rstrip("/")}
+
+    def new(url: str) -> bool:
+        key = url.split("#")[0].rstrip("/")
+        if key in seen or not url.startswith("http") or _SOCIAL_HOSTS.search(urlsplit(url).netloc):
+            return False
+        seen.add(key)
+        return True
+
+    pdfs = [absolute(home_url, m.replace("\\/", "/")) for m in _PDF_IN_SOURCE.findall(html)]
+    for url in sorted(dict.fromkeys(pdfs), key=lambda u: -_menu_rank(u)):
+        if not _AVOID_RE.search(urlsplit(url).path) and new(url):
+            yield url, "a PDF in the page source"
+    for url in sorted(sitemap_urls(home_url, fetcher), key=lambda u: -_menu_rank(u)):
+        if _menu_rank(url) > 0 and new(url):
+            yield url, "the sitemap"
+    for url in nav_links(home_url, html)[:NAV_PAGES]:
+        if new(url):
+            yield url, "the site's navigation"
+    root = f"{urlsplit(home_url).scheme}://{urlsplit(home_url).netloc}"
+    for path in COMMON_PATHS:
+        url = urljoin(root, path)
+        if new(url):
+            yield url, "a usual menu address"
+
+
+def _menu_rank(url: str) -> int:
+    """How menu-like an address is: menu words in its path or file name, PDFs a little more."""
+    path = urlsplit(url).path
+    words = re.sub(r"[/_.\-]+", " ", path)
+    score = 2 * bool(_MENU_RE.search(words)) + bool(_MENU_HREF_RE.search(path))
+    if _AVOID_RE.search(words):
+        score -= 3
+    return score + (score > 0 and path.lower().endswith(".pdf"))
+
+
+def sitemap_urls(home_url: str, fetcher: Fetcher, max_files: int = 5) -> list[str]:
+    """Same-site page and PDF addresses from the sitemaps robots.txt names, or the usual sitemap
+    addresses; one level of sitemap index followed. Empty when there is none."""
+    root = f"{urlsplit(home_url).scheme}://{urlsplit(home_url).netloc}"
+    _, host = fetcher._host(home_url)
+    queue = list((host.robots.site_maps() or []) if host.robots else []) or [root + p for p in SITEMAPS]
+    urls, files = [], 0
+    while queue and files < max_files:
+        sm = queue.pop(0)
+        try:
+            res = fetcher.get(sm, retries=0)
+        except Exception:
+            continue
+        files += 1
+        locs = _LOC.findall(res.content.decode(errors="replace"))
+        if b"<sitemapindex" in res.content[:2000]:
+            queue = [u for u in locs if _site(u) == _site(home_url)] + queue
+            continue
+        urls += [u for u in locs if _site(u) == _site(home_url)]
+        if urls:
+            break
+    return urls
+
+
+def nav_links(home_url: str, html: str) -> list[str]:
+    """The site's own pages the home page links to, in page order: shallow, not files, not
+    booking, gift card or job pages."""
+    out = []
+    for a in LexborHTMLParser(html).css("a[href]"):
+        href = (a.attributes.get("href") or "").strip()
+        if not href or href.startswith(("#", "mailto:", "tel:", "javascript:")):
+            continue
+        url = absolute(home_url, href).split("#")[0]
+        path = urlsplit(url).path
+        if (_site(url) != _site(home_url) or _FILE_RE.search(path.lower()) or path.strip("/").count("/") > 2
+                or _AVOID_RE.search(path) or _AVOID_RE.search(a.text(strip=True))):
+            continue
+        if url.rstrip("/") != home_url.rstrip("/") and url not in out:
+            out.append(url)
+    return out
+
+
+def _try(url: str, fetcher: Fetcher, get_html) -> Discovery:
+    """One candidate judged on its food words: a PDF fetched over HTTP, a page loaded in Chrome."""
+    if urlsplit(url).path.lower().endswith(".pdf"):
+        try:
+            res = fetcher.get(url)
+        except Exception as e:
+            return Discovery("failed", note=type(e).__name__)
+        if res.tdm_reserved:
+            return Discovery("opted_out", note="tdm-reservation")
+        kind = document_kind(res.content_type, res.final_url, res.content)
+        score = food_score(document_text(kind, res.content) if kind != "image" else None)
+        if score < MAYBE_MIN:
+            return Discovery("no_menu_found", score=score)
+        d = _candidate(url, "", kind, score)
+        d.status = "menu_found" if score >= MENU_MIN else "menu_maybe"
+        return d
+    return _scored(url, get_html)
 
 
 def _scored(url: str, get_html) -> Discovery:

@@ -28,13 +28,15 @@ MENU_WORDS = (
 )
 _MENU_RE = re.compile(rf"(?i)(?<![a-z])({MENU_WORDS})(?![a-z])")
 _MENU_HREF_RE = re.compile(r"(?i)(menu|carte|tasting|degust|speisekarte|meny|food|cuisine|kaart|course|omakase|kaiseki)")
-# Links that look like menus but aren't the food menu.
+# Links that look like menus but aren't the food menu. Each matches at the start of a word, and
+# the short ones only as a whole word, so "carte", "Stockholm" and "espresso" aren't caught by
+# cart, tock and press.
 _AVOID_RE = re.compile(
-    r"(?i)(gift|voucher|gutschein|cadeau|regalo|bon-cadeau|reserv|book|booking|privacy|cookie|"
-    r"career|jobs|job|press|presse|shop|boutique|newsletter|instagram|facebook|login|account|"
-    r"cart|basket|warenkorb|event|private-dining|private dining|wine|vin|vino|wein|drinks|bar menu|"
-    r"cocktail|allergen|terms|impressum|imprint|accessibility|sitemap|"
-    r"opentable|sevenrooms|resy|tock|tablecheck|thefork|quandoo)"
+    r"(?i)(?<![a-z])(gift|voucher|gutschein|cadeau|regalo|reserv|book|privacy|cookie|career|"
+    r"jobs?(?![a-z])|press(e)?(?![a-z])|shop|boutique|newsletter|instagram|facebook|login|account|"
+    r"cart(?![a-z])|basket|warenkorb|events?(?![a-z])|private[- ]?dining|wines?(?![a-z])|vins?(?![a-z])|"
+    r"vino|weine?(?![a-z])|weinkarte|winelist|wine-?card|carta-?dei-?vini|carta-?de-?vinos|drinks|bar menu|cocktail|allergen|terms|impressum|imprint|accessibility|"
+    r"sitemap|opentable|sevenrooms|resy(?![a-z])|tock(?![a-z])|tablecheck|thefork|quandoo)"
 )
 _FILE_RE = re.compile(r"\.(jpe?g|png|gif|webp|svg|avif|mp4|mov|zip|docx?|xlsx?|ics)$")
 _SOCIAL_HOSTS = re.compile(r"(?i)(instagram|facebook|twitter|x\.com|youtube|tiktok|linkedin|google\.|apple\.com|"
