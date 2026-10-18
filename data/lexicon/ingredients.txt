@@ -263,10 +263,11 @@ tortilla = es: tortilla, tortillas
 tamal = es: tamal, tamales
 quinoa = es: quinoa
 couscous = fr: couscous
-pasta = en: noodle, noodles, spaghetti, tagliatelle, tagliolini, tajarin, linguine, pappardelle, fettuccine, rigatoni, penne, orecchiette, gnocchi, ravioli, raviolo, agnolotti, tortellini, cappelletti, tortelli, cannelloni, lasagna, lasagne, pici, fusilli, macaroni, maccheroni, paccheri, bucatini, cavatelli, culurgiones, plin, mezzelune, spaghettoni, tonnarelli, cappellacci, garganelli | fr: pâtes, nouilles | es: pasta, fideos, fideuá | it: pasta, spaghetto, tagliolino, tortello, gnocco, raviolini, anolini | de: nudeln, spätzle, knödel, maultaschen | ja: 麺 | en: trofie, gnudi
-soba > pasta = ja: 蕎麦, そば
-udon > pasta = ja: うどん
-ramen > pasta = ja: ラーメン
+pasta = en: spaghetti, tagliatelle, tagliolini, tajarin, linguine, pappardelle, fettuccine, rigatoni, penne, orecchiette, gnocchi, ravioli, raviolo, agnolotti, tortellini, cappelletti, tortelli, cannelloni, lasagna, lasagne, pici, fusilli, macaroni, maccheroni, paccheri, bucatini, cavatelli, culurgiones, plin, mezzelune, spaghettoni, tonnarelli, cappellacci, garganelli | fr: pâtes | es: pasta, fideos, fideuá | it: pasta, spaghetto, tagliolino, tortello, gnocco, raviolini, anolini | de: nudeln, spätzle, knödel, maultaschen | en: trofie, gnudi
+noodles = en: noodle, egg noodles | fr: nouilles | ja: 麺 | ko: 국수
+soba > noodles = ja: 蕎麦, そば
+udon > noodles = ja: うどん
+ramen > noodles = ja: ラーメン
 bread = en: sourdough, brioche, focaccia, toast, crouton, croutons, flatbread, bun, buns, baguette, crumpet, sandwich, sando, pain perdu, french toast | fr: pain, brioche, pain au levain, croûton, croûtons, mouillette | es: pan, tostada, picos | it: pane, focaccia, crostino, crostini, bruschetta, grissini, pan brioche | de: brot, brötchen, brioche, sauerteigbrot | nl: brood | pt: pão | da: brød, rugbrød | sv: bröd | ja: パン | en: pumpernickel | de: pumpernickel
 pastry = en: tart, tartlet, tartelette, pie, puff pastry, filo, phyllo, choux, galette, crust, shortbread, sablé, sable, biscuit, cracker, crackers, crisp bread, wafer, tuile, croustade, vol-au-vent, millefeuille, mille-feuille | fr: tarte, tartelette, pâte, feuilleté, feuilletage, pâte feuilletée, sablé, tuile, galette, choux, millefeuille, croustillant | es: hojaldre, tartaleta, galleta, galletas, empanada, empanadilla | it: sfoglia, pasta sfoglia, crostata, tartelletta, frolla, pasta frolla, cialda, millefoglie | de: teig, blätterteig, tarte, tartelette, mürbeteig, kekse, keks, strudel | nl: deeg, taartje | da: tærte | ja: タルト | en: pastilla, baba, cake, sponge | fr: baba, gâteau, financier, madeleine | en: crumble | fr: crumble
 blini > pastry = en: blinis, pancake, crêpe, crepe, crepes | fr: blini, crêpe, crêpes | de: pfannkuchen, palatschinken
@@ -278,7 +279,7 @@ amaranth
 hemp = fr: chanvre
 flour
 kataifi
-rice noodle = zh: bihun
+rice noodle > noodles = zh: bihun
 sago
 
 ## herb
@@ -347,7 +348,7 @@ tansy = fr: tanaisie
 ## spice
 salt = en: sea salt, fleur de sel, maldon | fr: sel, fleur de sel | es: sal | it: sale | de: salz | nl: zout | pt: sal | da: salt | sv: salt | ja: 塩
 black pepper = en: pepper, peppercorn, peppercorns, green peppercorn, pink peppercorn, long pepper, tellicherry, cambodian long pepper | fr: poivre, poivre noir, baies roses | es: pimienta | it: pepe | de: pfeffer | nl: peper, pepersaus | pt: pimenta | da: peber | sv: peppar
-sichuan pepper > black pepper = en: szechuan pepper, timut, timut pepper | fr: poivre de sichuan, poivre timut
+sichuan pepper = en: szechuan pepper, timut, timut pepper | fr: poivre de sichuan, poivre timut
 saffron = fr: safran | es: azafrán | it: zafferano | de: safran | nl: saffraan | pt: açafrão
 vanilla = en: vanilla pod | fr: vanille | es: vainilla | it: vaniglia | de: vanille | nl: vanille | da: vanilje | sv: vanilj
 cinnamon = fr: cannelle | es: canela | it: cannella | de: zimt | nl: kaneel | da: kanel
@@ -432,7 +433,7 @@ nougat = fr: nougat | it: torrone
 praline > hazelnut = en: praliné | fr: praliné, pralin
 kefir = de: kefir
 
-haddock > cod = fr: églefin, haddock | de: schellfisch | nl: schelvis
+haddock = fr: églefin, haddock | de: schellfisch | nl: schelvis
 harissa > chili
 chutney
 granola > oat

@@ -218,8 +218,7 @@ function groupOptions(selected) {
   const opt = (v, l) => h("option", { value: v, selected: v === selected }, l);
   return [opt("", "All restaurants"),
     h("optgroup", { label: "Region" }, D.groups.region.map((g) => opt("region:" + g, g))),
-    accoladeGroups().length ? h("optgroup", { label: "Accolade" }, accoladeGroups().map((g) => opt("accolade:" + g, g))) : null,
-    seasonsReady() && D.groups.season.some((g) => g !== "unknown") ? h("optgroup", { label: "Season (hemisphere-adjusted)" }, D.groups.season.filter((g) => g !== "unknown").map((g) => opt("season:" + g, cap(g)))) : null];
+    accoladeGroups().length ? h("optgroup", { label: "Accolade" }, accoladeGroups().map((g) => opt("accolade:" + g, g))) : null];
 }
 // accolade groups with enough menus for shares and pairings
 const accoladeGroups = () => Object.keys(D.groups.accolade_with_data || {});
@@ -276,12 +275,6 @@ function accoladeMatch(r, f) {
   if (f === "none") return !(r.tiers || []).length;
   return (r.tiers || []).includes(f);
 }
-// Seasons only mean something once first-seen dates span most of a year; until then
-// "autumn" vs "spring" is just which hemisphere a restaurant is in.
-function seasonsReady() {
-  const r = D.seen_range;
-  return !r || (Date.parse(r[1]) - Date.parse(r[0])) / 864e5 >= 270;
-}
 const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
 // lowercase without accents, so "cepe" finds "cèpe"
 const fold = (x) => (x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -289,7 +282,7 @@ const fold = (x) => (x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").t
 function groupShare(ing, group) {
   if (!group) return ing.share;
   const [kind, g] = group.split(":");
-  return ({ region: ing.by_region, season: ing.by_season, accolade: ing.by_accolade }[kind] || {})[g];
+  return ({ region: ing.by_region, accolade: ing.by_accolade }[kind] || {})[g];
 }
 
 // Staples (bread, butter, pasta...) pair with everything, so their pairings are hidden unless asked for.
@@ -365,10 +358,10 @@ function home() {
         h("div", { class: "finder" }, search, found,
           h("p", { class: "hint" }, "Try: ", suggestions.flatMap((i, n) => [n ? " · " : "", ingLink(i.name)]))))),
     h("div", { class: "paths" },
-      path("#/ingredients", "Ingredients", `Look up any of ${t.ingredients.toLocaleString()} ingredients: how often it's on the menu, by region and season, and how chefs prepare it.`, "Browse ingredients"),
+      path("#/ingredients", "Ingredients", `Look up any of ${t.ingredients.toLocaleString()} ingredients: how often it's on the menu, where, what it's paired with, and how chefs prepare it.`, "Browse ingredients"),
       path("#/restaurants", "Restaurants", `Find a restaurant by name, city, region or accolade${D.has_menus ? ", and read its menus course by course" : ", and see what it cooks with"}.`, "Find a restaurant"),
       path("#/pairings", "Pairings", "Ingredients that share a plate more often than chance, from the classics to the surprising.", "Explore pairings"),
-      path("#/coverage", "Map", "Every restaurant with a menu on a world map. Zoom into a country and open any of them.", "Open the map")),
+      path("#/coverage", "Map", "Each region's signature ingredients, lettered across a world map. Zoom in for more.", "Open the map")),
     h("section", { class: "home-stats" },
       tiles([[t.restaurants_with_data.toLocaleString(), "restaurants with menus"], [t.menus.toLocaleString(), "menus read"],
         [t.ingredients.toLocaleString(), "ingredients"], [t.pairs.toLocaleString(), "pairings"]]),
@@ -434,45 +427,30 @@ function ingredient(params, [name]) {
   const hiddenStaples = allPairs.length - pairs.length;
   const toggleStaples = () => { const p = new URLSearchParams(); if (!staples) p.set("staples", "1"); setParams(p); route(); };
   const regions = D.groups.region.filter((g) => ing.by_region[g] != null).map((g) => [g, ing.by_region[g]]);
-  const seasons = D.groups.season.filter((g) => ing.by_season[g] != null).map((g) => [cap(g), ing.by_season[g]]);
   const accolades = accoladeGroups().map((g) => [g, (ing.by_accolade || {})[g] || 0]);
   const rs = ing.restaurants.map((slug) => byRestaurant.get(slug) || { slug, name: slug })
     .sort((a, b) => a.name.localeCompare(b.name));
   const LIST = 40;
-  const children = D.ingredients.filter((i) => i.parent === name);
 
   return h("div", {},
     h("p", { class: "muted", style: "margin:0 0 .25rem" }, h("a", { href: "#/ingredients" }, "← Ingredients")),
     h("h1", {}, cap(name)),
     h("p", { class: "sub" }, ing.category ? `${cap(ing.category)} · ` : "", `Used by ${ing.restaurants.length} of ${total} restaurants with published menus.`,
       ing.wikipedia ? h("span", {}, " · ", wikiLink(ing.wikipedia, "Read about it on Wikipedia ↗")) : null),
-    ing.parent || children.length ? h("p", { class: "muted", style: "margin-top:-.75rem" },
-      ing.parent ? h("span", {}, "A kind of ", byName.has(ing.parent) ? ingLink(ing.parent) : ing.parent, ". ") : null,
-      children.length ? h("span", {}, "Kinds: ", children.flatMap((c, i) => [i ? ", " : "", ingLink(c.name)]), ".") : null) : null,
     tiles([[pct(ing.share), "share of menus"], [ing.restaurants.length, "restaurants"], [pairs.length, "pairings"],
       [ing.preparations[0]?.[0] || "–", "most common preparation"]]),
+    h("section", { class: "card" }, h("h2", {}, "Flavour compass"),
+      pairs.length
+        ? compass(name, pairs)
+        : h("p", { class: "empty" }, ing.pairing === "generic" ? "Too general an ingredient to pair." : `No pairing seen at ${D.min_restaurants}+ restaurants yet.`),
+      hiddenStaples || staples ? h("p", { class: "muted", style: "font-size:.85rem;margin:.5rem 0 0" },
+        staples ? "Including staples. " : `${hiddenStaples} pairing${hiddenStaples === 1 ? "" : "s"} with staples (${staplesNote()}…) hidden. `,
+        h("a", { href: "#", onclick: (e) => { e.preventDefault(); toggleStaples(); } }, staples ? "Hide them" : "Show them")) : null),
     h("div", { class: "grid2" },
       h("section", { class: "card" }, h("h2", {}, "Share of menus by region"), barChart(regions, { max: 1 })),
       accolades.length ? h("section", { class: "card" }, h("h2", {}, "Share of menus by accolade"),
-        barChart(accolades, { max: 1, note: "Among the restaurants with menus in each group. A restaurant can be in several." })) : null,
-      h("section", { class: "card" }, h("h2", {}, "Share of menus by season"),
-        seasons.every(([g]) => g === "Unknown")
-          ? h("p", { class: "empty" }, "No menu dates in this build yet, so no seasons.")
-          : !seasonsReady()
-          ? h("p", { class: "empty" }, `Every menu so far was first seen ${D.seen_range[0] === D.seen_range[1] ? "on " + fmtDate(D.seen_range[0]) : `between ${fmtDate(D.seen_range[0])} and ${fmtDate(D.seen_range[1])}`}, so seasons would only show which hemisphere a restaurant is in. They'll appear once the menus span most of a year.`)
-          : barChart(seasons.filter(([g]) => g !== "Unknown"), { max: 1, note: "Southern Hemisphere dates shift six months; tropical restaurants are their own group." }))),
-    h("div", { class: "grid2", style: "margin-top:1.25rem" },
-      h("section", { class: "card" }, h("h2", {}, "Pairs with"),
-        pairs.length
-          ? table(pairs, [
-            { key: "other", label: "With", render: (p) => h("a", { href: pairHref(name, p.other), title: `Every dish with ${name} and ${p.other}` }, p.other) },
-            { key: "score", label: "Strength", render: (p) => strength(p.score, pairs[0] ? Math.max(...pairs.map((x) => x.score)) : 1) },
-            { key: "restaurants", label: "Restaurants", num: true },
-          ], { sort: "score", dir: "desc", page: 15 }, () => {})
-          : h("p", { class: "empty" }, ing.pairing === "generic" ? "Too general an ingredient to pair." : `No pairing seen at ${D.min_restaurants}+ restaurants yet.`),
-        hiddenStaples || staples ? h("p", { class: "muted", style: "font-size:.85rem;margin:.5rem 0 0" },
-          staples ? "Including staples. " : `${hiddenStaples} pairing${hiddenStaples === 1 ? "" : "s"} with staples (${staplesNote()}…) hidden. `,
-          h("a", { href: "#", onclick: (e) => { e.preventDefault(); toggleStaples(); } }, staples ? "Hide them" : "Show them")) : null),
+        barChart(accolades, { max: 1, note: "Among the restaurants with menus in each group. A restaurant can be in several." })) : null),
+    h("div", { style: "margin-top:1.25rem" },
       h("section", { class: "card stack" },
         h("div", {}, h("h2", {}, "Preparations"),
           ing.preparations.length
@@ -546,6 +524,81 @@ function pairings(params) {
     chartHost, tableHost);
   live();
   return out;
+}
+
+// Flavour compass: the ingredient in the middle, its partners around it. Direction is the
+// partner's kind (each kind present gets a slice of the circle, sized by how many partners it
+// has, always in the same order), distance is how strongly they pair (closer = stronger), dot
+// size how many restaurants pair them. A click opens the dishes.
+const COMPASS_POINTS = ["meat", "fish", "seafood", "vegetable", "fungus", "herb", "spice", "fruit", "nut", "grain", "dairy", "other"];
+function compass(name, pairs, max = 24) {
+  const shown = [...pairs].sort((a, b) => b.score - a.score).slice(0, max);
+  const S = 640, C = S / 2, R = 245, R0 = 92;
+  const hi = shown[0].score, lo = shown[shown.length - 1].score, most = Math.max(...shown.map((p) => p.restaurants));
+  const kindOf = (n) => (COMPASS_POINTS.includes(byName.get(n)?.category) ? byName.get(n).category : "other");
+  const svg = s("svg", { viewBox: `0 0 ${S} ${S}`, class: "compass", role: "img",
+    "aria-label": `Flavour compass for ${name}: ${shown.map((p) => p.other).join(", ")}` });
+  for (const f of [1 / 3, 2 / 3, 1]) svg.append(s("circle", { class: "ring", cx: C, cy: C, r: R0 + (R - R0) * f }));
+  const byKind = new Map();
+  for (const p of shown) (byKind.get(kindOf(p.other)) || byKind.set(kindOf(p.other), []).get(kindOf(p.other))).push(p);
+  const kinds = COMPASS_POINTS.filter((k) => byKind.has(k));
+  const weight = (k) => Math.max(1.6, byKind.get(k).length);
+  const total = kinds.reduce((t, k) => t + weight(k), 0);
+  let at = -Math.PI / 2 - (Math.PI * weight(kinds[0])) / total; // the first kind centred at the top
+  const nodes = [], kindLabels = [];
+  for (const k of kinds) {
+    const width = (2 * Math.PI * weight(k)) / total, mid = at + width / 2, ps = byKind.get(k);
+    if (kinds.length > 1) { // a boundary between kinds
+      svg.append(s("line", { class: "spoke", x1: C + Math.cos(at) * R0, y1: C + Math.sin(at) * R0, x2: C + Math.cos(at) * R, y2: C + Math.sin(at) * R }));
+    }
+    const lx = Math.cos(mid), ly = Math.sin(mid);
+    kindLabels.push({ text: k, x: C + lx * (R + 24), y: C + ly * (R + 24) + 4, anchor: Math.abs(lx) < 0.3 ? "middle" : lx > 0 ? "start" : "end" });
+    // a kind's partners spread evenly across its slice, strongest nearest the middle
+    ps.forEach((p, j) => {
+      const a = ps.length === 1 ? mid : at + width * (0.08 + 0.84 * (j / (ps.length - 1)));
+      const r = R0 + 18 + (R - R0 - 18) * (hi === lo ? 0.5 : (hi - p.score) / (hi - lo));
+      nodes.push({ p, x: C + Math.cos(a) * r, y: C + Math.sin(a) * r, side: Math.cos(a) >= 0 ? 1 : -1 });
+    });
+    at += width;
+  }
+  // labels that would overlap are nudged up or down, kind names first so partners move round them
+  const placed = [];
+  const rect = (x, y, text, anchor, size) => {
+    const w = text.length * size * 0.56, x0 = anchor === "start" ? x : anchor === "end" ? x - w : x - w / 2;
+    return { x0, x1: x0 + w, y0: y - size, y1: y + 3 };
+  };
+  const clash = (b) => placed.some((q) => b.x0 < q.x1 && b.x1 > q.x0 && b.y0 < q.y1 && b.y1 > q.y0);
+  const settle = (x, y, text, anchor, size) => {
+    for (const dy of [0, 13, -13, 26, -26, 39]) {
+      const b = rect(x, y + dy, text, anchor, size);
+      if (!clash(b)) { placed.push(b); return y + dy; }
+    }
+    placed.push(rect(x, y, text, anchor, size));
+    return y;
+  };
+  for (const l of kindLabels) svg.append(s("text", { class: "point", x: l.x, y: settle(l.x, l.y, l.text, l.anchor, 11), "text-anchor": l.anchor }, l.text));
+  for (const n of nodes) placed.push({ x0: n.x - 6, x1: n.x + 6, y0: n.y - 6, y1: n.y + 6 });
+  for (const n of nodes) {
+    const dr = 8 + 7 * Math.sqrt(n.p.restaurants / most);
+    n.lx = n.x + n.side * dr;
+    n.ly = settle(n.lx, n.y + 4, n.p.other, n.side > 0 ? "start" : "end", 13);
+  }
+  for (const { p, x, y } of nodes) svg.append(s("line", { class: "tie", x1: C, y1: C, x2: x, y2: y, "stroke-width": 0.6 + 2.4 * (p.score - lo) / (hi - lo || 1) }));
+  svg.append(s("circle", { class: "hub", cx: C, cy: C, r: R0 - 14 }),
+    s("text", { class: "hub-label", x: C, y: C + 6, "text-anchor": "middle" }, name.length > 14 ? name.slice(0, 13) + "…" : name));
+  for (const { p, x, y, side, lx, ly } of nodes) {
+    const g = s("g", { class: "partner", tabindex: "0", role: "link", "aria-label": `${name} and ${p.other}: dishes` });
+    g.append(s("circle", { cx: x, cy: y, r: 4 + 7 * Math.sqrt(p.restaurants / most) }),
+      s("text", { x: lx, y: ly, "text-anchor": side > 0 ? "start" : "end" }, p.other));
+    hoverable(g, `${name} + ${p.other}`, `at ${p.restaurants} restaurant${p.restaurants === 1 ? "" : "s"} · ${num(p.lift, 1)}× as often as chance · click for the dishes`);
+    const go = () => { location.hash = pairHref(name, p.other); };
+    g.addEventListener("click", go);
+    g.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+    svg.append(g);
+  }
+  return h("div", { class: "compass-wrap" }, svg,
+    h("p", { class: "muted", style: "font-size:.85rem;margin:.25rem 0 0" },
+      `The ${shown.length} strongest pairings. Closer to the middle: paired more often than chance would have it. Bigger: at more restaurants. Each direction is a kind of ingredient. Click one for the dishes.`));
 }
 
 // Scatter: x = support (log scale), y = lift (log scale). One series.
@@ -1201,31 +1254,11 @@ function coverageMap(params, opts = {}) {
 
 function coverage(params) {
   const rows = D.coverage.map((c) => ({ ...c, rate: c.restaurants ? c.with_data / c.restaurants : 0 }));
-  const accSel = accoladeSelect(params.get("acc") || "");
-  const tilesHost = h("div", {}), mapHost = h("div", {});
-  const render = () => {
-    const f = accSel.value;
-    const rs = D.restaurants.filter((r) => accoladeMatch(r, f));
-    const withData = rs.filter((r) => r.menus).length;
-    tilesHost.replaceChildren(tiles([[rs.length, f ? "restaurants in this group" : "restaurants in the list"],
-      [rs.filter((r) => r.publishes_menu === "yes").length, "publish a menu"],
-      [withData, "with menus collected"], [pct(rs.length ? withData / rs.length : 0), "covered"]]));
-    const p = new URLSearchParams(location.hash.split("?")[1] || "");
-    mapHost.replaceChildren(coverageMap(p, { only: f ? new Set(rs.map((r) => r.slug)) : null, extra: f ? { acc: f } : {},
-      shadeLabel: f ? "restaurants in this group" : undefined }));
-  };
-  accSel.addEventListener("change", () => {
-    const p = new URLSearchParams(location.hash.split("?")[1] || "");
-    accSel.value ? p.set("acc", accSel.value) : p.delete("acc");
-    setParams(p); render();
-  });
-  render();
   return h("div", {},
     h("h1", {}, "Map"),
-    h("p", { class: "sub" }, "Where the menus come from. Read every chart on this site against this map: a region with two restaurants says little. Only restaurants with menus show at first; the legend under the map adds the rest of the list."),
-    h("div", { class: "filters" }, h("label", {}, "Accolade", accSel)),
-    tilesHost, mapHost,
-    h("details", { class: "card" }, h("summary", {}, "Coverage by region, as a table"),
+    h("p", { class: "sub" }, "What each part of the world cooks with. Lettered over every region are its signature ingredients: the ones its restaurants use far more often than everyone else. Zoom in for more, or look up one ingredient to see where it's on the menu."),
+    ingredientMap(params),
+    h("details", { class: "card" }, h("summary", {}, "Restaurants by region, as a table"),
       table(rows, [
         { key: "region", label: "Region" },
         { key: "restaurants", label: "In list", num: true },
@@ -1233,6 +1266,264 @@ function coverage(params) {
         { key: "with_data", label: "With menus", num: true },
         { key: "rate", label: "Covered", num: true, render: (c) => pct(c.rate) },
       ], { sort: "region", dir: "asc" }, () => {})));
+}
+
+// Each region's signature ingredients: used on a bigger share of its menus than of all menus,
+// by at least a few of its restaurants. Ranked by share × log2(how many times the world share).
+const SIGNATURE_MIN_RESTAURANTS = 5;
+function signatures(region, n) {
+  const users = (i) => i.restaurants.filter((slug) => byRestaurant.get(slug)?.region === region).length;
+  return D.ingredients
+    .filter((i) => i.pairing !== "generic" && (i.by_region?.[region] || 0) >= 0.04 && i.share > 0)
+    .map((i) => ({ i, share: i.by_region[region], ratio: i.by_region[region] / i.share }))
+    .filter((x) => x.ratio >= 1.6 && users(x.i) >= Math.min(3, Math.max(2, Math.ceil(n * 0.15))))
+    .sort((a, b) => b.share * Math.log2(b.ratio) - a.share * Math.log2(a.ratio))
+    .slice(0, 8);
+}
+
+// The world map, lettered like an atlas: each region's signature ingredients written over it.
+// With an ingredient chosen (?i=yuzu), regions are shaded by how many of their menus use it.
+function ingredientMap(params) {
+  const countries = world();
+  const byCountryName = new Map(countries.map((c) => [c.name.toLowerCase(), c]));
+  const regionOf = new Map(); // country -> region (the region most of its restaurants are in)
+  const spots = new Map(); // region -> {x, y, n}: where its restaurants with menus are
+  const votes = new Map();
+  for (const r of D.restaurants) {
+    if (r.lat == null || r.lon == null || r.region === "Other") continue;
+    const [x, y] = equalEarth(r.lon, r.lat);
+    const c = countryOf(r, x, y, byCountryName);
+    if (c) { const v = votes.get(c) || votes.set(c, new Map()).get(c); v.set(r.region, (v.get(r.region) || 0) + 1); }
+    if (r.menus > 0) { const sp = spots.get(r.region) || spots.set(r.region, { x: 0, y: 0, n: 0 }).get(r.region); sp.x += x; sp.y += y; sp.n++; }
+  }
+  for (const [c, v] of votes) regionOf.set(c, [...v].sort((a, b) => b[1] - a[1])[0][0]);
+  const regions = [...spots].filter(([, sp]) => sp.n >= SIGNATURE_MIN_RESTAURANTS)
+    .map(([name, sp]) => ({ name, x: sp.x / sp.n, y: sp.y / sp.n, n: sp.n, sig: signatures(name, sp.n) }))
+    .sort((a, b) => b.n - a.n);
+
+  let chosen = byName.get(params.get("i") || "") || null;
+  const canvas = h("canvas", { class: "map", role: "img", tabindex: "0",
+    "aria-label": "World map lettered with each region's signature ingredients. Use plus and minus to zoom and the arrow keys to move." });
+  const wrap = h("div", { class: "mapwrap" }, canvas);
+  let W = 0, H = 0, k = 1, ox = 0, oy = 0, minK = 1, words = [], hover = null, frame = 0, anim = 0;
+  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  function boxCamera(x0, y0, x1, y1, pad = 16) {
+    const kk = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+    return [kk, (W - kk * (x1 - x0)) / 2 - kk * x0, (H - kk * (y1 - y0)) / 2 + kk * y1];
+  }
+  function presetBox(name) {
+    const [w, so, e, n] = VIEWS[name];
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let i = 0; i <= 16; i++) {
+      for (const [lo, la] of [[w + ((e - w) * i) / 16, so], [w + ((e - w) * i) / 16, n], [w, so + ((n - so) * i) / 16], [e, so + ((n - so) * i) / 16]]) {
+        const [x, y] = equalEarth(lo, la);
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+    }
+    return [x0, y0, x1, y1];
+  }
+  const redraw = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(draw); };
+  function flyTo(target) {
+    cancelAnimationFrame(anim);
+    if (reduced) { [k, ox, oy] = target; return redraw(); }
+    const from = [k, ox, oy], t0 = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / 350), e = 1 - (1 - t) ** 3;
+      k = Math.exp(Math.log(from[0]) + (Math.log(target[0]) - Math.log(from[0])) * e);
+      ox = from[1] + (target[1] - from[1]) * e; oy = from[2] + (target[2] - from[2]) * e;
+      draw();
+      if (t < 1) anim = requestAnimationFrame(step);
+    };
+    anim = requestAnimationFrame(step);
+  }
+  function zoomAt(sx, sy, f) {
+    const k2 = Math.max(minK * 0.8, Math.min(minK * 40, k * f));
+    ox = sx + ((ox - sx) * k2) / k; oy = sy + ((oy - sy) * k2) / k; k = k2;
+    redraw();
+  }
+  function resize() {
+    const w = wrap.clientWidth || 640, hh = Math.round(Math.min(640, Math.max(300, w * 0.58)));
+    const first = !W;
+    W = w; H = hh;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    minK = boxCamera(...presetBox("World"))[0];
+    if (first) [k, ox, oy] = boxCamera(...presetBox("World"));
+    draw();
+  }
+
+  function draw() {
+    if (!W) return;
+    const css = getComputedStyle(document.documentElement);
+    const col = (v) => css.getPropertyValue(v).trim();
+    const display = col("--serif-display") || "Georgia, serif";
+    const ctx = canvas.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = col("--map-sea"); ctx.fillRect(0, 0, W, H);
+    const land = col("--map-land"), accent = col("--accent"), sea = col("--map-sea"), ink = col("--text"), muted = col("--muted");
+    const top = chosen ? Math.max(...regions.map((r) => chosen.by_region?.[r.name] || 0), 1e-9) : 0;
+    for (const c of countries) {
+      if (ox + k * c.bbox[2] < 0 || ox + k * c.bbox[0] > W || oy - k * c.bbox[1] < 0 || oy - k * c.bbox[3] > H) continue;
+      ctx.beginPath();
+      for (const r of c.rings) {
+        for (let i = 0; i < r.length; i += 2) { const X = ox + k * r[i], Y = oy - k * r[i + 1]; if (i) ctx.lineTo(X, Y); else ctx.moveTo(X, Y); }
+        ctx.closePath();
+      }
+      ctx.fillStyle = land; ctx.fill("evenodd");
+      const reg = regionOf.get(c), shown = reg && regions.some((r) => r.name === reg);
+      if (shown) { // regions with menus are tinted; with an ingredient chosen, by its share there
+        ctx.globalAlpha = chosen ? 0.06 + 0.6 * ((chosen.by_region?.[reg] || 0) / top) : 0.16;
+        ctx.fillStyle = accent; ctx.fill("evenodd"); ctx.globalAlpha = 1;
+      }
+      ctx.strokeStyle = sea; ctx.lineWidth = 0.75; ctx.stroke();
+    }
+    // lettering: one block per region, more words as you zoom in, blocks nudged apart to not collide
+    const zoom = k / minK, perRegion = Math.max(1, Math.min(8, Math.round(1 + 2.2 * Math.log2(zoom))));
+    const f = Math.max(0.68, Math.min(1, W / 900)); // smaller lettering on a small map
+    const placed = [];
+    words = [];
+    const overlaps = (b) => placed.some((p) => b.x0 < p.x1 && b.x1 > p.x0 && b.y0 < p.y1 && b.y1 > p.y0);
+    for (const reg of regions) {
+      const cx = ox + k * reg.x, cy = oy - k * reg.y;
+      if (cx < -150 || cx > W + 150 || cy < -150 || cy > H + 150) continue;
+      const lines = chosen
+        ? [{ text: pct(chosen.by_region?.[reg.name] || 0), size: Math.round(15 * f), item: null }]
+        : reg.sig.slice(0, perRegion).map((x, j) => ({ text: x.i.name, size: Math.round((j === 0 ? 17 : j < 3 ? 14 : 12) * f), item: x }));
+      if (!lines.length) continue;
+      const head = Math.round(10 * f), gap = 3;
+      ctx.font = `600 ${head}px ${display}`;
+      let wMax = ctx.measureText(reg.name.toUpperCase()).width + reg.name.length * 1.2, hTot = head + gap;
+      for (const l of lines) { ctx.font = `italic 600 ${l.size}px ${display}`; wMax = Math.max(wMax, ctx.measureText(l.text).width); hTot += l.size + gap; }
+      let box = null;
+      for (const [dx, dy] of [[0, 0], [0, hTot * 0.6], [0, -hTot * 0.6], [wMax * 0.6, 0], [-wMax * 0.6, 0], [0, hTot * 1.2], [0, -hTot * 1.2],
+        [wMax * 0.9, hTot * 0.7], [-wMax * 0.9, hTot * 0.7], [wMax * 0.9, -hTot * 0.7], [-wMax * 0.9, -hTot * 0.7], [0, hTot * 1.8], [0, -hTot * 1.8]]) {
+        const b = { x0: cx + dx - wMax / 2 - 4, y0: cy + dy - hTot / 2 - 3, x1: cx + dx + wMax / 2 + 4, y1: cy + dy + hTot / 2 + 3 };
+        const nx = Math.max(0, 4 - b.x0) - Math.max(0, b.x1 - (W - 4)); // keep it inside the frame
+        b.x0 += nx; b.x1 += nx;
+        if (!overlaps(b)) { box = b; break; }
+      }
+      if (!box) continue; // no room at this zoom: zoom in to see it
+      placed.push(box);
+      const bx = (box.x0 + box.x1) / 2;
+      if (Math.hypot(bx - cx, (box.y0 + box.y1) / 2 - cy) > hTot * 0.4) { // a leader back to the region
+        ctx.strokeStyle = muted; ctx.lineWidth = 0.75; ctx.beginPath(); ctx.moveTo(cx, cy);
+        ctx.lineTo(bx, cy < box.y0 ? box.y0 : cy > box.y1 ? box.y1 : (box.y0 + box.y1) / 2); ctx.stroke();
+      }
+      ctx.fillStyle = muted; ctx.beginPath(); ctx.arc(cx, cy, 2, 0, 2 * Math.PI); ctx.fill();
+      ctx.textAlign = "center"; ctx.textBaseline = "top";
+      let y = box.y0 + 3;
+      ctx.font = `600 ${head}px ${display}`; ctx.fillStyle = muted;
+      ctx.letterSpacing = "1.2px"; ctx.fillText(reg.name.toUpperCase(), bx, y); ctx.letterSpacing = "0px";
+      y += head + gap;
+      for (const l of lines) {
+        ctx.font = `italic 600 ${l.size}px ${display}`;
+        const tw = ctx.measureText(l.text).width;
+        const on = hover && l.item && hover.item === l.item && hover.region === reg;
+        // a halo in the sea colour keeps the lettering legible over borders
+        ctx.lineWidth = 3; ctx.strokeStyle = sea; ctx.lineJoin = "round"; ctx.strokeText(l.text, bx, y);
+        ctx.fillStyle = on ? accent : ink; ctx.fillText(l.text, bx, y);
+        if (l.item) words.push({ x0: bx - tw / 2, y0: y, x1: bx + tw / 2, y1: y + l.size, item: l.item, region: reg });
+        y += l.size + gap;
+      }
+    }
+  }
+
+  const local = (ev) => { const b = canvas.getBoundingClientRect(); return [ev.clientX - b.left, ev.clientY - b.top]; };
+  const wordAt = (sx, sy) => words.find((w) => sx >= w.x0 - 2 && sx <= w.x1 + 2 && sy >= w.y0 - 1 && sy <= w.y1 + 1) || null;
+  function describe(ev, sx, sy) {
+    const w = wordAt(sx, sy);
+    if (w !== hover) { hover = w; redraw(); }
+    canvas.style.cursor = w ? "pointer" : "grab";
+    if (w) showTip(ev, w.item.i.name, `on ${pct(w.item.share)} of ${w.region.name} menus, ${num(w.item.ratio, 1)}× the share everywhere · click to open`);
+    else hideTip();
+  }
+  const pointers = new Map();
+  let drag = null;
+  canvas.addEventListener("pointerdown", (ev) => {
+    canvas.setPointerCapture(ev.pointerId); pointers.set(ev.pointerId, local(ev)); cancelAnimationFrame(anim);
+    if (pointers.size === 1) drag = { start: local(ev), last: local(ev), moved: false };
+    else if (pointers.size === 2) { const [a, b] = [...pointers.values()]; drag = { pinch: Math.hypot(a[0] - b[0], a[1] - b[1]), moved: true }; }
+  });
+  canvas.addEventListener("pointermove", (ev) => {
+    const p = local(ev);
+    if (!pointers.has(ev.pointerId)) return describe(ev, ...p);
+    pointers.set(ev.pointerId, p);
+    if (pointers.size === 2 && drag?.pinch) {
+      const [a, b] = [...pointers.values()], dist = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, dist / drag.pinch); drag.pinch = dist;
+    } else if (drag && !drag.pinch) {
+      if (!drag.moved && Math.hypot(p[0] - drag.start[0], p[1] - drag.start[1]) > 4) { drag.moved = true; hideTip(); canvas.style.cursor = "grabbing"; }
+      if (drag.moved) { ox += p[0] - drag.last[0]; oy += p[1] - drag.last[1]; redraw(); }
+      drag.last = p;
+    }
+  });
+  const release = (ev) => {
+    const wasClick = drag && !drag.moved && pointers.size === 1;
+    pointers.delete(ev.pointerId);
+    if (pointers.size === 0) {
+      if (wasClick && ev.type === "pointerup") {
+        const w = wordAt(...local(ev));
+        if (w) location.hash = "#/ingredient/" + encodeURIComponent(w.item.i.name);
+        else zoomAt(...local(ev), 2);
+      }
+      drag = null; canvas.style.cursor = "grab";
+    } else if (pointers.size === 1) { const p = [...pointers.values()][0]; drag = { start: p, last: p, moved: true }; }
+  };
+  canvas.addEventListener("pointerup", release);
+  canvas.addEventListener("pointercancel", release);
+  canvas.addEventListener("pointerleave", () => { if (!pointers.size) { hideTip(); if (hover) { hover = null; redraw(); } } });
+  canvas.addEventListener("wheel", (ev) => {
+    ev.preventDefault();
+    const [sx, sy] = local(ev);
+    zoomAt(sx, sy, Math.exp(-ev.deltaY * (ev.deltaMode === 1 ? 0.05 : 0.0015)));
+  }, { passive: false });
+  canvas.addEventListener("keydown", (ev) => {
+    const moves = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
+    if (ev.key === "+" || ev.key === "=") zoomAt(W / 2, H / 2, 1.5);
+    else if (ev.key === "-" || ev.key === "_") zoomAt(W / 2, H / 2, 1 / 1.5);
+    else if (ev.key === "0") flyTo(boxCamera(...presetBox("World")));
+    else if (moves[ev.key]) { ox += moves[ev.key][0]; oy += moves[ev.key][1]; redraw(); }
+    else return;
+    ev.preventDefault();
+  });
+
+  const viewButtons = h("div", { class: "seg", role: "group", "aria-label": "Zoom to" },
+    Object.keys(VIEWS).map((v) => h("button", { type: "button", onclick: () => flyTo(boxCamera(...presetBox(v))) }, v)));
+  wrap.append(h("div", { class: "zoom" },
+    h("button", { type: "button", "aria-label": "Zoom in", onclick: () => zoomAt(W / 2, H / 2, 1.6) }, "+"),
+    h("button", { type: "button", "aria-label": "Zoom out", onclick: () => zoomAt(W / 2, H / 2, 1 / 1.6) }, "−"),
+    h("button", { type: "button", "aria-label": "Show the whole world", onclick: () => flyTo(boxCamera(...presetBox("World"))) }, "⟲")));
+
+  // "Where is … on the menu?": shade the regions by one ingredient
+  const options = h("datalist", { id: "map-ingredients" },
+    D.ingredients.filter((i) => i.restaurants.length >= 3 && i.pairing !== "generic").map((i) => h("option", { value: i.name })));
+  const input = h("input", { type: "search", id: "map-ingredient", list: "map-ingredients", placeholder: "yuzu, lamb, sea buckthorn…", value: chosen ? chosen.name : "",
+    "aria-label": "Show where one ingredient is on the menu" });
+  const note = h("p", { class: "muted", style: "margin:.5rem 0 0;font-size:.85rem" });
+  const setNote = () => note.replaceChildren(chosen
+    ? h("span", {}, "Regions shaded by the share of their menus with ", ingLink(chosen.name), ". ",
+      h("a", { href: "#", onclick: (e) => { e.preventDefault(); input.value = ""; choose(); } }, "Back to signature ingredients"))
+    : `Signature ingredients of the ${regions.length} regions with at least ${SIGNATURE_MIN_RESTAURANTS} restaurants' menus. Hover a word for the numbers, click it to open the ingredient. Scroll or pinch to zoom, drag to move.`);
+  const choose = () => {
+    chosen = byName.get(input.value.trim().toLowerCase()) || null;
+    const p = new URLSearchParams(); if (chosen) p.set("i", chosen.name); setParams(p);
+    setNote(); redraw();
+  };
+  input.addEventListener("change", choose);
+  input.addEventListener("input", () => { if (!input.value || byName.has(input.value.trim().toLowerCase())) choose(); });
+  setNote();
+
+  if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(wrap);
+  else requestAnimationFrame(resize);
+  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", redraw);
+  // a canvas doesn't wait for web fonts: load the atlas lettering's faces, then draw again
+  document.fonts?.load?.("italic 600 16px 'Cormorant Garamond'").then(redraw, () => {});
+  document.fonts?.ready?.then(redraw);
+  return h("section", { class: "card" },
+    h("div", { class: "filters" }, h("label", {}, "Where is it on the menu?", input), options),
+    h("div", { class: "maphead" }, viewButtons), wrap, note);
 }
 
 function about() {

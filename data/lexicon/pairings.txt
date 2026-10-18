@@ -12,7 +12,7 @@
 
 generic: fish, shellfish, offal, herbs, salad leaves, garden vegetables, berry, citrus, nut, spice, stock, spirits, wine, jus
 
-staple: bread, butter, cream, milk, pasta, rice, rice noodle, pastry, sugar, salt, flour, olive oil
+staple: bread, butter, cream, milk, pasta, noodles, rice, rice noodle, pastry, sugar, salt, flour, olive oil
 
 same: fig + fig leaf
 same: caviar + sturgeon

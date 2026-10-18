@@ -257,3 +257,18 @@ body.home .brand { visibility: hidden; }
   .stacked td { border: 0; padding: .15rem 0; }
   .stacked tr { border-bottom: 1px solid var(--border); padding: .6rem 0; }
 }
+
+/* Flavour compass (ingredient pages) */
+.compass-wrap { max-width: 660px; margin: 0 auto; }
+.compass { display: block; width: 100%; height: auto; overflow: visible; }
+.compass .ring { fill: none; stroke: var(--border); stroke-width: 1; }
+.compass .spoke { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 4; }
+.compass .point { fill: var(--muted); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-family: var(--serif-text); }
+.compass .tie { stroke: var(--bar); opacity: .35; }
+.compass .hub { fill: var(--surface-2); stroke: var(--contrast); stroke-width: 1.5; }
+.compass .hub-label { fill: var(--text); font-family: var(--serif-display); font-size: 21px; font-weight: 600; }
+.compass .partner { cursor: pointer; outline: none; }
+.compass .partner circle { fill: var(--bar); stroke: var(--surface); stroke-width: 1.5; }
+.compass .partner text { fill: var(--text); font-size: 13px; font-family: var(--serif-text); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+.compass .partner:hover circle, .compass .partner:focus-visible circle { fill: var(--accent); }
+.compass .partner:hover text, .compass .partner:focus-visible text { fill: var(--accent); }
