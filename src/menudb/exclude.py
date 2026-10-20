@@ -81,7 +81,8 @@ def exclude(session: Session, items: list[dict], apply: bool = False, undo: bool
         if i["website"]:
             session.get(Restaurant, ids[i["slug"]]).website = i["website"] if undo else None
     session.commit()
-    for k in moves:
-        storage.move(k, k.removeprefix(QUARANTINE) if undo else QUARANTINE + k)
+    for k in dict.fromkeys(moves):  # a restaurant can be listed twice (rejected website and exclusion)
+        if storage.exists(k):  # else moved already by an earlier, interrupted run
+            storage.move(k, k.removeprefix(QUARANTINE) if undo else QUARANTINE + k)
     counts["applied"] = 1
     return counts
