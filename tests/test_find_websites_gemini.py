@@ -63,12 +63,14 @@ def test_run_records_matches_and_caches_answers(tmp_path):
     asked = []
 
     def ask_one(text):
-        slug = next(s for s in answers if s not in asked)
+        # an answer given without a search is asked once more
+        slug = next(s for s in answers if asked.count(s) < (2 if s == "guess" else 1))
         asked.append(slug)
         return answers[slug]
     with fetcher() as f:
         counts = run(rows, ask_one, f, tmp_path / "cache", review, rejected, sleep=lambda s: None)
         assert counts == {"ok": 1, "closed": 1, "name_only": 1, "not_searched": 1}
+        assert asked.count("guess") == 2
         out = {r["slug"]: r["approve"] for r in csv.DictReader(review.open())}
         assert out == {"kikunoi": "y", "maybe": ""}
         run(rows, lambda t: (_ for _ in ()).throw(AssertionError("asked again")), f, tmp_path / "cache",

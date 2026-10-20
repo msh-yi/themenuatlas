@@ -166,6 +166,9 @@ def run(rows: list[dict], ask_one, fetcher, cache: Path, review: Path = REVIEW,
             got = json.loads(path.read_text())
         else:
             got = ask_one(prompt(r))
+            if not got.get("grounded", True):  # answered without searching: ask once more
+                sleep(interval)
+                got = ask_one(prompt(r))
             path.write_text(json.dumps(got, ensure_ascii=False))
             sleep(interval)
         if got.get("closed") and got.get("grounded", True):
