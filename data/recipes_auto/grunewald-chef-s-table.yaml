@@ -1,0 +1,5 @@
+start: https://gct.lu/
+steps:
+- follow:
+    href_matches: Menu\-15\-GCT\-EN\-WEB\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.shangri-la.com/en/beijing/chinaworld/dining/restaurants/giada-garden/
+steps:
+- follow:
+    href_matches: GIADA\-Garden\-A\-La\-Carte\-Menu\.pdf
+content: pdf

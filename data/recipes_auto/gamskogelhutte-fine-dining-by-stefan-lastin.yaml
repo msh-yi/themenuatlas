@@ -1,0 +1,6 @@
+start: https://www.gamskogelhuette.at/speisekarte/index.html
+steps:
+- follow:
+    href_matches: PDF\.pdf
+content: pdf
+render: js

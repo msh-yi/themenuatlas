@@ -1,0 +1,5 @@
+start: https://hamptonmanor.com/grace-savour/
+steps:
+- follow:
+    href_matches: Grace\-Savour\-Evening\-Samples\.pdf
+content: pdf

@@ -1128,6 +1128,7 @@ fg-food-labs,menu_found,31,pdf,https://www.fgfoodlabs.nl/source/Frankys-Grill-Fo
 fg-formerly-ivy,no_menu_found,2,,https://www.fgrestaurant.nl/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 fief,no_menu_found,2,,https://fiefrestaurant.fr/en,,chrome: 4 menu-like links; 15 more tried,2026-10-18
 field,menu_found,30,html,https://www.fieldrestaurant.cz/en/menu,1,,2026-10-15
+fields,no_menu_found,0,,https://www.airfield.lu/,,chrome: 0 menu-like links; 9 more tried,2026-10-20
 fierro,no_menu_found,2,,https://fierrovlc.com/menu/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 fifty-seconds,menu_found,26,pdf,https://www.fiftysecondsexperience.com/wp-content/uploads/2026/09/MENU-VERT-DERIVA-EN-16.9.26.pdf,1,,2026-10-15
 fifty-two,menu_found,27,html,https://www.telegraph.co.uk/food-and-drink/features/how-to-turn-tonights-dinner-into-tomorrows-lunch/,1,,2026-10-18
@@ -1151,6 +1152,7 @@ fontevraud-le-restaurant,robots,0,,,,chrome: robots.txt disallows the home page,
 fook-lam-moon,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 forest-avenue,menu_found,18,html,https://www.forestavenuerestaurant.ie/menu,1,,2026-10-15
 forest-side,menu_found,17,pdf,https://www.theforestside.com/wp-content/uploads/2026/09/Dinner-Autumn-26.pdf,1,,2026-10-16
+forge,menu_found,48,pdf,https://middletonlodge.co.uk/wp-content/uploads/2026/10/Lunch-Menu.pdf,1,,2026-10-20
 formel-b,menu_maybe,10,html,https://formelbgroup.dk/formelb/en/,,chrome: store failed: ValueError,2026-10-18
 fortaleza-do-guincho,no_menu_found,0,,https://www.fortalezadoguincho.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 forum,no_menu_found,3,,https://www.fortalezadoguincho.com/pt-pt/voucher/menu-de-degustacao/,,chrome: 0 menu-like links; 8 more tried,2026-10-18
@@ -1163,6 +1165,7 @@ frases,menu_found,40,html,https://www.frasesrestaurante.com/menu-degustacion,1,,
 frassi,no_menu_found,0,,https://frassi.com.tw/menu,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 fratello-di-mikuni,no_menu_found,0,,https://fratello-di-mikuni.com/info/menu/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 fraula,no_menu_found,2,,https://fraula.es/menu-degustacion/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+fre,no_menu_found,0,,https://www.revamonforte.com/images/MENU_FRE_alessandro_1.pdf,,chrome: 2 menu-like links; 14 more tried,2026-10-20
 fred,no_menu_found,0,,https://www.restaurantfred.nl/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 frederic-doucet,menu_maybe,5,html,https://maison-doucet.com/fr/brasserie-charolles.html,,chrome: store failed: ValueError,2026-10-18
 frederic-molina,no_menu_found,3,,https://maisonmolina.fr/la-carte-de-foret-ivre/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
@@ -1178,6 +1181,7 @@ frieda,no_menu_found,0,,https://www.frieda-restaurant.de/wp-content/uploads/2026
 friedrich-franz,no_menu_found,0,,https://www.grandhotel-heiligendamm.de/food-truck/,,chrome: 2 menu-like links; 12 more tried,2026-10-18
 frog-by-adam-handling,menu_found,36,pdf,https://www.frogbyadamhandling.com/s/Frog-by-AH-Sample-4-Course-Menu-2026.pdf,1,,2026-10-15
 frouckje-state,no_menu_found,0,,https://www.frouckjestate.nl/home.html,,chrome: 0 menu-like links; 9 more tried,2026-10-18
+fu-chun-ju,no_menu_found,1,,https://thepuxuan.com/en/beijing-wangfujing-luxury-hotel-dining/,,chrome: 4 menu-like links; 15 more tried,2026-10-20
 fu-ho,menu_maybe,5,html,https://fuho.com.hk/,1,,2026-10-18
 fugu-fukuji,no_menu_found,1,,https://www.fukuji.jp/en,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 fujin-tree-songshan,menu_maybe,8,html,https://www.fujintreeshop.com/,1,,2026-10-18
@@ -1187,6 +1191,7 @@ furano-hotel-restaurant,no_menu_found,0,,https://furanohotel.co.jp/dining/,,chro
 fusion19,no_menu_found,0,,https://fusion19.com/menu-degustacion/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 fyn,menu_found,17,html,https://www.fynrestaurant.com/plant-based-dinner-menu,1,,2026-10-15
 fzn-by-bjorn-frantzen,menu_maybe,10,html,https://www.frantzengroup.com/restaurants/astoria/,,chrome: store failed: ValueError,2026-10-18
+g-a-au-manoir-de-retival,no_menu_found,0,,https://restaurant-ga.fr/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 g-pousada,menu_found,69,html,https://gpousada.com/menu/,1,,2026-10-15
 gaa,no_menu_found,0,,https://www.gaabkk.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-20
 gaba,menu_found,16,html,https://gabarestaurante.com/menu/,1,,2026-10-15
@@ -1195,12 +1200,14 @@ gabriel-kreuther,menu_found,51,html,https://www.gknyc.com/menu,1,,2026-10-15
 gaddi-s,bot_blocked,0,,,,cloudflare: https://www.peninsula.com/en/hong-kong/hotel-fine-dining/gaddis-french-restaurant: HTTP 403,2026-10-18
 gage-tollner,menu_found,32,pdf,https://images.getbento.com/accounts/01e00818a7c206a52f282e3ab9590831/media/eWhmQOfbSAKKxcnXAus6_New%20Brunch%20Menu%203.11.26%20(1).pdf,1,,2026-10-15
 gaggan,menu_maybe,6,html,https://gaggan.com/sense/,,chrome: store failed: ValueError,2026-10-18
+galanga,no_menu_found,0,,https://www.monsieurgeorge.com/Restaurant-Monsieur-George-Champs-Elysees#restaurant,,chrome: 0 menu-like links; 14 more tried,2026-10-20
 galerija-okusov,menu_found,38,pdf,https://galerijaokusov.si/Data/File/Vsebina/Meniji/degustacijski-meni-EN.pdf,1,,2026-10-16
 galit,menu_maybe,8,html,https://www.galitrestaurant.com/team,,chrome: store failed: ValueError,2026-10-18
 gallery-by-chele,no_menu_found,0,,https://gallerybychele.com/menus/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 galvin-at-windows,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 12 more tried,2026-10-18
 galvin-la-chapelle,menu_found,24,html,https://galvinrestaurants.com/autumn-menu/,1,,2026-10-18
 gambero-rosso,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
+gamskogelhutte-fine-dining-by-stefan-lastin,menu_found,59,pdf,https://www.gamskogelhuette.at/speisekarte/PDF.pdf,1,chrome: ,2026-10-20
 gaptrast,no_menu_found,0,,https://www.gaptrast.no/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 garena,no_menu_found,1,,https://garena.restaurant/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 garrigue,menu_found,30,html,https://garrigue-restaurant.fr/,1,,2026-10-16
@@ -1217,6 +1224,7 @@ gaya,menu_found,28,pdf,https://cdn.shopify.com/s/files/1/0675/4595/6656/files/ca
 gaytan,menu_found,41,html,https://chefjavieraranda.com/en/javier-aranda-menu,1,,2026-10-15
 geiger-alm,menu_maybe,11,pdf,https://www.geigeralm.at/wp-content/uploads/2026/09/Geiger-Alm-Menue.pdf,1,,2026-10-15
 gellius,bot_blocked,0,,,,cloudflare: https://www.ristorantegellius.it/: HTTP 403,2026-10-16
+gen,menu_maybe,10,html,https://www.gentaiwan.com/en/menu,1,chrome: found via the sitemap,2026-10-20
 genieerei-am-markt-steiermark-t-dinner-by-alexander-posch,no_menu_found,0,,https://www.geniessereiammarkt.at/steiermarktdinner,,chrome: 2 menu-like links; 9 more tried,2026-10-18
 gensai,robots,0,,,,robots.txt disallows the home page,2026-10-17
 gente-rara,no_menu_found,0,,https://genterara.es/producto/menu-lunatico-armonia-liquida/,,chrome: 4 menu-like links; 12 more tried,2026-10-18
@@ -1230,6 +1238,7 @@ geranium,hand_recipe,,,,,,
 germoglio,no_menu_found,0,,https://www.germogliokyoto.com/,,chrome: 0 menu-like links; 6 more tried,2026-10-18
 geschwister-rauch,menu_found,12,pdf,https://www.geschwister-rauch.at/fileadmin/user_upload/Speisekarten/GAUMENREISE.pdf,1,,2026-10-15
 gia,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
+giada-garden,menu_found,35,pdf,https://sitecore-cd.shangri-la.com/-/media/Shangri-La/beijing_chinaworld/dining/restaurants/GIADA-Garden/GIADA-Garden-A-La-Carte-Menu.pdf,1,,2026-10-20
 gidleigh-park,no_menu_found,0,,https://gidleigh.co.uk/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 giewont,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 gilt,menu_found,53,html,https://www.lottenypalace.com/in-room-dining,1,,2026-10-15
@@ -1276,13 +1285,19 @@ gosho-iwasaki,no_menu_found,4,,https://www.gosho-iwasaki.com/index.html,,chrome:
 gostilna-pri-lojzetu,no_menu_found,0,,https://prilojzetu.si/degustacijski-meni.php,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 gotham-bar-and-grill,menu_found,16,html,https://www.gothambarandgrill.com/journal-late-summer-harvest-tasting,,chrome: store failed: ValueError,2026-10-18
 gotthardt-s,menu_found,35,pdf,https://faehr.haus/wp-content/uploads/2026/10/FH_301_MITTAGS-MENUe_SPEISEKARTE_ab-KW43_161026_Web.pdf,1,,2026-10-20
+gourmet-restaurant-der-butt,no_menu_found,0,,https://www.hohe-duene.de/hotel-ostsee/restaurant/gourmetrestaurant-der-butt.html,,chrome: 0 menu-like links; 15 more tried,2026-10-20
+gourmetrestaurant-1751,menu_found,12,pdf,https://www.weinhaus-uhle.de/sites/default/files/4._speisenkarte_pdf_marcel_kube_weinhaus_uhle_juni_neuer_stil_26.pdf,1,,2026-10-20
 gourmetrestaurant-berlins-krone,no_menu_found,0,,https://www.kronelamm-schwarzwald.de/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 gourmetrestaurant-dichter,no_menu_found,0,,https://www.gourmetrestaurant-dichter.de/speisekarte,,chrome: 2 menu-like links; 12 more tried,2026-10-18
+gourmetrestaurant-fine-dining-rs,no_menu_found,0,,https://www.burg-staufeneck.de/de/de/fine-dining-light,,chrome: 1 menu-like links; 13 more tried,2026-10-20
 gourmetrestaurant-tannenhof,no_menu_found,0,,https://www.hoteltannenhof.net/fileadmin/userdaten/downloads/spa-menue/hotel-tannenhof-spamenue-11-2024-de.pdf,,chrome: 1 menu-like links; 14 more tried,2026-10-18
 gourmetstube-einhorn,no_menu_found,0,,https://www.stafler.com/de/gourmet-hotel-suedtirol/gourmetstube-einhorn/philosophie-gourmet-einhorn.html,,chrome: 0 menu-like links; 15 more tried,2026-10-18
+grace-savour,menu_found,29,pdf,https://hamptonmanor.com/wp-content/uploads/2026/04/Grace-Savour-Evening-Samples.pdf,1,,2026-10-20
 gramercy-tavern,menu_found,42,html,https://www.gramercytavern.com/dining-room-menu/,1,,2026-10-15
 grand-cru,no_menu_found,2,,https://grandcru.ru/wp-content/uploads/menu/Основное%20кухня%2007.10.pdf,,chrome: 2 menu-like links; 11 more tried,2026-10-18
+grand-hotel-du-lion-d-or,no_menu_found,1,,https://www.liondor1774.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 granica,no_menu_found,0,,https://www.granica.fr/menus-carte/,,chrome: 1 menu-like links; 15 more tried,2026-10-18
+granit,no_menu_found,2,,https://www.lamecaniquedesfreresbonano.fr/,,chrome: 0 menu-like links; 6 more tried,2026-10-20
 granite,menu_found,23,html,https://granite.paris/,1,,2026-10-15
 graphite-by-peter-gast,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 gravetye-manor,menu_found,32,pdf,https://www.gravetyemanor.co.uk/media/z5pl10wv/gravetye-dinner-2026.pdf,1,,2026-10-15
@@ -1294,6 +1309,7 @@ griggeler-stuba,no_menu_found,0,,https://www.burgvitalresort.com/de/kulinarik/gr
 gron,menu_found,32,html,https://www.restaurantgron.com/menu,1,,2026-10-15
 grow,menu_maybe,10,pdf,https://growrestaurant.it/wp-content/uploads/2026/10/menu-autun-sito.pdf,1,,2026-10-15
 grundler-s-gourmet-stuberl,menu_maybe,7,pdf,https://www.kulinarikhotel-alpin.at/fileadmin/userdaten/bilder/Gourmet_St%C3%BCberl/gourmet_st%C3%BCberl_Karte_Sommer.pdf,,chrome: store failed: ValueError,2026-10-18
+grunewald-chef-s-table,menu_found,28,pdf,http://gct.lu/wp-content/uploads/2026/10/Menu-15-GCT-EN-WEB.pdf,1,,2026-10-20
 guat-z-essen,menu_maybe,11,html,https://guatzessen.at/gerichte,,chrome: store failed: ValueError,2026-10-18
 gucci-osteria-da-massimo-bottura,menu_found,22,html,https://www.gucciosteria.com/en/florence/giardino/menu/light-lunch-dinner/,1,,2026-10-16
 guido,menu_found,14,pdf,https://www.ristoranteguido.it/wp-content/uploads/2026/07/menu-guido-agosto-2026.pdf,1,,2026-10-18
@@ -1305,6 +1321,7 @@ guth,menu_found,17,html,https://www.restaurantguth.at/en/,,chrome: store failed:
 guy-lassausaie,menu_found,29,html,https://www.guy-lassausaie.com/menus,1,,2026-10-16
 guy-savoy,menu_found,18,html,https://www.guysavoy.com/,1,,2026-10-15
 gymkhana,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
+hachi,menu_found,18,html,https://nihonryori-hachi.com/menu/,1,,2026-10-20
 haebel,menu_maybe,5,pdf,https://www.haebel.hamburg/_files/ugd/24a9a3_3c7058222b7a4b568bdb21fe0110dc83.pdf,,chrome: store failed: ValueError,2026-10-18
 haili,no_menu_found,2,,https://hai-li.tw/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 hainan-chicken-house,robots,0,,,,robots.txt disallows the home page,2026-10-15
@@ -1322,6 +1339,7 @@ hamasaku,menu_maybe,6,html,https://www.hamasaku.kyoto/,1,,2026-10-18
 hambleton-hall,menu_found,48,html,https://www.hambletonhall.com/sample-lunch-for-less-menu/,1,,2026-10-15
 hamburger-america,menu_found,12,html,https://www.hamburgeramerica.com/menus/,1,,2026-10-15
 hammerle-s-restaurant,menu_found,13,html,https://haemmerles.de/menue-landgenuss/,1,,2026-10-15
+han,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-20
 hana-kitcho,no_menu_found,4,,https://kyoto-kitcho.com/column-tokuoka-category/%e6%96%99%e7%90%86%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6,,chrome: 4 menu-like links; 12 more tried,2026-10-18
 hanada,no_menu_found,0,,https://sushihanada.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 hanagaki,no_menu_found,3,,https://www.hanagaki2611.com/menu.html,,chrome: 1 menu-like links; 10 more tried,2026-10-18

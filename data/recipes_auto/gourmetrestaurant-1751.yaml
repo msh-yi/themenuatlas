@@ -1,0 +1,5 @@
+start: https://www.weinhaus-uhle.de/restaurant
+steps:
+- follow:
+    href_matches: 4\._speisenkarte_pdf_marcel_kube_weinhaus_uhle_juni_neuer_stil_26\.pdf
+content: pdf
