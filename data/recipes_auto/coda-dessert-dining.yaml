@@ -1,0 +1,5 @@
+start: https://coda-berlin.com/en/menu/
+steps:
+- follow:
+    href_matches: coda\-dessert\-dining_wine\-menu\.pdf
+content: pdf
