@@ -3507,7 +3507,7 @@ uemura,no_menu_found,1,,http://www.ryouriya-uemura.com,,chrome: 1 menu-like link
 ugly-butterfly,menu_found,43,pdf,https://www.uglybutterfly.co.uk/s/UB-Sample-Restaurant-Menu-2026.pdf,1,,2026-10-16
 ugo-chan,menu_found,26,html,https://ugochan.com/en/menu/,,chrome: store failed: ValueError,2026-10-19
 uliassi,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
-ullrs-gourmetstube,no_menu_found,0,,https://www.ullrhaus.at/de/restaurant-st-anton/,,1 menu-like links,2026-10-20
+ullrs-gourmetstube,menu_found,14,pdf,https://www.ullrhaus.at/files/gourmet_winter_25_26_info_de.pdf,1,chrome: found via a PDF in the page source,2026-10-20
 ultravioletbypaul-pairet,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 umami,menu_found,12,html,https://www.restaurant-umami.com,1,,2026-10-15
 umberto-a-mare,menu_found,26,pdf,https://www.umbertoamare.it/wp-content/uploads/2026/04/menu_atelier_ING.pdf,1,,2026-10-16
@@ -3665,7 +3665,7 @@ yardbird,menu_maybe,8,html,https://yardbirdrestaurant.com/chinese-menu,,chrome: 
 yat-tung-heen,menu_found,40,pdf,https://www.yattungheen.com/s/YTH-Dim-Sum-Menu_Weekdays-ahjx.pdf,1,,2026-10-16
 yauatcha-soho,menu_found,91,html,https://hakkasangroup.com/venues/yauatcha-soho-london/menu/,1,,2026-10-20
 yayo-daporta,no_menu_found,0,,https://yayodaporta.com/en,,chrome: 0 menu-like links; 13 more tried,2026-10-19
-ye-shanghai,no_menu_found,1,,https://www.elite-concepts.com/zh-hk/our-concepts/kowloon/ye-shanghai/,,5 menu-like links,2026-10-20
+ye-shanghai,menu_found,17,html,https://www.elite-concepts.com/hidden-culinary-gem-unveiled-hong-kongs-penthouse-%e6%b4%be%e8%88%8d-opens-to-the-public-chef-de-cuisine-ben-chan-presents-modern-chinese-cuisine/,1,chrome: found via the sitemap,2026-10-20
 yemenat,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 5 more tried,2026-10-18
 yerord-mas-bakery-and-deli,bot_blocked,0,,,,chrome: cloudflare challenge page,2026-10-18
 yi-long-court,bot_blocked,0,,,,cloudflare: https://www.peninsula.com/zh-cn/shanghai/hotel-fine-dining/yi-long-court: HTTP 403,2026-10-18
@@ -3705,7 +3705,7 @@ zasu,menu_found,44,html,https://www.zasunola.com/menus,1,,2026-10-18
 ze-kitchen-galerie,menu_maybe,8,html,https://zekitchengalerie.fr/en/restaurant/ze-kitchen-galerie-en/,,chrome: store failed: ValueError,2026-10-19
 zeezout,menu_found,23,pdf,https://restaurantzeezout.nl/wp-content/uploads/2026/07/MENUKAART-ENGELS-JULI-2026.pdf,1,,2026-10-15
 zeik,menu_found,17,html,https://zeik.de/en/menu-2/,1,,2026-10-15
-zeitraum,no_menu_found,0,,https://www.der-wilde-eder.at/fine-dining-zeitraum/,,0 menu-like links,2026-10-20
+zeitraum,no_menu_found,0,,https://www.der-wilde-eder.at/fine-dining-zeitraum/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 zeitwerk,menu_maybe,5,html,https://robin-pietsch.de/zeitwerk/,1,,2026-10-15
 zenith,menu_maybe,6,html,https://restaurantzenith.nl/menu/,1,,2026-10-15
 zeniya,menu_maybe,6,html,https://store.zeniya.co.jp/,,chrome: store failed: ValueError,2026-10-18
