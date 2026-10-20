@@ -1,0 +1,5 @@
+start: https://www.fragsburg.com/it/arte-culinaria/gourmet-restaurant-prezioso/
+steps:
+- follow:
+    href_matches: Gourmet\-Restaurant\-Prezioso\-it\.pdf
+content: pdf

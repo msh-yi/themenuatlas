@@ -1,0 +1,5 @@
+start: https://www.whatleymanor.com/eat-and-drink/the-dining-room/
+steps:
+- follow:
+    href_matches: the\-dining\-room\-menu\-Alternative\-sample\-9\-courses\-175pp\.pdf
+content: pdf

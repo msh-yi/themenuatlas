@@ -1,0 +1,5 @@
+start: https://www.hirsch-fellbach.de/oettingers-restaurant/
+steps:
+- follow:
+    href_matches: bankettmappe\.pdf
+content: pdf

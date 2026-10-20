@@ -1,0 +1,5 @@
+start: https://www.neumeister.cc/saziani/
+steps:
+- follow:
+    href_matches: 2026\-Herbst\-Beispiel\-Menue\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://wodna-wieza.pl/steampunk-restauracja/
+steps:
+- follow:
+    href_matches: MENU\-STEAMPUNK\-03\.06\.2026\.pdf
+content: pdf

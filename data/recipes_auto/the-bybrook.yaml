@@ -1,0 +1,5 @@
+start: https://www.exclusive.co.uk/bybrook/
+steps:
+- follow:
+    href_matches: sample\-bybrook\-menu\.pdf
+content: pdf

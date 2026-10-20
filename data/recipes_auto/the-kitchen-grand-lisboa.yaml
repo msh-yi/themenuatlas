@@ -1,0 +1,5 @@
+start: https://www.grandlisboa.com/en/restaurants-n-bars/the-kitchen
+steps:
+- follow:
+    href_matches: gl\-the\-kitchen\-dinner\-set\-menu\-260820\.pdf
+content: pdf

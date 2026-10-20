@@ -242,11 +242,11 @@ def test_exclude_flags_quarantines_and_undoes(session, bucket):
     def exclude(session, rejected, reason, apply=False, undo=False):
         return run(session, items_from(rejected, []), apply=apply, undo=undo)
 
-    menu = make_menu(session, bucket)
-    session.get(Restaurant, menu.restaurant_id).website = "https://wrong.example/"
+    menu = make_menu(session, bucket)  # its menu came from r.example, the rejected website
+    session.get(Restaurant, menu.restaurant_id).website = "https://www.r.example/"
     session.commit()
     handoff.pending_from_db(session)
-    rejected = [{"slug": "r", "website": "https://wrong.example/"}]
+    rejected = [{"slug": "r", "website": "https://www.r.example/"}]
 
     dry = exclude(session, rejected, "search_rejected")
     assert dry["menus"] == 1 and dry["bucket_pending"] == 1 and "applied" not in dry
@@ -263,7 +263,7 @@ def test_exclude_flags_quarantines_and_undoes(session, bucket):
     exclude(session, rejected, "search_rejected", apply=True, undo=True)
     session.refresh(menu)
     assert menu.excluded_reason is None
-    assert session.get(Restaurant, menu.restaurant_id).website == "https://wrong.example/"
+    assert session.get(Restaurant, menu.restaurant_id).website == "https://www.r.example/"
     assert len(handoff.storage.list_keys(handoff.PENDING)) == 1
 
 
@@ -282,3 +282,40 @@ def test_exclude_one_shared_document_keeps_website(session, bucket):
     session.refresh(menu)
     assert menu.excluded_reason == "shared_document"
     assert session.get(Restaurant, menu.restaurant_id).website == "https://r.example/"
+
+
+@pytest.mark.db
+def test_exclude_restaurant_listed_twice_moves_its_items_once(session, bucket):
+    from menudb.exclude import exclude, items_from
+
+    menu = make_menu(session, bucket)
+    handoff.pending_from_db(session)
+    row = {"slug": "r", "normalized_hash": menu.normalized_hash, "reason": "shared_document"}
+    counts = exclude(session, items_from([], [row, dict(row)]), apply=True)
+    assert counts["applied"] == 1
+    assert len(handoff.storage.list_keys("quarantine/pending/r/")) == 1
+
+
+@pytest.mark.db
+def test_rejected_website_keeps_menus_from_the_real_website(session, bucket):
+    from menudb.exclude import exclude, items_from
+
+    menu = make_menu(session, bucket)  # from r.example, the restaurant's real website
+    session.get(Restaurant, menu.restaurant_id).website = "https://r.example/"
+    session.commit()
+    handoff.pending_from_db(session)
+    items = items_from([{"slug": "r", "website": "https://wrong.example/list/r"}], [])
+    counts = exclude(session, items, apply=True)
+    session.refresh(menu)
+    assert counts["menus"] == 0 and menu.excluded_reason is None
+    assert session.get(Restaurant, menu.restaurant_id).website == "https://r.example/"
+
+    # flagged and quarantined by the old rule (every menu of the restaurant): restored
+    menu.excluded_reason = "search_rejected"
+    session.commit()
+    for k in handoff.storage.list_keys(handoff.PENDING):
+        handoff.storage.move(k, "quarantine/" + k)
+    counts = exclude(session, items, apply=True)
+    session.refresh(menu)
+    assert counts["menus_restored"] == 1 and menu.excluded_reason is None
+    assert len(handoff.storage.list_keys(handoff.PENDING)) == 1

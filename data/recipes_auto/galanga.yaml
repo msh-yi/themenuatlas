@@ -1,0 +1,5 @@
+start: https://www.monsieurgeorge.com/Le-Galanga-Restaurant-Bar-Monsieur-George-Champs-Elysees-Paris
+steps:
+- follow:
+    href_matches: Galanga_Menu_Brunch\.pdf
+content: pdf

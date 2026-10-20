@@ -1,3 +1,5 @@
-start: https://hapi.mmcreation.com/media/54/Brochure_2023_-_Le_Phebus_amp_Spa.pdf
+start: https://www.lephebus.com/fr/page/restaurant-gordes-xavier-mathieu.7465.html
+steps:
+- follow:
+    href_matches: FR%20\-%20Menu%20TXM%20\-%20ETE%20%20%202026%20AVEC%20PRIX%20SEPTEMBRE\.pdf
 content: pdf
-render: js

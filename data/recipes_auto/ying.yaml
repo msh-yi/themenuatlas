@@ -1,0 +1,5 @@
+start: https://www.altiramacau.com/en/dining/Ying
+steps:
+- follow:
+    href_matches: Ying\-ALCMenu_Q22026_wide\.pdf
+content: pdf

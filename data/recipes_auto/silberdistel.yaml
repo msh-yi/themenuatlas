@@ -1,0 +1,5 @@
+start: https://www.sonnenalp.de/speisekarte-gourmetrestaurant-silberdistel-menue
+steps:
+- follow:
+    href_matches: Restaurant\-Silberdistel\-Speisekarte\-Menue\.pdf
+content: pdf

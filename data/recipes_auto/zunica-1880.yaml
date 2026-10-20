@@ -1,0 +1,5 @@
+start: https://villacorallo.it/site/ristorante-zunica-1880-villa-corallo/
+steps:
+- follow:
+    href_matches: MENU\.pdf
+content: pdf
