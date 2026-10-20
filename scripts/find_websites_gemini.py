@@ -55,26 +55,28 @@ PARKED = re.compile(r"(?i)(domain (name )?is for sale|buy this domain|this domai
                     r"parked free|domain parking|hugedomains|sedo\.com|dan\.com|afternic|"
                     r"forsale\.godaddy|godaddy\.com/domainsearch|recursive dns)")
 _NATIVE = re.compile(r"[฀-๿぀-ヿ㐀-鿿가-힯]+")
-_JSON = re.compile(r"\{.*\}", re.S)
+_JSON = re.compile(r"\{[^{}]*\}")
 
 
 def prompt(r: dict) -> str:
+    # A prose answer ending in one JSON line: asked for JSON only, the model answers from memory
+    # without searching (no groundingMetadata), and its "closed" guesses are often wrong.
     lang = LANGUAGE.get(r["country"], "")
     local = f" Search in {lang} as well as English, using the restaurant's name in its own script." if lang else ""
     return (
-        f"Find the official website of the restaurant \"{r['name']}\" in {r['city']}, {r['country']} "
-        f"(a Michelin-starred or similarly listed restaurant).{local}\n"
+        f"What is the official website of the restaurant \"{r['name']}\" in {r['city']}, {r['country']} "
+        f"(a Michelin-starred or similarly listed restaurant)? Is it still open?{local}\n"
         "Accept only the restaurant's own website, or the page for this restaurant on the website of "
         "its own hotel, resort or restaurant group. Never give a directory, guide, review, booking, "
-        "social-media, news, blog, tourism or Wikipedia page. If it has closed for good, say so.\n"
-        'Answer with only this JSON: {"website": "<url or empty>", "closed": true|false, '
+        "social-media, news, blog, tourism or Wikipedia page. Say it has closed only if a source says so.\n"
+        'End your answer with one line of JSON: {"website": "<url or empty>", "closed": true|false, '
         '"native_name": "<the name in its own script, or empty>"}'
     )
 
 
 def ask(client: httpx.Client, key: str, model: str, text: str) -> dict:
-    """One grounded query. Returns {website, closed, native_name, sources}; sources are the
-    grounding pages' titles (domains), kept for review."""
+    """One grounded query. Returns {website, closed, native_name, grounded, sources}: grounded says
+    whether the model searched at all; sources are the grounding pages' titles (domains)."""
     res = client.post(API.format(model=model), headers={"x-goog-api-key": key},
                       json={"contents": [{"parts": [{"text": text}]}], "tools": [{"google_search": {}}]})
     if res.status_code == 429:
@@ -82,14 +84,18 @@ def ask(client: httpx.Client, key: str, model: str, text: str) -> dict:
     res.raise_for_status()
     cand = (res.json().get("candidates") or [{}])[0]
     answer = "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []))
-    m = _JSON.search(answer)
-    try:
-        got = json.loads(m.group(0)) if m else {}
-    except json.JSONDecodeError:
-        got = {}
-    chunks = cand.get("groundingMetadata", {}).get("groundingChunks", [])
+    got = {}
+    for m in reversed(_JSON.findall(answer)):  # the last JSON object in the answer
+        try:
+            got = json.loads(m)
+            break
+        except json.JSONDecodeError:
+            continue
+    meta = cand.get("groundingMetadata", {})
+    chunks = meta.get("groundingChunks", [])
     return {"website": str(got.get("website") or "").strip(), "closed": bool(got.get("closed")),
             "native_name": str(got.get("native_name") or "").strip(),
+            "grounded": bool(meta.get("webSearchQueries") or chunks),
             "sources": [c.get("web", {}).get("title", "") for c in chunks][:10]}
 
 
@@ -153,8 +159,10 @@ def run(rows: list[dict], ask_one, fetcher, cache: Path, review: Path = REVIEW,
             got = ask_one(prompt(r))
             path.write_text(json.dumps(got, ensure_ascii=False))
             sleep(interval)
-        if got.get("closed"):
+        if got.get("closed") and got.get("grounded", True):
             verdict, final = "closed", ""
+        elif not got.get("website") and not got.get("grounded", True):
+            verdict, final = "not_searched", ""
         else:
             verdict, final = check(r, got.get("website", ""), got.get("native_name", ""), fetcher, rejected)
         counts[verdict] = counts.get(verdict, 0) + 1
@@ -177,7 +185,7 @@ def main():
     ap.add_argument("--from", dest="start", type=int, default=0, help="first row of the no-website list")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--slug", action="append")
-    ap.add_argument("--model", default="gemini-2.5-flash")
+    ap.add_argument("--model", default="gemini-3.8-flash")
     ap.add_argument("--interval", type=float, default=6.0, help="seconds between queries")
     args = ap.parse_args()
     key = os.environ.get("GEMINI_API_KEY")
