@@ -1,0 +1,5 @@
+start: https://wolfgangpuck.com/restaurants/cut-beverly-hills/
+steps:
+- follow:
+    href_matches: CUT\-BH_PDRmenu\-2\.20\.2025\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.hotel-belveder.de/bar-restaurants.html
+steps:
+- follow:
+    href_matches: '%20DIVAMenue_071026\.pdf'
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.palacetesevero.com/eon-restaurant
+steps:
+- follow:
+    href_matches: 69c18222c92a2aeb953bb022_42763fe9d0d185a67cefc492bd2d161a_MenuEO_PT\.pdf
+content: pdf
