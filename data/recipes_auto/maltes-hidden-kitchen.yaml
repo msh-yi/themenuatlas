@@ -1,0 +1,5 @@
+start: https://exquisite-concepts.com/fine-dining
+steps:
+- follow:
+    href_matches: Menue\.pdf
+content: pdf

@@ -2447,11 +2447,14 @@ makris-athens,no_menu_found,0,,https://makrisathens.com/makris-athens-da-terra-4
 malagon-mercado-y-taperia,no_menu_found,3,,https://www.malagonchs.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 malak,menu_maybe,11,html,https://restaurantemalak.com/sierra-de-segura,1,,2026-10-15
 malathounis,menu_maybe,6,html,https://www.malathounis.de/speisekarte/,1,,2026-10-15
+malena,menu_found,23,html,https://malenagastronomia.com/fr/la-carte-et-des-menus/,1,,2026-10-20
 malga-panna,menu_found,32,html,https://www.malgapanna.it/en/a-la-carte-menu,1,,2026-10-15
 mallory-gabsi,menu_found,17,html,https://mallory-gabsi.com/en/menus/,1,,2026-10-16
 maltacina,no_menu_found,1,,https://www.maltacina.com/,,chrome: 1 menu-like links; 15 more tried,2026-10-19
+maltes-hidden-kitchen,menu_found,25,pdf,https://exquisite-concepts.com/downloads/Menue.pdf,1,,2026-10-20
 mamani,menu_found,46,pdf,https://cdn.sanity.io/files/2gup0440/production/65a17462cff4c018dc3364096d79cc09661c244b.pdf,1,,2026-10-16
 man-ho,no_menu_found,0,,https://www.marriott.com.cn/hotels/hkgdt-jw-marriott-hotel-hong-kong/dining/man-ho-chinese-restaurant/,,chrome: 0 menu-like links; 15 more tried,2026-10-19
+man-wah,no_menu_found,4,,https://www.mandarinoriental.com/en/hong-kong/victoria-harbour/dine,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 mana,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 7 more tried,2026-10-19
 manao,bot_blocked,0,,,,cloudflare: https://manao.ae/: HTTP 403,2026-10-16
 mandibule,no_menu_found,1,,https://www.mandibulerestaurant.com/menus-carte/,,chrome: 2 menu-like links; 15 more tried,2026-10-19
@@ -2490,6 +2493,7 @@ marsan,menu_found,25,pdf,https://hapi.mmcreation.com/hapidam/fc1c35a3-63bd-4a8f-
 martin-berasategui,menu_found,48,html,https://www.martinberasategui.com/en/menus,1,,2026-10-15
 martin-wishart,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
 maruja-limon,no_menu_found,1,,https://www.marujalimon.es/,,chrome: 1 menu-like links; 11 more tried,2026-10-19
+maruzushi,no_menu_found,2,,https://marusushi.jp/,,chrome: 0 menu-like links; 8 more tried,2026-10-20
 masa,menu_found,15,pdf,https://masa-frankfurt.de/wp-content/uploads/2026/10/Menu_10.2026.pdf,1,,2026-10-16
 masa-manhattan-columbus-c,menu_maybe,6,html,https://www.masanyc.com/chef-masa,,chrome: store failed: ValueError,2026-10-18
 masaki,no_menu_found,3,,http://masaki-maruyama.com/%e3%81%8a%e5%93%81%e6%9b%b8%e3%81%8d/,,chrome: 1 menu-like links; 9 more tried,2026-10-19
@@ -2500,6 +2504,8 @@ masque,menu_found,16,pdf,https://www.masquerestaurant.com/s/Masque-mix-food-menu
 massana,menu_maybe,5,pdf,https://www.restaurantmassana.com/wp-content/uploads/2026/05/CAT_Menu_Massana.pdf,1,,2026-10-15
 massimo-camia,no_menu_found,0,,https://www.massimocamia.it/,,chrome: 0 menu-like links; 5 more tried,2026-10-19
 masters,menu_maybe,10,pdf,https://www.restaurant-masters.de/wp-content/uploads/sites/6/2026/04/Menuekarte_Floraison.pdf,1,,2026-10-18
+masuda,no_menu_found,3,,https://kb6m400.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
+mater1apr1ma,no_menu_found,3,,https://materiaprimapontinia.it/menu/,,chrome: 2 menu-like links; 11 more tried,2026-10-20
 materia,menu_found,31,html,https://www.ristorantemateria.it/en/the-menu/,1,,2026-10-16
 matsuki,no_menu_found,1,,https://kappou-matsuki.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 matsuya,robots,0,,,,robots.txt disallows the home page,2026-10-15
@@ -2516,6 +2522,7 @@ maze,menu_maybe,9,html,https://www.gordonramsayrestaurants.com/bread-street-kitc
 maze-restaurant,no_menu_found,3,,https://www.mazehnl.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 meadowsweet,menu_found,29,html,https://www.meadowsweetholt.com/restaurant,,chrome: store failed: ValueError,2026-10-19
 meadowsweet-brooklyn-williamsbur,menu_found,52,html,http://www.meadowsweetnyc.com/menus,1,,2026-10-15
+mec-restaurant,menu_found,15,html,https://www.mecrestaurant.it/menu-it/,1,,2026-10-20
 mee,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
 meierei-dirk-luther,menu_found,26,pdf,https://www.alter-meierhof.de/app/uploads/2026/02/am_bodegakarte_A4_website.pdf,1,,2026-10-20
 meisenheimer-hof,no_menu_found,0,,https://www.meisenheimer-hof.de/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
@@ -2541,6 +2548,7 @@ mews,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript;
 mezcaleria-alma,menu_found,39,pdf,https://www.mezcaleriaalma.com/s/MEZCALERIA-MENUS-WEB-VERSION-july-2026-nwfb.pdf,1,,2026-10-16
 mezra-yalkavak,no_menu_found,0,,https://mezrayalikavak.com/,,chrome: 0 menu-like links; 6 more tried,2026-10-19
 mezzaluna,menu_found,25,html,https://lebua.com/restaurants/mezzaluna/mezzaluna-chefs-tasting-menu-autumn/,1,,2026-10-20
+mi-xun-teahouse,menu_maybe,9,pdf,https://edge.sitecorecloud.io/swirehotels1-swirehotels-production-ebf6/media/SwireHotels/TheHouseCollective/TheTempleHouse/Files/pdf/dine/mi-xun-tea-house/MICHELIN-Tasting-Menu-for-One_2026-Spring.pdf,1,chrome: found via a PDF in the page source,2026-10-20
 michael-cainesat-the-stafford,no_menu_found,0,,https://www.michaelcaine.com/,,chrome: 0 menu-like links; 10 more tried,2026-10-19
 michael-mina,no_menu_found,1,,https://theminagroup.com/restaurants/michael-mina/,,chrome: 0 menu-like links; 10 more tried,2026-10-19
 michaels-leitenberg,menu_found,15,pdf,https://cdn.website-editor.net/s/e54942f9e33e41a8a722cd079c3166db/files/uploaded/Menu-+September+2026.pdf?Expires=1794475036&Signature=NquPNXRC3Nzc3K2nvagB3smtiGcPsjBEO08sWr~gHiQE9Uqx1hmOPY9kVnTsVTTuZwIZG1fs9Nd1VgPEmQEEtowVFPDFbIkCzfA1F7fjlpNo8ePX26x5oNkAOb9QDrO82MD6LLJ2morQzplR7tt-VG2tL9bvX7BtKTnKRqeHLmPiKElX3iIjXbb4119ZgR8RXMWZEJK4BGIbtemeLLfTbC-5LJ1tHZJKIdK4GDwBIfDQHfUH~KUqngWJpttL4TqZLItaRTStNMG4BfVKLE-Czko~uDtPIo7zwHYCvnMnNEUeedm15lEZsvj5khcO2YFnZOyVGUJhS94PHz~sNAgQSg__&Key-Pair-Id=K2NXBXLF010TJW,1,,2026-10-16
