@@ -81,7 +81,7 @@ def ask(client: httpx.Client, key: str, model: str, text: str, sleep=time.sleep)
         try:
             res = client.post(API.format(model=model), headers={"x-goog-api-key": key},
                               json={"contents": [{"parts": [{"text": text}]}], "tools": [{"google_search": {}}]})
-        except httpx.TimeoutException:
+        except httpx.TransportError:  # timeouts, dropped connections
             if attempt == 2:
                 raise
             continue
