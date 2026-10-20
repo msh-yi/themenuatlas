@@ -88,7 +88,7 @@ def ask(client: httpx.Client, key: str, model: str, text: str, sleep=time.sleep)
         if res.status_code < 500 or attempt == 2:
             break
         sleep(10)
-    if res.status_code == 429:
+    if res.status_code in (402, 429):  # quota or prepaid credits used up
         raise RuntimeError("quota")
     res.raise_for_status()
     cand = (res.json().get("candidates") or [{}])[0]
