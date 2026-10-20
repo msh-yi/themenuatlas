@@ -1,0 +1,5 @@
+start: https://www.ketschauer-hof.com/kulinarik/restaurant-l-a-jordan/restaurant-l-a-jordan-speisekarte-weinkarte/
+steps:
+- follow:
+    href_matches: L\.A\.Jordan_Speisekarte_englisch\.pdf
+content: pdf

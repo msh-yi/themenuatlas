@@ -1,0 +1,5 @@
+start: https://www.langhamhotels.com/en/the-langham/hong-kong/dine/the-food-gallery/
+steps:
+- follow:
+    href_matches: 240705_Jul\-Aug_Dinner%20Buffet%20Menu\.pdf
+content: pdf

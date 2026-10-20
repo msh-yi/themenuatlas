@@ -1,0 +1,5 @@
+start: https://www.das-achental.com/de/es-senz-edip-sigl.html
+steps:
+- follow:
+    href_matches: speisekarte\-essenz\.pdf
+content: pdf
