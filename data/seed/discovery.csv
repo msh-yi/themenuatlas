@@ -1678,7 +1678,7 @@ kyoto-kiccho-arashiyama,menu_maybe,9,html,https://kyoto-kitcho.com/en/arashiyama
 l-a-jordan,menu_found,33,pdf,https://www.ketschauer-hof.com/wp-content/uploads/2026/08/L.A.Jordan_Speisekarte_englisch.pdf,1,,2026-10-20
 l-abeille,menu_found,27,pdf,https://www.labeille.nyc/s/Menu-Signature-as-of-100926.pdf,1,,2026-10-15
 l-abysse-monte-carlo,menu_maybe,9,html,https://www.montecarlosbm.com/en/restaurant-monaco/le-train-bleu,,chrome: store failed: ValueError,2026-10-18
-l-abysseau-pavillon-ledoyen,no_menu_found,3,,https://www.yannick-alleno.com/groupe-yannick-alleno/pavillon-ledoyen,,1 menu-like links,2026-10-20
+l-abysseau-pavillon-ledoyen,menu_maybe,5,html,https://www.yannick-alleno.com/en/groupe-yannick-alleno/pavillon-ledoyen,1,chrome: found via the site's navigation,2026-10-20
 l-air-du-temps,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 12 more tried,2026-10-18
 l-alianca-d-angles,menu_found,52,pdf,https://www.alianca1919.com/wp-content/uploads/2026/09/MENUS-ALIANCA-ENGL-2026.pdf,1,,2026-10-15
 l-almandin,menu_maybe,7,html,https://www.almandin.fr/2026/03/20/menu-de-paques-2026/,1,,2026-10-18
@@ -1722,7 +1722,7 @@ l-embrun,menu_maybe,10,pdf,https://www.lembrunrestaurant.fr/images/images-embrun
 l-emulsion,menu_maybe,11,html,https://www.lemulsion-restaurant.com/fr/carte-et-menus-lofieu/,1,,2026-10-15
 l-enfant-qui-reve,menu_maybe,8,html,https://lenfant-qui-reve.com/menus/index.html,1,,2026-10-16
 l-envie,menu_found,14,pdf,https://lenvie-restaurant.be/wp-content/uploads/2026/06/Carte-vin-Impression-JUin-2026.pdf,1,,2026-10-18
-l-envol,no_menu_found,0,,https://www.olivierelzer.com/lenvol,,0 menu-like links,2026-10-20
+l-envol,no_menu_found,0,,https://www.olivierelzer.com/lenvol,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 l-escaleta,no_menu_found,1,,https://www.lescaleta.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 l-escarbille,menu_found,21,pdf,http://www.lescarbille.fr/wp-content/uploads/2017/01/MENU-site-24-SEPT-26.pdf,1,,2026-10-15
 l-esquisse,menu_maybe,5,html,https://esquisse-annecy.fr/fr/carte-menus.html,1,,2026-10-15
