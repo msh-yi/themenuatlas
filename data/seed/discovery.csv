@@ -1595,15 +1595,20 @@ jan,menu_maybe,9,html,https://janonline.com/restaurantjan/,1,,2026-10-15
 jan-munich-maxvorstadt,no_menu_found,0,,https://jan-hartwig.com/en/menu/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 jano-bistro,no_menu_found,2,,https://www.janobistro.co.nz/,,chrome: 1 menu-like links; 6 more tried,2026-10-18
 jante,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 6 more tried,2026-10-18
+jardin-des-sens,menu_found,45,pdf,https://www.hotel-richerdebelleval.com/wp-content/uploads/2025/08/jds-carte-menu.pdf,1,,2026-10-20
 jatak,menu_found,14,html,https://www.jatakcph.com/solar-menu,1,,2026-10-15
 jay-fai,no_menu_found,2,,https://raanjayfai.org/menu/,,chrome: 1 menu-like links; 7 more tried,2026-10-18
 jean,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
+jean-claude-leclerc,menu_found,25,html,https://restaurant-jcl.com/carte/,1,,2026-10-20
 jean-georges,no_menu_found,0,,https://www.jean-georges.com/press/food-revolution,,chrome: 12 menu-like links; 12 more tried,2026-10-18
 jean-georges-at-the-shinmonzen,menu_found,39,pdf,https://theshinmonzen.com/cms/img/tmp/1791004884.pdf,1,,2026-10-16
+jean-georges-huangpu,no_menu_found,1,,https://www.jean-georges.com/restaurants/china/shanghai/jean-georges,,chrome: 12 menu-like links; 12 more tried,2026-10-20
 jean-luc-tartarin,robots,0,,,,robots.txt disallows the home page,2026-10-16
+jean-marc-perochon,menu_found,25,html,https://www.lesbrisants.com/en/les-menus,1,,2026-10-20
 jean-sulpice,menu_maybe,5,html,https://www.perebise.com/restaurant-jean-sulpice/carte-et-menus-gastronomiques/,1,,2026-10-20
 jeju-noodle-bar,no_menu_found,1,,https://jejunoodlebar.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 jellyfish,menu_maybe,9,html,https://jellyfish-restaurant.de/fine-dining,1,,2026-10-15
+jer,no_menu_found,0,,https://www.jer.be/menu/,,chrome: 1 menu-like links; 8 more tried,2026-10-20
 jerome-feck,menu_found,19,html,https://www.hotel-dangleterre.fr/fr/carte-bistrot-les-temps-changent/,1,,2026-10-15
 jerome-nutile,menu_found,21,pdf,https://www.jerome-nutile.com/media/original/6274edb8c5f1c/menu-jour-bistrau.pdf,1,,2026-10-15
 jeune-et-jolie,menu_maybe,6,html,https://www.jeune-jolie.com/sustainability-1,,chrome: store failed: ValueError,2026-10-18
@@ -1618,6 +1623,7 @@ jl-studio,no_menu_found,0,,,,chrome: home page has almost no text without JavaSc
 joann,menu_found,12,pdf,https://restaurantjoann.nl/wp-content/uploads/2026/02/Culinary-extras.pdf,,chrome: store failed: ValueError,2026-10-18
 joel-robuchon,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 joelia,menu_maybe,11,html,https://www.joelia.eu/menu/,1,,2026-10-15
+johannesstube,menu_found,16,pdf,https://www.johannesstube.com/documents/menu_en.pdf,1,chrome: ,2026-10-20
 johanns,menu_found,15,pdf,https://cdn.prod.website-files.com/6a6712c52c7e6dc2eac4a76f/6ac633b4abebbd43c46fc70c_JOhanns_Mittag_Oktober_final.pdf,,chrome: store failed: ValueError,2026-10-18
 john-chef-s-hall,no_menu_found,0,,https://jch.johnrestaurant.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 john-s-house,bot_blocked,0,,,,chrome: cloudflare challenge page,2026-10-18
@@ -1627,7 +1633,9 @@ jola,menu_found,32,pdf,https://www.jola.wien/assets/files/menu.pdf,1,,2026-10-15
 joo-ok,no_menu_found,3,,https://www.joo-ok.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 jordnr,menu_found,24,html,https://restaurantjordnaer.dk/evening-menu/,1,,2026-10-15
 joro,menu_found,47,pdf,https://jororestaurant.co.uk/wp-content/uploads/2026/09/SAMPLE-MENU-TWO-SEPT-26.pdf,1,,2026-10-15
+jose-carlos-garcia,menu_found,40,html,https://www.restaurantejcg.com/en/menus,1,,2026-10-20
 joseph-s-fine-dining,menu_maybe,7,html,https://www.josephs-fine-dining.de/,1,,2026-10-18
+ju,no_menu_found,2,,https://ju-maisondecuisine.com/fr/carte-menus.html,,chrome: 1 menu-like links; 15 more tried,2026-10-20
 ju-ni,no_menu_found,2,,https://www.junisf.com/beverages,,chrome: 2 menu-like links; 9 more tried,2026-10-18
 jua,menu_maybe,5,html,https://juanyc.com/menu,1,,2026-10-15
 jueun,menu_maybe,5,html,https://www.restaurantjueun.com/,1,,2026-10-16
@@ -1638,6 +1646,7 @@ june,no_menu_found,1,,https://www.june.restaurant/,,chrome: 1 menu-like links; 1
 jungsik,menu_maybe,11,html,https://www.jungsik.kr/eat/,,chrome: store failed: ValueError,2026-10-18
 jungsik-new-york,menu_found,23,html,https://www.jungsik.com/menu/,,chrome: store failed: ValueError,2026-10-18
 junior,no_menu_found,3,,https://www.juniorsbarandgrill.com/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+jushu,menu_maybe,9,html,https://nishiazabu-jushu.com/en/menu,1,,2026-10-20
 jy-s,robots,0,,,,robots.txt disallows the home page,2026-10-20
 k2,menu_maybe,10,html,https://www.restaurantk2.no/producers,,chrome: store failed: ValueError,2026-10-18
 kaatje-bij-de-sluis,no_menu_found,1,,https://www.kaatje.nl/,,chrome: 0 menu-like links; 6 more tried,2026-10-18
@@ -1650,12 +1659,14 @@ kadence,no_menu_found,3,,https://kadenceorlando.com/,,chrome: 0 menu-like links;
 kadowaki,no_menu_found,1,,https://azabukadowaki.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 kagurazaka-ishikawa,no_menu_found,1,,https://kagurazaka-ishikawa.co.jp/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 kai-mayfair,menu_found,77,pdf,https://www.kaimayfair.co.uk/s/Kai-Lunch-a-la-carte-menu.pdf,1,,2026-10-15
+kai3,menu_found,12,pdf,https://www.budersand.de/files/uploads/BUD_Eventkalender_26_27_260531_WEB_1_.pdf,1,chrome: found via a PDF in the page source,2026-10-20
 kaido-sushi-bar,no_menu_found,0,,https://kaidosushi.es/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 kaiseki-komuro,no_menu_found,2,,https://kaiseki-komuro.jp/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 kaiseki-shoichiro,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 9 more tried,2026-10-18
 kaiseki-tsujitome,menu_maybe,8,html,http://tsujitome.com/delivery.asp,1,,2026-10-18
 kaiseki-yu-zen-hashimoto,no_menu_found,2,,https://www.kaiseki.ca/welcome,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 kaisekiden-by-saotome,robots,0,,,,robots.txt disallows the home page,2026-10-16
+kaishoku-shimizu,no_menu_found,0,,https://kcrj100.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 kajitsu,menu_maybe,5,html,https://www.kajitsunyc.com/nosh-unpalatable/,1,,2026-10-15
 kaleja,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 7 more tried,2026-10-18
 kali,menu_found,40,html,https://www.kalirestaurant.com/food-menu,1,,2026-10-16
@@ -1673,6 +1684,7 @@ kang-minchul-restaurant,no_menu_found,0,,https://www.kangminchul.com/Menu,,chrom
 kanoe,no_menu_found,2,,https://kanoerestaurant.com/omakase/,,chrome: 1 menu-like links; 9 more tried,2026-10-18
 kanoyama,menu_found,31,html,https://kanoyama.com/menu,1,,2026-10-15
 kappo,no_menu_found,1,,https://kappo.pt/,,chrome: 2 menu-like links; 11 more tried,2026-10-18
+kappo-hassun,no_menu_found,1,,https://kcc1800.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 kappo-kappo,no_menu_found,0,,https://www.kappokappo.com/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 kappo-rin,no_menu_found,2,,https://www.kappo-rin.com/menu/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 kappo-sato,menu_maybe,5,html,https://kapposato.com/menu.html,1,,2026-10-15
@@ -1699,6 +1711,8 @@ keens-steakhouse,menu_found,26,html,https://www.keens.com/lunch,1,,2026-10-15
 kei,no_menu_found,0,,https://restaurant-kei.fr/pages/degustations-et-menus,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 keidenzeller-hof,menu_maybe,7,html,https://www.keidenzeller-hof.de/unser-menue/,1,,2026-10-16
 kelderman,no_menu_found,2,,https://visrestaurant-kelderman.be/?page_id=41,,chrome: 2 menu-like links; 9 more tried,2026-10-18
+kentan-horibe,menu_found,12,html,https://www.kyoto-horibe.com/osechi.html,1,chrome: found via the site's navigation,2026-10-20
+kenya,no_menu_found,0,,https://www.kenya-sakai.com/home,,chrome: 1 menu-like links; 6 more tried,2026-10-20
 kenzo,menu_found,42,html,https://www.kenzonapa.com/menu,1,,2026-10-16
 kerfield-arms,menu_found,29,pdf,https://www.thekerfieldarms.co.uk/s/Sunday-Menu-041026.pdf,1,,2026-10-15
 kern,no_menu_found,1,,https://restaurant-kern.fr/menu/,,chrome: 1 menu-like links; 9 more tried,2026-10-18
@@ -1723,9 +1737,11 @@ kioicho-fukudaya,menu_found,18,html,https://www.kioicho-fukudaya.jp/menu/,1,,202
 kirchenwirt,no_menu_found,0,,https://www.hotelkirchenwirt.at/,,chrome: 0 menu-like links; 13 more tried,2026-10-18
 kiro-sushi,no_menu_found,2,,https://kirosushi.es/,,chrome: 0 menu-like links; 8 more tried,2026-10-18
 kisa,menu_found,22,html,https://www.kisaus.com/copy-of-baek-ban,1,,2026-10-15
+kishin,menu_maybe,6,html,http://reap-japan.com/moto/menu.html,1,chrome: found via the sitemap,2026-10-20
 kissa-tanto,menu_found,41,html,https://www.kissatanto.com/,1,,2026-10-15
 kitahachi,no_menu_found,3,,https://www.kitahati.jp/menu.html,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 kitchen,menu_found,46,html,https://www.kitchencomo.com/our-menus,1,,2026-10-18
+kitchen-bodrum-yalkavak,no_menu_found,0,,https://www.editionhotels.com/bodrum/restaurants-and-bars,,chrome: 1 menu-like links; 12 more tried,2026-10-20
 kitchen-table,menu_maybe,5,html,https://kitchentablelondon.co.uk/,1,,2026-10-15
 kitchen-w8,menu_found,21,pdf,https://www.kitchenw8.com/wp-content/uploads/Set-Menu-14.10.26-.pdf,1,,2026-10-15
 kiyama,no_menu_found,1,,https://kiyama-kyoto.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
@@ -1739,12 +1755,18 @@ kobikicho-tomoki,menu_maybe,11,html,https://sushi-tomoki.jp/,1,,2026-10-18
 kochi,menu_found,25,html,https://www.kochinyc.com/menu/,1,,2026-10-18
 kodaiji-jugyuan,menu_maybe,7,html,https://jugyuan.jp/menu/,,chrome: store failed: ValueError,2026-10-18
 kodaiji-wakuden,menu_maybe,5,html,https://www.wakuden.jp/en/ryotei/kodaiji/,1,,2026-10-20
+kodama,no_menu_found,0,,https://www.ryouriyakodama.com/menu,,chrome: 1 menu-like links; 10 more tried,2026-10-20
 koer,menu_maybe,6,pdf,https://www.koer-hamburg.de/date/20261019040043/files/koer-menu-65.pdf,,chrome: store failed: ValueError,2026-10-18
 koga,no_menu_found,1,,https://koga-kyoto.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 kohaku,no_menu_found,1,,https://i1company.jp/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+koikiryori-aji-manso,no_menu_found,0,,https://kbrw000.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 koizumi,no_menu_found,0,,https://www.tempura-koizumi.jp/index.html,,chrome: 1 menu-like links; 6 more tried,2026-10-18
+kojima,no_menu_found,1,,https://kojima-2130.square.site/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 koka,menu_found,23,pdf,https://restaurangkoka.se/wp-content/uploads/Meny.pdf,1,,2026-10-15
+koke,no_menu_found,2,,https://ido-kyoto.com/idocha/,,chrome: 2 menu-like links; 8 more tried,2026-10-20
 kokon-yamahisa,no_menu_found,0,,http://kokon-yamahisa.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
+kokoxta,no_menu_found,0,,https://restaurantekokotxa.com/,,chrome: 0 menu-like links; 10 more tried,2026-10-20
+kokyu,menu_found,12,html,https://www.kokyu-kyoto.com/menu.html,1,,2026-10-20
 kol,menu_maybe,11,pdf,https://kolrestaurant.com/wp-content/uploads/2026/05/Chefs-Table-Menus.pdf,1,,2026-10-15
 koli-cocina-de-origen,menu_found,19,html,https://menu.koli.mx/menu-comidas-memorables-prix-fixe,1,,2026-10-16
 komaf,menu_maybe,8,html,https://restaurantkomaf.be/a-la-carte,1,,2026-10-16
@@ -1776,10 +1798,13 @@ kulmeck-by-tom-wickboldt,menu_maybe,7,pdf,https://www.kulmeck.de/wp-content/uplo
 kuppelrain,no_menu_found,2,,https://www.kuppelrain.com/en/restaurant,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 kurashiki-ichie,menu_maybe,5,html,https://www.kurashiki-ichie.com/,1,,2026-10-16
 kuro,menu_maybe,8,pdf,https://kuroeshiro.com.br/wp-content/uploads/2026/08/CARTA-KURO-ATUALIZADA.pdf,,chrome: store failed: ValueError,2026-10-18
+kushingarando,no_menu_found,1,,https://www.kuushin.com/fcblog/150245.html,,chrome: 1 menu-like links; 9 more tried,2026-10-20
 kutan,no_menu_found,0,,https://nihonryouri-kutan.com/en,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 kuultivo,menu_maybe,11,html,https://www.kuultivo.com/menu,1,,2026-10-15
+kvitnes-gard,no_menu_found,0,,https://www.kvitnes.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 kwonsooksoo,no_menu_found,0,,http://kwonsooksoo.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 kyo-seika,no_menu_found,0,,http://kyoseika.com/,,chrome: 0 menu-like links; 10 more tried,2026-10-18
+kyoboshi,no_menu_found,1,,https://kbun000.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 kyokaiseki-kichisen,menu_maybe,10,html,https://kichisen-kyoto.com/,1,,2026-10-15
 kyotenjin-noguchi,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 kyoto-kiccho-arashiyama,menu_maybe,9,html,https://kyoto-kitcho.com/en/arashiyama-dishes/,1,,2026-10-20

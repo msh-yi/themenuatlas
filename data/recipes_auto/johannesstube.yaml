@@ -1,0 +1,6 @@
+start: https://www.johannesstube.com/
+steps:
+- follow:
+    href_matches: menu_en\.pdf
+content: pdf
+render: js
