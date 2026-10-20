@@ -282,3 +282,15 @@ def test_exclude_one_shared_document_keeps_website(session, bucket):
     session.refresh(menu)
     assert menu.excluded_reason == "shared_document"
     assert session.get(Restaurant, menu.restaurant_id).website == "https://r.example/"
+
+
+@pytest.mark.db
+def test_exclude_restaurant_listed_twice_moves_its_items_once(session, bucket):
+    from menudb.exclude import exclude, items_from
+
+    menu = make_menu(session, bucket)
+    handoff.pending_from_db(session)
+    row = {"slug": "r", "normalized_hash": menu.normalized_hash, "reason": "shared_document"}
+    counts = exclude(session, items_from([], [row, dict(row)]), apply=True)
+    assert counts["applied"] == 1
+    assert len(handoff.storage.list_keys("quarantine/pending/r/")) == 1
