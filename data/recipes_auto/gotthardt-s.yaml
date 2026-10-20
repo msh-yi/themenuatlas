@@ -1,0 +1,5 @@
+start: https://faehr.haus/restaurant-landgang/mittags-menue/
+steps:
+- follow:
+    href_matches: FH_301_MITTAGS\-MENUe_SPEISEKARTE_ab\-KW43_161026_Web\.pdf
+content: pdf

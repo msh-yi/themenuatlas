@@ -1,0 +1,5 @@
+start: https://www.mauroelli.com/cantuccio/
+steps:
+- follow:
+    href_matches: menu\-web\-ottobre\.pdf
+content: pdf

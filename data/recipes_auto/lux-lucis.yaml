@@ -1,0 +1,5 @@
+start: https://www.principefortedeimarmi.com/it/dining-experience/lux-lucis/
+steps:
+- follow:
+    href_matches: menu\-ll\-26\.pdf
+content: pdf

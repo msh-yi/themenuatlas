@@ -1,0 +1,5 @@
+start: https://coboestratos.com/evolucion/
+steps:
+- follow:
+    href_matches: Cobo\-Estratos\-La\-Carta\-EN\.pdf
+content: pdf

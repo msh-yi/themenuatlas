@@ -1,0 +1,5 @@
+start: https://www.lareserve-ramatuelle.com/en/restaurant/gastronomic-restaurant-la-voile/
+steps:
+- follow:
+    href_matches: lrr_restaurant_lavoile_uk_a4_sept26\.pdf
+content: pdf

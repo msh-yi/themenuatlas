@@ -1,0 +1,5 @@
+start: https://www.spaltenna.it/it/ristoranti/il-pievano
+steps:
+- follow:
+    href_matches: menu\-pievano\-15072026\-ita_31\-07\-2026_16\-13\-16\.pdf
+content: pdf

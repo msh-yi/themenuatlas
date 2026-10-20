@@ -1,0 +1,5 @@
+start: https://www.luciafreitas.es/a-tafona
+steps:
+- follow:
+    href_matches: menu\-degustacion\-restaurante\-a\-tafona\-2024\-12\-12\-menu\-degustacion\-restaurante\-a\-tafona\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://theromeocollection.com/it/romeo-napoli/ristoranti-bar/il-ristorante-alain-ducasse/
+steps:
+- follow:
+    href_matches: menu\-autunno\-ducasse\-napoli\-ing\.pdf
+content: pdf

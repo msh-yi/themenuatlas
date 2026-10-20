@@ -1,0 +1,5 @@
+start: https://thegilpin.co.uk/dining/source/
+steps:
+- follow:
+    href_matches: SOURCE\-Menu\.pdf
+content: pdf

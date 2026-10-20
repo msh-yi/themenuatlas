@@ -1,0 +1,5 @@
+start: https://www.severins-sylt.de/restaurants/tipkens-by-nils-henkel/
+steps:
+- follow:
+    href_matches: severin\-s\-resort\-spa\-sylt\-speisekarte\-tipkens\-by\-nils\-henkel\.pdf
+content: pdf

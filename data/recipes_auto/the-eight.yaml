@@ -1,0 +1,5 @@
+start: https://www.grandlisboa.com/en/restaurants-n-bars/the-eight
+steps:
+- follow:
+    href_matches: gl\-dining\-the\-8\-dim\-sum\-menu\-260824\.pdf
+content: pdf

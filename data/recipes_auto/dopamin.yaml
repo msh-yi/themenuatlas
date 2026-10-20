@@ -1,0 +1,5 @@
+start: https://www.villa-keller.de/dopamin-fine-dining
+steps:
+- follow:
+    href_matches: menu\-7\.pdf
+content: pdf

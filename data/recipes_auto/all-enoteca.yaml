@@ -1,0 +1,5 @@
+start: https://www.davidepalluda.it/ristorante-all-enoteca/il-ristorante-all-enoteca/
+steps:
+- follow:
+    href_matches: Menu\-settembre\-2026\.pdf
+content: pdf

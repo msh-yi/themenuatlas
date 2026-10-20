@@ -1,0 +1,5 @@
+start: https://www.cityofdreamsmacau.com/en/dining/alain-ducasse-morpheus
+steps:
+- follow:
+    href_matches: 2026_03_05\-ADAM\-CARTE\-FOOD\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.kieler-kaufmann.de/geniessen/ahlmanns-tisch-reservieren/
+steps:
+- follow:
+    href_matches: Menue\-November\-und\-Dezember\-2026\.pdf
+content: pdf

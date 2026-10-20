@@ -1,0 +1,5 @@
+start: https://www.cityofdreamsmacau.com/en/dining/jade-dragon
+steps:
+- follow:
+    href_matches: JadeDragonALaCarteMenu\-Updateon1Oct%202026\.pdf
+content: pdf

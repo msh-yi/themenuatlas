@@ -1,0 +1,5 @@
+start: https://www.yannick-alleno.com/les-etablissements-du-groupe/monsieur-dior-by-yannick-alleno
+steps:
+- follow:
+    href_matches: pm_11872_1162_1162578\-04dsujdflf\.pdf
+content: pdf
