@@ -2724,7 +2724,7 @@ pied-a-terre,menu_found,30,pdf,https://www.pied-a-terre.co.uk/_files/ugd/e31296_
 pierre,menu_found,15,html,https://restaurant-pierre.com/menu-gastronomique/,1,,2026-10-16
 pierre-gagnaire,menu_found,48,html,https://pierregagnaire.com/pages/culinaire-vitae,,chrome: store failed: ValueError,2026-10-18
 pierre-mandarin-oriental-ho,no_menu_found,0,,https://www.mandarinoriental.com/hongkong/dining/restaurants/pierre/default.aspx,,chrome: 0 menu-like links; 15 more tried,2026-10-18
-pierre-osaka,no_menu_found,3,,https://icosaka.com/wp-content/uploads/2026/09/Pierre-lunch-09072.pdf,,3 menu-like links,2026-10-20
+pierre-osaka,menu_maybe,8,html,https://icosaka.com/en/osaka-food-guide-and-family-travel-itinerary/,1,chrome: found via the sitemap,2026-10-20
 pieters-restaurant,menu_maybe,5,html,https://www.pietersrestaurant.nl/menus,1,,2026-10-15
 pietsch,menu_maybe,8,html,https://robin-pietsch.de/restaurant-pietsch/,1,,2026-10-15
 pilgrim,no_menu_found,2,,https://www.pilgrimparis.com/en/menu,,chrome: 1 menu-like links; 7 more tried,2026-10-19
@@ -2808,7 +2808,7 @@ raku,no_menu_found,0,,https://www.beatricevenezi.com/lander,,chrome: 0 menu-like
 rakushunsai-sato,no_menu_found,0,,https://rakushunsaisato.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 ramon-freixa-atelier,no_menu_found,1,,https://ramonfreixaatelier.com/en,,chrome: 1 menu-like links; 8 more tried,2026-10-18
 randazzo-s-clam-bar,menu_found,21,html,https://www.randazzosclambarnyc.com/menu,1,,2026-10-15
-rar-fine-dining,no_menu_found,0,,https://www.hochkoenigin.com/de/kulinarik/rar-fine-dining-restaurant/,,0 menu-like links,2026-10-20
+rar-fine-dining,menu_found,25,html,https://www.hochkoenigin.com/en/hotel-resort/blog/rar-fine-dining-in-maria-alm-10-seats-one-michelin-star-and-plenty-of-personality-wp1501-46.html,1,chrome: found via the sitemap,2026-10-20
 raro-im-muhlenhof,no_menu_found,4,,https://www.raro-restaurant.de/menue,,chrome: 4 menu-like links; 12 more tried,2026-10-19
 rasa,menu_maybe,5,html,https://www.rasaindian.com/menus/,1,,2026-10-15
 rata,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
@@ -3025,7 +3025,7 @@ selby-s-restaurant,menu_found,48,pdf,https://www.selbysrestaurant.com/s/Selbys_D
 selfie,no_menu_found,1,,https://wrf.su/Selfie_mainmenu_ru_bar.pdf,,chrome: 1 menu-like links; 15 more tried,2026-10-19
 seline,menu_found,34,pdf,https://www.selinerestaurant.com/s/SAMPLE-SUMMER-MENU.pdf,1,,2026-10-16
 semma,menu_found,36,html,https://www.semma.nyc/,1,,2026-10-16
-sen,no_menu_found,2,,https://kyoto-sen.com/en/sen/,,1 menu-like links,2026-10-20
+sen,no_menu_found,2,,https://kyoto-sen.com/en/sen/,,chrome: 1 menu-like links; 9 more tried,2026-10-20
 sen-omakase,menu_found,21,pdf,https://senomakase.com/wp-content/uploads/2026/08/Menu-Verano-2026.pdf,1,,2026-10-16
 senns-restaurant,menu_found,20,html,https://www.senns.restaurant/de,1,,2026-10-15
 sens,menu_maybe,6,html,https://www.senstw.com/en/menu,1,,2026-10-16
@@ -3081,7 +3081,7 @@ silks-house,menu_found,73,pdf,https://docs.regenttaiwan.com/link/IHG_Menu/SilksH
 silvers-omakase,no_menu_found,1,,https://www.silversomakase.com/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
 silvio-nickol-gourmet-restaurant,menu_maybe,9,pdf,https://www.palais-coburg.com/fileadmin/Palais_Coburg/_pdfs/DE/SNGR/Menuekarte_DE_13.10.pdf,1,,2026-10-20
 simpar,no_menu_found,0,,https://www.restaurantesimpar.com/menu/menu-de-junio-2026.pdf,,chrome: 1 menu-like links; 7 more tried,2026-10-19
-simposio,no_menu_found,1,,https://rogerjulian.es/simposio/,,1 menu-like links,2026-10-20
+simposio,no_menu_found,1,,https://rogerjulian.es/simposio/,,chrome: 1 menu-like links; 10 more tried,2026-10-20
 simpsons,menu_found,48,html,https://www.simpsonsrestaurant.co.uk/menus/lunch,1,,2026-10-15
 sinae,no_menu_found,1,,https://sinae.jp/,,chrome: 1 menu-like links; 8 more tried,2026-10-19
 sine-by-di-pinto,no_menu_found,0,,https://sinerestaurant.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
@@ -3145,7 +3145,7 @@ spago,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开。 
 spandershoeve,no_menu_found,2,,https://www.mlinhaarlem.nl/wijnkaart,,chrome: 1 menu-like links; 14 more tried,2026-10-19
 sparkling-bistro,no_menu_found,0,,https://www.restaurantsparklingbistro.de/,,chrome: 0 menu-like links; 6 more tried,2026-10-19
 spectrum-formerly-librije-s-zusje,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开。 版本: 4.1.1.4; 4 more tried,2026-10-18
-speilsalen,no_menu_found,2,,https://britannia.no/en/dine-with-us/speilsalen,,2 menu-like links,2026-10-20
+speilsalen,no_menu_found,2,,https://britannia.no/en/dine-with-us/speilsalen,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 speiseberg,menu_maybe,9,html,https://bergschenke-halle.com/speiseberg/,1,,2026-10-15
 speisemeisterei,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开。 版本: 4.1.1.4; 4 more tried,2026-10-18
 spetters,menu_maybe,8,html,https://www.restaurantspetters.nl/menu,1,,2026-10-15
@@ -3382,7 +3382,7 @@ the-jane,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开�
 the-kitchen,menu_found,23,html,https://thekitchenrestaurant.com/this-weeks-menu/,1,,2026-10-18
 the-kitchen-grand-lisboa,menu_found,20,pdf,https://img.grandlisboa.com/files/gl-the-kitchen-dinner-set-menu-260820.pdf,1,,2026-10-20
 the-kitchin,menu_found,12,html,https://thekitchin.com/cookbooks/,,chrome: store failed: ValueError,2026-10-19
-the-latymer,no_menu_found,2,,https://www.exclusive.co.uk/latymer/,,2 menu-like links,2026-10-20
+the-latymer,no_menu_found,2,,https://www.exclusive.co.uk/latymer/,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 the-ledbury,hand_recipe,,,,,,
 the-legacy-house,menu_found,25,pdf,https://picasso.rosewoodhotelgroup.com/asset/8d362d4e-8ab9-404d-8b74-c71a96b82f48/Rosewood-Hong-Kong-The-Legacy-House-Yunnan-Mushroom-Menu.pdf,1,,2026-10-18
 the-lisbeth,menu_found,26,pdf,https://irp.cdn-website.com/25373ad9/files/uploaded/Menu-+Fenster+u+Webseite+1026.pdf,1,,2026-10-15
