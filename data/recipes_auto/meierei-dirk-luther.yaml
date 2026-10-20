@@ -1,0 +1,5 @@
+start: https://www.alter-meierhof.de/en/culinary-art/
+steps:
+- follow:
+    href_matches: am_bodegakarte_A4_website\.pdf
+content: pdf

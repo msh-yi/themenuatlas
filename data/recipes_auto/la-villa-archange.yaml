@@ -1,0 +1,5 @@
+start: https://www.bruno-oger.com/fr/la-villa-archange-restaurant-gastronomique-cannes.html
+steps:
+- follow:
+    href_matches: 06\.10\-carte\-bistrot\-des\-anges\.pdf
+content: pdf

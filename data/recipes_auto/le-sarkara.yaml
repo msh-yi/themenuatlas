@@ -1,0 +1,5 @@
+start: https://www.lek2palace.com/en/taste/alacarte-and-set-menus.html
+steps:
+- follow:
+    href_matches: carte\-altiplano\-k2p\.pdf
+content: pdf
