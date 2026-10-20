@@ -1,0 +1,6 @@
+start: https://www.lunasiaristorante.com/
+steps:
+- follow:
+    href_matches: Carta_Lunasia__ENG_luglio_26\-2\.pdf
+content: pdf
+render: js

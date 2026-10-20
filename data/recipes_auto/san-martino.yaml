@@ -1,0 +1,6 @@
+start: https://www.sanmartinotreviglio.it/menu-san-martino-ristorante/
+steps:
+- follow:
+    href_matches: SanMartino_Menu_Autunno_2026\.pdf
+content: pdf
+render: js

@@ -1,0 +1,6 @@
+start: https://www.la-boria.com/restaurant/
+steps:
+- follow:
+    href_matches: carte\-des\-vins\-OCTOBRE\-26\-1\.pdf
+content: pdf
+render: js

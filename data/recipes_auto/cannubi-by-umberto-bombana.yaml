@@ -1,0 +1,6 @@
+start: https://www.cannubibangkok.com/
+steps:
+- follow:
+    href_matches: Autumn\-A\-La\-Carte\-2026\.pdf
+content: pdf
+render: js

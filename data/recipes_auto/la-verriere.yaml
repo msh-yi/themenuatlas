@@ -1,0 +1,6 @@
+start: https://www.hotel-marinca.com/gastronomie/la-verriere
+steps:
+- follow:
+    href_matches: menu_verriere_septembre_octobre_ang___internet\-3\.pdf
+content: pdf
+render: js

@@ -1,0 +1,6 @@
+start: https://www.vistawillemstad.nl/menu/
+steps:
+- follow:
+    href_matches: kaart\-website\-2\.pdf
+content: pdf
+render: js

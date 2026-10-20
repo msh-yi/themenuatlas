@@ -1,0 +1,6 @@
+start: https://hamamoto.com.sg/
+steps:
+- follow:
+    href_matches: Hamamoto\-Beverage\-Menu\-WEB\-261006\.pdf
+content: pdf
+render: js

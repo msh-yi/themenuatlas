@@ -1,0 +1,6 @@
+start: https://avertavira.com/
+steps:
+- follow:
+    href_matches: carta\-de\-vinhos\-2025\.pdf
+content: pdf
+render: js

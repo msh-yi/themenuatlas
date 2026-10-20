@@ -1,0 +1,6 @@
+start: https://restaurantesala.pt/carta/
+steps:
+- follow:
+    href_matches: Sala\-Texturas\.pdf
+content: pdf
+render: js

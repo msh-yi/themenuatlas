@@ -1,0 +1,6 @@
+start: https://www.realbalneario.com/en/real-balneario-a-la-carte/
+steps:
+- follow:
+    href_matches: CARTA\-OTOÑO\-2025\-GB\-f\-1\-pdf\.pdf
+content: pdf
+render: js

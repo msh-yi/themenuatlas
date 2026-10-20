@@ -1,0 +1,6 @@
+start: https://www.domainedelatourdesvents.com/le-bistrot-de-malfourat/
+steps:
+- follow:
+    href_matches: bistrotcarte\.pdf
+content: pdf
+render: js

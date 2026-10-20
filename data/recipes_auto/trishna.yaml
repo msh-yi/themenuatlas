@@ -1,0 +1,6 @@
+start: https://www.trishnalondon.com/menus/?mainsite=yes
+steps:
+- follow:
+    href_matches: Ala\-Carte\-Menu\-2026\.pdf
+content: pdf
+render: js

@@ -1,0 +1,6 @@
+start: https://www.le-pressoir.fr/fr/sur-place-ou-a-emporter.html
+steps:
+- follow:
+    href_matches: la\-carte\.pdf
+content: pdf
+render: js

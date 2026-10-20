@@ -1,0 +1,6 @@
+start: https://sornfinesouthern.com/
+steps:
+- follow:
+    href_matches: Classic\-Menu\.pdf
+content: pdf
+render: js

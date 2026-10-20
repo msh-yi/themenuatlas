@@ -1,0 +1,6 @@
+start: https://www.principedipiemonte.com/en/dine/ristorante-il-piccolo-principe.html
+steps:
+- follow:
+    href_matches: menu\-dessert\-pp\-2026\-corretto\.pdf
+content: pdf
+render: js

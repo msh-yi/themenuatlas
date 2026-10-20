@@ -1,0 +1,6 @@
+start: https://www.encantojoseavillez.pt/
+steps:
+- follow:
+    href_matches: Encanto_Carta\.pdf
+content: pdf
+render: js

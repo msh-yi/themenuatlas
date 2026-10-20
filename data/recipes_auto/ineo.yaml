@@ -1,0 +1,6 @@
+start: https://www.ineorestaurant.com/en/
+steps:
+- follow:
+    href_matches: Anantara_Palazzo_Naiadi_Rome_Hotel_Ineo_Restaurant_Autumn_Menu_26_EN\-1\.pdf
+content: pdf
+render: js

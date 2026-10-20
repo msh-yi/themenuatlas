@@ -1,0 +1,6 @@
+start: https://fleurdeloire.com/fr/gastronomie.html
+steps:
+- follow:
+    href_matches: carte\-ab\-fr\.pdf
+content: pdf
+render: js

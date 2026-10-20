@@ -1,0 +1,6 @@
+start: https://herve-restaurant.com/menu-philosophy/
+steps:
+- follow:
+    href_matches: Tasting\-menu\-September\-26\.pdf
+content: pdf
+render: js

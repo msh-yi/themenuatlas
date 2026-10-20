@@ -1,0 +1,6 @@
+start: https://www.interalpen.com/en/culinary/gourmet-cuisine/
+steps:
+- follow:
+    href_matches: ENG_Chefs_Table_Menue_Sommer26_AEnderung_04\.08\.2026__003___003_\.pdf
+content: pdf
+render: js

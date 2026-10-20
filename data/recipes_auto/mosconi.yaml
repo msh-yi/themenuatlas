@@ -1,0 +1,6 @@
+start: https://www.mosconi.lu/
+steps:
+- follow:
+    href_matches: wcxXX7hn966Xt74uygzuxmAjhd310f8oNGswqfc0\.pdf
+content: pdf
+render: js

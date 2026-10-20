@@ -1,0 +1,6 @@
+start: https://vineriamodi.com/about-us/
+steps:
+- follow:
+    href_matches: VineriaModi\.pdf
+content: pdf
+render: js

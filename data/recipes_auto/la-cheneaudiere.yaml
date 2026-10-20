@@ -1,0 +1,6 @@
+start: https://www.cheneaudiere.com/en/menus.html
+steps:
+- follow:
+    href_matches: Carte_Feuillage_octobre_2026_ENG\.pdf
+content: pdf
+render: js

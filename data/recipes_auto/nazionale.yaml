@@ -1,0 +1,6 @@
+start: https://ristorante.ilnazionale.com/en/
+steps:
+- follow:
+    href_matches: CARTA\-RISTORANTE\-2\.pdf
+content: pdf
+render: js

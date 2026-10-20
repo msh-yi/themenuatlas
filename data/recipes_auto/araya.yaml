@@ -1,0 +1,6 @@
+start: https://arayarestaurant.com/menu/
+steps:
+- follow:
+    href_matches: COSTA\-August\-2026\.pdf
+content: pdf
+render: js

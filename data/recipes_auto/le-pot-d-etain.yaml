@@ -1,0 +1,6 @@
+start: https://www.restaurant-potdetain.fr/
+steps:
+- follow:
+    href_matches: carte\-ete\-2026\.pdf
+content: pdf
+render: js

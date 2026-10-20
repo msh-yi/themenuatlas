@@ -1,0 +1,6 @@
+start: https://www.bareiss.com/en/gastronomy/a-la-carte-restaurants/the-3-star-restaurant-bareiss.html
+steps:
+- follow:
+    href_matches: RB_Menu_15\.10\.26_E\.pdf
+content: pdf
+render: js

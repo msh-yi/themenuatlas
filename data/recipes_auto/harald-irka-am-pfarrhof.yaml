@@ -1,0 +1,6 @@
+start: https://www.ampfarrhof.com/
+steps:
+- follow:
+    href_matches: wirtshaus_alacarte\.pdf
+content: pdf
+render: js

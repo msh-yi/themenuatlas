@@ -1,0 +1,6 @@
+start: https://www.lek2altitude.com/fr/deguster/cartes-menus.html
+steps:
+- follow:
+    href_matches: carte\-le\-k2\-restaurant\.pdf
+content: pdf
+render: js

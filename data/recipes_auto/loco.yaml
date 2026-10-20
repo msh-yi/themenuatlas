@@ -1,0 +1,6 @@
+start: https://www.loco.pt/menu-bebidas/
+steps:
+- follow:
+    href_matches: CARTA\-DE\-VINHOS\-LOCO25\.pdf
+content: pdf
+render: js

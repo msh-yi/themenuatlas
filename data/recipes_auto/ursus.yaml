@@ -1,0 +1,6 @@
+start: https://maison-bouvier.com/restaurant-ursus/
+steps:
+- follow:
+    href_matches: menu\-reveillon\-panoramic\.pdf
+content: pdf
+render: js

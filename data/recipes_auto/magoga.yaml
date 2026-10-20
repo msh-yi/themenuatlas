@@ -1,0 +1,6 @@
+start: https://restaurantemagoga.com/en/menu/
+steps:
+- follow:
+    href_matches: carta\.pdf
+content: pdf
+render: js

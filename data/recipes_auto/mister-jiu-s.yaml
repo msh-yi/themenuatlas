@@ -1,0 +1,6 @@
+start: https://www.misterjius.com/menu
+steps:
+- follow:
+    href_matches: TRIFOLD\-REG\-062526\.pdf
+content: pdf
+render: js

@@ -1,0 +1,6 @@
+start: https://kuroeshiro.com.br/omakase/
+steps:
+- follow:
+    href_matches: CARTA\-KURO\-ATUALIZADA\.pdf
+content: pdf
+render: js

@@ -1,0 +1,6 @@
+start: https://www.rosmadec.com/la-carte
+steps:
+- follow:
+    href_matches: a7fae8_76be85aa960145da8f129d849320d623\.pdf
+content: pdf
+render: js

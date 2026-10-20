@@ -1,0 +1,6 @@
+start: https://olivetreebath.co.uk/restaurant-bar-menus/
+steps:
+- follow:
+    href_matches: 12308\-TQH\-April\-retainer\-A\-la\-carte\-menu\.pdf
+content: pdf
+render: js

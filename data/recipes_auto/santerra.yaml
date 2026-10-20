@@ -1,0 +1,6 @@
+start: https://santerra.es/carta-barra/
+steps:
+- follow:
+    href_matches: carta\-barra\.pdf
+content: pdf
+render: js

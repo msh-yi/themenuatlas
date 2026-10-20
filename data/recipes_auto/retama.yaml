@@ -1,0 +1,6 @@
+start: https://www.hotellacaminera.com/retama
+steps:
+- follow:
+    href_matches: 1770123915_2602%20Carta%20Retama\.pdf
+content: pdf
+render: js

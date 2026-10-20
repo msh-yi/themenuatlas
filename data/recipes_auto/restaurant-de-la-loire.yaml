@@ -1,0 +1,6 @@
+start: https://www.restaurantdelaloire.fr/
+steps:
+- follow:
+    href_matches: f4a917_0d74ac7551974bb9814a9157fa714ef3\.pdf
+content: pdf
+render: js

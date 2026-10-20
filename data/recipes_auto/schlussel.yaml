@@ -1,0 +1,6 @@
+start: https://schluesselgrandits.ch/menu
+steps:
+- follow:
+    href_matches: bcc39524818345340e20a61dbfaa85ea6d9faa7e\.pdf
+content: pdf
+render: js

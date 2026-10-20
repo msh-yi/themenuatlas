@@ -1,0 +1,6 @@
+start: https://www.maistra.com/properties/grand-park-hotel-rovinj/restaurants-bars/agli-amici-rovinj/#/
+steps:
+- follow:
+    href_matches: AARovinj_EN_2026_qc7wlp\.pdf
+content: pdf
+render: js

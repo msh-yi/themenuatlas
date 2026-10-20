@@ -1,0 +1,6 @@
+start: https://www.arnsbourg.com/fr/restaurant-gastronomique-moselle.html
+steps:
+- follow:
+    href_matches: menu\-automne\-intuition\-2026\.pdf
+content: pdf
+render: js

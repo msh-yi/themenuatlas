@@ -1,0 +1,6 @@
+start: https://www.ristoranteserrae.it/menu/
+steps:
+- follow:
+    href_matches: carte\-ita\.pdf
+content: pdf
+render: js

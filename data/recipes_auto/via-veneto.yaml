@@ -1,0 +1,6 @@
+start: https://www.viavenetobarcelona.com/cocina-1
+steps:
+- follow:
+    href_matches: 31116a_9c7d408b09e3467fb55969f011cadd79\.pdf
+content: pdf
+render: js

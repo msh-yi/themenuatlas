@@ -1,0 +1,6 @@
+start: https://table.paris/
+steps:
+- follow:
+    href_matches: Cartes\-des\-th%C3%A9s\.pdf
+content: pdf
+render: js

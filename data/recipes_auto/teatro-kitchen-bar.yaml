@@ -1,0 +1,6 @@
+start: https://teatrokitchenbar.com/
+steps:
+- follow:
+    href_matches: TEATROES\.pdf
+content: pdf
+render: js
