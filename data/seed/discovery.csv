@@ -527,7 +527,7 @@ burnel,menu_found,12,html,"https://www.burnel.fr/menus-cartes-restaurant-hotel-p
 burnt-ends,menu_found,26,html,https://bakery.burntends.com.sg/,,chrome: store failed: ValueError,2026-10-18
 burnt-hill-farm,no_menu_found,0,,https://www.burnthill.farm/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 butterfly,menu_found,90,html,https://www.ristorantebutterfly.it/menu-ristorante.php,1,,2026-10-15
-byeoleeya,no_menu_found,0,,https://hoshinomeika.com/byeoleeya/,,1 menu-like links,2026-10-20
+byeoleeya,no_menu_found,0,,https://hoshinomeika.com/byeoleeya/,,chrome: 1 menu-like links; 8 more tried,2026-10-20
 ca-cento-sento,no_menu_found,0,,https://casento.jp/menu,,chrome: 1 menu-like links; 9 more tried,2026-10-18
 ca-l-enric,menu_found,19,html,https://www.restaurantcalenric.cat/es/,,chrome: store failed: ValueError,2026-10-18
 ca-matilde,menu_found,18,html,https://camatilde.it/en/menu/,1,,2026-10-18
@@ -539,7 +539,7 @@ cafe-gupi,no_menu_found,3,,https://www.cafegupi.de/s/MenuApril2026.pdf,,chrome: 
 cai-yi-xuan,menu_found,63,html,https://www.fourseasons.com/beijing/dining/restaurants/cai_yi_xuan/cyx-alacarte-menu/,1,,2026-10-18
 cail-bruich,menu_found,29,pdf,https://www.cailbruich.co.uk/s/Sample-Dinner-Menu-October-2026-ddbx.pdf,1,,2026-10-15
 caino,menu_found,35,html,https://dacaino.it/menu-ristorante-caino/,1,,2026-10-17
-cal,no_menu_found,0,,https://sitiolaestocada.com/restaurante/,,0 menu-like links,2026-10-20
+cal,no_menu_found,0,,https://sitiolaestocada.com/restaurante/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 cal-paradis,no_menu_found,2,,https://www.calparadis.es/,,chrome: 0 menu-like links; 10 more tried,2026-10-18
 calice,menu_maybe,5,html,https://restaurantcalice.fr/,1,,2026-10-15
 californios,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
@@ -560,7 +560,7 @@ cannavacciuolo-countryside,no_menu_found,0,,https://cannavacciuologroup.it/,,chr
 cannavacciuolo-le-cattedrali-asti,menu_found,13,html,https://www.lecattedrali.com/?page_id=3198,1,,2026-10-15
 cannavacciuolo-vineyard,menu_found,13,html,https://laquavineyard.it/resort-in-toscana-terricciola-pisa/bistrot/menu/,,chrome: store failed: ValueError,2026-10-18
 cannubi-by-umberto-bombana,menu_found,31,pdf,http://www.cannubibangkok.com/wp-content/uploads/2026/09/Autumn-A-La-Carte-2026.pdf,,chrome: store failed: ValueError,2026-10-18
-canton-table,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.threeonthebund.com/zh/restaurant/102008183385"", waiting until ""load""",2026-10-20
+canton-table,failed,0,,,,"chrome: TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.threeonthebund.com/zh/restaurant/102008183385"", waiting until ""load"" ; 4 more tried",2026-10-20
 cap-aureo,menu_found,73,pdf,https://res.cloudinary.com/maistra/image/upload/v1789975689/Pdf%20and%20doc/New%20Website%20v2/Restaurants/Cap%20Aureo/21.09.26/Maistra_GPHR_Cap_Aureo_hrana_web_GB_2026_asxtzr.pdf,1,,2026-10-15
 capi,no_menu_found,1,,https://capi-osaka.com/,,chrome: 1 menu-like links; 6 more tried,2026-10-18
 capogiro,menu_maybe,5,pdf,https://7pines-sardinia.com/media/spa/spa_menu.pdf,1,,2026-10-20
@@ -597,7 +597,7 @@ casa-pepa,no_menu_found,1,,https://capepa.es/,,chrome: 1 menu-like links; 12 mor
 casa-perbellini-12-apostoli,menu_found,42,html,https://www.casaperbellini.com/en/tasting-experiences/,1,,2026-10-15
 casa-ruben,no_menu_found,0,,https://restauranteordesa.es/menu-restaurante/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 casa-sgarra,menu_found,21,pdf,https://casasgarra.it/wp-content/uploads/2026/09/menu_autunno_2026.pdf,1,,2026-10-15
-casa-vigil,no_menu_found,0,,https://universovigil.com/,,0 menu-like links,2026-10-20
+casa-vigil,no_menu_found,0,,https://universovigil.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 casadelmar,menu_found,24,pdf,https://www.casadelmar.fr/uploads/menus_casadelmar_fr_avec_prix_85_.pdf,1,,2026-10-15
 casamatta,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 casas-colgadas-restaurante,no_menu_found,0,,https://restaurantecasascolgadas.com/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
@@ -652,7 +652,7 @@ chef-s-table,menu_found,23,html,https://lebua.com/restaurants/sirocco/chefs-tast
 chef-s-table-at-brooklyn-fare,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 chef-tam-s-seasons,menu_found,21,pdf,https://owsc.wynnresortsmacau.com/dining/wp-chef-tams-seasons-lunch-specialties-menu-261001.pdf,1,,2026-10-18
 chefs-atelier,menu_maybe,8,pdf,https://www.chefsatelier.de/ca-menue.pdf,1,,2026-10-15
-cherry-garden,no_menu_found,2,,https://www.mandarinoriental.com/en/singapore/marina-bay/dine/cherry-garden-by-chef-fei,,2 menu-like links,2026-10-20
+cherry-garden,menu_maybe,5,html,https://www.mandarinoriental.com/en/singapore/marina-bay/dine,1,chrome: ,2026-10-20
 chesa-stuva-colani,no_menu_found,0,,https://www.hotelchesacolani.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 cheval-blanc,no_menu_found,1,,https://www.restaurant-chevalblanc.fr/,,chrome: 1 menu-like links; 7 more tried,2026-10-18
 cheval-blanc-heemstede,menu_maybe,7,html,https://cheval-blanc.nl/menu/,1,,2026-10-15
@@ -714,7 +714,7 @@ codigo-de-barra,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-1
 codium,no_menu_found,3,,https://restaurantcodium.nl/menu/,,chrome: 1 menu-like links; 6 more tried,2026-10-18
 coeur-d-artichaut,menu_found,14,pdf,https://www.coeur-dartichaut.de/_files/ugd/6ab65f_f6afee717c83447fa20ed34eb5cfaafc.pdf,1,,2026-10-15
 colette,menu_maybe,8,html,https://www.colettesainttropez.com/blog/articles/la-carte-de-saison-de-votre-restaurant-colette-a-saint-tropez-29125,,chrome: store failed: ValueError,2026-10-18
-collage,no_menu_found,0,,https://ananti.kr/ko/atnamhae/NH0201,,10 menu-like links,2026-10-20
+collage,no_menu_found,1,,https://ananti.kr/ko/chord/CD0207,,chrome: 10 menu-like links; 12 more tried,2026-10-20
 colline-ciociare,robots,0,,,,robots.txt disallows the home page,2026-10-15
 colombi-restaurant-zirbelstube,no_menu_found,0,,https://www.colombi.de/de,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 come-by-paco-mendez,menu_found,12,html,https://come.com.es/en/the-menu/,1,,2026-10-15
