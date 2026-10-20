@@ -1470,7 +1470,7 @@ islares,menu_found,32,html,https://islares.restaurant/en/our-menu,1,,2026-10-15
 isshisoden-nakamura,menu_maybe,10,html,http://www.kyoryori-nakamura.com/about/,,chrome: store failed: ValueError,2026-10-18
 ithurria,menu_found,20,html,https://www.ithurria.com/fr/restaurant/,,chrome: store failed: ValueError,2026-10-18
 itzuli,menu_found,13,pdf,https://www.restauranteitzuli.com/_files/ugd/be213d_28ae9d5c5cff4ca9886e3fc3fc6e7744.pdf,,chrome: store failed: ValueError,2026-10-18
-ivan-cerdeno,no_menu_found,0,,https://cigarraldelangel.com/restaurante-ivan-cerdeno-cigarral/,,0 menu-like links,2026-10-20
+ivan-cerdeno,no_menu_found,0,,https://cigarraldelangel.com/restaurante-ivan-cerdeno-cigarral/,,chrome: 0 menu-like links; 13 more tried,2026-10-20
 ivan-vautier,no_menu_found,0,,https://www.ivanvautier.com/,,chrome: 0 menu-like links; 14 more tried,2026-10-18
 iwaki,no_menu_found,0,,https://k-iwaki.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 ixi-im,menu_found,72,pdf,https://yucatan.chablehotels.com/wp-content/uploads/sites/7/2026/01/Menu-Casita-Club.pdf,1,,2026-10-15
