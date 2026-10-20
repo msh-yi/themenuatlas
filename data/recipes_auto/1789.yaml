@@ -1,0 +1,5 @@
+start: https://www.traube-tonbach.de/kulinarik/1789/
+steps:
+- follow:
+    href_matches: Speisekarte1789\.pdf
+content: pdf

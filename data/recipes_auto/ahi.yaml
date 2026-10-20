@@ -1,0 +1,5 @@
+start: https://ahirestaurant.co.nz/menu-ahi/
+steps:
+- follow:
+    href_matches: Ahi\-Lunch\-Menu\-10\-26\.pdf
+content: pdf

@@ -3,26 +3,34 @@ slug,status,score,kind,menu_url,stored,note,checked
 11-woodfire,menu_found,65,pdf,https://11woodfire.com/wp-content/uploads/2026/01/MAIN-MENU-11-WOODFIRE-v9-jan.pdf,1,,2026-10-18
 114-faubourg,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 1741,menu_found,12,html,https://www.1741.fr/fr/Les-Menus-Et-Les-Accords/,1,,2026-10-15
+1789,menu_maybe,8,pdf,https://www.traube-tonbach.de/assets/local/media/brand/PDFs/Speisekarte1789.pdf,1,,2026-10-20
 180-by-matthias-diether,menu_found,21,html,https://www.180degrees.ee/menu,1,,2026-10-20
 1804-hirschau,menu_found,25,pdf,https://www.die-hirschau.de/s/BG-NEU-ENGLISH-MENU.pdf,1,,2026-10-18
 1876-daniel-dal-ben,menu_maybe,9,html,https://1876.restaurant/en-welcome/,,chrome: store failed: ValueError,2026-10-18
 1887,menu_found,22,html,https://www.thetorridon.com/eat-drink/1887-restaurant/,1,,2026-10-15
 1887-by-andre,menu_found,61,html,https://www.raffles.com/istanbul/dining/lavinia/,1,chrome: found via the sitemap,2026-10-20
 1890-by-gordon-ramsay,menu_maybe,9,html,https://www.gordonramsayrestaurants.com/bread-street-kitchen/bishopsgate/experiences/gordons-tasting-menu/,,chrome: store failed: ValueError,2026-10-18
+21-9,menu_found,14,html,https://www.ristorante21punto9.it/QRcode_menu.asp,1,,2026-10-20
 28,menu_found,37,html,https://28plus.se/,1,,2026-10-15
 2monkeys,no_menu_found,1,,https://2monkeys.com.pt/as-nossas-ofertas/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+311-omakase,no_menu_found,0,,https://311boston.com/home,,chrome: 0 menu-like links; 7 more tried,2026-10-20
 33-the-homend,menu_found,25,html,https://www.33thehomendledbury.co.uk/about,1,,2026-10-15
+360,menu_maybe,7,pdf,https://www.restaurant360grad.de/downloads/Karte_Dinner_360Grad_20261009.pdf,1,chrome: found via the site's navigation,2026-10-20
+42,menu_found,32,pdf,https://42restaurant.hu/wp-content/uploads/2026/08/ETLAP.pdf,1,chrome: found via a PDF in the page source,2026-10-20
 63-clinton,menu_found,20,html,https://www.63clinton.com/,1,,2026-10-15
 64-goodge-street,menu_found,33,pdf,https://goodge.wrg-media.com/64GS Food Menu.12.10.26.pdf,1,,2026-10-15
 7-adams,menu_found,24,pdf,https://www.7adamsrestaurant.com/_files/ugd/5a647b_83c92d55bf4c4729875ec938b6aec769.pdf,1,,2026-10-15
 7132-silver,no_menu_found,0,,https://7132.com/en/7132-diverse-dining-vals/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+80-20,menu_found,18,pdf,https://www.8020bkk.com/_files/ugd/a7e7ff_64c88a8b787f4bd7870cc8bc036c597d.pdf,1,,2026-10-20
 812otto-e-mezzo-bombana,no_menu_found,2,,https://www.ottoemezzobombana.com/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 a-barra,menu_found,39,html,https://restauranteabarra.com/en/menus/restaurant/,1,,2026-10-18
 a-canto,no_menu_found,0,,https://www.a-canto.com/menu.html,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 a-casa-di-ma,bot_blocked,0,,,,captcha: https://www.acasadima.com/: HTTP 503,2026-10-15
 a-casa-do-porco,no_menu_found,1,,https://acasadoporco.com.br/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 a-cozinha,no_menu_found,1,,https://restauranteacozinha.pt/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
+a-cut,bot_blocked,0,,,,incapsula challenge page,2026-10-20
 a-o-c,menu_found,13,html,https://restaurantaoc.dk/menu,1,,2026-10-20
+a-tafona,menu_maybe,9,pdf,https://www.luciafreitas.es/wp-content/uploads/2024/12/menu-degustacion-restaurante-a-tafona-2024-12-12-menu-degustacion-restaurante-a-tafona.pdf,1,,2026-10-20
 a-ver-tavira,menu_maybe,5,pdf,https://avertavira.com/wp-content/uploads/2025/07/carta-de-vinhos-2025.pdf,,chrome: store failed: ValueError,2026-10-18
 a-wong,menu_found,84,html,https://www.awong.co.uk/menu/,1,,2026-10-15
 aan-de-poel,menu_found,27,html,https://aandepoel.nl/menu-and-wines/,1,,2026-10-15
@@ -48,6 +56,7 @@ acquolina,menu_found,42,pdf,https://www.acquolinaristorante.it/wp-content/upload
 acte-2-yannick-delpech,menu_found,12,html,https://yannickdelpech-acte2.fr/,1,,2026-10-18
 ad-astra,no_menu_found,0,,https://www.adastra.com.tw/,,chrome: 0 menu-like links; 6 more tried,2026-10-18
 ad-hoc,no_menu_found,0,,http://adhoc2014.jp/menu/,,chrome: 2 menu-like links; 10 more tried,2026-10-18
+ada,menu_found,14,pdf,https://www.adagourmet.it/menu/Ada_Carta.pdf,1,,2026-10-20
 adam-albin,no_menu_found,1,,https://adamalbin.se/menu,,chrome: 1 menu-like links; 5 more tried,2026-10-18
 adam-s,menu_found,33,pdf,https://www.adamsrestaurant.co.uk/wp-content/uploads/2026/07/Chefs-Table-Tasting-Menu.pdf,1,,2026-10-15
 addiert,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 7 more tried,2026-10-18
@@ -63,11 +72,14 @@ agli-amici-dopolavoro,no_menu_found,0,,https://www.dopolavororestaurant.com/,,ch
 agli-amici-rovinj,menu_found,49,pdf,https://res.cloudinary.com/maistra/image/upload/v1791800785/Pdf%20and%20doc/New%20Website%20v2/Restaurants/Agli%20amici/12.10.26/AARovinj_EN_2026_qc7wlp.pdf,,chrome: store failed: ValueError,2026-10-18
 agnel-d-or,no_menu_found,0,,https://www.agneldor.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 agnes,menu_found,31,html,https://agnes.restaurant/en/menu/,1,,2026-10-15
+ahi,menu_found,36,pdf,https://ahirestaurant.co.nz/wp-content/uploads/2026/07/Ahi-Lunch-Menu-10-26.pdf,1,,2026-10-20
+ahlmanns,menu_maybe,11,pdf,https://www.kieler-kaufmann.de/wp-content/uploads/2026/10/Menue-November-und-Dezember-2026.pdf,1,,2026-10-20
 ai-fiori,menu_found,63,html,https://www.aifiorinyc.com/menu/dinner,1,,2026-10-15
 aintimiste,menu_maybe,6,html,https://aintimiste.fr/fr/producteurs-territoire.html,,chrome: store failed: ValueError,2026-10-18
 aira,menu_found,28,html,https://aira.se/menu/,1,,2026-10-15
 aji,menu_found,14,pdf,https://static.mgm.mo/restaurant-menu/cotai/aji/Aji-Set-Menu.pdf,1,,2026-10-18
 ajikitcho-bumbuan,no_menu_found,2,,https://ajikitcho.jp/maindish/,,chrome: 3 menu-like links; 12 more tried,2026-10-18
+ajishige-hanare,no_menu_found,4,,https://www.gdiningsapporo.com/gourmet/japanese_food/ajishige/,,chrome: 3 menu-like links; 14 more tried,2026-10-20
 ajisobo-mugi,no_menu_found,2,,https://www.ajisoubou-mugi.com/course.html,,chrome: 1 menu-like links; 8 more tried,2026-10-18
 ajo-y-oregano,menu_maybe,5,html,https://ajoyoregano.com/,1,,2026-10-15
 ajonegro,menu_maybe,10,html,https://restauranteajonegro.es/menu-degustacion/,1,,2026-10-18
@@ -91,6 +103,7 @@ al-metro,menu_found,40,pdf,https://www.ristorantealmetro.it/menu.pdf,1,,2026-10-
 al-sorriso,menu_found,14,html,https://www.alsorriso.com/it/menu/,1,,2026-10-15
 alain-ducasse-at-morpheus,menu_found,27,pdf,https://www.cityofdreamsmacau.com/assets/public/2026-03/2026_03_05-ADAM-CARTE-FOOD.pdf,1,,2026-10-20
 alain-ducasse-at-the-dorchester,menu_found,18,pdf,https://www.alainducasse-dorchester.com/wp-content/uploads/2026/07/Alain-Ducasse-at-The-Dorchester-Harmonie-Menu-2.pdf,1,,2026-10-15
+alain-ducasse-napoli,menu_found,34,pdf,https://theromeocollection.com/media/0vac1ej5/menu-autunno-ducasse-napoli-ing.pdf,1,,2026-10-20
 alain-llorca,no_menu_found,0,,https://www.alainllorca.com/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 alameda,no_menu_found,1,,https://restaurantealamedafaro.com/pages/a-la-carte,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 alameda-hondarribia,menu_found,12,html,https://restaurantealameda.net/regalar/menu-gartzinea/,,chrome: store failed: ValueError,2026-10-18
@@ -102,6 +115,7 @@ alcalde,no_menu_found,0,,https://alcalde.com.mx/,,chrome: 0 menu-like links; 13 
 alchemilla,menu_found,28,pdf,https://www.alchemillarestaurant.uk/wp-content/uploads/2026/06/7-regular-PDF.pdf,1,,2026-10-15
 alchemille,menu_found,12,html,https://www.alchemille.alsace/restaurant-kaysersberg/,,chrome: store failed: ValueError,2026-10-18
 alchemist,no_menu_found,0,,https://alchemist.dk/holistic-cuisine/,,chrome: 1 menu-like links; 8 more tried,2026-10-18
+alcove,robots,0,,,,robots.txt disallows the home page,2026-10-20
 aldehyde,no_menu_found,0,,https://aldehyde.paris/menus,,chrome: 1 menu-like links; 6 more tried,2026-10-18
 aleia,menu_maybe,5,html,https://www.aleiarestaurant.com/en/menu-degustacion,,chrome: store failed: ValueError,2026-10-18
 alejandro-serrano,no_menu_found,0,,https://serranoalejandro.es/,,chrome: 0 menu-like links; 6 more tried,2026-10-18
@@ -109,6 +123,7 @@ alevante,menu_found,18,html,https://alevanteangelleon.com/menu-en/grand-menu-ale
 alex-dilling-at-hotel-cafe-royal,no_menu_found,1,,https://www.hotelcaferoyal.com/,,chrome: 0 menu-like links; 14 more tried,2026-10-18
 alexis-baudin,menu_maybe,9,pdf,https://alexisbaudin.fr/wp-content/uploads/2025/01/Menu-Saint-valentin-2025.pdf,1,,2026-10-15
 alfred-keller,no_menu_found,1,,https://www.losinj-hotels.com/en/dining/restaurant-alfred-keller/,,chrome: 1 menu-like links; 15 more tried,2026-10-18
+alici,no_menu_found,0,,https://borgosantandrea.it/dining/,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 alimentum,no_menu_found,0,,https://restaurant-alimentum.dk/menucard,,chrome: 3 menu-like links; 11 more tried,2026-10-18
 alinea,no_menu_found,0,,https://www.alinearestaurant.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 alkimia,menu_maybe,5,html,https://alkimia.cat,1,,2026-10-15
@@ -3316,6 +3331,7 @@ the-bishop-s-buttery,no_menu_found,0,,,,chrome: home page has almost no text wit
 the-black-swan,menu_found,14,pdf,https://www.blackswanoldstead.co.uk/wp-content/uploads/2026/10/Dinner-Sample-5.pdf,1,,2026-10-16
 the-boat,menu_found,64,html,https://theboataterbistock.co.uk/daily-menu/,1,,2026-10-15
 the-butcher-s-son,no_menu_found,3,,https://www.thebutchersson.be/_files/ugd/f0c563_8f5551c7c1ae46adac1336054cb25e89.pdf,,chrome: 1 menu-like links; 10 more tried,2026-10-19
+the-capital-restaurant,menu_found,66,html,https://www.tombrownatthecapital.com/restaurant,1,,2026-10-20
 the-catbird-seat,no_menu_found,1,,https://www.thecatbirdseatrestaurant.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-19
 the-cellar,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 the-chairman,no_menu_found,0,,https://www.thechairmangroup.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
@@ -3329,6 +3345,7 @@ the-dining-room-at-thelangham-huntington,robots,0,,,,chrome: robots.txt disallow
 the-dog-and-gun,menu_found,21,html,http://dogandgunoxenhope.co.uk/?page_id=448,1,,2026-10-15
 the-duchess,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
 the-dune,menu_maybe,11,pdf,https://www.theflorentin.com/fileadmin/Althoff_The_Florentin/Dokumente/TheFlorentin_byAlthoffCollection_TheDune_Menu_DE.pdf,1,,2026-10-15
+the-eight,menu_found,36,pdf,https://img.grandlisboa.com/files/gl-dining-the-8-dim-sum-menu-260824.pdf,1,,2026-10-20
 the-elephant,menu_found,24,html,https://www.elephantrestaurant.co.uk/our-menus/tasting-menu/,1,,2026-10-15
 the-estate,bot_blocked,0,,,,cloudflare: https://putikiestate.co.nz/: HTTP 403,2026-10-18
 the-fat-duck,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
@@ -3348,6 +3365,7 @@ the-harwood-arms,menu_found,38,pdf,https://harwoodarms.com/wp-content/uploads/20
 the-hind-s-head,menu_found,55,html,https://www.hindsheadbray.com/menus/,1,,2026-10-15
 the-house,menu_found,41,pdf,https://cliffhousehotel.ie/media/t5vhqdzj/sample-dinner-menu.pdf,1,,2026-10-15
 the-house-of-lords,no_menu_found,0,,https://houseoflords.nl/,,chrome: 0 menu-like links; 13 more tried,2026-10-19
+the-huaiyang-garden,menu_found,13,html,https://www.londonermacao.com/macau-restaurants/huaiyang-garden.html,1,,2026-10-20
 the-jane,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开。 版本: 4.1.1.4; 5 more tried,2026-10-18
 the-kitchen,menu_found,23,html,https://thekitchenrestaurant.com/this-weeks-menu/,1,,2026-10-18
 the-kitchin,menu_found,12,html,https://thekitchin.com/cookbooks/,,chrome: store failed: ValueError,2026-10-19
@@ -3357,6 +3375,7 @@ the-lisbeth,menu_found,26,pdf,https://irp.cdn-website.com/25373ad9/files/uploade
 the-mandarin-grill-bar,no_menu_found,4,,https://www.mandarinoriental.com/en/dine,,chrome: 1 menu-like links; 15 more tried,2026-10-19
 the-masons-arms,menu_found,52,html,https://www.masonsarmsdevon.co.uk/menus,1,,2026-10-15
 the-millen,menu_maybe,9,pdf,https://restaurantthemillen.nl/wp-content/uploads/2026/10/DESSERT-OKT-2026-ENG-TM.pdf,1,,2026-10-15
+the-modern,menu_found,58,html,https://www.themodernnyc.com/the-bar-room-at-the-modern,1,,2026-10-20
 the-muddlers-club,menu_found,44,html,https://themuddlersclubbelfast.com/menus,1,,2026-10-15
 the-musket-room,menu_found,53,html,https://www.musketroom.com/menus/,1,,2026-10-15
 the-neptune,menu_found,20,html,https://theneptune.co.uk/dinner-menu/,1,,2026-10-15
@@ -3531,6 +3550,7 @@ villa-communico,no_menu_found,1,,https://villa-communico.com/cuisine,,chrome: 1 
 villa-crespi,menu_found,61,html,https://villacrespi.it/en/menu/,1,,2026-10-15
 villa-de-l-etang-blanc,no_menu_found,1,,https://www.villaetangblanc.fr/fr/la-carte,,chrome: 1 menu-like links; 12 more tried,2026-10-19
 villa-della-pace,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
+villa-elena,no_menu_found,0,,https://www.enricobartolini.net/i-ristoranti/villa-elena,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 villa-feltrinelli,no_menu_found,0,,https://www.villafeltrinelli.com/en/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 villa-maiella,menu_maybe,11,html,https://www.villamaiella.it/menu/,1,,2026-10-16
 villa-naj,menu_maybe,11,html,https://www.villanaj.it/il-menu,1,,2026-10-16
@@ -3650,6 +3670,7 @@ yugo-the-bunker,menu_found,37,html,https://www.yugothebunker.com/en/yugo/menu-ja
 yun-jing,menu_found,78,html,https://www.raffles.com/london/experiences/courtside-menu/,,chrome: store failed: ValueError,2026-10-18
 yunico-osaka,no_menu_found,4,,https://www.y-unico.jp/menu.html,,chrome: 1 menu-like links; 10 more tried,2026-10-19
 yunke,no_menu_found,2,,https://www.yunke.co.jp/about,,chrome: 2 menu-like links; 13 more tried,2026-10-18
+yusokuryori-mankamero,no_menu_found,3,,https://www.mankamerou.com/about/foods/,,chrome: 1 menu-like links; 10 more tried,2026-10-20
 z-som,menu_found,17,pdf,https://zsom-restaurant.at/wp-content/uploads/2026/09/Online-ENG-Herbst-26-1.pdf,1,,2026-10-15
 zaab-zaab,bot_blocked,0,,,,cloudflare challenge page,2026-10-15
 zafferano,bot_blocked,0,,,,cloudflare challenge page,2026-10-15
