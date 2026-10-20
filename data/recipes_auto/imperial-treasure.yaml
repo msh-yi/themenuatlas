@@ -1,0 +1,5 @@
+start: https://www.imperialtreasure.com/france/restaurant/imperial_treasure_fine_chinese_cuisine_france
+steps:
+- follow:
+    href_matches: Menu%20IT%20Paris%202026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://famigliavineis.it/it/il-patio/menu
+steps:
+- follow:
+    href_matches: MbPm6UizcTPMF7_0_SITOILPATIO\.pdf
+content: pdf

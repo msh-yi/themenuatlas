@@ -1,0 +1,5 @@
+start: https://monasterosantarosa.com/dining/
+steps:
+- follow:
+    href_matches: IL\-Dinner\-e\-i\-Dessert\-del\-Monastero\-Santa\-Rosa\-EN\.pdf
+content: pdf

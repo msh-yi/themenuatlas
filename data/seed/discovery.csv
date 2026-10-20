@@ -1355,6 +1355,7 @@ harmonie,menu_found,16,html,https://harmonie.restaurant/menu-harmonie/,1,,2026-1
 harry-s-piccolo,menu_found,67,pdf,https://harryspiccolo.it/wp-content/uploads/2026/06/20260512_SUMMER_A4_ENG_web.pdf,1,,2026-10-15
 harrys-piccolo-porec,menu_found,52,html,https://www.harryspiccoloporec.com/en/menu/,1,,2026-10-16
 harzfenster,menu_maybe,5,html,https://www.restaurant-harzfenster.de/menue.html,1,,2026-10-15
+hasunomi,no_menu_found,0,,https://ya1s700.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 hatada,no_menu_found,2,,https://www.hatada.co.jp/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 hatsu,robots,0,,,,robots.txt disallows the home page,2026-10-16
 hatsunezushi,no_menu_found,4,,https://www.hatsunezushi.com/eng/menu/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
@@ -1403,6 +1404,8 @@ hide,menu_found,25,pdf,https://hide.co.uk/wp-content/uploads/2026/09/CHRISTMAS-M
 hide-and-fox,menu_found,48,html,https://hideandfox.co.uk/food-saltwood-hythe-restaurant/,1,,2026-10-15
 hiden,no_menu_found,0,,https://hidenmiami.com/the-menu/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 higashiazabu-amamoto,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
+higashiyama-ogata,no_menu_found,0,,https://shinsho-an.com/restaurant/,,chrome: 0 menu-like links; 13 more tried,2026-10-20
+higashiyama-tsukasa,no_menu_found,1,,https://higashiyama-tsukasa-kyoto.com/menu.html,,chrome: 1 menu-like links; 13 more tried,2026-10-20
 higashiyama-yoshihisa,no_menu_found,1,,https://www.higashiyama-yosihisa.com/,,chrome: 1 menu-like links; 5 more tried,2026-10-18
 hilda-and-jesse,menu_found,26,html,https://www.hildaandjessesf.com/menu,1,,2026-10-16
 hill-street-tai-hwa-pork-noodle,bot_blocked,0,,,,cloudflare: https://taihwa.com.sg/: HTTP 403,2026-10-16
@@ -1419,6 +1422,7 @@ hisa-linhart,menu_maybe,9,html,https://www.hisalinhart.si/en/breakfast-and-brunc
 hishinuma,menu_found,16,html,https://www.restaurant-hishinuma.jp/お品書き/,1,,2026-10-20
 hisop,menu_found,36,html,https://www.hisop.com/en/menu-en/,,chrome: store failed: ValueError,2026-10-18
 ho-foods,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
+hochzwei,no_menu_found,0,,https://gasthof-zum-bad.de/restaurant/,,chrome: 0 menu-like links; 13 more tried,2026-10-20
 hoeve-de-bies,no_menu_found,3,,https://cdn.prod.website-files.com/600c50686aae5f21f1a35bfa/6aa405bbb8e5cbc155bbddec_2026%20SEPT%20NL%20menu%20en%20prijzen.pdf,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 hof-ter-hulst,no_menu_found,3,,https://www.hofterhulst.be/nl/kaart,,chrome: 2 menu-like links; 9 more tried,2026-10-18
 hof-van-cleve-floria-van-der-veken,menu_found,36,html,https://hofvancleve.com/en/menu,1,,2026-10-15
@@ -1426,7 +1430,9 @@ hofke-van-bazel,menu_found,13,html,https://hofkevanbazel.be/a-la-carte/,1,,2026-
 hofmann,no_menu_found,0,,https://www.hofmann-bcn.com/masters/master-beyond-food-experience/,,chrome: 2 menu-like links; 14 more tried,2026-10-18
 hofstube-deimann,menu_maybe,5,html,https://www.deimann.de/en/cuisine,,chrome: store failed: ValueError,2026-10-18
 holbox,menu_found,33,html,https://www.holboxla.com/menu.html,1,,2026-10-15
+holodeck,menu_maybe,5,html,https://chambert.com/fr/restaurant-holodeck.html,1,chrome: ,2026-10-20
 home,menu_found,27,pdf,https://homeatpenarth.co.uk/wp-content/uploads/sunday-lunch-menu-.pdf,1,,2026-10-16
+homestead-cottage,menu_found,32,html,https://homesteadcottage.com/dinner-menu/,1,,2026-10-20
 hommage,no_menu_found,0,,https://www.hommage-arai.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 honami,no_menu_found,0,,https://honami.web.app/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 honke-tankuma-honten,menu_found,23,html,https://tankuma.jp/menu/,1,,2026-10-16
@@ -1449,6 +1455,7 @@ hotel-frederiksminde,menu_maybe,7,html,https://frederiksminde.com/blog/food/frok
 house-of-tides,menu_found,24,pdf,https://www.houseoftides.co.uk/_files/ugd/0ed9af_91fe978d17784828b59de5eea6e7dc61.pdf,1,,2026-10-15
 houseman,no_menu_found,0,,http://housemanrestaurant.com/dinner-menu,,chrome: 2 menu-like links; 14 more tried,2026-10-18
 hoze,no_menu_found,3,,https://hozerestaurant.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
+hub-praga,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 12 more tried,2026-10-20
 hubert-wallner,no_menu_found,0,,https://hubertwallner.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 hubertusstube,no_menu_found,0,,https://www.hotel-jagdhof.at/hubertusstube,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 hugos,robots,0,,,,robots.txt disallows the home page,2026-10-16
@@ -1462,6 +1469,7 @@ hyotei,menu_maybe,10,html,http://hyotei.co.jp/en/,1,,2026-10-15
 hytra,menu_found,25,html,https://hytra.gr/,1,,2026-10-16
 i-castagni,menu_found,30,pdf,https://www.ristoranteicastagni.com/wp-content/uploads/2026/08/menu_2026_10_07.pdf,1,,2026-10-15
 i-due-sud,no_menu_found,1,,https://www.iduesud.ch/,,chrome: 0 menu-like links; 8 more tried,2026-10-18
+i-m-teppanyaki-wine,no_menu_found,1,,http://www.imteppanyaki.com/,,chrome: 4 menu-like links; 9 more tried,2026-10-20
 i-portici,no_menu_found,2,,https://www.iporticihotel.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 i-pupi,menu_found,38,html,https://www.ipupiristorante.it/menu-ristorante-i-pupi-bagheria/,1,,2026-10-16
 i-tenerumi,no_menu_found,0,,https://www.tenerumiristorante.it/en/,,chrome: 0 menu-like links; 6 more tried,2026-10-18
@@ -1472,6 +1480,7 @@ icca,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript;
 ich-wei-ein-haus-am-see,no_menu_found,0,,https://www.hausamsee.de/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 ichigo-ichie,menu_found,30,html,https://ichigoichie.ie/the-menu/,1,,2026-10-15
 ichiju-nisai-ueno-mino,no_menu_found,1,,https://ichijunisai-ueno.com/maindish/,,chrome: 2 menu-like links; 12 more tried,2026-10-18
+ichiju-nisai-ueno-minoten,menu_maybe,5,html,https://www.ichijunisai-ueno.net/minoh,1,,2026-10-20
 ichimura-at-uchu,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 9 more tried,2026-10-18
 idam-byalain-ducasse,no_menu_found,3,,https://www.ducasse-paris.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 ideal-bistro,no_menu_found,3,,http://idealfoodflower.com/menu/,,chrome: 2 menu-like links; 7 more tried,2026-10-18
@@ -1486,9 +1495,11 @@ ikarus,menu_found,20,html,https://www.hangar-7.com/de/kulinarik/restaurant-ikaru
 ikigai,menu_found,25,pdf,https://www.schloss-elmau.de/fileadmin/Downloads/Restaurants/IKIGAI/Gro%C3%9FeWeinkarte061026.pdf,,chrome: store failed: ValueError,2026-10-18
 iko,menu_maybe,6,html,https://iko-restaurant.de/,1,,2026-10-15
 ikoyi,menu_found,16,pdf,https://cdn.sanity.io/files/ijnh1cmt/production/fe8acd766c105d49faa2d7fb96beff40d1cf0015.pdf,,chrome: store failed: ValueError,2026-10-18
+il-bavaglino,no_menu_found,4,,https://www.giuseppecosta.com/wp-content/uploads/2022/12/Carta-Vini.pdf,,chrome: 2 menu-like links; 11 more tried,2026-10-20
 il-bocconcino,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 il-buco,no_menu_found,0,,https://www.ilbucoristorante.it/en/home/,,chrome: 0 menu-like links; 11 more tried,2026-10-18
 il-cantinone,no_menu_found,0,,https://ristorantecantinone.com/menu/,,chrome: 2 menu-like links; 10 more tried,2026-10-18
+il-cantuccio,menu_found,17,pdf,https://www.mauroelli.com/wp-content/uploads/2026/10/menu-web-ottobre.pdf,1,,2026-10-20
 il-cappero,no_menu_found,1,,https://www.ilcapperoristorante.it/en/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 il-carpaccio,menu_found,78,html,https://www.raffles.com/london/experiences/courtside-menu/,,chrome: store failed: ValueError,2026-10-18
 il-centro,no_menu_found,1,,https://www.ristoranteilcentro.com/,,chrome: 0 menu-like links; 14 more tried,2026-10-18
@@ -1506,9 +1517,12 @@ il-marin,menu_found,29,pdf,https://ilmarin.it/wp-content/uploads/2026/06/menu_ma
 il-pagliaccio,no_menu_found,4,,https://ristoranteilpagliaccio.com/wp-content/uploads/2026/06/CIRCUS-IT-EXTRA-2026.pdf,,chrome: 1 menu-like links; 11 more tried,2026-10-18
 il-palagio,menu_found,84,html,https://www.ilpalagioristorante.it/menus/,1,,2026-10-16
 il-papavero,menu_maybe,5,pdf,https://www.ristoranteilpapavero.it/wp-content/uploads/2026/07/dessertestate26.pdf,,chrome: store failed: ValueError,2026-10-18
+il-patio,menu_maybe,11,pdf,https://famiglia-vineis.cdn.prismic.io/famiglia-vineis/MbPm6UizcTPMF7_0_SITOILPATIO.pdf,1,,2026-10-20
 il-pellicano,no_menu_found,0,,https://www.pellicanohotels.com/en/,,chrome: 0 menu-like links; 14 more tried,2026-10-18
 il-piastrino,no_menu_found,4,,https://piastrino.it/vini.pdf,,chrome: 2 menu-like links; 11 more tried,2026-10-18
 il-piccolo-principe,menu_found,19,pdf,https://www.principedipiemonte.com/assets/uploads/Dine/piccolo-principe/menu/menu-dessert-pp-2026-corretto.pdf,,chrome: store failed: ValueError,2026-10-18
+il-pievano,menu_maybe,11,pdf,https://www.spaltenna.it/uploads/2026/07/31/menu-pievano-15072026-ita_31-07-2026_16-13-16.pdf,1,,2026-10-20
+il-refettorio,menu_found,53,pdf,https://monasterosantarosa.com/wp-content/uploads/2026/09/IL-Dinner-e-i-Dessert-del-Monastero-Santa-Rosa-EN.pdf,1,,2026-10-20
 il-ristorante-di-guido-da-costigliole,menu_found,23,pdf,https://www.guidodacostigliole.it/wp-content/uploads/2026/10/menu_2026_AU.pdf,1,,2026-10-16
 il-ristorante-niko-romito,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 il-ristorante-niko-romito-dubai-jumeirah,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
@@ -1519,9 +1533,13 @@ il-tino,menu_found,29,html,https://www.ristoranteiltino.com/cucina,1,,2026-10-16
 im-schiffchen,menu_maybe,11,html,https://im-schiffchen.de/jean-claude-bourgueil/,,chrome: store failed: ValueError,2026-10-18
 ima,no_menu_found,0,,https://ima.restaurant/,,chrome: 1 menu-like links; 7 more tried,2026-10-18
 imago,menu_found,12,pdf,https://www.imagorestaurant.it/wp-content/uploads/2026/03/Menu-Imago-15-ITA_.pdf,1,,2026-10-16
+imperial-treasure,menu_found,69,pdf,https://www.imperialtreasure.com/france/resources/ck/files/menu/Menu%20IT%20Paris%202026.pdf,1,,2026-10-20
 imperial-treasure-fine-chinese-cuisine,bot_blocked,0,,,,cloudflare: https://www.imperialtreasure.com/: HTTP 403,2026-10-15
+imperial-treasure-fine-chinese-cuisine-tsim-sha-tsui,menu_found,56,pdf,https://www.imperialtreasure.com/resources/ck/files/2026/FC_MBS_Main%20Menu_300726_updated_web.pdf,1,,2026-10-20
 imperial-treasure-fine-teochew-cuisine,no_menu_found,0,,https://www.imperialtreasure.com.cn/china/happening/chef-rec-set-menu-cn/,,chrome: 1 menu-like links; 12 more tried,2026-10-18
+imperial-treasure-fine-teochew-cuisine-central-region-centr,menu_maybe,9,html,https://www.imperialtreasure.com/restaurant/ImperialTreasureFineTeochewCuisine-4,1,,2026-10-20
 imperial-treasure-huangpu,robots,0,,,,robots.txt disallows the home page,2026-10-20
+impromptu-by-paul-lee,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-20
 impronta-d-acqua,menu_found,17,html,https://www.improntadacqua.com/menu,1,,2026-10-16
 impronte,menu_found,44,pdf,https://impronteristorante.com/wp-content/uploads/2026/01/MENU-IMPRONTE-SASHIMI-2026.pdf,1,,2026-10-16
 in-diferente,bot_blocked,0,,,,cloudflare: https://indiferente.pt/: HTTP 403,2026-10-16
@@ -1529,6 +1547,7 @@ in-situ,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 in-viaggio,menu_maybe,5,html,https://inviaggioristorante.com/,1,,2026-10-16
 inati,menu_found,31,html,https://inati.nz/menu/,1,,2026-10-15
 inato,no_menu_found,4,,https://www.inato.ph/menu,,chrome: 1 menu-like links; 4 more tried,2026-10-18
+indaco,no_menu_found,0,,https://cdn.blastness.biz/storage/1202/documents/Menu-2026-Ita.pdf,,chrome: 1 menu-like links; 13 more tried,2026-10-20
 inddee,no_menu_found,0,,https://www.inddeebkk.com/,,chrome: 0 menu-like links; 8 more tried,2026-10-18
 indienne,menu_found,22,html,https://www.indiennechicago.com/nonvegtastingmenu,1,,2026-10-15
 ineffable,menu_maybe,7,pdf,https://restaurant-ineffable.fr/media/original/menu-degustation.pdf,1,,2026-10-16
@@ -1550,8 +1569,10 @@ irwin,menu_maybe,11,pdf,https://cdn.prod.website-files.com/67bbea7673bb0e445eecc
 isezushi,menu_maybe,5,html,https://www.isezushi.com/,1,,2026-10-18
 isidore,no_menu_found,0,,https://isidoresatx.com/,,chrome: 0 menu-like links; 0 more tried,2026-10-18
 islares,menu_found,32,html,https://islares.restaurant/en/our-menu,1,,2026-10-15
+isle-of-eriska,menu_found,30,pdf,https://www.eriska-hotel.co.uk/s/Deck-Menu.pdf,1,,2026-10-20
 isshisoden-nakamura,menu_maybe,10,html,http://www.kyoryori-nakamura.com/about/,,chrome: store failed: ValueError,2026-10-18
 ithurria,menu_found,20,html,https://www.ithurria.com/fr/restaurant/,,chrome: store failed: ValueError,2026-10-18
+ito,no_menu_found,0,,https://kyoto-ito.jp/,,chrome: 0 menu-like links; 4 more tried,2026-10-20
 itzuli,menu_found,13,pdf,https://www.restauranteitzuli.com/_files/ugd/be213d_28ae9d5c5cff4ca9886e3fc3fc6e7744.pdf,,chrome: store failed: ValueError,2026-10-18
 ivan-cerdeno,no_menu_found,0,,https://cigarraldelangel.com/restaurante-ivan-cerdeno-cigarral/,,chrome: 0 menu-like links; 13 more tried,2026-10-20
 ivan-vautier,no_menu_found,0,,https://www.ivanvautier.com/,,chrome: 0 menu-like links; 14 more tried,2026-10-18
@@ -1564,6 +1585,9 @@ jacaranda,menu_maybe,9,html,https://www.jacarandafm.com/lifestyle/food/,1,,2026-
 jacobi,menu_found,14,html,https://jacobi-freiburg.de/,1,,2026-10-15
 jacques-faussat,menu_found,30,html,https://www.jacquesfaussat.com/menus/,1,,2026-10-16
 jade-dragon,menu_found,51,pdf,https://www.cityofdreamsmacau.com/assets/public/2026-09/JadeDragonALaCarteMenu-Updateon1Oct%202026.pdf,1,,2026-10-20
+jade-river,no_menu_found,0,,https://www.whiteswanhotel.com/,,chrome: 0 menu-like links; 15 more tried,2026-10-20
+jae,menu_found,41,pdf,https://jae-restaurant.de/wp-content/uploads/2026/06/Menue.pdf,1,,2026-10-20
+jag,no_menu_found,1,,https://www.restaurantjag.com/menus/,,chrome: 2 menu-like links; 8 more tried,2026-10-20
 jamavar,bot_blocked,0,,,,cloudflare: https://www.jamavardoha.com/: HTTP 403,2026-10-16
 jamavar-dubai,bot_blocked,0,,,,cloudflare: https://jamavarrestaurants.com/: HTTP 403,2026-10-18
 jamavar-westminster,menu_found,15,html,https://jamavarrestaurants.com/london/whats-on/lunch-and-early-evening-at-jamavar/,,chrome: store failed: ValueError,2026-10-18
