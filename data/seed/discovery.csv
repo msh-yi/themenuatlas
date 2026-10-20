@@ -127,6 +127,7 @@ alici,no_menu_found,0,,https://borgosantandrea.it/dining/,,chrome: 2 menu-like l
 alimentum,no_menu_found,0,,https://restaurant-alimentum.dk/menucard,,chrome: 3 menu-like links; 11 more tried,2026-10-18
 alinea,no_menu_found,0,,https://www.alinearestaurant.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 alkimia,menu_maybe,5,html,https://alkimia.cat,1,,2026-10-15
+all-enoteca,menu_maybe,6,pdf,https://www.davidepalluda.it/wp-content/uploads/2026/09/Menu-settembre-2026.pdf,1,,2026-10-20
 all-oro,menu_found,34,html,https://www.ristorantealloro.it/menu/?lang=en,1,,2026-10-15
 alla-prima,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 allen,no_menu_found,0,,https://restaurantallen.com/menu,,chrome: 1 menu-like links; 9 more tried,2026-10-18
@@ -147,6 +148,7 @@ alpenroyal-gourmet-restaurant,no_menu_found,0,,https://www.alpenroyal.com/en/,,c
 alpin-gourmet-stube,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 alquimia-laboratorio,no_menu_found,0,,https://alquimiavalladolid.es/,,chrome: 0 menu-like links; 8 more tried,2026-10-18
 alt-wyk,menu_maybe,9,html,https://www.alt-wyk.de/menue,1,,2026-10-15
+alte-liebe,menu_maybe,9,pdf,https://alte-liebe-augsburg.de/wp-content/uploads/2026/07/Menu-Homepage-pdf-1.pdf,1,,2026-10-20
 alte-schule,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 6 more tried,2026-10-18
 alte-uberfahrt,menu_maybe,10,pdf,https://www.alte-ueberfahrt.de/wp-content/uploads/2021/06/neue-speisekarte-januar-2026-mit-1-3zg-dessert-1.pdf,1,,2026-10-15
 alter,menu_maybe,6,html,https://restaurant-alter.be/,1,,2026-10-15
@@ -154,6 +156,7 @@ alto,menu_maybe,8,html,https://altoristorante.com/sfoglia-il-menu/,1,,2026-10-15
 alto-manhattan-midtown-ea,bot_blocked,0,,,,cloudflare: https://www.aalto57.com/: HTTP 403,2026-10-18
 am-mahrbach,menu_maybe,5,html,https://www.am-mahrbach.at/abendmenue,,chrome: store failed: ValueError,2026-10-18
 am-par-alexandre-mazzia,menu_found,14,html,https://www.alexandre-mazzia.com/custom-block/menu-desserts/,1,chrome: found via a usual menu address,2026-10-20
+ama,no_menu_found,1,,https://www.amatolosa.com/,,chrome: 1 menu-like links; 13 more tried,2026-10-20
 amador,menu_maybe,7,html,https://restaurant-amador.com/menue/,1,,2026-10-15
 amalia,no_menu_found,0,,https://amaliarestaurant.com/,,chrome: 1 menu-like links; 9 more tried,2026-10-18
 amarone,menu_maybe,11,html,https://www.restaurantamarone.nl/,1,,2026-10-15
@@ -171,13 +174,16 @@ amisfield,menu_found,38,pdf,https://cdn.shopify.com/s/files/1/0789/0403/3590/fil
 amista,menu_found,21,html,https://www.ristoranteamista.com/menu,1,,2026-10-15
 ammolite-the-lighthouse,no_menu_found,0,,https://ammolite-restaurant.de/,,chrome: 0 menu-like links; 11 more tried,2026-10-18
 anan-saigon,no_menu_found,3,,https://anansaigon.com/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
+ancestral,menu_maybe,7,html,https://ancestralrestaurante.com/menu-pardo/,1,,2026-10-20
 ancora,menu_found,44,html,https://www.ancoracesenatico.it/en/menu-ristorante-ancora-cesenatico/,1,,2026-10-15
 ando,menu_found,32,pdf,https://www.andohk.com/s/_Dinner-Menu-1.pdf,1,,2026-10-15
 andra-mari,no_menu_found,0,,https://andra-mari.com/es/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 andrea-aprea,menu_found,41,pdf,https://www.andreaaprea.com/site/wp-content/uploads/2026/06/Per-sito-pranzo-e-cena-bistrot.pdf,1,,2026-10-15
+andrea-lorossa,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-20
 andrea-monesi-locanda-di-orta,menu_found,26,html,https://www.andreamonesi.com/en/restaurant-locanda-di-orta-san-giulio/gourmet-menu/,,chrome: store failed: ValueError,2026-10-18
 andreina,menu_found,19,pdf,https://ristoranteandreina.it/wp-content/uploads/2026/09/FumoITA_SmokeENG.pdf,1,,2026-10-18
 andreu-genestra,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
+ang,no_menu_found,0,,https://astadvingard.se/restauranger/ang/,,chrome: 0 menu-like links; 14 more tried,2026-10-20
 angelo-sabatelli,menu_found,33,html,https://www.angelosabatelliristorante.com/en/menus/,1,,2026-10-18
 angle,menu_found,43,html,https://anglebarcelona.com/en/cuisine/,1,,2026-10-18
 angler,menu_found,36,html,https://anglerrestaurants.com/menu/dinner,1,,2026-10-15
@@ -188,6 +194,7 @@ anima,menu_maybe,6,html,https://www.restaurant-anima.de/,1,,2026-10-15
 anima-milan-municipio-9,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 animalon,menu_maybe,10,pdf,https://www.animalonbaja.com/s/Menu-Animalon-25jul.pdf,1,,2026-10-15
 anjin,menu_found,44,html,https://www.anjinkc.com/menus,1,,2026-10-15
+anna-stuben,no_menu_found,0,,https://www.gardena.it/it/ristorante-anna-stuben.asp,,chrome: 0 menu-like links; 13 more tried,2026-10-20
 annalena,no_menu_found,0,,https://www.annalena.ca/tastingmenu,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 anne,menu_found,39,pdf,https://cdn.prod.website-files.com/61922acc89d695f4154d50a0/69414a1be40a45bd0d4260a4_CARTE%20ANNE%202025.pdf,1,,2026-10-15
 anne-de-bretagne,no_menu_found,2,,https://www.annedebretagne.com/en/les-menus/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
@@ -264,11 +271,14 @@ assa,menu_maybe,7,html,https://www.assarestaurant.com/carte-des-vins/,,chrome: s
 assaggi,no_menu_found,0,,https://assaggi.co.uk/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
 assiette-champenoise,menu_found,27,html,https://www.assiettechampenoise.com/restaurant/,1,,2026-10-15
 assonica,menu_found,18,html,https://assonica.it/it/menu/1/alla-carta-percorsi,1,,2026-10-15
+asterales,no_menu_found,0,,https://www.hotel-du-golf-vercors.fr/wp-content/uploads/2026/07/Carte-affichage-pour-fermeture-Copie.pdf,,chrome: 1 menu-like links; 13 more tried,2026-10-20
 astrance,menu_found,19,html,https://www.astranceparis.fr/la-carte/,,chrome: store failed: ValueError,2026-10-18
+at,menu_found,28,html,https://atsushitanaka.com/,1,,2026-10-20
 atalaya,menu_found,25,html,https://atalayarestaurante.com/nuestra-carta/english-menus/,,chrome: store failed: ValueError,2026-10-18
 atama-by-martin-stopp,menu_found,17,html,https://atama.de/a-la-carte/,1,,2026-10-18
 atelier,menu_found,21,html,https://www.atelier-chicago.com/menu,,chrome: store failed: ValueError,2026-10-18
 atelier-crenn,no_menu_found,4,,https://www.ateliercrenn.com/our-menu/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
+atelier-domodossola,menu_found,24,pdf,https://www.eurossola.com/wp-content/uploads/2026/10/carta_atelier_2026_10_13.pdf,1,,2026-10-20
 atelier-fischer,menu_found,51,pdf,https://www.atelier-fischer.at/_files/ugd/5da1b8_2f853c49037c4ab0a9e9d5ca3b32ab2d.pdf,1,,2026-10-15
 atelier-gulpen,menu_found,44,html,https://www.restaurantatelier.nl/en/menus,1,,2026-10-15
 atelier-hanada,menu_found,23,html,https://atelierhanada.jp,1,,2026-10-18
@@ -324,6 +334,7 @@ auberge-saint-walfrid,menu_found,28,html,https://www.stwalfrid.fr/fr/menus,,chro
 auberge-sauvage,no_menu_found,1,,https://aubergesauvage.fr/la-table/,,chrome: 1 menu-like links; 8 more tried,2026-10-18
 aubergine,menu_found,29,html,https://auberginecarmel.com/,1,,2026-10-18
 aubergine-steyl,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
+aubergine-upper-bavaria-starnb,menu_found,31,html,https://www.vier-jahreszeiten-starnberg.de/en/menus-aubergine/,1,,2026-10-20
 audrey-s,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 auffo,menu_found,12,pdf,https://www.auffo-restaurant.com/_files/ugd/15be20_7efedad984354e45998176efb3b4b6e4.pdf,,chrome: store failed: ValueError,2026-10-18
 auga,menu_found,32,html,https://restauranteauga.com/en/menu/,1,,2026-10-15
@@ -342,7 +353,9 @@ aux-pesked,menu_found,14,html,https://www.auxpesked.com/les-menus/,1,,2026-10-15
 aux-petits-oignons,menu_found,23,html,https://www.auxpetitsoignons.be/la-carte,,chrome: store failed: ValueError,2026-10-18
 aux-terrasses,no_menu_found,1,,https://www.aux-terrasses.com/fr/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 aux-vieux-couvent,menu_found,14,html,https://www.auvieuxcouvent.fr/fr/la-cuisine.html,1,,2026-10-18
+avant,menu_found,17,html,https://www.kimptonmaalaibangkok.com/best-places-to-visit-in-bangkok-for-food-lovers/,1,chrome: found via the sitemap,2026-10-20
 avant-garde-van-groeninge,no_menu_found,3,,https://www.restaurantavantgarde.nl/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
+avatara,menu_found,24,pdf,https://avatara.ae/wp-content/uploads/2025/11/Avatara.pdf,1,,2026-10-20
 avel-vor,menu_maybe,10,html,https://www.avelvor.com/menus/,1,,2026-10-15
 avery,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 ayalga,bot_blocked,0,,,,captcha: https://www.ayalgavillarosario.com/: HTTP 405,2026-10-18
@@ -389,6 +402,7 @@ bastion,no_menu_found,0,,https://bastionkinsale.com/menus.html,,chrome: 1 menu-l
 bastion-tennessee-nashville,menu_found,27,pdf,https://www.bastionnashville.com/s/Dinner-Menu-072525.pdf,1,,2026-10-15
 batard,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 baume,no_menu_found,0,,https://www.maisonbaume.com/lander,,chrome: 0 menu-like links; 4 more tried,2026-10-18
+bcn-taste-tradition,menu_found,83,html,https://www.bcnhouston.com/menus/,1,,2026-10-20
 beach-house,menu_found,36,html,https://beachhouseoxwich.co.uk/menus/,1,,2026-10-15
 beat,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 beckon,menu_found,13,html,https://www.beckon-denver.com/beveragemenu,1,,2026-10-15
@@ -398,9 +412,11 @@ beige,menu_found,32,pdf,https://beige-tokyo.com/assets/carte_lunch_261008.pdf,1,
 belcanto,menu_found,48,pdf,https://www.belcanto.pt/carta/Belcanto_Menu_QRCode.pdf?v=102026,1,,2026-10-15
 bell-s,menu_found,51,html,https://www.bellsrestaurant.com/menu-text,1,,2026-10-15
 belle-de-mars,no_menu_found,1,,https://belledemars.fr/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
+bellefeuille,no_menu_found,0,,https://www.saint-james-paris.com/fr/bellefeuille.html,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 belon,menu_found,29,pdf,https://www.belonsoho.com/s/September-BELON-ALC.pdf,1,,2026-10-18
 beluga-loves-you,menu_found,32,html,https://belugalovesyou.com/en/menu/,1,,2026-10-15
 beluga-maastricht,menu_found,32,html,https://belugalovesyou.com/en/menu/,1,,2026-10-15
+ben-wilkinson-at-the-pass,menu_found,19,pdf,https://www.exclusive.co.uk/media/c40pqibf/the-pass-dinner-menu-5.pdf,1,,2026-10-20
 benares,menu_found,49,pdf,https://benaresrestaurant.com/wp-content/uploads/2026/09/BENARES-A-LA-CARTE-2026-DINNER-22.09.26.pdf,1,,2026-10-15
 benoit-en-bernard-dewitte,no_menu_found,0,,https://www.benoitdewitte.be/nl/menu,,chrome: 1 menu-like links; 12 more tried,2026-10-18
 bens-davall,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 9 more tried,2026-10-18
@@ -439,6 +455,7 @@ blue-hill-at-stone-barns,no_menu_found,0,,https://www.bluehillfarm.com/,,chrome:
 bo-innovation,menu_found,27,pdf,https://www.boinnovation.com/_files/ugd/7220cf_aba41fcc470e49b8b85ee20c1a611e05.pdf,1,,2026-10-15
 bo-lan,menu_maybe,8,html,https://www.bolan.co.th/food-detail.php?cate=1,1,,2026-10-15
 bo-tic,menu_found,63,html,https://bo-tic.com/en/menus/,1,,2026-10-15
+bodendorf-s,menu_found,64,html,https://www.landhaus-stricker.com/en/menu-siebzehn84.html,1,,2026-10-20
 boia-de,menu_found,45,html,https://www.boiaderestaurant.com/menus/,1,,2026-10-15
 boka,menu_found,15,html,https://www.bokachicago.com/the-cookbook,,chrome: store failed: ValueError,2026-10-18
 bolenius,menu_found,16,html,https://bolenius-rembrandtpark.nl/menu,1,,2026-10-15

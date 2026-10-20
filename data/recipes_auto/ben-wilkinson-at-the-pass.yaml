@@ -1,0 +1,5 @@
+start: https://www.exclusive.co.uk/the-pass/
+steps:
+- follow:
+    href_matches: the\-pass\-dinner\-menu\-5\.pdf
+content: pdf

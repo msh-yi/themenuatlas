@@ -1,0 +1,5 @@
+start: https://avatara.ae/menu/
+steps:
+- follow:
+    href_matches: Avatara\.pdf
+content: pdf
