@@ -1,0 +1,5 @@
+start: https://farlamhall.com/food-drink/sunday-lunch/
+steps:
+- follow:
+    href_matches: sunday\-lunch\-and\-dinner\.pdf
+content: pdf

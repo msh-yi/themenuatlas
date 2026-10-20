@@ -1,0 +1,5 @@
+start: https://www.ihg.com/regent/hotels/us/en/taipei/tperg/hoteldetail/dining
+steps:
+- follow:
+    href_matches: azie\.pdf
+content: pdf

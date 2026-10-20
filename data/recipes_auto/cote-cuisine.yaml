@@ -1,0 +1,5 @@
+start: https://www.lannroz.fr/fr/restaurant-gastronomique-etoile-carnac-morbihan
+steps:
+- follow:
+    href_matches: menucarte\-aout\-1\.pdf
+content: pdf

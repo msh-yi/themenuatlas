@@ -300,6 +300,7 @@ au-14-fevrier,no_menu_found,3,,https://www.ly-au14fevrier.com/menu/,,chrome: 1 m
 au-coin-des-bon-enfants,menu_maybe,10,html,https://www.aucoin.nl/menu/diner-menu/,1,,2026-10-15
 au-coin-des-bons-enfants,menu_maybe,10,html,https://www.aucoin.nl/menu/diner-menu/,1,,2026-10-15
 au-crocodile,menu_maybe,11,html,https://www.au-crocodile.com/fr/Carte-et-Menus/,1,,2026-10-15
+au-deco,no_menu_found,1,,https://ggp5200.gorp.jp/,,chrome: 0 menu-like links; 5 more tried,2026-10-20
 au-gourmet,menu_found,18,pdf,https://www.au-gourmet.fr/media/original/menu-ds-26-s12-format-apiyou.pdf,1,,2026-10-15
 au-gre-du-vent,menu_found,28,html,https://resto-augreduvent.be/en/our-menu,1,,2026-10-15
 au-jardin,no_menu_found,0,,https://www.restaurant-aujardin.com/menu,,chrome: 2 menu-like links; 7 more tried,2026-10-18
@@ -352,6 +353,7 @@ automne,no_menu_found,0,,https://www.automne-akishige.com/wp-admin/nav-menus.php
 aux-pesked,menu_found,14,html,https://www.auxpesked.com/les-menus/,1,,2026-10-15
 aux-petits-oignons,menu_found,23,html,https://www.auxpetitsoignons.be/la-carte,,chrome: store failed: ValueError,2026-10-18
 aux-terrasses,no_menu_found,1,,https://www.aux-terrasses.com/fr/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
+aux-trois-amis,no_menu_found,0,,https://aux3amis.ch/,,chrome: 0 menu-like links; 10 more tried,2026-10-20
 aux-vieux-couvent,menu_found,14,html,https://www.auvieuxcouvent.fr/fr/la-cuisine.html,1,,2026-10-18
 avant,menu_found,17,html,https://www.kimptonmaalaibangkok.com/best-places-to-visit-in-bangkok-for-food-lovers/,1,chrome: found via the sitemap,2026-10-20
 avant-garde-van-groeninge,no_menu_found,3,,https://www.restaurantavantgarde.nl/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
@@ -406,6 +408,7 @@ bcn-taste-tradition,menu_found,83,html,https://www.bcnhouston.com/menus/,1,,2026
 beach-house,menu_found,36,html,https://beachhouseoxwich.co.uk/menus/,1,,2026-10-15
 beat,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 beckon,menu_found,13,html,https://www.beckon-denver.com/beveragemenu,1,,2026-10-15
+beef-club,menu_maybe,5,html,https://www.schlosshotel-fiss.com/de/restaurant-beef-club/,1,,2026-10-20
 beefbar,no_menu_found,1,,https://beefbar.com/,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 behind,menu_found,15,html,https://behindthiswall.com/zine/2016/6/2/summer-menu,,chrome: store failed: ValueError,2026-10-18
 beige,menu_found,32,pdf,https://beige-tokyo.com/assets/carte_lunch_261008.pdf,1,,2026-10-15
@@ -414,6 +417,7 @@ bell-s,menu_found,51,html,https://www.bellsrestaurant.com/menu-text,1,,2026-10-1
 belle-de-mars,no_menu_found,1,,https://belledemars.fr/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 bellefeuille,no_menu_found,0,,https://www.saint-james-paris.com/fr/bellefeuille.html,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 belon,menu_found,29,pdf,https://www.belonsoho.com/s/September-BELON-ALC.pdf,1,,2026-10-18
+beluga,no_menu_found,3,,https://belugamoscow.ru/en/degustation-menu-ivan-susanin/,,chrome: 13 menu-like links; 15 more tried,2026-10-20
 beluga-loves-you,menu_found,32,html,https://belugalovesyou.com/en/menu/,1,,2026-10-15
 beluga-maastricht,menu_found,32,html,https://belugalovesyou.com/en/menu/,1,,2026-10-15
 ben-wilkinson-at-the-pass,menu_found,19,pdf,https://www.exclusive.co.uk/media/c40pqibf/the-pass-dinner-menu-5.pdf,1,,2026-10-20
@@ -422,6 +426,7 @@ benoit-en-bernard-dewitte,no_menu_found,0,,https://www.benoitdewitte.be/nl/menu,
 bens-davall,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 9 more tried,2026-10-18
 benu,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 bergfried-chef-s-table,menu_maybe,6,html,https://www.bergfried.at/en/culinary/chefs-table-tasting-menu.html,1,,2026-10-18
+bernard,no_menu_found,0,,https://bernard-2009425.amebaownd.com/pages/2666682/page_201903061420,,chrome: 1 menu-like links; 9 more tried,2026-10-20
 berton,menu_found,39,html,https://ristoranteberton.com/en/the-menu/,1,,2026-10-15
 bessem,no_menu_found,2,,https://www.bessem-restaurant.com/en/menu/,,chrome: 1 menu-like links; 15 more tried,2026-10-18
 beta-kl,no_menu_found,0,,https://www.betakl.com/menu,,chrome: 1 menu-like links; 6 more tried,2026-10-18
@@ -432,6 +437,7 @@ bidlabu,menu_found,13,html,https://bidlabu.de/,1,,2026-10-15
 bieberbau,menu_maybe,7,html,https://www.bieberbau-berlin.de/,1,,2026-10-15
 big-cat,no_menu_found,0,,https://bigcatswildcats.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 bij-jef,no_menu_found,3,,https://bijjef.nl/nl/menu,,chrome: 1 menu-like links; 14 more tried,2026-10-18
+bikuni-kanko-house,no_menu_found,2,,https://bikunihouse.com/food,,chrome: 1 menu-like links; 12 more tried,2026-10-20
 bing-sheng-private-kitchen,robots,0,,,,robots.txt disallows the home page,2026-10-15
 bini,no_menu_found,1,,https://www.restaurant-bini.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
 biologie,menu_found,41,html,https://biologie.ru/en,,chrome: store failed: ValueError,2026-10-18
@@ -443,6 +449,7 @@ bistro-racine,menu_maybe,6,html,https://www.bistroracine.be,1,,2026-10-15
 bistrot,menu_found,60,html,https://ristorantebistrot.it/english/il-menu/,1,,2026-10-18
 bistrot-blaise,menu_found,34,html,https://bistrotblaise.be/,1,,2026-10-15
 bistrot-du-nord,menu_maybe,11,html,https://www.bistrotdunord.be/en/menu/,1,,2026-10-15
+bjornsox,no_menu_found,0,,https://rhoener-botschaft.de/bjoernsox/,,chrome: 0 menu-like links; 12 more tried,2026-10-20
 blackswan,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 blanc,no_menu_found,2,,https://aubergemoutonblanc.com/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 blanca,no_menu_found,0,,https://www.blancanyc.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-18
@@ -452,6 +459,7 @@ blossom,menu_found,30,html,https://www.blossommalaga.com/menu-confluencia,1,,202
 blue-bay-marcel-ravin,menu_found,35,pdf,https://asset.montecarlosbm.com/menu/SBM_CARTE_CDP%20AUTOMNE%202026_FR-WEB.pdf,1,chrome: found via a PDF in the page source,2026-10-20
 blue-by-alain-ducasse,menu_found,22,pdf,https://www.blue-alainducasse.com/wp-content/uploads/2025/11/All-Day-Dining-Menu.pdf,1,,2026-10-15
 blue-hill-at-stone-barns,no_menu_found,0,,https://www.bluehillfarm.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
+bluh-furore,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 5 more tried,2026-10-20
 bo-innovation,menu_found,27,pdf,https://www.boinnovation.com/_files/ugd/7220cf_aba41fcc470e49b8b85ee20c1a611e05.pdf,1,,2026-10-15
 bo-lan,menu_maybe,8,html,https://www.bolan.co.th/food-detail.php?cate=1,1,,2026-10-15
 bo-tic,menu_found,63,html,https://bo-tic.com/en/menus/,1,,2026-10-15
@@ -459,6 +467,7 @@ bodendorf-s,menu_found,64,html,https://www.landhaus-stricker.com/en/menu-siebzeh
 boia-de,menu_found,45,html,https://www.boiaderestaurant.com/menus/,1,,2026-10-15
 boka,menu_found,15,html,https://www.bokachicago.com/the-cookbook,,chrome: store failed: ValueError,2026-10-18
 bolenius,menu_found,16,html,https://bolenius-rembrandtpark.nl/menu,1,,2026-10-15
+bom,no_menu_found,1,,https://www.bom-nyc.com/menu-1,,chrome: 1 menu-like links; 12 more tried,2026-10-20
 bomb-bomb-bar,menu_maybe,10,html,https://bombbombbar.com/menu,1,,2026-10-15
 bon-appetit,menu_found,76,html,https://osterianove.ie/menus/,1,,2026-10-15
 bon-bon,menu_found,15,html,https://bonbon.pt/pt-pt/menu/,1,,2026-10-15
@@ -518,6 +527,7 @@ burnel,menu_found,12,html,"https://www.burnel.fr/menus-cartes-restaurant-hotel-p
 burnt-ends,menu_found,26,html,https://bakery.burntends.com.sg/,,chrome: store failed: ValueError,2026-10-18
 burnt-hill-farm,no_menu_found,0,,https://www.burnthill.farm/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
 butterfly,menu_found,90,html,https://www.ristorantebutterfly.it/menu-ristorante.php,1,,2026-10-15
+byeoleeya,no_menu_found,0,,https://hoshinomeika.com/byeoleeya/,,1 menu-like links,2026-10-20
 ca-cento-sento,no_menu_found,0,,https://casento.jp/menu,,chrome: 1 menu-like links; 9 more tried,2026-10-18
 ca-l-enric,menu_found,19,html,https://www.restaurantcalenric.cat/es/,,chrome: store failed: ValueError,2026-10-18
 ca-matilde,menu_found,18,html,https://camatilde.it/en/menu/,1,,2026-10-18
@@ -529,6 +539,7 @@ cafe-gupi,no_menu_found,3,,https://www.cafegupi.de/s/MenuApril2026.pdf,,chrome: 
 cai-yi-xuan,menu_found,63,html,https://www.fourseasons.com/beijing/dining/restaurants/cai_yi_xuan/cyx-alacarte-menu/,1,,2026-10-18
 cail-bruich,menu_found,29,pdf,https://www.cailbruich.co.uk/s/Sample-Dinner-Menu-October-2026-ddbx.pdf,1,,2026-10-15
 caino,menu_found,35,html,https://dacaino.it/menu-ristorante-caino/,1,,2026-10-17
+cal,no_menu_found,0,,https://sitiolaestocada.com/restaurante/,,0 menu-like links,2026-10-20
 cal-paradis,no_menu_found,2,,https://www.calparadis.es/,,chrome: 0 menu-like links; 10 more tried,2026-10-18
 calice,menu_maybe,5,html,https://restaurantcalice.fr/,1,,2026-10-15
 californios,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
@@ -544,12 +555,15 @@ canabota,no_menu_found,2,,https://canabota.es/en/,,chrome: 0 menu-like links; 6 
 candlenut,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 canfranc-express,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 cannavacciuolo-bistrot,menu_found,34,html,https://www.cannavacciuolobistrot.it/en/turin/menu/,1,,2026-10-15
+cannavacciuolo-by-the-lake,menu_found,16,html,https://laquabythelake.it/resort-sul-lago-d-orta-pettenasco-novara/ristorante-sul-lago-bistrot-cannavacciuolo/,1,,2026-10-20
 cannavacciuolo-countryside,no_menu_found,0,,https://cannavacciuologroup.it/,,chrome: 0 menu-like links; 10 more tried,2026-10-18
 cannavacciuolo-le-cattedrali-asti,menu_found,13,html,https://www.lecattedrali.com/?page_id=3198,1,,2026-10-15
 cannavacciuolo-vineyard,menu_found,13,html,https://laquavineyard.it/resort-in-toscana-terricciola-pisa/bistrot/menu/,,chrome: store failed: ValueError,2026-10-18
 cannubi-by-umberto-bombana,menu_found,31,pdf,http://www.cannubibangkok.com/wp-content/uploads/2026/09/Autumn-A-La-Carte-2026.pdf,,chrome: store failed: ValueError,2026-10-18
+canton-table,failed,0,,,,"TimeoutError: Page.goto: Timeout 30000ms exceeded. Call log: - navigating to ""https://www.threeonthebund.com/zh/restaurant/102008183385"", waiting until ""load""",2026-10-20
 cap-aureo,menu_found,73,pdf,https://res.cloudinary.com/maistra/image/upload/v1789975689/Pdf%20and%20doc/New%20Website%20v2/Restaurants/Cap%20Aureo/21.09.26/Maistra_GPHR_Cap_Aureo_hrana_web_GB_2026_asxtzr.pdf,1,,2026-10-15
 capi,no_menu_found,1,,https://capi-osaka.com/,,chrome: 1 menu-like links; 6 more tried,2026-10-18
+capogiro,menu_maybe,5,pdf,https://7pines-sardinia.com/media/spa/spa_menu.pdf,1,,2026-10-20
 capriccio,menu_found,14,html,https://ristorantecapriccio.it/menu/,1,,2026-10-15
 caprice,menu_found,36,html,https://www.fourseasons.com/hongkong/dining/menus/caprice-connoisseur/,1,,2026-10-18
 caracol,no_menu_found,1,,https://caracolgourmet.it/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
@@ -562,6 +576,7 @@ carino,menu_found,22,html,https://www.carinochicago.com/menu,1,,2026-10-15
 carnitas-ramirez,menu_maybe,6,html,https://www.carnitasramirez.com/tacos-explained,,chrome: store failed: ValueError,2026-10-18
 caruso-s,menu_found,47,html,https://www.rosewoodhotels.com/en/miramar-beach-montecito/dining/carusos/dinner-menu,1,,2026-10-18
 cas-pikaar,menu_maybe,11,html,https://www.restaurantpikaar.nl/menu,1,,2026-10-18
+casa-201,menu_maybe,7,html,https://www.casa201.com.br/menu,1,,2026-10-20
 casa-arcas,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 casa-bernardi,menu_found,13,pdf,https://casabernardi.es/wp-content/uploads/2026/05/Pasta-lovers-Frances-postre.pdf,1,,2026-10-15
 casa-bertini,menu_found,34,html,https://www.ristorantecasabertini.it/en/menu-en/,1,,2026-10-15
@@ -582,6 +597,7 @@ casa-pepa,no_menu_found,1,,https://capepa.es/,,chrome: 1 menu-like links; 12 mor
 casa-perbellini-12-apostoli,menu_found,42,html,https://www.casaperbellini.com/en/tasting-experiences/,1,,2026-10-15
 casa-ruben,no_menu_found,0,,https://restauranteordesa.es/menu-restaurante/,,chrome: 1 menu-like links; 10 more tried,2026-10-18
 casa-sgarra,menu_found,21,pdf,https://casasgarra.it/wp-content/uploads/2026/09/menu_autunno_2026.pdf,1,,2026-10-15
+casa-vigil,no_menu_found,0,,https://universovigil.com/,,0 menu-like links,2026-10-20
 casadelmar,menu_found,24,pdf,https://www.casadelmar.fr/uploads/menus_casadelmar_fr_avec_prix_85_.pdf,1,,2026-10-15
 casamatta,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-18
 casas-colgadas-restaurante,no_menu_found,0,,https://restaurantecasascolgadas.com/,,chrome: 0 menu-like links; 9 more tried,2026-10-18
@@ -594,6 +610,7 @@ castor,menu_found,30,html,https://cas-tor.be/en/menu,1,,2026-10-15
 cauponor,robots,0,,,,robots.txt disallows the home page,2026-10-17
 caviar-russe,menu_found,35,html,https://caviarrusse.com/pages/new-york-tasting-menu,1,,2026-10-15
 cebo,menu_found,20,html,https://www.cebomadrid.com/en/menus,1,,2026-10-15
+cedar-tree,menu_found,25,pdf,https://farlamhall.com/media/u5kp1lm5/sunday-lunch-and-dinner.pdf,1,,2026-10-20
 cedric,menu_maybe,8,html,http://www.restaurant-cedric.de/menu/,1,,2026-10-15
 cedric-burtin,menu_found,14,pdf,https://cedricburtin.com/media/original/nos-menus.pdf,1,,2026-10-15
 ceibe,no_menu_found,0,,https://ceiberestaurante.es/portfolio/menus/,,chrome: 1 menu-like links; 11 more tried,2026-10-18
@@ -635,11 +652,14 @@ chef-s-table,menu_found,23,html,https://lebua.com/restaurants/sirocco/chefs-tast
 chef-s-table-at-brooklyn-fare,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 8 more tried,2026-10-18
 chef-tam-s-seasons,menu_found,21,pdf,https://owsc.wynnresortsmacau.com/dining/wp-chef-tams-seasons-lunch-specialties-menu-261001.pdf,1,,2026-10-18
 chefs-atelier,menu_maybe,8,pdf,https://www.chefsatelier.de/ca-menue.pdf,1,,2026-10-15
+cherry-garden,no_menu_found,2,,https://www.mandarinoriental.com/en/singapore/marina-bay/dine/cherry-garden-by-chef-fei,,2 menu-like links,2026-10-20
 chesa-stuva-colani,no_menu_found,0,,https://www.hotelchesacolani.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 cheval-blanc,no_menu_found,1,,https://www.restaurant-chevalblanc.fr/,,chrome: 1 menu-like links; 7 more tried,2026-10-18
 cheval-blanc-heemstede,menu_maybe,7,html,https://cheval-blanc.nl/menu/,1,,2026-10-15
+cheval-blanc-upper-palatinate-ill,menu_maybe,7,pdf,https://www.weisses-ross.de/de/restaurant/cheval_blanc1026.pdf?rev=1792432558,1,,2026-10-20
 chez-bruce,menu_found,55,html,https://www.chezbruce.co.uk/food/recent-menu/,1,,2026-10-15
 chez-jacques,menu_found,22,pdf,https://www.restaurantjacques.be/wp-content/uploads/2026/06/Carte-FR-20260629.pdf,1,,2026-10-15
+chez-jeannette,menu_found,12,pdf,https://www.peyrassol.com/wp-content/uploads/MENU_FOOD_JEANNETTE-ENG-Site-internet-1.pdf,1,,2026-10-20
 chez-michele,menu_found,15,pdf,https://www.chezmichele.fr/media/original/menu-v28-09-26.pdf,1,,2026-10-15
 chez-noir,menu_maybe,6,html,https://www.cheznoircarmel.com/about,,chrome: store failed: ValueError,2026-10-18
 chez-tj,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
@@ -667,6 +687,7 @@ ciel,no_menu_found,0,,https://cieldining.com/,,chrome: 0 menu-like links; 5 more
 ciel-bleu,menu_found,14,html,https://www.cielbleu.nl/menu,1,,2026-10-15
 cinc-sentits,menu_found,39,pdf,https://dl.dropboxusercontent.com/s/kpc2vho7uarhbi7/web_menu_en.pdf?dl=0,1,,2026-10-15
 circle,menu_maybe,11,pdf,https://circlelyon.fr/wp-content/uploads/2026/08/CARTE-VINS-ET-BOISSONS-CIRCLE.pdf,1,,2026-10-15
+circum,menu_found,52,pdf,http://docs.regenttaiwan.com/link/IHG_Menu/azie.pdf,1,,2026-10-20
 citrin,menu_found,66,html,https://www.citrinandmelisse.com/menus,1,,2026-10-15
 citrus-del-tancat,no_menu_found,3,,https://citrusdeltancat.com/menus-degustacion,,chrome: 1 menu-like links; 8 more tried,2026-10-18
 city-social,menu_found,25,pdf,https://www.citysocial-london.com/wp-content/uploads/2026/07/CITY-SOCIAL-LUNCH-MENU-30.07.26.pdf,1,,2026-10-15
@@ -682,6 +703,7 @@ cloudstreet,no_menu_found,0,,https://www.cloudstreet.us/,,chrome: 0 menu-like li
 club-gascon,no_menu_found,0,,https://www.clubgascon.com/,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 clube-naval,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 cob,no_menu_found,3,,https://cob.si/,,chrome: 0 menu-like links; 7 more tried,2026-10-18
+cobo-evolucion,menu_found,34,pdf,https://coboestratos.com/menus/Cobo-Estratos-La-Carta-EN.pdf,1,,2026-10-20
 cocina-consuelo,menu_maybe,10,html,https://www.cocinaconsuelonyc.com/food,1,,2026-10-15
 cocina-de-autor-los-cabos,menu_maybe,9,pdf,https://assets.milestoneinternet.com/grand-velas-parent/los-cabos/website-assets/pdf/gvlc-de-gv-bebidas-todo-incluido-2.pdf,1,,2026-10-15
 cocina-hermanos-torres,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 7 more tried,2026-10-18
@@ -692,6 +714,7 @@ codigo-de-barra,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-1
 codium,no_menu_found,3,,https://restaurantcodium.nl/menu/,,chrome: 1 menu-like links; 6 more tried,2026-10-18
 coeur-d-artichaut,menu_found,14,pdf,https://www.coeur-dartichaut.de/_files/ugd/6ab65f_f6afee717c83447fa20ed34eb5cfaafc.pdf,1,,2026-10-15
 colette,menu_maybe,8,html,https://www.colettesainttropez.com/blog/articles/la-carte-de-saison-de-votre-restaurant-colette-a-saint-tropez-29125,,chrome: store failed: ValueError,2026-10-18
+collage,no_menu_found,0,,https://ananti.kr/ko/atnamhae/NH0201,,10 menu-like links,2026-10-20
 colline-ciociare,robots,0,,,,robots.txt disallows the home page,2026-10-15
 colombi-restaurant-zirbelstube,no_menu_found,0,,https://www.colombi.de/de,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 come-by-paco-mendez,menu_found,12,html,https://come.com.es/en/the-menu/,1,,2026-10-15
@@ -725,6 +748,7 @@ corton,no_menu_found,0,,https://www.cortonnyc.com/,,chrome: 0 menu-like links; 7
 costes,bot_blocked,0,,,,cloudflare: https://www.costesrestaurant.hu/: HTTP 403,2026-10-18
 costes-downtown,menu_found,31,html,https://www.costesrestaurant.hu/menu/,,chrome: store failed: ValueError,2026-10-18
 cote-by-mauro-colagreco,bot_blocked,0,,,,cloudflare: https://capellahotels.com/en/capella-bangkok/dining/cote-by-mauro-colagreco: HTTP 403,2026-10-18
+cote-cuisine,menu_found,16,pdf,https://www.lannroz.fr/documents/menucarte-aout-1.pdf,1,,2026-10-20
 cote-d-or,no_menu_found,3,,http://www.restaurant-cotedor.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-18
 cote-jardin,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 cote-miami,menu_found,56,html,https://www.cotekoreansteakhouse.com/miamidinnermenu,1,,2026-10-15

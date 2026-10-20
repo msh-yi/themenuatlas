@@ -1,0 +1,5 @@
+start: https://www.peyrassol.com/en/restaurants-and-accommodation/gastronomy/menu-french-gastronomic-restaurant-chez-jeannette/
+steps:
+- follow:
+    href_matches: MENU_FOOD_JEANNETTE\-ENG\-Site\-internet\-1\.pdf
+content: pdf
