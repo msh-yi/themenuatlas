@@ -1,0 +1,5 @@
+start: https://jae-restaurant.de/
+steps:
+- follow:
+    href_matches: Menue\.pdf
+content: pdf

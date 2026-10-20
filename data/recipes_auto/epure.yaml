@@ -1,0 +1,5 @@
+start: https://www.epure.hk/menu
+steps:
+- follow:
+    href_matches: 3c7f99_cb1a1b56b91f4b0597b148cb772d5c85\.pdf
+content: pdf

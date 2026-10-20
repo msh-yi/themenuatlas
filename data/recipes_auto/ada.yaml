@@ -1,0 +1,5 @@
+start: https://adagourmet.it/
+steps:
+- follow:
+    href_matches: Ada_Carta\.pdf
+content: pdf

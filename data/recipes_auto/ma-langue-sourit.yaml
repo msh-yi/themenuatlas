@@ -1,0 +1,5 @@
+start: https://mls.lu/en/meraki-menu.html
+steps:
+- follow:
+    href_matches: menu\-propo\-en\-copie\.pdf
+content: pdf

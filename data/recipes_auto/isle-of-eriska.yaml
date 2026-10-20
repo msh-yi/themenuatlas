@@ -1,0 +1,5 @@
+start: https://www.eriska-hotel.co.uk/food-drink/menus
+steps:
+- follow:
+    href_matches: Deck\-Menu\.pdf
+content: pdf

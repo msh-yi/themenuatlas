@@ -1,0 +1,5 @@
+start: https://www.danang.intercontinental.com/dining/la-maison-1888/
+steps:
+- follow:
+    href_matches: Limited\-Edition\-Gourmand\-Menu\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.imperialtreasure.com/restaurant/ImperialTreasureFineChineseCuisine-1
+steps:
+- follow:
+    href_matches: FC_MBS_Main%20Menu_300726_updated_web\.pdf
+content: pdf

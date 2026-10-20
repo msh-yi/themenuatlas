@@ -1,0 +1,5 @@
+start: https://sandwich.place/
+steps:
+- follow:
+    href_matches: spmenu\.pdf
+content: pdf

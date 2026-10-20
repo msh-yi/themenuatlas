@@ -1,0 +1,5 @@
+start: https://www.hotelbleucarry.com/fr/restaurant-et-bar.html
+steps:
+- follow:
+    href_matches: menuoursin\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://restaurantdoubek.at/en/menu/
+steps:
+- follow:
+    href_matches: DOUBKE_\-Menu\.pdf
+content: pdf

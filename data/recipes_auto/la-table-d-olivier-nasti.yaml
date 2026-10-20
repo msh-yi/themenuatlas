@@ -1,0 +1,5 @@
+start: https://www.lechambard.fr/fr/
+steps:
+- follow:
+    href_matches: carte\-des\-soins\-le\-chambard\-relais\-chateaux\-kaysersberg\.pdf
+content: pdf

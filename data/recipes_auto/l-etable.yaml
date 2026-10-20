@@ -1,0 +1,5 @@
+start: https://www.dersternhersfeld.de/kulinarik
+steps:
+- follow:
+    href_matches: Letable_Karte__Spatsommer_2026\.pdf
+content: pdf

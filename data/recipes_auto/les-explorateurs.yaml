@@ -1,0 +1,5 @@
+start: https://www.hotelpashmina.com/fr/se-restaurer-restaurant-a-val-thorens/les-explorateurs
+steps:
+- follow:
+    href_matches: Les\-Explorateurs\-11\-eme\-version\-\.pdf
+content: pdf

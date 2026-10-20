@@ -1,0 +1,5 @@
+start: https://www.tate.com.hk/
+steps:
+- follow:
+    href_matches: 2609_TATE\-WEB_porcelain\-menu\-sample\.pdf
+content: pdf

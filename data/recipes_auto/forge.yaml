@@ -1,0 +1,5 @@
+start: https://middletonlodge.co.uk/eat/
+steps:
+- follow:
+    href_matches: Lunch\-Menu\.pdf
+content: pdf

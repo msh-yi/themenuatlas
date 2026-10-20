@@ -1,0 +1,5 @@
+start: https://www.hotel-richerdebelleval.com/jardin-des-sens/
+steps:
+- follow:
+    href_matches: jds\-carte\-menu\.pdf
+content: pdf

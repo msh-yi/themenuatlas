@@ -1,0 +1,5 @@
+start: https://www.eurossola.com/it/atelier-restaurant/menu/
+steps:
+- follow:
+    href_matches: carta_atelier_2026_10_13\.pdf
+content: pdf

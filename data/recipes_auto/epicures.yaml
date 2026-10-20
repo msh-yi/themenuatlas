@@ -1,0 +1,5 @@
+start: https://www.residenz-heinz-winkler.de/gourmet/kulinarik-hotel-chiemgau.html
+steps:
+- follow:
+    href_matches: 1\-seite\-8\-gang\-menue\-deutsch\.840\.pdf
+content: pdf

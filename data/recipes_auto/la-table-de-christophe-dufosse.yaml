@@ -1,0 +1,5 @@
+start: https://www.ledomainedebeaulieu.fr/fr/
+steps:
+- follow:
+    href_matches: menu\-au\-detour\-des\-saisons\-octobre\-2026\.pdf
+content: pdf

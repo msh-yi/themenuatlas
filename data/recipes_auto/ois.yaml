@@ -1,0 +1,5 @@
+start: https://www.muehltalhof.at/kueche/
+steps:
+- follow:
+    href_matches: MTH_ALA_CARTE_KW25\.pdf
+content: pdf

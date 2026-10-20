@@ -1,0 +1,5 @@
+start: https://www.mktn.it/menu-cumquibus
+steps:
+- follow:
+    href_matches: CQ\-Estate\-26\-WEB\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.chateaulesoliviersdesalettes.com/restaurant-charols/
+steps:
+- follow:
+    href_matches: LE\-GRILL\-ODS\-WEB\-FR\-EN\-21\-08\-1\.pdf
+content: pdf

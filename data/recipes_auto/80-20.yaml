@@ -1,0 +1,5 @@
+start: https://www.8020bkk.com/menu
+steps:
+- follow:
+    href_matches: a7e7ff_64c88a8b787f4bd7870cc8bc036c597d\.pdf
+content: pdf

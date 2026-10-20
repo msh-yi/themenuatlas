@@ -1,0 +1,5 @@
+start: https://www.domaine-locguenole.com/restaurants-bars-restaurant-gastronomique-bretagne/linattendu-restaurant-gastronomique-morbihan/
+steps:
+- follow:
+    href_matches: 01\.10\.26\-Carte\-LInattendu\-Francais\.pdf
+content: pdf

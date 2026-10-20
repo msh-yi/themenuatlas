@@ -1,0 +1,5 @@
+start: https://chateaudelagaude.com/restaurant
+steps:
+- follow:
+    href_matches: Carte\-Vins\.pdf
+content: pdf
