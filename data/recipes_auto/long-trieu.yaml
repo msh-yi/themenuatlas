@@ -1,0 +1,5 @@
+start: https://www.thereveriesaigon.com/restaurants-bars/long-trieu/
+steps:
+- follow:
+    href_matches: Long\-Trieu\-Tasting\-Menu\.pdf
+content: pdf

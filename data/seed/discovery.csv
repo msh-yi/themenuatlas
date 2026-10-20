@@ -2112,8 +2112,12 @@ lavandin,menu_found,33,pdf,https://www.chateaulesoliviersdesalettes.com/wp-conte
 lazy-bear,menu_maybe,8,html,https://www.lazybearsf.com/dinner/,1,,2026-10-18
 lazy-betty,menu_found,32,pdf,https://www.lazybettyatl.com/_files/ugd/891541_d6082a0bbb2144ae93156807f54a9284.pdf,1,,2026-10-15
 lazzaro-1915,menu_found,16,html,http://www.lazzaro1915.it/,1,,2026-10-18
+ld-terrace,menu_found,31,html,https://www.ldrestaurant.com/tasting-menu,1,,2026-10-20
+le-1862,menu_found,25,pdf,https://www.les-glycines-dordogne.com/documents/bistro-30-09-2026.pdf,1,,2026-10-20
 le-1947,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-20
 le-7eme-continent,menu_maybe,11,html,https://www.le7emecontinent.com/la-carte,1,,2026-10-15
+le-art,menu_maybe,7,pdf,https://chateaudelagaude.com/marketing/CarteVins/Carte-Vins.pdf,1,,2026-10-20
+le-baudelaire,menu_found,40,html,https://www.leburgundy.com/fr/actualites.html,1,chrome: found via the site's navigation,2026-10-20
 le-beau-rivage-by-curtis,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 7 more tried,2026-10-19
 le-berceau-des-sens,menu_found,47,html,https://www.berceau-des-sens.ch/en/menu,1,,2026-10-15
 le-bernardin,hand_recipe,,,,,,
@@ -2134,7 +2138,9 @@ le-chamarlenc,no_menu_found,1,,http://lechamarlenc.free.fr/,,chrome: 0 menu-like
 le-champignon-sauvage,menu_found,31,html,https://www.lechampignonsauvage.co.uk/carte.html,1,,2026-10-15
 le-chantecler,no_menu_found,0,,https://www.lenegresco.com/file/menu-le-chantecler,,chrome: 1 menu-like links; 12 more tried,2026-10-19
 le-charlemagne,menu_found,18,pdf,https://www.lecharlemagne.fr/media/original/menu-decouverte-octobre.pdf,1,,2026-10-16
+le-charlie,no_menu_found,1,,https://www.lapiscineporticcio.com/the-restaurant,,chrome: 2 menu-like links; 12 more tried,2026-10-20
 le-chique,no_menu_found,1,,https://www.karismahotels.com/,,chrome: 0 menu-like links; 15 more tried,2026-10-19
+le-cin5,no_menu_found,2,,https://www.hotel-aucoeurduvillage.fr/restauration/le-cinq/,,chrome: 0 menu-like links; 14 more tried,2026-10-20
 le-cinq,menu_maybe,10,html,https://www.fourseasons.com/fr/paris/dining/menus/le-cinq-menu-du-nouvel-an/,1,,2026-10-15
 le-clair-de-la-plume,menu_maybe,6,html,https://www.clairplume.com/en/tasting-restaurants/,1,,2026-10-15
 le-clan,menu_found,14,html,https://restaurantleclan.com/,1,,2026-10-16
@@ -2168,6 +2174,7 @@ le-grand-cerf,menu_found,20,html,https://le-grand-cerf.fr/fr/carte-et-menus-rest
 le-grand-restaurant,no_menu_found,0,,https://xn--jeanfranoispiege-jpb.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-18
 le-grand-verre,menu_found,16,html,https://www.legrandverre.be/,1,,2026-10-18
 le-grill,menu_maybe,9,html,https://www.montecarlosbm.com/en/restaurant-monaco/le-train-bleu?&gtmIndex=16&gtmListName=establishmentMenuDesktop&gtmListId=265,1,,2026-10-15
+le-gv,menu_found,30,pdf,https://legv.mt/wp-content/uploads/2026/09/Sample-Dinner-Menu-Q3-2026.pdf,1,,2026-10-20
 le-haut-allier,menu_found,12,pdf,https://www.hotel-lehautallier.com/media/original/64a562e0259cd/26-menus-automne-n4.pdf,1,,2026-10-15
 le-hittau,menu_found,19,html,https://www.restaurant-lehittau.fr/carte-et-menus,1,,2026-10-15
 le-jardin-de-berne,no_menu_found,2,,https://www.chateauberne.com/oenotourisme-agenda/la-cave-de-degustation/,,chrome: 2 menu-like links; 15 more tried,2026-10-19
@@ -2178,9 +2185,11 @@ le-jardinier-houston,menu_found,78,html,https://www.lejardinier-houston.com/menu
 le-jardinier-miami,menu_found,74,html,https://www.lejardinier-miami.com/menus,1,,2026-10-16
 le-jules-verne,no_menu_found,0,,https://www.restaurants-toureiffel.com/fr/restaurant-jules-verne/la-carte.html,,chrome: 1 menu-like links; 15 more tried,2026-10-18
 le-julien,menu_found,37,html,https://lejulien.be/en/menu,1,,2026-10-16
+le-k,menu_found,26,html,https://www.domainedelaklauss.com/fr/le-k.html,1,,2026-10-20
 le-kaiku,menu_found,28,html,https://www.kaiku.fr/la-carte,1,,2026-10-16
 le-kleber,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 le-louis-xv,menu_found,42,pdf,https://asset.montecarlosbm.com/menu/13%2010%2026%20-%20UK-carte-des-mets-louis-xv-alain-ducasse.pdf?VersionId=DXNmJJ1i3JCgYMIu3KGRbb2M2laAtdMs,1,,2026-10-15
+le-lys,no_menu_found,0,,https://lelys-restaurant.lu/fr/,,chrome: 0 menu-like links; 7 more tried,2026-10-20
 le-m,menu_found,18,html,https://domainedemontagne.com/fr/carte-et-menu-du-comptoir.html,1,,2026-10-15
 le-manoir-de-la-regate,menu_maybe,5,html,https://www.manoirdelaregate.com/les-recettes/,,chrome: store failed: ValueError,2026-10-19
 le-manoir-du-lys,menu_found,13,pdf,https://www.manoir-du-lys.fr/media/original/6970e9c3695e8/6970e9dd0b650/69723e7fe77fa/fr-carte-restaurant-septembre-2026-manoir-du-lys.pdf,1,,2026-10-15
@@ -2192,6 +2201,7 @@ le-moissonnier-bistro,menu_found,15,html,https://www.lemoissonnier.de/Le-Moisson
 le-monument,no_menu_found,2,,https://www.maison-albar-hotels-le-monumental-palace.com/pt/page/le-monument-restaurante-hotel-porto.3809.html,,chrome: 1 menu-like links; 13 more tried,2026-10-19
 le-monzu,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 le-moulin-de-l-abbaye,menu_found,15,html,https://www.moulinabbaye.com/la-carte/,1,,2026-10-18
+le-murenburg,no_menu_found,1,,https://www.lemurenberg.ch/,,chrome: 1 menu-like links; 11 more tried,2026-10-20
 le-musee,no_menu_found,1,,https://www.musee-co.com/,,chrome: 1 menu-like links; 6 more tried,2026-10-19
 le-neuvieme-art,menu_found,29,html,https://leneuviemeart.com/en/card-and-menus.html,1,,2026-10-15
 le-normandie,no_menu_found,3,,https://www.mandarinoriental.com/en/bangkok/chao-phraya-river/dine/anne-sophie-pic-at-le-normandie,,chrome: 2 menu-like links; 15 more tried,2026-10-18
@@ -2218,6 +2228,7 @@ le-prieure,menu_found,25,html,https://www.leprieure.com/the-restaurant/gastronom
 le-prince-noir,no_menu_found,2,,https://www.leprincenoir-restaurant.com/nos-menus/reserver-table-autour-d-menu-vegetarien,,chrome: 5 menu-like links; 15 more tried,2026-10-19
 le-puits-du-tresor,menu_maybe,11,html,https://lepuitsdutresor.com/,1,,2026-10-15
 le-puits-saint-jacques,no_menu_found,0,,https://lepuitssaintjacques.fr/fr/19-menus,,chrome: 1 menu-like links; 12 more tried,2026-10-19
+le-puy-tilleul,menu_found,14,pdf,https://laboriedhelipse.com/wp-content/uploads/pdf/carte-le-puy-tilleul-automne-2026.pdf,1,,2026-10-20
 le-raisin,menu_found,26,pdf,https://www.leraisin.com/wp-content/uploads/2026/09/Menus-actuels-25-09-26-1.pdf,1,,2026-10-15
 le-refuge-des-gourmets,menu_found,14,pdf,https://refugedesgourmets.com/media/original/carte-bistro-du-15-au-17-octobre-2026.pdf,1,,2026-10-16
 le-relais-de-la-poste,menu_maybe,8,html,https://www.relaisposte.com/en/the-tables/fine-dinning.html,1,,2026-10-15
@@ -2246,26 +2257,33 @@ legado,bot_blocked,0,,,,cloudflare: https://www.legadorestaurants.com/: HTTP 403
 legende,no_menu_found,3,,https://www.restaurantlegende.com/,,chrome: 1 menu-like links; 10 more tried,2026-10-19
 legume,menu_found,35,html,https://www.legume.kr/gallery,,chrome: store failed: ValueError,2026-10-19
 lei,no_menu_found,0,,https://www.leiwine.nyc/menu,,chrome: 1 menu-like links; 6 more tried,2026-10-18
+lei-garden-central-region-centr,menu_maybe,10,html,https://leigarden.hk/lei-garden-launches-spring-seafood-delights-special-menu/,1,chrome: found via the sitemap,2026-10-20
+lei-garden-yuexiu,menu_maybe,10,html,https://leigarden.hk/lei-garden-launches-spring-seafood-delights-special-menu/,1,chrome: found via the sitemap,2026-10-20
 lenclume,hand_recipe,,,,,,
 leo,menu_maybe,10,pdf,https://restauranteleo.com/wp-content/uploads/2026/06/8-TIEMPOS-ESPANOL-13-de-MAYO-2026.pdf,1,,2026-10-20
 leo-s,menu_found,45,html,https://leosristoranteri.com/dining/,1,,2026-10-15
 leon-d-oro,robots,0,,,,robots.txt disallows the home page,2026-10-18
+leos,no_menu_found,0,,https://bayerwaldhof.de/kulinarik/speisekarten,,chrome: 1 menu-like links; 15 more tried,2026-10-20
+lera,no_menu_found,0,,https://restaurantelera.es/collections/menu,,chrome: 1 menu-like links; 12 more tried,2026-10-20
 lerouy,robots,0,,,,robots.txt disallows the home page,2026-10-16
 leroy-and-lewis-barbecue,menu_found,51,html,https://leroyandlewisbbq.com/menu/,,chrome: store failed: ValueError,2026-10-19
 les-agitateurs,menu_maybe,6,html,https://lesagitateurs.com/pirouette-eng,1,,2026-10-15
 les-ambassadeurs,menu_found,31,pdf,https://pub-f81172de10b845879298a4eb193b5a9c.r2.dev/F%26B/HMMC_Carte-Les-Ambassadeurs-by-Christophe-Cussac_fr.pdf,1,,2026-10-20
 les-amis,menu_found,20,pdf,https://menu.lesamis.com.sg/le-menu-degustation.pdf,1,,2026-10-15
+les-belles-perdrix,menu_maybe,10,pdf,https://www.troplong-mondot.com/media/site/e3cd897859-1781020033/menus-saison-printemps-ete-2026.pdf,1,,2026-10-20
 les-cadets,menu_maybe,10,pdf,https://www.restaurantlescadets.fr/wp-content/uploads/2026/04/LESCADETS_CarteDesVins_Web.pdf,1,,2026-10-15
 les-cedres,menu_maybe,11,html,https://www.restaurantlescedres.fr/fr/carte-menu-restaurant-etoile-drome.html,1,,2026-10-16
 les-cols,menu_found,39,html,https://www.lescols.com/en/menus-en/,1,,2026-10-15
 les-deux,menu_found,38,html,https://lesdeux-muc.de/en/menu-restaurant,,chrome: store failed: ValueError,2026-10-19
 les-deux-kitzbuhel,menu_found,30,html,https://lesdeux-kitzbuehel.at/en/menu,1,,2026-10-18
 les-ducs-de-lorraine,menu_found,31,html,https://restaurant-ducsdelorraine.com/restaurant-les-ducs-de-lorraine/?mod=actu&cat=carte,,chrome: store failed: ValueError,2026-10-19
+les-explorateurs,menu_found,32,pdf,https://cms.hotelpashmina.com/wp-content/uploads/2026/03/Les-Explorateurs-11-eme-version-.pdf,1,,2026-10-20
 les-foudres,no_menu_found,0,,https://lesfoudres.com/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
 les-freres-ibarboure,menu_found,15,pdf,https://freresibarboure.com/media/1195/download/LA%20CARTE.pdf?v=1&inline=1,1,,2026-10-18
 les-fresques,menu_found,19,html,https://vigiers.com/fr/brasserie-restaurant-bergerac-dordogne.php,,chrome: store failed: ValueError,2026-10-19
 les-funambules,menu_found,17,html,https://www.restaurantlesfunambules.com,1,,2026-10-15
 les-genets,menu_maybe,11,html,https://www.restaurant-les-genets.fr/bistronomie/menu-bistronomique/,1,,2026-10-16
+les-gourmands,menu_found,15,html,https://www.les-gourmands.be/menu-incontournable/,1,,2026-10-20
 les-jardins,menu_found,13,html,https://restaurant-lesjardins.fr/la-carte,1,,2026-10-18
 les-jardins-de-l-opera,menu_maybe,9,html,https://lesjardinsdelopera.fr/comptoir-gourmand/,,chrome: store failed: ValueError,2026-10-19
 les-loges,menu_maybe,6,pdf,https://courdesloges.com/media/original/67570fcdb3475/menu-loges-fr-a-choix-145-178.pdf,1,,2026-10-15
@@ -2280,6 +2298,7 @@ les-pres-d-eugenie,menu_maybe,11,html,https://lespresdeugenie.com/en/product/rus
 les-reflets,menu_maybe,9,html,https://www.restaurantlesreflets.fr/menus-carte/,1,,2026-10-16
 les-terraillers,no_menu_found,0,,https://www.lesterraillers.fr/wp-content/uploads/2026/10/MENU-ENG-SITE-1.pdf,,chrome: 3 menu-like links; 14 more tried,2026-10-19
 les-tonnelles-budoonoki,robots,0,,,,robots.txt disallows the home page,2026-10-15
+les-trois-rochers,menu_maybe,7,html,https://www.trimen.fr/la-carte-du-restaurant/,1,,2026-10-20
 les-trois-soleils-de-montal,menu_found,16,html,https://www.3soleils.fr/linformel/,,chrome: store failed: ValueError,2026-10-19
 lessentiel,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
 levadura-de-olla,menu_found,18,html,https://levaduradeolla.mx/menu/,1,,2026-10-16
@@ -2301,6 +2320,7 @@ lilli-fine-dining,menu_found,14,pdf,https://lilli-fehring.at/speisekarten/Speise
 lilo,no_menu_found,0,,https://www.restaurantlilo.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-19
 limu,menu_found,25,pdf,https://www.limurestaurant.it/wp-content/uploads/2026/10/menu_limu_Autunno_2026_ITA.pdf,1,,2026-10-16
 linamnam,no_menu_found,0,,https://linamnammnl.cococart.co/,,chrome: 0 menu-like links; 15 more tried,2026-10-19
+linfa,menu_found,31,pdf,https://www.mktn.it/s/CQ-Estate-26-WEB.pdf,1,,2026-10-20
 ling-long,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 lingnan-house,menu_found,31,pdf,https://picasso.rosewoodhotelgroup.com/asset/7c8e46ac-1cad-4f62-815d-400af8bc42e3/Rosewood-Guangzhou-Lingnan-House-Seasonal-Menu-pdf.pdf,1,,2026-10-18
 lionni,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
@@ -2335,7 +2355,9 @@ logy,no_menu_found,0,,https://logy.tw/,,chrome: 0 menu-like links; 6 more tried,
 lohninger,menu_found,12,html,http://lohninger.de/,1,,2026-10-15
 loiseau-des-ducs,no_menu_found,0,,https://www.bernard-loiseau.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 lola-s,menu_found,36,html,https://www.restaurantlola.com/menu,1,,2026-10-15
+long-trieu,menu_found,22,pdf,https://www.thereveriesaigon.com/wp-content/uploads/2021/11/Long-Trieu-Tasting-Menu.pdf,1,,2026-10-20
 lord-stanley,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-19
+lore-ttipia,menu_found,24,pdf,https://www.ostape.com/assets/uploads/2024/09/12.10.26-CARTE-BISTRO.pdf,1,,2026-10-20
 loree-de-la-foret,menu_found,14,pdf,https://www.loreedelaforet.fr/fichiers/degust.pdf,1,,2026-10-15
 lorelei,menu_found,53,pdf,https://www.ristoranteloreleisorrento.com/wp-content/uploads/2026/10/Menu_Low_Season_ENG_2026_compressed.pdf,1,,2026-10-16
 lorenz-adlon-esszimmer,menu_found,17,html,https://www.lorenzadlon-esszimmer.de/menue,1,,2026-10-18
@@ -2356,6 +2378,7 @@ lucas-rive,no_menu_found,0,,,,chrome: home page has almost no text without JavaS
 luce,no_menu_found,0,,http://www.intercontinentalsanfrancisco.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 lucien,menu_found,72,html,https://www.luciennyc.com/menu.html,,chrome: store failed: ValueError,2026-10-19
 lueurs,no_menu_found,2,,https://lepetitserrant.com/lueurs/,,chrome: 1 menu-like links; 6 more tried,2026-10-19
+luisl-stube,no_menu_found,0,,https://www.schlosswirt-forst.it/,,chrome: 0 menu-like links; 15 more tried,2026-10-20
 lukas-kapeller,menu_maybe,11,html,https://www.lukas-kapeller.at/restaurant/menue/,1,,2026-10-15
 lukas-restaurant,no_menu_found,0,,https://www.lukas-restaurant.at/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
 lulu-rouget,menu_maybe,6,html,https://www.lulurouget.fr/fr/les-producteurs/,,chrome: store failed: ValueError,2026-10-19
@@ -2366,20 +2389,24 @@ lung-king-heen,menu_found,39,html,https://www.fourseasons.com/hongkong/dining/me
 lungi-south-indian-sri-lankan-restaurant,menu_found,40,html,https://lungirestaurant.com/new-york-upper-east-side-lungi-food-menu,1,,2026-10-15
 lurra,no_menu_found,0,,https://lurrakyoto.com/,,chrome: 0 menu-like links; 4 more tried,2026-10-19
 lutum,no_menu_found,1,,https://restaurantlutum.nl/,,chrome: 0 menu-like links; 6 more tried,2026-10-19
+lux-lucis,menu_found,46,pdf,https://www.principefortedeimarmi.com/assets/uploads/pdf/menu/menu-ll-26.pdf,1,,2026-10-20
 lvn-restaurant-at-bird-in-hand,no_menu_found,0,,https://birdinhand.com.au/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
 lyla,no_menu_found,0,,https://lylaedinburgh.co.uk/,,chrome: 0 menu-like links; 6 more tried,2026-10-19
 lympstone-manor,menu_found,26,html,https://lympstonemanor.co.uk/signature-tasting-menu/,1,,2026-10-15
 lyst,menu_maybe,5,html,https://restaurantlyst.com/,1,,2026-10-15
 lysverket,no_menu_found,0,,https://www.kodebergen.no/,,chrome: 0 menu-like links; 15 more tried,2026-10-19
 m-b,menu_found,13,html,https://www.abamahotelresort.com/en/abama-restaurants,1,,2026-10-20
+ma-cuisine,menu_found,53,html,https://macuisinesg.com/french-fine-dining-singapore/,1,,2026-10-20
 ma-langue-sourit,menu_found,19,pdf,https://mls.lu/media/original/menu-propo-en-copie.pdf,1,,2026-10-20
 maaemo,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 6 more tried,2026-10-18
 maca-de-castro,no_menu_found,1,,https://macadecastro.com/,,chrome: 1 menu-like links; 9 more tried,2026-10-19
+macakz,no_menu_found,0,,https://www.macakizi.com/dining,,chrome: 1 menu-like links; 12 more tried,2026-10-20
 madame-olympe,no_menu_found,0,,https://madameolympe.com.br/,,chrome: 0 menu-like links; 6 more tried,2026-10-19
 madcap,menu_found,27,html,https://www.madcapmarin.com/food,1,,2026-10-18
 madera,menu_found,102,html,https://www.rosewoodhotels.com/en/sand-hill-menlo-park/dining/restaurant-menu/madera,1,,2026-10-15
 madonnina-del-pescatore,menu_found,21,pdf,https://www.morenocedroni.it/wp-content/uploads/2026/06/MENU-MADONNINA-ITA-2026.pdf,1,,2026-10-15
 madrona-manor,no_menu_found,0,,https://themadronahotel.com/,,chrome: 0 menu-like links; 15 more tried,2026-10-19
+mae-barcelona,no_menu_found,0,,https://maebcn.com/,,chrome: 0 menu-like links; 7 more tried,2026-10-20
 maeba,no_menu_found,0,,https://www.maeba.it/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
 maeda,no_menu_found,2,,https://maedacom.jp/,,chrome: 0 menu-like links; 15 more tried,2026-10-18
 maerz-das-restaurant,menu_found,18,pdf,https://www.maerzundmaerz.de/de/speisekarte/maerz-burger-speisekarte.pdf?rev=1777726962,1,,2026-10-18

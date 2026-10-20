@@ -1,0 +1,5 @@
+start: https://laboriedhelipse.com/restaurant-hotel-cantal/
+steps:
+- follow:
+    href_matches: carte\-le\-puy\-tilleul\-automne\-2026\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.les-glycines-dordogne.com/fr/restaurant-gastronomique-dordogne
+steps:
+- follow:
+    href_matches: bistro\-30\-09\-2026\.pdf
+content: pdf

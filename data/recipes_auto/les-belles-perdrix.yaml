@@ -1,0 +1,5 @@
+start: https://www.troplong-mondot.com/restaurant
+steps:
+- follow:
+    href_matches: menus\-saison\-printemps\-ete\-2026\.pdf
+content: pdf

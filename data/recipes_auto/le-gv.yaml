@@ -1,0 +1,5 @@
+start: https://legv.mt/
+steps:
+- follow:
+    href_matches: Sample\-Dinner\-Menu\-Q3\-2026\.pdf
+content: pdf

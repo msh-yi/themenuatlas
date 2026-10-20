@@ -1,0 +1,5 @@
+start: https://www.ostape.com/fr/restaurant-lore-ttipia/
+steps:
+- follow:
+    href_matches: 12\.10\.26\-CARTE\-BISTRO\.pdf
+content: pdf
