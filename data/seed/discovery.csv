@@ -2668,6 +2668,7 @@ paul-van-waarden,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-
 pavus,menu_found,24,html,https://www.pavus.si/kulinarika/Menu,1,,2026-10-15
 pavyllon,menu_maybe,10,html,https://www.pavyllonlondon.com/lacroissanterie/,,chrome: store failed: ValueError,2026-10-19
 pavyllon-monaco,menu_found,89,pdf,https://asset.montecarlosbm.com/menu/SBM_CARTE_CDP%20AUTOMNE%202026_EN-IT-WEB.pdf,,chrome: store failed: ValueError,2026-10-19
+paz,no_menu_found,0,,https://paz.fo/menu/,,chrome: 1 menu-like links; 6 more tried,2026-10-20
 pea-porridge,menu_found,49,html,https://peaporridge.co.uk/peaprridge-menu-bury-st-edmunds/,1,,2026-10-15
 pearl-by-paul-proffitt,menu_found,24,html,https://pearlbypaulproffitt.dk/en/menu-gb/,1,,2026-10-18
 pedro-lemos,menu_maybe,8,pdf,https://pedrolemos.pt/wp-content/uploads/2026/03/Menu-PT.pdf,1,,2026-10-15
@@ -2694,6 +2695,7 @@ philippe-meyers,menu_found,15,html,https://www.philippe-meyers.be/sensationsgour
 piano35,menu_maybe,6,html,https://www.piano35.com/ristorante/,,chrome: store failed: ValueError,2026-10-19
 piazza-duomo,no_menu_found,4,,https://www.piazzaduomoalba.it/wp-content/uploads/2025/03/tartufo-degustazione-ita-06-10.pdf,,chrome: 1 menu-like links; 13 more tried,2026-10-18
 piazzetta-milu,menu_found,13,html,https://piazzettamilu.it/riconoscimenti/,,chrome: store failed: ValueError,2026-10-18
+pic-beau-rivage-palace,no_menu_found,2,,https://www.anne-sophie-pic.com/pic-au-beau-rivage-palace,,chrome: 0 menu-like links; 15 more tried,2026-10-20
 picasso,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 pico-velasco,no_menu_found,0,,https://picovelasco.com/,,chrome: 0 menu-like links; 10 more tried,2026-10-19
 pied-a-terre,menu_found,30,pdf,https://www.pied-a-terre.co.uk/_files/ugd/e31296_8b424f96da294187acd7b4bf5b5de804.pdf,1,,2026-10-15
@@ -2746,6 +2748,7 @@ publiek,menu_found,20,html,https://www.publiekgent.be/en,,chrome: store failed: 
 published-on-main,menu_found,50,html,https://publishedonmain.com/menu/,1,,2026-10-15
 pujol,menu_found,27,html,https://www.pujol.com.mx/menus,,chrome: store failed: ValueError,2026-10-18
 pulejo,menu_found,34,pdf,https://pulejo.it/wp-content/uploads/2026/07/Menu-Food-Italiano_Inglese-LUGLIO-26-MODIFICABILE-1.pdf,1,,2026-10-18
+pur,no_menu_found,0,,https://www.kempinski.com/en/kempinski-hotel-berchtesgaden/restaurants-bars,,chrome: 0 menu-like links; 15 more tried,2026-10-20
 pur-paris-2nd-bourse,menu_found,21,pdf,https://www.paris-restaurant-pur.fr/s/Menu-Pur-FR-dgeh.pdf,1,,2026-10-15
 purete,no_menu_found,0,,https://www.restaurant-purete.com/fr/menus.html,,chrome: 1 menu-like links; 9 more tried,2026-10-19
 purs,no_menu_found,0,,https://purs.com/yoso/,,chrome: 1 menu-like links; 12 more tried,2026-10-19
@@ -2809,6 +2812,7 @@ renee-s-kitchenette-grill,menu_found,32,html,https://www.reneeskitchenette.com/m
 resonance,no_menu_found,0,,https://www.resonancebkk.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-19
 respiracion,failed,0,,,,chrome: ContextLostError: 页面被刷新，请操作前尝试等待页面刷新或加载完成。 版本: 4.1.1.4; 4 more tried,2026-10-18
 ressources,no_menu_found,0,,https://restaurantressources.com/,,chrome: 0 menu-like links; 5 more tried,2026-10-19
+restaurant-141-by-joachim-jaud,menu_found,25,html,https://restaurant-141.at/en/menu,1,,2026-10-20
 restaurant-1857,no_menu_found,3,,https://restaurant1857.com/menu/,,chrome: 1 menu-like links; 7 more tried,2026-10-19
 restaurant-1950,menu_maybe,5,html,https://www.tressbrueder.de/bio-fine-dining-restaurant-1950,1,,2026-10-15
 restaurant-212,menu_found,45,pdf,https://www.212.amsterdam/_files/ugd/0d6402_59744b64915f4aaeac94af68a7443835.pdf,1,,2026-10-15
@@ -2861,6 +2865,7 @@ riff,menu_found,13,html,https://restaurante-riff.com/m-excel·lent,,chrome: stor
 rijks,menu_found,38,pdf,https://www.rijksrestaurant.nl/wp-content/uploads/2026/10/RIJKS®-MENU.pdf,1,,2026-10-15
 rijnzicht,menu_found,12,pdf,https://www.rijnzicht.nl/wp-content/uploads/2026.08-Menu-4.pdf,1,,2026-10-15
 rincon-de-diego,menu_found,20,html,https://www.rincondediego.com/,1,,2026-10-15
+ristorante-aso,menu_found,34,html,https://www.hiramatsurestaurant.jp/eng/aso/menu/,1,,2026-10-20
 ristorante-del-lago,menu_found,19,html,https://www.ristorantedellagoacquapartita.it/menu-3/,1,,2026-10-18
 ritz-restaurant,failed,0,,,,chrome: ContextLostError: 页面被刷新，请操作前尝试等待页面刷新或加载完成。 版本: 4.1.1.4; 8 more tried,2026-10-18
 river-cafe,menu_found,97,html,https://www.rivercafe.co.uk/,1,,2026-10-15
@@ -2908,6 +2913,7 @@ ryozanpaku,robots,0,,,,robots.txt disallows the home page,2026-10-18
 ryugin,robots,0,,,,chrome: robots.txt disallows the home page,2026-10-18
 ryuzu,failed,0,,,,chrome: ContextLostError: 页面被刷新，请操作前尝试等待页面刷新或加载完成。 版本: 4.1.1.4; 4 more tried,2026-10-18
 s-kammerli,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
+s-p-lunch,menu_found,34,pdf,https://sandwich.place/src/spmenu.pdf,1,,2026-10-20
 sa-clastra,menu_maybe,6,pdf,https://wa-uploads.profitroom.com/castellsonclaret/17875613092598_COMPLETO%20Viento%20y%20Memoria%2017.06.26%20ESP%20%28SETIEMBRE%29.pdf,1,,2026-10-18
 sabayon,no_menu_found,0,,https://sabayon.ca/collections/menu-degustation,,chrome: 1 menu-like links; 12 more tried,2026-10-19
 sabero,no_menu_found,2,,https://www.sabero.nl/nl/menukaart,,chrome: 1 menu-like links; 12 more tried,2026-10-19
@@ -3006,6 +3012,7 @@ septime,no_menu_found,2,,https://septime-charonne.fr/,,chrome: 0 menu-like links
 serge-vieira,failed,0,,,,chrome: ContextLostError: 页面被刷新，请操作前尝试等待页面刷新或加载完成。 版本: 4.1.1.4; 12 more tried,2026-10-18
 seroja,menu_found,16,html,https://seroja.sg/menu,1,,2026-10-15
 serrae-villa-fiesole,menu_found,12,pdf,https://www.ristoranteserrae.it/wp-content/uploads/2026/10/carte-ita.pdf,,chrome: store failed: ValueError,2026-10-19
+seta,no_menu_found,2,,https://www.mandarinoriental.com/en/milan/la-scala/dine/seta,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 setsuri,no_menu_found,0,,https://kanazawa-seturi.com/menu/,,chrome: 1 menu-like links; 8 more tried,2026-10-19
 setzkasten,menu_maybe,7,html,https://www.setzkasten-duesseldorf.de/speisen.php,,chrome: store failed: ValueError,2026-10-19
 seven-park-place,no_menu_found,0,,https://www.stjameshotelandclub.com/fileadmin/Althoff_St_Jamess_Hotel_and_Club/Documents_and_Menus/Documents_shared/Seven_Park_Place_Bar___Lounge_All_Day_Dining_Menu.pdf,,chrome: 3 menu-like links; 13 more tried,2026-10-19
@@ -3043,6 +3050,7 @@ signum-molnlycke,failed,0,,,,chrome: ContextLostError: 页面被刷新，请操�
 silabario,menu_found,32,html,https://silabario.gal/en/menus/raices,1,,2026-10-15
 silene,menu_maybe,7,html,https://homedelivery.ilsilene.it/site/,,chrome: store failed: ValueError,2026-10-19
 silvers-omakase,no_menu_found,1,,https://www.silversomakase.com/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
+silvio-nickol-gourmet-restaurant,menu_maybe,9,pdf,https://www.palais-coburg.com/fileadmin/Palais_Coburg/_pdfs/DE/SNGR/Menuekarte_DE_13.10.pdf,1,,2026-10-20
 simpar,no_menu_found,0,,https://www.restaurantesimpar.com/menu/menu-de-junio-2026.pdf,,chrome: 1 menu-like links; 7 more tried,2026-10-19
 simpsons,menu_found,48,html,https://www.simpsonsrestaurant.co.uk/menus/lunch,1,,2026-10-15
 sinae,no_menu_found,1,,https://sinae.jp/,,chrome: 1 menu-like links; 8 more tried,2026-10-19
@@ -3134,6 +3142,7 @@ stark,no_menu_found,0,,https://www.starkfood.co.uk/,,chrome: 0 menu-like links; 
 starling,menu_found,52,html,https://starlingbistro.co.uk/starling/menu/,1,,2026-10-15
 state-bird-provisions,menu_found,50,pdf,https://www.statebirdsf.com/s/10426-SBP-Kitchen-Menu.pdf,1,,2026-10-15
 statholdergaarden,menu_maybe,9,html,https://statholdergaarden.no/smv/meny/sesongsmeny,1,,2026-10-15
+stay-by-yannick-alleno,menu_maybe,6,html,https://www.oneandonlyresorts.com/kea-island/dining,1,chrome: found via the sitemap,2026-10-20
 steinhalle,menu_maybe,8,html,https://www.myle-bern.ch/lunch-dining-und-bar,,chrome: store failed: ValueError,2026-10-19
 steinheuers,failed,0,,,,chrome: PageDisconnectedError: 与页面的连接已断开。 版本: 4.1.1.4; 5 more tried,2026-10-18
 steins-traube,menu_found,67,html,https://steins-traube.de/en/meals/,1,,2026-10-16
@@ -3155,6 +3164,7 @@ suan-thip,bot_blocked,0,,,,cloudflare challenge page,2026-10-15
 substance,menu_found,21,html,https://www.substance.paris,1,,2026-10-15
 substans,menu_found,33,html,https://restaurantsubstans.dk/menu-english/,1,,2026-10-15
 subtiel,no_menu_found,4,,https://www.subtiel-dining.be/nl/a-la-carte,,chrome: 1 menu-like links; 9 more tried,2026-10-19
+suchi-saito,menu_found,31,html,https://www.fourseasons.com/hongkong/dining/menus/caprice-signature-menu.html,1,,2026-10-20
 sud-777,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 6 more tried,2026-10-19
 suhring,menu_found,23,pdf,https://restaurantsuhring.com/menu.pdf,1,,2026-10-15
 sui-generis,bot_blocked,0,,,,cloudflare: https://www.ristorantesuigeneris.com/: HTTP 403,2026-10-18
@@ -3180,6 +3190,7 @@ sushi-inoue,no_menu_found,0,,https://sushiinoue.com/lander,,chrome: 0 menu-like 
 sushi-kajin,robots,0,,,,robots.txt disallows the home page,2026-10-18
 sushi-kanesaka,bot_blocked,0,,,,cloudflare: https://www.dorchestercollection.com/london/45-park-lane/dining/sushi-kanesaka: HTTP 403,2026-10-18
 sushi-kanesaka-gangnam,no_menu_found,1,,https://www.sushi-kanesaka.co.jp/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
+sushi-kanesaka-tokyo-chuo,no_menu_found,1,,https://www.sushi-kanesaka.co.jp/,,chrome: 0 menu-like links; 8 more tried,2026-10-20
 sushi-kaneyoshi,menu_maybe,6,html,https://restaurants.kaneyoshi.us/ki.html,,chrome: store failed: ValueError,2026-10-19
 sushi-kappo-nakaichi,no_menu_found,1,,https://sushikappo-nakaichi.com/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
 sushi-kibatani,no_menu_found,4,,https://kibatani.com/en,,chrome: 0 menu-like links; 12 more tried,2026-10-19
@@ -3223,6 +3234,7 @@ symbiose,menu_found,20,pdf,https://www.symbiose-cabourg.com/wp-content/uploads/2
 syttende,no_menu_found,0,,https://www.syttende.dk/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
 t-amsterdammertje,menu_maybe,9,pdf,https://www.restaurantamsterdammertje.nl/wp-content/uploads/2026/09/10.-Menukaart-Oktober-2026-NL.pdf,1,,2026-10-15
 t-ang-court,menu_found,58,pdf,https://www.langhamhotels.com/content/dam/langhamhotels/tlhkg-pdfs/240705_Jul-Aug_Dinner%20Buffet%20Menu.pdf,1,,2026-10-20
+t-ang-court-huangpu,menu_maybe,8,html,https://www.langhamhotels.com/en/the-langham/shanghai/dine/tang-court/,1,,2026-10-20
 t-brouwerskolkje,menu_maybe,8,pdf,https://brouwerskolkje.nl/wp-content/uploads/Menukaart_2026_V2.pdf,1,,2026-10-15
 t-fornuis,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 t-ganzenest,menu_maybe,8,html,https://ganzenest.nl/nl/restaurant/menukaart,1,,2026-10-15
@@ -3260,6 +3272,7 @@ tantris,menu_maybe,5,html,https://tantris.de/menue-eckart-witzigmann-tantris-dna
 tantris-dna,menu_maybe,5,html,https://tantris.de/menue-eckart-witzigmann-tantris-dna/,,chrome: store failed: ValueError,2026-10-19
 tasca-by-jose-avillez,no_menu_found,1,,https://www.joseavillez.pt/,,chrome: 0 menu-like links; 12 more tried,2026-10-19
 tatau,menu_maybe,5,html,https://www.tatau.es/informacion/,,chrome: store failed: ValueError,2026-10-19
+tate-dining-room,menu_found,30,pdf,https://cdn.shopify.com/s/files/1/0461/5536/6566/files/2609_TATE-WEB_porcelain-menu-sample.pdf?v=1788333736,1,,2026-10-20
 tate-dining-room-bar,menu_found,30,pdf,https://cdn.shopify.com/s/files/1/0461/5536/6566/files/2609_TATE-WEB_porcelain-menu-sample.pdf?v=1788333736,1,,2026-10-16
 tatemo,no_menu_found,1,,https://www.tatemohtx.com/,,chrome: 0 menu-like links; 0 more tried,2026-10-19
 tateoka-takeshi,no_menu_found,1,,https://tateokatakeshi-sapporo.com/,,chrome: 0 menu-like links; 8 more tried,2026-10-19
@@ -3297,6 +3310,7 @@ thaller,no_menu_found,0,,,,chrome: home page has almost no text without JavaScri
 the-angel,menu_found,27,html,https://angelhetton.co.uk/festive-menu/,1,,2026-10-16
 the-araki,menu_maybe,6,html,https://the-araki.co.uk/gallery/,,chrome: store failed: ValueError,2026-10-18
 the-bar-room-at-the-modern,menu_found,58,html,https://www.themodernnyc.com/the-bar-room-at-the-modern,1,,2026-10-15
+the-bay-by-chef-fei,no_menu_found,1,,https://www.mandarinoriental.com/en/shenzhen/futian/dine,,chrome: 2 menu-like links; 15 more tried,2026-10-20
 the-beijing-kitchen,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 4 more tried,2026-10-19
 the-bishop-s-buttery,no_menu_found,0,,,,chrome: home page has almost no text without JavaScript; 5 more tried,2026-10-19
 the-black-swan,menu_found,14,pdf,https://www.blackswanoldstead.co.uk/wp-content/uploads/2026/10/Dinner-Sample-5.pdf,1,,2026-10-16
