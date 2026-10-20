@@ -41,5 +41,5 @@ ice cream = en: gelato, parfait, semifreddo, frozen | fr: glace, glacé, parfait
 mousse = en: whipped, chantilly | fr: mousse, chantilly, fouetté | es: mousse, espuma | it: mousse, montata | de: mousse, geschlagen
 tartare = en: tartar | fr: tartare | es: tartar | de: tatar
 terrine = en: pâté, pate, rillettes, ballotine, galantine, pressé, presse | fr: terrine, pâté, rillettes, ballottine, pressé | es: terrina, paté | it: terrina, patè | de: terrine, pastete
-dumpling = en: gyoza, dim sum, wonton, momo, ravioli | fr: raviole, ravioles | ja: 餃子 | ko: 만두
+dumpling = en: gyoza, dim sum, wonton, momo | de: knödel, knödeln, klöße | ja: 餃子 | ko: 만두
 soufflé = en: souffle | fr: soufflé | it: soufflé | de: soufflé
