@@ -18,7 +18,7 @@ finds no menu, it looks further, cheapest first, up to 15 more pages or PDFs per
 
 Politeness is the crawler's own: Chrome sends the project's User-Agent, robots.txt is checked
 before every page (RESPECT_ROBOTS=false skips that, as in the monthly workflows), a site gets
-one page every 5 seconds, pages that reserve text and data mining (TDM) are skipped, and a
+one page a second, pages that reserve text and data mining (TDM) are skipped, and a
 bot-protection page is recorded as bot_blocked, never got past.
 
 Found menus are written like `menudb discover` writes them: a recipe in data/recipes_auto/
@@ -78,7 +78,7 @@ class ChromeRenderer:
     """Pages loaded in a visible Chrome, with the project's User-Agent, one page per site every
     `interval` seconds."""
 
-    def __init__(self, user_agent: str, interval: float = 5.0, settle: float = 2.0):
+    def __init__(self, user_agent: str, interval: float = 1.0, settle: float = 2.0):
         from DrissionPage import ChromiumOptions, ChromiumPage
 
         opts = ChromiumOptions().set_user_agent(user_agent).auto_port()
