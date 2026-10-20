@@ -1,0 +1,5 @@
+start: https://labaie.ritzcarltonosaka.com/our-menus
+steps:
+- follow:
+    href_matches: labaiedinner1026\.pdf
+content: pdf

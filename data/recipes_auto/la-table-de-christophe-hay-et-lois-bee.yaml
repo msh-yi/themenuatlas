@@ -1,0 +1,5 @@
+start: https://www.latable-orleans.com/nos-menus/
+steps:
+- follow:
+    href_matches: menu_fr\.pdf
+content: pdf
