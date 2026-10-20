@@ -2022,7 +2022,7 @@ feuille,Feuille,198Wellington Street,HK,22.3492,114.1858,https://www.feuille.hk/
 fg-food-labs,FG Food Labs,Rotterdam,NL,51.9263,4.4795,https://www.fgfoodlabs.nl/,,michelin:2020:1,wikipedia:List of Michelin-starred restaurants in the Netherlands@1377184943,wikidata,exact
 fief,FIEF,Paris – 11th Popincourt,FR,48.8636,2.3725,https://fiefrestaurant.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,search,exact
 field,Field,Prague,CZ,50.0918,14.422,https://www.fieldrestaurant.cz/,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in the Czech Republic@1343689727,wikidata-name,exact
-fields,Fields,Findel,BE,50.6403,4.6667,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Belgium and Luxembourg@1377857216,browser_review,country
+fields,Fields,Findel,BE,50.6403,4.6667,https://www.airfield.lu,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Belgium and Luxembourg@1377857216,reviewed,country
 fierro,Fierro,Valencia,ES,39.4697,-0.3763,https://fierrovlc.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,search,city
 fifty-two,Fifty Two,North Yorkshire – Harrogate,GB,54.1345,-1.4986,https://fiftytworuddingpark.co.uk/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,search_browser,city
 fine-fleur,Fine Fleur,Antwerpen,BE,51.2211,4.3997,https://www.restaurantfinefleur.be/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Belgium and Luxembourg@1377857216,search,city
@@ -2045,7 +2045,7 @@ fontevraud-le-restaurant,Fontevraud le Restaurant,Maine-et-Loire – Fontevraud-
 fook-lam-moon,Fook Lam Moon,Wan Chai branch,HK,22.2769,114.171,http://www.fooklammoon-grp.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,wikidata,exact
 forest-avenue,Forest Avenue,Dublin,IE,53.3315,-6.2516,https://www.forestavenuerestaurant.ie/splash,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Ireland@1370920844,osm,exact
 forest-side,Forest Side,Cumbria – Grasmere,GB,54.464,-3.0158,https://www.theforestside.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,search,exact
-forge,Forge,North Yorkshire – Middleton Tyas,GB,54.1345,-1.4986,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,browser_review,city
+forge,Forge,North Yorkshire – Middleton Tyas,GB,54.1345,-1.4986,https://middletonlodge.co.uk/eat/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,reviewed,city
 formel-b,formel B,Copenhagen,DK,55.6706,12.5358,http://www.formel-b.dk,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Denmark@1359685069,wikidata-name,exact
 fortaleza-do-guincho,Fortaleza do Guincho,Cascais,PT,38.6969,-9.4204,https://www.fortalezadoguincho.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Portugal@1379738728,search,city
 forum,Forum,Dongcheng,CN,22.2813,114.182,http://www.forumrestaurant1977.com/,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,wikidata-name,exact
@@ -2056,7 +2056,7 @@ frases,Frases,Murcia,ES,37.9348,-1.1131,https://www.frasesrestaurante.com/,,mich
 frassi,FRASSI,Taipei–Zhongshan,TW,25.0375,121.5637,https://frassi.com.tw/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,search_browser,city
 fratello-di-mikuni,Fratello di Mikuni,Kamikawa,JP,43.7985,142.8231,https://fratello-di-mikuni.com/,,michelin:2017:1,wikipedia:List of Michelin-starred restaurants in Hokkaido@1379835312,osm,exact
 fraula,Fraula,Valencia,ES,39.4697,-0.3763,https://fraula.es/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,search_browser,city
-fre,FRE,Monforte d'Alba,IT,44.5904,7.9739,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,browser_review,city
+fre,FRE,Monforte d'Alba,IT,44.5904,7.9739,https://www.revamonforte.com/it/resort-con-ristorante-langhe,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,reviewed,city
 frederic-molina,Frédéric Molina,Haute-Savoie – Vailly,FR,46.0689,6.3446,https://maisonmolina.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,search_browser,city
 frederic-simonin,Frédéric Simonin,Paris – 17th Batignolles-Monceau,FR,48.8589,2.32,https://fredericsimonin.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,search,city
 freia,Freia,Loire-Atlantique – Nantes,FR,47.2168,-1.5366,https://www.freia-restaurant.com,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,osm,exact
@@ -2071,7 +2071,7 @@ frouckje-state,Frouckje State,Ryptsjerk,NL,53.2302,5.9135,http://www.frouckjesta
 fu-1015,Fu 1015(福一零一五),Changning,CN,31.2221,121.4201,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Shanghai@1377176588,browser_review,city
 fu-1039,Fu 1039 (福一零三九),Changning,CN,31.2221,121.4201,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Shanghai@1377176588,browser_review,city
 fu-1088,Fu 1088(福一零八八),Changning,CN,31.2221,121.4201,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Shanghai@1377176588,browser_review,city
-fu-chun-ju,Fu Chun Ju (富春居),Dongcheng,CN,39.9269,116.41,,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,browser_review,city
+fu-chun-ju,Fu Chun Ju (富春居),Dongcheng,CN,39.9269,116.41,https://thepuxuan.com/en/beijing-wangfujing-luxury-hotel-dining/cantonese-cuisine-fu-chun-ju-restaurant/,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,reviewed,city
 fu-ho,Fu Ho,Tsim Sha Tsui branch,HK,22.3492,114.1858,https://fuho.com.hk/,,michelin:2026:1;michelin:2020:1,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,search_browser,country
 fu-rong,Fu Rong (芙蓉无双),Xicheng,CN,39.9109,116.3599,,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,browser_review,city
 fu-rong-huang,Fu Rong Huang (芙蓉凰),,CN,34.5412,108.9237,,,michelin:2027:1,wikipedia:List of Michelin-starred restaurants in Chengdu@1374473596,browser_review,country
@@ -2081,21 +2081,21 @@ fumoto,Fumoto,Hakodate,JP,41.7688,140.729,https://fumoto-hakodate.jp/,,michelin:
 furano-hotel-restaurant,Furano Hotel Restaurant,Furano,JP,43.3423,142.3835,https://furanohotel.co.jp/,,michelin:2017:1,wikipedia:List of Michelin-starred restaurants in Hokkaido@1379835312,search_browser,city
 fushimimachi-kakoiyama,Fushimimachi Kakoiyama,Osaka,JP,34.6938,135.5015,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,browser_review,city
 fusion19,Fusion19,Muro,ES,39.7371,3.0567,https://fusion19.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,search,city
-g-a-au-manoir-de-retival,G.a. au Manoir de Rétival,Seine-Maritime – Rives-en-Seine,FR,49.6614,0.9374,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,browser_review,city
+g-a-au-manoir-de-retival,G.a. au Manoir de Rétival,Seine-Maritime – Rives-en-Seine,FR,49.6614,0.9374,https://restaurant-ga.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,reviewed,city
 g-pousada,G Pousada,Bragança,PT,41.8027,-6.7543,http://www.gpousada.com,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Portugal@1379738728,wikidata-name,exact
 gaba,Gaba,Mexico City–Cuauhtémoc,MX,19.4094,-99.1796,https://gabarestaurante.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Mexico@1379992607,wikidata,exact
 gabbiano-3-0,Gabbiano 3.0,Marina di Grosseto,IT,42.714,10.9832,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,browser_review,exact
 gabelspiel,Gabelspiel,Munich – Obergiesing,DE,48.1136,11.5777,https://www.restaurant-gabelspiel.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
 gaddi-s,Gaddi's,Peninsula Hotel,HK,22.3492,114.1858,https://www.peninsula.com/en/hong-kong/hotel-fine-dining/gaddis-french-restaurant,,michelin:2026:1;michelin:2020:1,wikipedia:List of Michelin-starred restaurants in Hong Kong and Macau@1379738612,search_browser,country
 gaggen-by-choi-junho,Gaggen by Choi Junho,Gangnam,KR,37.5177,127.0473,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in South Korea@1363392745,browser_review,city
-galanga,Galanga,Paris – 8th Élysée,FR,48.8589,2.32,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,browser_review,city
+galanga,Galanga,Paris – 8th Élysée,FR,48.8589,2.32,https://www.monsieurgeorge.com/Restaurant-Monsieur-George-Champs-Elysees,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,reviewed,city
 galerija-okusov,Galerija Okusov,Radovljica,SI,46.345,14.1976,https://www.galerijaokusov.si/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Slovenia@1377174575,search,city
 galit,Galit,Chicago – Lincoln Park,US,41.9262,-87.6496,https://www.galitrestaurant.com,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Chicago@1376917910,osm,exact
 gallery-by-chele,Gallery by Chele,Taguig(Metro Manila),PH,14.559,121.0561,https://gallerybychele.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in the Philippines@1376519216,osm,exact
 galvin-at-windows,Galvin at Windows,Westminster,GB,51.5057,-0.1503,http://www.galvinatwindows.com/,,michelin:2019:1,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,wikidata-name,exact
 galvin-la-chapelle,Galvin La Chapelle,Tower Hamlets,GB,51.5202,-0.0781,https://galvinrestaurants.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Greater London@1365647377,search_browser,exact
 gambero-rosso,Gambero Rosso,Marina di Gioiosa Ionica,IT,38.2988,16.3273,https://www.gamberorosso.net/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,search,exact
-gamskogelhutte-fine-dining-by-stefan-lastin,Gamskogelhütte Fine Dining by Stefan Lastin,Rennweg am Katschberg,AT,47.0172,13.6135,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,browser_review,city
+gamskogelhutte-fine-dining-by-stefan-lastin,Gamskogelhütte Fine Dining by Stefan Lastin,Rennweg am Katschberg,AT,47.0172,13.6135,https://www.gamskogelhuette.at/kulinarik.html,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,reviewed,city
 garena,Garena,Dina,ES,37.6071,-0.9821,https://garena.restaurant/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,search,city
 garrigue,Garrigue,Vaucluse – Ansouis,FR,43.9939,5.1819,https://garrigue-restaurant.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,search,city
 gary-danko,Gary Danko,North Beach,US,37.8012,-122.409,https://garydanko.com/,,michelin:2018:1,wikipedia:List of Michelin-starred restaurants in California@1374116755,search,city
@@ -2111,7 +2111,7 @@ gaya,Gaya,Paris – 7th Palais-Bourbon,FR,48.8589,2.32,https://restaurantgaya.co
 gaytan,Gaytán,Madrid – Chamartín,ES,40.4498,-3.6784,https://chefjavieraranda.com/es/gaytan.html,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
 geiger-alm,Geiger Alm,Altaussee,AT,47.6607,13.7431,https://www.geigeralm.at/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,osm,exact
 gellius,Gellius,Oderzo,IT,45.7777,12.4932,https://www.ristorantegellius.it/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,search,city
-gen,Gen,Kaohsiung–Cianjhen,TW,22.6203,120.312,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,browser_review,city
+gen,Gen,Kaohsiung–Cianjhen,TW,22.6203,120.312,https://www.gentaiwan.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,reviewed,city
 genieerei-am-markt-steiermark-t-dinner-by-alexander-posch,Genießerei am Markt - Steiermark(t)dinner by Alexander Posch,Graz,AT,47.0709,15.4383,https://www.geniessereiammarkt.at/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,search_browser,city
 gente-rara,Gente Rara,Zaragoza,ES,41.6588,-0.8706,https://genterara.es/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Spain@1367812983,osm,exact
 genuss-apotheke,Genuss-Apotheke,Bad Säckingen,DE,47.5518,7.9479,https://www.genuss-apotheke.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
@@ -2121,7 +2121,7 @@ geosmine,Géosmine,Paris – 11th Popincourt,FR,48.8655,2.3705,https://www.geosm
 germoglio,Germoglio,Kyoto,JP,35.0116,135.7681,https://www.germogliokyoto.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,search_browser,city
 geschwister-rauch,Geschwister Rauch,Bad Gleichenberg,AT,46.8731,15.8829,https://www.geschwister-rauch.at/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,osm,exact
 gia,Gia,Hanoi – Đống Đa,VN,21.0228,105.8261,https://www.vnam.edu.vn/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Vietnam@1357753988,osm,exact
-giada-garden,GIADA Garden,Chaoyang,CN,41.5755,120.4391,,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,browser_review,city
+giada-garden,GIADA Garden,Chaoyang,CN,41.5755,120.4391,https://www.shangri-la.com/en/beijing/chinaworld/dining/restaurants/giada-garden/,,michelin:2025:1,wikipedia:List of Michelin-starred restaurants in Beijing@1377179024,reviewed,city
 gidleigh-park,Gidleigh Park,Devon – Gidleigh,GB,50.6765,-3.874,http://www.gidleigh.co.uk/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,wikidata,exact
 giewont,Giewont,Kościelisko,PL,49.2779,19.9049,https://parking-giewont.pl,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Poland@1356491621,osm,exact
 gigas,Gigas,Jung,KR,37.5637,126.9975,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in South Korea@1363392745,browser_review,city
@@ -2160,17 +2160,17 @@ goryori-ken,Goryori Ken,Gangnam,KR,37.5229,127.0348,,,michelin:2026:1,wikipedia:
 gosho-iwasaki,Gosho Iwasaki,Kyoto,JP,35.0116,135.7681,https://www.gosho-iwasaki.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,search_browser,city
 gostilna-pri-lojzetu,Gostilna pri Lojzetu,Vipava,SI,45.8555,13.9492,https://prilojzetu.si/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Slovenia@1377174575,search,exact
 gotham-bar-and-grill,Gotham Bar and Grill,Manhattan – Greenwich Village,US,40.7344,-73.994,http://www.gothambarandgrill.com,,michelin:2020:1,wikipedia:List of Michelin-starred restaurants in New York City@1376715996,wikidata,exact
-gourmet-restaurant-der-butt,Gourmet-Restaurant Der Butt,Rostock,DE,54.0887,12.14,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,browser_review,city
-gourmetrestaurant-1751,Gourmetrestaurant 1751,Schwerin,DE,53.6288,11.4148,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,browser_review,city
+gourmet-restaurant-der-butt,Gourmet-Restaurant Der Butt,Rostock,DE,54.0887,12.14,https://www.hohe-duene.de/hotel-ostsee/restaurant/gourmetrestaurant-der-butt.html,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,reviewed,city
+gourmetrestaurant-1751,Gourmetrestaurant 1751,Schwerin,DE,53.6288,11.4148,https://www.weinhaus-uhle.de/restaurant,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,reviewed,city
 gourmetrestaurant-berlins-krone,Gourmetrestaurant Berlins Krone,Bad Teinach-Zavelstein,DE,48.6939,8.6889,https://www.berlins-hotel.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,wikidata-name,exact
-gourmetrestaurant-fine-dining-rs,"Gourmetrestaurant ""fine dining RS""",Salach,DE,48.6904,9.7395,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,browser_review,city
+gourmetrestaurant-fine-dining-rs,"Gourmetrestaurant ""fine dining RS""",Salach,DE,48.6904,9.7395,https://www.burg-staufeneck.de/de/gourmetrestaurant-fine-dining,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,reviewed,city
 gourmetrestaurant-nico-burkhardt,Gourmetrestaurant Nico Burkhardt,Schorndorf,DE,48.8055,9.5273,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,browser_review,city
 gourmetstube-einhorn,Gourmetstube Einhorn,Mules,IT,46.8511,11.5206,https://www.stafler.com/de/restaurants/gourmetstube-einhorn/philosophie-gourmet-einhorn.html,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
-grace-savour,Grace & Savour,West Midlands – Hampton in Arden,GB,52.5054,-1.9647,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,browser_review,city
+grace-savour,Grace & Savour,West Midlands – Hampton in Arden,GB,52.5054,-1.9647,https://hamptonmanor.com/grace-savour/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,reviewed,city
 grand-cru,Grand Cru,Москва,RU,55.7629,37.595,http://www.grandcru.ru,,michelin:2022:1,wikipedia:List of Michelin-starred restaurants in Moscow@1348769814,osm,exact
-grand-hotel-du-lion-d-or,Grand Hôtel du Lion d'Or,Loir-et-Cher – Romorantin-Lanthenay,FR,47.3602,1.7439,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,,exact
+grand-hotel-du-lion-d-or,Grand Hôtel du Lion d'Or,Loir-et-Cher – Romorantin-Lanthenay,FR,47.3602,1.7439,https://www.liondor1774.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,reviewed,exact
 granica,Granica,Loir-et-Cher – Cellettes,FR,47.5258,1.3828,https://www.granica.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,search,exact
-granit,Granit,Hérault – Colombières-sur-Orb,FR,43.5914,3.3553,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,browser_review,city
+granit,Granit,Hérault – Colombières-sur-Orb,FR,43.5914,3.3553,https://www.lamecaniquedesfreresbonano.fr/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,reviewed,city
 granite,Granite,Paris – 1st Louvre,FR,48.861,2.342,https://granite.paris/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,osm,exact
 graphite-by-peter-gast,Graphite by Peter Gast,Amsterdam,NL,52.3665,4.8983,https://graphite.amsterdam/,,michelin:2020:1,wikipedia:List of Michelin-starred restaurants in the Netherlands@1377184943,osm,exact
 gravetye-manor,Gravetye Manor,West Sussex – West Hoathly,GB,51.0893,-0.0569,https://www.gravetyemanor.co.uk/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,wikidata,exact
@@ -2181,7 +2181,7 @@ gric,Grič,Šentjošt nad Horjulom,SI,46.0284,14.2214,https://gric.si/,,michelin
 grow,Grow,Albiate,IT,45.6598,9.2561,https://growrestaurant.it/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,osm,exact
 grual,Grual,Pinzolo,IT,46.2142,10.7894,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,browser_review,city
 grundler-s-gourmet-stuberl,Gründler's Gourmet Stüberl,Achenkirch,AT,47.5276,11.7056,https://www.kulinarikhotel-alpin.at/gourmet-stueberl/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,search_browser,city
-grunewald-chef-s-table,Grünewald Chef's Table,,BE,50.6403,4.6667,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Belgium and Luxembourg@1377857216,browser_review,country
+grunewald-chef-s-table,Grünewald Chef's Table,,BE,50.6403,4.6667,https://gct.lu/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Belgium and Luxembourg@1377857216,reviewed,country
 guat-z-essen,Guat'z Essen,Stumm,AT,47.2916,11.8843,https://guatzessen.at/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Austria@1377191183,search_browser,city
 gucci-osteria-da-massimo-bottura,Gucci Osteria da Massimo Bottura,Florence,IT,34.0687,-118.4027,https://www.gucciosteria.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,search,exact
 guido,Guido,Rimini,IT,43.9465,12.6307,https://www.ristoranteguido.it/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Italy@1377735762,search_browser,city
@@ -2196,7 +2196,7 @@ guth,Guth,Lauterach,AT,47.4718,9.7311,https://www.restaurantguth.at/site/,,miche
 guy-lassausaie,Guy Lassausaie,Isère – Chasselay,FR,45.2898,5.6344,https://www.guy-lassausaie.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in France@1348771427,search,city
 ha,Ha',Quintana Roo–Playa del Carmen,MX,20.5865,-87.1121,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Mexico@1379992607,,exact
 habu,Habu,Kaohsiung,TW,22.6203,120.312,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,browser_review,city
-hachi,Hachi,Osaka,JP,34.6837,135.4914,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,browser_review,exact
+hachi,Hachi,Osaka,JP,34.6837,135.4914,https://nihonryori-hachi.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,reviewed,exact
 haebel,haebel,Altona,DE,53.5532,9.9577,https://www.haebel.hamburg/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
 haili,HAILI,Kaohsiung–Cianjin,TW,22.6203,120.312,https://hai-li.tw/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Taiwan@1366917340,search_browser,city
 hakkasan-abu-dhabi,Hakkasan Abu Dhabi,Abu Dhabi – Al Ras Al Akhdar,AE,51.5171,-0.1317,http://www.hakkasan.com,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Abu Dhabi@1343184581,wikidata,exact
@@ -2207,7 +2207,7 @@ hamagurizaka-maegawa,Hamagurizaka Maegawa,Kanazawa,JP,36.5616,136.6569,,,micheli
 hamamoto,Hamamoto,Central Region - Central Area,SG,1.3571,103.8195,https://hamamoto.com.sg/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Singapore@1379530352,search,country
 hambleton-hall,Hambleton Hall,Rutland – Hambleton,GB,52.6575,-0.6682,https://www.hambletonhall.com,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in England@1347866304,wikidata,exact
 hammerle-s-restaurant,Hämmerle's Restaurant,Blieskastel,DE,49.2364,7.2688,https://haemmerles.de/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
-han,Han,Buenos Aires – Villa Crespo,AR,-34.6096,-58.3888,,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Argentina@1380285706,browser_review,city
+han,Han,Buenos Aires – Villa Crespo,AR,-34.6096,-58.3888,https://hanrestaurante.com,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Argentina@1380285706,reviewed,city
 hana-kitcho,HANA-Kitcho,Kyoto,JP,35.0116,135.7681,https://kyoto-kitcho.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Kyoto and Osaka@1350778777,search,city
 hanada,Hanada,Paris – 7th Palais-Bourbon,FR,48.8589,2.32,https://sushihanada.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Paris@1375922015,search,city
 handwerk,Handwerk,Hanover,DE,52.3567,9.7639,https://handwerk-hannover.com/,,michelin:2026:1,wikipedia:List of Michelin-starred restaurants in Germany@1377183685,osm,exact
