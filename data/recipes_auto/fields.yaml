@@ -1,0 +1,5 @@
+start: https://www.airfield.lu/fields-restaurant/
+steps:
+- follow:
+    href_matches: MENU\-EXPERIENCE\-VEGETALE\-PROMENADE\-DE\-SEPTEMBRE\-2026\-docx\.pdf
+content: pdf

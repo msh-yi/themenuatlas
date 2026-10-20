@@ -1,0 +1,5 @@
+start: https://www.kamehabonn.de/yunico/
+steps:
+- follow:
+    href_matches: Yunico_Speisenkarte\.pdf
+content: pdf

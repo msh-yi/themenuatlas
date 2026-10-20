@@ -1,0 +1,5 @@
+start: https://www.metropole.com/fr/dining-bar/les-ambassadeurs-by-christophe-cussac
+steps:
+- follow:
+    href_matches: HMMC_Carte\-Les\-Ambassadeurs\-by\-Christophe\-Cussac_fr\.pdf
+content: pdf

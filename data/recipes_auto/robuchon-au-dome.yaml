@@ -1,0 +1,5 @@
+start: https://www.grandlisboa.com/en/restaurants-n-bars/robuchon-au-dome
+steps:
+- follow:
+    href_matches: gl\-robuchon\-au\-dome\-dinner\-set\-menu\-261008\.pdf
+content: pdf

@@ -1,0 +1,5 @@
+start: https://www.palais-coburg.com/wine-dine/silvio-nickol-gourmet-restaurant
+steps:
+- follow:
+    href_matches: Menuekarte_DE_13\.10\.pdf
+content: pdf

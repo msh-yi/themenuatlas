@@ -1,0 +1,5 @@
+start: https://www.regenttaiwan.com/dining/silks-house
+steps:
+- follow:
+    href_matches: SilksHouse\.pdf
+content: pdf

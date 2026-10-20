@@ -1,0 +1,5 @@
+start: https://www.pietrodagostino.it/la-capinera/
+steps:
+- follow:
+    href_matches: Menu\-capinera\-2026\.pdf
+content: pdf

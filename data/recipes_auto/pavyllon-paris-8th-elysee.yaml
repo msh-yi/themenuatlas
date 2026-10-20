@@ -1,0 +1,5 @@
+start: https://www.yannick-alleno.com/les-etablissements-du-groupe/pavyllon-paris
+steps:
+- follow:
+    href_matches: 6ad0eabb4ddcb8838ef6adce_1410%20FR%20Prix%20Pavyllon%20\(5\)\.pdf
+content: pdf

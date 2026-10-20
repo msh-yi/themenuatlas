@@ -1,0 +1,5 @@
+start: https://www.aubergebasque.com/randonnees-culinaires-la-table-de-cedric/le-restaurant-etoile/
+steps:
+- follow:
+    href_matches: Randonnee\-culinaire\-CARTE\-SITE\-INTERNET\.pdf
+content: pdf

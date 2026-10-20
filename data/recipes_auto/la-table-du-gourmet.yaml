@@ -1,0 +1,5 @@
+start: https://jlbrendel.com/fr/restaurants/la-table-du-gourmet.html
+steps:
+- follow:
+    href_matches: carte\-stub\-octobre\-2026\-2\.pdf
+content: pdf

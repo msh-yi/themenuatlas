@@ -1,0 +1,5 @@
+start: https://www.beaumier.com/en/properties/hotel-alpaga/food-drink/
+steps:
+- follow:
+    href_matches: le\-bistrot\-de\-lalpaga\-menu\-soir\-en\.pdf
+content: pdf

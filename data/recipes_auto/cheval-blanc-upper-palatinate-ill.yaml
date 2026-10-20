@@ -1,0 +1,5 @@
+start: https://www.weisses-ross.de/de/kulinarik/gourmet-restaurant-cheval-blanc/speisekarte-reservierungsanfrage.html
+steps:
+- follow:
+    href_matches: cheval_blanc1026\.pdf
+content: pdf

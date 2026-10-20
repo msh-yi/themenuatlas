@@ -1,0 +1,5 @@
+start: https://restauranteleo.com/leo/
+steps:
+- follow:
+    href_matches: 8\-TIEMPOS\-ESPANOL\-13\-de\-MAYO\-2026\.pdf
+content: pdf

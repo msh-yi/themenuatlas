@@ -1,0 +1,5 @@
+start: https://7pines-sardinia.com/it/ristoranti-bar/capogiro
+steps:
+- follow:
+    href_matches: spa_menu\.pdf
+content: pdf

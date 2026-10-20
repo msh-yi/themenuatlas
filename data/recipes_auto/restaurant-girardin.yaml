@@ -1,0 +1,5 @@
+start: https://www.maisondestetes.com/fr/carte-et-menu.html
+steps:
+- follow:
+    href_matches: site\-fr\-carte\-met\-patisserie\.pdf
+content: pdf

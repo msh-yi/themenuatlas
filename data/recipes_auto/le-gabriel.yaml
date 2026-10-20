@@ -1,0 +1,5 @@
+start: https://www.lareserve-paris.com/restaurants-bars/restaurant-le-gabriel/
+steps:
+- follow:
+    href_matches: le\-gabriel\-site\-internet\-la\-carte\-0510206\.pdf
+content: pdf

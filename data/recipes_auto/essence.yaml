@@ -1,0 +1,5 @@
+start: https://roki-collection.com/dine/essence/
+steps:
+- follow:
+    href_matches: essence\-sample\-menu\.pdf
+content: pdf
