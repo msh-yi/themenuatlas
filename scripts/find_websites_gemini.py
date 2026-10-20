@@ -74,11 +74,20 @@ def prompt(r: dict) -> str:
     )
 
 
-def ask(client: httpx.Client, key: str, model: str, text: str) -> dict:
+def ask(client: httpx.Client, key: str, model: str, text: str, sleep=time.sleep) -> dict:
     """One grounded query. Returns {website, closed, native_name, grounded, sources}: grounded says
     whether the model searched at all; sources are the grounding pages' titles (domains)."""
-    res = client.post(API.format(model=model), headers={"x-goog-api-key": key},
-                      json={"contents": [{"parts": [{"text": text}]}], "tools": [{"google_search": {}}]})
+    for attempt in range(3):  # grounded answers sometimes take minutes, or fail with a 5xx
+        try:
+            res = client.post(API.format(model=model), headers={"x-goog-api-key": key},
+                              json={"contents": [{"parts": [{"text": text}]}], "tools": [{"google_search": {}}]})
+        except httpx.TimeoutException:
+            if attempt == 2:
+                raise
+            continue
+        if res.status_code < 500 or attempt == 2:
+            break
+        sleep(10)
     if res.status_code == 429:
         raise RuntimeError("quota")
     res.raise_for_status()
@@ -197,7 +206,7 @@ def main():
 
     rows = todo(FULL, args.start, args.limit, args.slug)
     print(f"{len(rows)} restaurants", file=sys.stderr)
-    with httpx.Client(timeout=90) as client, Fetcher(get_settings().user_agent) as fetcher:
+    with httpx.Client(timeout=180) as client, Fetcher(get_settings().user_agent) as fetcher:
         try:
             counts = run(rows, lambda t: ask(client, key, args.model, t), fetcher, args.cache,
                          interval=args.interval)
