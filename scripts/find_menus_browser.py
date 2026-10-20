@@ -24,13 +24,20 @@ bot-protection page is recorded as bot_blocked, never got past.
 Found menus are written like `menudb discover` writes them: a recipe in data/recipes_auto/
 (render: js) and the status in data/seed/discovery.csv, saved after every restaurant so an
 interrupted run resumes. With --to-bucket the menus are also stored and queued in the bucket's
-pending/ for check.yml to extract (needs the Neon values in .env.local). Restaurants this
-script has already tried are skipped unless --redo. Prints slugs, statuses and scores only.
+pending/ for check.yml to extract (needs the Neon values in .env.local; the run stops at once
+if the bucket can't be reached). Restaurants this script has already tried are skipped unless
+--redo. Prints slugs, statuses and scores only.
+
+Menus found in a run without --to-bucket (or whose storing failed) are stored later, without
+searching again, from the recipes already written:
+
+    uv run --with DrissionPage python scripts/find_menus_browser.py --store-only
 """
 
 import argparse
 import csv
 import datetime as dt
+import os
 import sys
 import time
 from collections import Counter
@@ -318,6 +325,48 @@ def run(rows: list[dict], done: dict, fetcher: Fetcher, get_html, status_csv: Pa
     return counts
 
 
+def unstored(done: dict, recipes_dir: Path) -> list[str]:
+    """Restaurants this script found a menu for whose documents aren't in the bucket yet."""
+    return [s for s, r in sorted(done.items())
+            if r.get("note", "").startswith(NOTE) and r["status"].startswith("menu_")
+            and not r.get("stored") and (recipes_dir / f"{s}.yaml").exists()]
+
+
+def store_found(slugs: list[str], done: dict, store, status_csv: Path, recipes_dir: Path) -> Counter:
+    """Store the documents of menus already found, from their recipes; no searching."""
+    counts: Counter = Counter()
+    for n, slug in enumerate(slugs, 1):
+        row = done[slug]
+        try:
+            stored = store(slug, yaml.safe_load((recipes_dir / f"{slug}.yaml").read_text()))
+        except Exception as e:  # one odd site must not stop the run
+            stored, result = "", f"failed ({type(e).__name__})"
+        else:
+            result = "opted_out" if stored == -1 else "stored"
+        if stored == -1:
+            row.update(status="opted_out", note=f"{NOTE}: tdm-reservation")
+            (recipes_dir / f"{slug}.yaml").unlink()
+            stored = ""
+        elif "store failed" in row.get("note", "") and stored != "":
+            row["note"] = f"{NOTE}: stored later"
+        row["stored"] = stored
+        save(status_csv, done)
+        counts[result] += 1
+        print(f"[{n}/{len(slugs)}] {slug}: {result} stored={stored}", flush=True)
+    return counts
+
+
+def check_bucket() -> None:
+    """Stop before any searching when the bucket can't be reached (e.g. no .env.local)."""
+    from menudb import storage
+
+    try:
+        storage.exists("raw/00/ping")
+    except Exception as e:
+        sys.exit(f"--to-bucket: the bucket can't be reached ({type(e).__name__}). Run from the repo "
+                 "with the Neon values (AWS_*) in .env.local, from `neon env pull`.")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--limit", type=int, default=None, help="max restaurants this run")
@@ -327,21 +376,35 @@ def main():
     ap.add_argument("--slug", action="append", help="only these restaurants")
     ap.add_argument("--redo", action="store_true", help="also restaurants this script tried before")
     ap.add_argument("--to-bucket", action="store_true", help="store found menus and queue them in pending/")
+    ap.add_argument("--store-only", action="store_true",
+                    help="no searching: store the menus found earlier that aren't in the bucket yet")
     ap.add_argument("--csv", type=Path, default=ROOT / "data/seed/restaurants_full.csv")
     ap.add_argument("--status-csv", type=Path, default=ROOT / "data/seed/discovery.csv")
     ap.add_argument("--recipes-dir", type=Path, default=ROOT / "data/recipes_auto")
     args = ap.parse_args()
+    args.to_bucket = args.to_bucket or args.store_only
+    os.chdir(ROOT)  # the settings read .env.local from the current directory
 
     from menudb.config import get_settings
 
-    statuses = set(args.status) if args.status else RETRY
-    rows, done = todo(args.csv, args.status_csv, statuses, args.redo)
-    if args.slug:
-        rows = [r for r in rows if r["slug"] in args.slug]
-    rows = rows[:args.limit] if args.limit else rows
-    print(f"{len(rows)} restaurants to try", file=sys.stderr)
+    if args.store_only:
+        done = {r["slug"]: r for r in csv.DictReader(args.status_csv.open(newline=""))}
+        rows = unstored(done, args.recipes_dir)
+        if args.slug:
+            rows = [s for s in rows if s in args.slug]
+        rows = rows[:args.limit] if args.limit else rows
+        print(f"{len(rows)} found menus to store", file=sys.stderr)
+    else:
+        statuses = set(args.status) if args.status else RETRY
+        rows, done = todo(args.csv, args.status_csv, statuses, args.redo)
+        if args.slug:
+            rows = [r for r in rows if r["slug"] in args.slug]
+        rows = rows[:args.limit] if args.limit else rows
+        print(f"{len(rows)} restaurants to try", file=sys.stderr)
     if not rows:
         return
+    if args.to_bucket:
+        check_bucket()
     ua = get_settings().user_agent
     renderer = ChromeRenderer(ua)
     with Fetcher(ua) as fetcher:
@@ -361,7 +424,10 @@ def main():
                                     for d in docs)
                 return len(docs)
         try:
-            counts = run(rows, done, fetcher, get_html, args.status_csv, args.recipes_dir, store)
+            if args.store_only:
+                counts = store_found(rows, done, store, args.status_csv, args.recipes_dir)
+            else:
+                counts = run(rows, done, fetcher, get_html, args.status_csv, args.recipes_dir, store)
         finally:
             renderer.close()
     print(" ".join(f"{k}: {v}" for k, v in sorted(counts.items())), file=sys.stderr)

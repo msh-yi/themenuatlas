@@ -142,3 +142,22 @@ def test_each_page_is_loaded_once_and_the_budget_holds():
     assert d.status == "no_menu_found"
     assert len(chrome.loaded) == len(set(chrome.loaded))
     assert len(chrome.loaded) <= 1 + 8 + fm.EXTRA_BUDGET + 2 * len(fm.COMMON_PATHS)
+
+
+def test_store_only_stores_found_menus_without_searching(tmp_path):
+    status, recipes = tmp_path / "discovery.csv", tmp_path / "recipes"
+    recipes.mkdir()
+    for s in ("a", "b", "c"):
+        (recipes / f"{s}.yaml").write_text("start: https://x.example/menu\nrender: js\n")
+    done = {"a": {"slug": "a", "status": "menu_found", "stored": "", "note": "chrome: store failed: ValueError"},
+            "b": {"slug": "b", "status": "menu_maybe", "stored": "2", "note": "chrome: ok"},
+            "c": {"slug": "c", "status": "menu_maybe", "stored": "", "note": "chrome: ok"},
+            "d": {"slug": "d", "status": "menu_found", "stored": "", "note": "discover"}}
+    slugs = fm.unstored(done, recipes)
+    assert slugs == ["a", "c"]  # b is stored, d wasn't found by this script
+    counts = fm.store_found(slugs, done, lambda slug, recipe: 1 if slug == "a" else -1, status, recipes)
+    assert counts == {"stored": 1, "opted_out": 1}
+    saved = {r["slug"]: r for r in csv.DictReader(status.open())}
+    assert saved["a"]["stored"] == "1" and "failed" not in saved["a"]["note"]
+    assert saved["c"]["status"] == "opted_out" and not (recipes / "c.yaml").exists()
+    assert fm.unstored(saved, recipes) == []
