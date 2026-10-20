@@ -12,7 +12,7 @@ Collects published fine-dining menus from restaurant websites and extracts ingre
   - The public product shows only derived data plus a link to the source.
 - **Never log menu text or secrets.** GitHub Actions logs are public. Log IDs, hashes and statuses only.
 - **Never commit `.env`, `.env.local` or `.neon`.**
-- **Scrape politely.** Respect TDM opt-outs, keep the honest User-Agent, and don't lower the per-host `min_interval`. robots.txt is respected unless `RESPECT_ROBOTS=false` (set by the owner for the monthly discovery workflows; see `docs/PLAN.md`). Don't get around bot protection or CAPTCHAs.
+- **Scrape politely.** Respect TDM opt-outs, keep the honest User-Agent, and keep the per-host `min_interval` (1 s; 5 s for web.archive.org). robots.txt is respected unless `RESPECT_ROBOTS=false` (set by the owner for the monthly discovery workflows; see `docs/PLAN.md`). Don't get around bot protection or CAPTCHAs.
 - **No Anthropic API key.** Extraction is the rule-based `extract-auto` script or a Claude Code session (see `docs/EXTRACTION.md`), never API calls.
 - **Use the right database URL.** Migrations use `DATABASE_URL_UNPOOLED`; app traffic uses the pooled `DATABASE_URL`.
 

@@ -54,7 +54,7 @@ class Fetcher:
     def __init__(
         self,
         user_agent: str,
-        min_interval: float = 5.0,
+        min_interval: float = 1.0,
         timeout: float = 30.0,
         transport: httpx.BaseTransport | None = None,
         sleep: Callable[[float], None] = time.sleep,
